@@ -18,5 +18,5 @@ public interface IBewegung {
 	 */
 	public Position neuePosition();
 	
-	//test!
+	
 }
