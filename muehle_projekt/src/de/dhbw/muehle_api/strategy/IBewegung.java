@@ -17,4 +17,6 @@ public interface IBewegung {
 	 * @return Position
 	 */
 	public Position neuePosition();
+	
+	//test!
 }
