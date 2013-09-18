@@ -1,4 +1,4 @@
-package de.dhbw.muehle_api;
+package de.dhbw.muehle_spiel;
 
 
 // Enumeration der drei Phasen des Spielsase 
