@@ -1,14 +1,15 @@
 package de.dhbw.muehle_spiel;
 import de.dhbw.muehle_api.*;
 import de.dhbw.muehle_api.strategy.IBewegung;
+import de.dhbw.muehle_api.strategy.ISpielzug;
 
 public class Spielstein implements ISpielstein, IBewegung
 {
 	//Variablen
-	private ESpielsteinFarbe Spielsteinfarbe;
-	private boolean gesperrt;
-	private Position aktuellePosition;
-	private boolean ausgewählt;
+	private ESpielsteinFarbe Spielsteinfarbe; 			//Die Farbe des Spielsteins
+	private boolean gesperrt;							//zeigt an ob ein Stein gelöscht werden darf (wenn er z.b. in einer Mühle steht
+	private Position aktuellePosition;					//hat die aktuelle Position des Steines
+	private boolean ausgewählt; 						//true wenn der Stein ausgewählt wurde
 	
 	public Spielstein(ESpielsteinFarbe lSpielsteinfarbe, Position laktuellePosition)
 	{
@@ -18,6 +19,8 @@ public class Spielstein implements ISpielstein, IBewegung
 		ausgewählt = false;
 	}	
 	
+	
+	//hiermit kann man einen Spielstein bewegen 
 	public void bewegen(Position nachPosition)
 	{
 		aktuellePosition = nachPosition; 
@@ -43,12 +46,12 @@ public class Spielstein implements ISpielstein, IBewegung
 		this.gesperrt = gesperrt;
 	}
 
-	public Position getAkutellePosition() 
+	public Position getAktuellePosition() 
 	{
 		return aktuellePosition;
 	}
 
-	public void setAkutellePosition(Position akutellePosition) 
+	public void setAktuellePosition(Position akutellePosition) 
 	{
 		this.aktuellePosition = akutellePosition;
 	}
@@ -91,8 +94,5 @@ public class Spielstein implements ISpielstein, IBewegung
 		return null;
 	}
 
-	
-	
-	
 	
 }
