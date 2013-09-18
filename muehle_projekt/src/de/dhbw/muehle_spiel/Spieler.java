@@ -3,7 +3,7 @@ import de.dhbw.muehle_api.*;
 import de.dhbw.muehle_api.strategy.IBewegung;
 import de.dhbw.muehle_api.strategy.ISpielzug;
 
-public class Spieler implements ISpielzug, IBewegung {
+public class Spieler implements ISpielzug {
 
 private int AnzahlZuege;  // Anzahl der Züge die ein Spieler gemacht hat
 private int AnzahlSteine;  //Anzahl der Steine, die ein Spieler auf dem Spielfeld hat
@@ -32,43 +32,15 @@ public ISpielstein getNeuenSpielstein(Position lPosition) {
 	Steine[AnzahlZuege]= new Spielstein(Spielerfarbe, lPosition );
 	AnzahlZuege ++;
 	AnzahlSteine ++;
-	return Steine[AnzahlZuege];
+	return Steine[AnzahlZuege-1];
 }
 
 
 
-public IBewegung bewegeSpielStein(Bewegung bewegung) {
-    
+public IBewegung bewegeSpielStein(Bewegung bewegung, int IndexStein) {
+    Steine[IndexStein].bewegen(bewegung);
 	AnzahlZuege ++;
-	AnzahlSteine ++;
 	return bewegung;
 }
-
-
-
-@Override
-public Position altePosition() {
-	// TODO Auto-generated method stub
-	return null;
-}
-
-
-
-@Override
-public Position neuePosition() {
-	// TODO Auto-generated method stub
-	return null;
-}
-
-
-
-@Override
-public ISpielstein getNeuenSpielstein() {
-	// TODO Auto-generated method stub
-	return null;
-}
-
-	
-
-	
+		
 }
