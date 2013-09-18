@@ -17,13 +17,16 @@ public Spieler (ESpielsteinFarbe lSpielerfarbe)
 	AnzahlZüge = 0;
 }
 
-	public ISpielstein getNeuenSpielstein() {
+	public void ISpielstein getNeuenSpielstein() {
 		AnzahlZüge = AnzahlZüge + 1;
+		AnzahlSpielsteine = AnzahlSpielsteine + 1;
+		
 	}
 
 	@Override
-	public IBewegung bewegeSpielStein() {
+	public void IBewegung bewegeSpielStein() {
 		AnzahlZüge = AnzahlZüge + 1;
+		
 	}
 
 	
