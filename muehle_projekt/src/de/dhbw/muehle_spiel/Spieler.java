@@ -37,10 +37,11 @@ public ISpielstein getNeuenSpielstein(Position lPosition) {
 
 
 
-public IBewegung bewegeSpielStein() {
+public IBewegung bewegeSpielStein(Bewegung bewegung) {
+    
 	AnzahlZuege ++;
 	AnzahlSteine ++;
-	return null;
+	return bewegung;
 }
 
 
