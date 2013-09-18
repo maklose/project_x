@@ -20,4 +20,6 @@ public enum EPositionIndex {
 	{
 		return value;
 	}
+	
+	//test1
 }
