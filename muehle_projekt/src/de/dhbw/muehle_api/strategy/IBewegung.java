@@ -18,5 +18,5 @@ public interface IBewegung {
 	 */
 	public Position neuePosition();
 	
-	
+	// georggr2 18.09.2013//
 }
