@@ -19,9 +19,10 @@ public Spieler (ESpielsteinFarbe lSpielerfarbe)
 }
 
 @Override
-public ISpielstein getNeuenSpielstein() {
+public IBewegung getNeuenSpielstein() {
 	AnzahlZüge ++;
 	AnzahlSteine ++;
+	
 }
 
 @Override
