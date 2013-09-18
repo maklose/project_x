@@ -5,8 +5,20 @@ import de.dhbw.muehle_api.strategy.IBewegung;
 
 public class Bewegung implements IBewegung {
 
-	Position von;
-	Position nach;
+	private Position von;
+	private Position nach;
+public Position getVon() {
+		return von;
+	}
+	public void setVon(Position von) {
+		this.von = von;
+	}
+	public Position getNach() {
+		return nach;
+	}
+	public void setNach(Position nach) {
+		this.nach = nach;
+	}
 public Bewegung (Position von, Position nach)
 {
 	this.von = von;

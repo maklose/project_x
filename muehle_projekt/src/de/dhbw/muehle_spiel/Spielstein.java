@@ -21,9 +21,9 @@ public class Spielstein implements ISpielstein, IBewegung
 	
 	
 	//hiermit kann man einen Spielstein bewegen 
-	public void bewegen(Position nachPosition)
+	public void bewegen(Bewegung neueBewegung)
 	{
-		aktuellePosition = nachPosition; 
+		aktuellePosition = neueBewegung.getNach(); 
 	}
 	
 	public ESpielsteinFarbe getSpielsteinfarbe() 
