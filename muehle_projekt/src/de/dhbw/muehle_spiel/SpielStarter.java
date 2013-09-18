@@ -14,5 +14,6 @@ public class SpielStarter
 	public static void main(String[] args)
 	{
 		//TODO: Starter-Code
+		//Philipptestzumzweitenzumdritten
 	}
 }
