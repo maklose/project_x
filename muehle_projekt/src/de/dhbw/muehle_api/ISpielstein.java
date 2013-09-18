@@ -12,7 +12,7 @@ package de.dhbw.muehle_api;
  */
 public interface ISpielstein
 {
-    /**
+    /** scheiß olympiakos
      * Liefert die Farbe des Steines.
      * 
      * @return Farbe
