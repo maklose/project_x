@@ -1,7 +1,6 @@
 package de.dhbw.muehle_spiel;
 import de.dhbw.muehle_api.*;
-import de.dhbw.muehle_api.strategy.IBewegung;
-import de.dhbw.muehle_api.strategy.ISpielzug;
+
 
 public class Spieler {
 
@@ -17,8 +16,6 @@ public Spieler (ESpielsteinFarbe lSpielerfarbe)
 	AnzahlZuege = 0;
 	AnzahlSteine =0;
 }
-
-
 
 Spielstein[] Steine;
 
