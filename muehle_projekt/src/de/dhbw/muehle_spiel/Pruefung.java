@@ -46,7 +46,7 @@ public class Pruefung {
 		korrekt = false;
 	
 	//Wenn aenderung 1 ist, dann ist der Zug gültig
-	if aenderung == 1
+	if (aenderung == 1)
 		korrekt = true;
 			
 			return korrekt;
