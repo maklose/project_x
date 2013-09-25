@@ -13,6 +13,6 @@ Schieben,
 
 	//Dritte Phase: Anzahl der Spielsteine <= 3
 	//Steine können jetzt springen
-Legen
+Springen
 	
 }
