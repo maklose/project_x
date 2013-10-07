@@ -10,14 +10,14 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-public class DialogAnleitung1 extends JDialog {
+public class DialogAnleitung2 extends JDialog {
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			DialogAnleitung1 dialog = new DialogAnleitung1();
+			DialogAnleitung2 dialog = new DialogAnleitung2();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -28,7 +28,7 @@ public class DialogAnleitung1 extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public DialogAnleitung1() {
+	public DialogAnleitung2() {
 		setBounds(100, 100, 750, 400);
 		getContentPane().setLayout(new BorderLayout());
 		

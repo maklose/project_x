@@ -1,9 +1,9 @@
 package de.dhbw.gui;
 
 
-import de.dhbw.gui.TransparentButton1;
-import de.dhbw.gui.DialogAnleitung1;
-import de.dhbw.gui.DialogOptionen1;
+import de.dhbw.gui.TransparentButton2;
+import de.dhbw.gui.DialogAnleitung2;
+import de.dhbw.gui.DialogOptionen2;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -27,7 +27,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Empfangsgui1 extends JFrame {
+public class Empfangsgui2 extends JFrame {
 
 	private JPanel contentPane;
 
@@ -38,7 +38,7 @@ public class Empfangsgui1 extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Empfangsgui1 frame = new Empfangsgui1();
+					Empfangsgui2 frame = new Empfangsgui2();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,7 +50,7 @@ public class Empfangsgui1 extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Empfangsgui1() {
+	public Empfangsgui2() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		
@@ -73,7 +73,7 @@ public class Empfangsgui1 extends JFrame {
 		JPanel panel = new JPanel() {  
 			                public void paintComponent(Graphics g) {  
 			                     Image hintergrund = Toolkit.getDefaultToolkit().getImage(  
-			                               Empfangsgui1.class.getResource("/images/empfangsgui.png"));  
+			                               Empfangsgui2.class.getResource("/images/empfangsgui.png"));  
 		                     g.drawImage(hintergrund, 0, 0, this.getWidth(), this.getHeight(), this);  
 		                }  
 			          };  
@@ -108,12 +108,12 @@ public class Empfangsgui1 extends JFrame {
 		JLabel label_8 = new JLabel("");
 		panel.add(label_8);
 		
-		TransparentButton1 btn_start = new TransparentButton1("START");
+		TransparentButton2 btn_start = new TransparentButton2("START");
 		btn_start.setForeground(Color.BLACK);
 		btn_start.setBackground(new Color(245, 222, 179));
 		panel.add(btn_start);
 		
-		JButton btn_exit = new TransparentButton1("EXIT");
+		JButton btn_exit = new TransparentButton2("EXIT");
 		btn_exit.setForeground(Color.BLACK);
 		btn_exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -128,23 +128,23 @@ public class Empfangsgui1 extends JFrame {
 		JLabel label_10 = new JLabel("");
 		panel.add(label_10);;;
 		
-		JButton btn_optionen = new TransparentButton1 ("OPTIONEN");
+		JButton btn_optionen = new TransparentButton2 ("OPTIONEN");
 		btn_optionen.setForeground(Color.BLACK);
 		btn_optionen.setBackground(new Color(245, 222, 179));
 		btn_optionen.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-				JDialog auswahl = new DialogOptionen1 ();
+				JDialog auswahl = new DialogOptionen2 ();
 				auswahl.show(true);
 			}
 		});
 		panel.add(btn_optionen);
 		
-		JButton btn_anleitung = new TransparentButton1("New button");
+		JButton btn_anleitung = new TransparentButton2("New button");
 		btn_anleitung.setForeground(Color.BLACK);
 		btn_anleitung.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JDialog anleitung = new DialogAnleitung1();
+				JDialog anleitung = new DialogAnleitung2();
 				anleitung.show(true);
 			}
 		});

@@ -6,8 +6,8 @@ import java.awt.Graphics2D;
 
 import javax.swing.JButton;
 
-public class TransparentButton1 extends JButton {
-	public TransparentButton1(String text) { 
+public class TransparentButton2 extends JButton {
+	public TransparentButton2(String text) { 
 	    super(text);
 	    setOpaque(false); 
 	} 
