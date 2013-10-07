@@ -31,7 +31,7 @@ import javax.swing.ButtonGroup;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class DialogOptionen extends JDialog {
+public class DialogOptionen1 extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private final ButtonGroup buttonGroup = new ButtonGroup();
@@ -41,7 +41,7 @@ public class DialogOptionen extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			DialogOptionen dialog = new DialogOptionen();
+			DialogOptionen1 dialog = new DialogOptionen1();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -52,7 +52,7 @@ public class DialogOptionen extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public DialogOptionen() {
+	public DialogOptionen1() {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
