@@ -6,28 +6,53 @@ import java.io.*;
 
 
 public class Database {
+	public Database(){
+		
+	
+	}
+	
 	public static void main(String[]args){
+
+		    
+	}
+//Löschen der Datenbank	
+public void deletedb(Statement statement){
+	String delete=("DROP DATABASE database");
+	try {
+		statement.executeQuery(delete);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	
+}
+
+public void valuetrans(Statement statement){
+	String update=("INSERT INTO position VALUES('Weiß',5,5,5,6,6,6)");
+    statement.executeUpdate(update);
+}
+
+public void createdb(){
 	String driver="org.sqlite.JDBC";
 	String url="jdbc:sqlite:database.db";
 		
 		    //Treiber laden
 		    try {
 		    Class.forName(driver);
-		    		    
+		      
 		 		    
 		    Connection c = null;		    
 		    c = DriverManager.getConnection(url);
 		    Statement statement= null;
 		    statement = c.createStatement();
-		    String create="CREATE TABLE position (ID INT primary key AUTO_INCREMENT, "
+		    
+		    String create="CREATE TABLE position (ID INT AUTO_INCREMENT,"
 		    			+ "Spielstein varChar(30),"
 		    			+ "E1 INT, X1 INT, Y1 INT, "
 		    			+ "E2 INT, X2 INT, Y2 INT) ";
 		    statement.executeQuery(create);
-		    String update=("INSERT INTO position VALUES('Weiß',5,5,5,6,6,6)");
-		    statement.executeUpdate(update);
-		    String ausgabe=("SELECT * FROM position");
-		    statement.executeQuery(ausgabe);
+		    		  		    
 		    } 
 		    catch ( Exception e ) {
 		    	System.err.println(e.getMessage());
@@ -36,8 +61,7 @@ public class Database {
 		    
 		    
 	}
-
-
+}
 
 
 }
