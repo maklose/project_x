@@ -2,9 +2,9 @@ package de.dhbw.muehle_spiel;
 
 import de.dhbw.muehle_api.Position;
 
-
 public class Pruefung {
 
+	// Überprüft, ob ein Spielzug regelkonform ist
 	public boolean checkZug (Bewegung bewegung, Spieler SpielerAktiv, Spieler SpielerPassiv ){
 	
 	Spielstein[] SteineSpieler1 = SpielerAktiv.Steine;
@@ -59,7 +59,7 @@ public class Pruefung {
 	}
 		
 		//Überprüfung, ob die Nach-Position bereits belegt ist
-		for (int i = 0; i<=9; i++)
+		for (int i = 0; i<9; i++)
 		{
 			if(SteineSpieler1[i].getAktuellePosition() != bewegung.getNach() ){
 			korrekt = true;
@@ -82,5 +82,19 @@ public class Pruefung {
 		
 	}
 	
-	
+	//Überprüft, ob ein Stein auf dem Spielfeld weggenommen werden darf
+	public boolean checkInMuehle(int IndexStein, Spielstein[] Steine){
+		
+		boolean korrekt = false;
+		
+		int[][] Positionen = new int[8][2];
+		
+		// Ablegen der Positionen aller Steine eines Spielers in einem Array
+		for (int i = 0; i < 9; i++){
+			Positionen[i][0]= Steine[i].getPosition().getEbene().getValue();
+			Positionen[i][1]= Steine[i].getPosition().getX().getValue();
+			Positionen[i][2]= Steine[i].getPosition().getY().getValue();		
+			}
+		return korrekt;
+	}
 }

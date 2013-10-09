@@ -24,11 +24,11 @@ public Spieler (ESpielsteinFarbe lSpielerfarbe)
 
 public EPhase getPhase(){
 	if (AnzahlZuege < 9)
-		Phase = Phase.Setzen;
+		Phase = EPhase.Setzen;
 	else if (AnzahlSteine == 3)
-		Phase = Phase.Springen;
+		Phase = EPhase.Springen;
 	else
-		Phase = Phase.Schieben;
+		Phase = EPhase.Schieben;
 	
 	return Phase;	
 }
@@ -41,7 +41,6 @@ public void setzeSpielstein(Position lPosition) {
 	}
 }
 
-
 public void bewegeSpielstein(Bewegung bewegung, int IndexStein) {
     if (AnzahlZuege > 9){
 	Steine[IndexStein].bewegen(bewegung);
@@ -49,6 +48,9 @@ public void bewegeSpielstein(Bewegung bewegung, int IndexStein) {
     }
 }
 
+public void entferneSpielstein(int IndexStein){
+	Steine[IndexStein] = null;
+}
 
 public int getAnzahlZuege() {
 	return AnzahlZuege;
@@ -61,10 +63,6 @@ public int getAnzahlSteine() {
 	
 public ESpielsteinFarbe getSpielerfarbe() {
 	return Spielerfarbe;
-}
-
-public void setSpielerfarbe(ESpielsteinFarbe spielerfarbe) {
-	Spielerfarbe = spielerfarbe;
 }
 
 public boolean isAmZug() {
