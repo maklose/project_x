@@ -33,7 +33,7 @@ public class SpielController {
 	
 	/* In dieser Klasse werden nicht die Spieler erzeugt, das passiert alles in der GUI
 	 * Hier wird lediglich gesteuert welcher Spieler im Moment dran ist 
-	 * und in welcher Phase sich die einzelnen Spieler befinden
+	 * und in welcher Phase sich die einzelnen Spieler befinden...
 	 * */
 	
 	
