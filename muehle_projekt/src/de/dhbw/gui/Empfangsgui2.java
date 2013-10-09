@@ -117,6 +117,7 @@ public class Empfangsgui2 extends JFrame {
 		btn_exit.setForeground(Color.BLACK);
 		btn_exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				dispose();
 			}
 		});
 		btn_exit.setBackground(new Color(245, 222, 179));
