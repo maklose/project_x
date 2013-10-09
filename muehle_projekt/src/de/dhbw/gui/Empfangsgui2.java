@@ -73,7 +73,7 @@ public class Empfangsgui2 extends JFrame {
 		JPanel panel = new JPanel() {  
 			                public void paintComponent(Graphics g) {  
 			                     Image hintergrund = Toolkit.getDefaultToolkit().getImage(  
-			                               Empfangsgui2.class.getResource("/images/empfangsgui.png"));  
+			                               Empfangsgui2.class.getResource("/de/dhbw/images/EmpfangsGUI.PNG"));  
 		                     g.drawImage(hintergrund, 0, 0, this.getWidth(), this.getHeight(), this);  
 		                }  
 			          };  

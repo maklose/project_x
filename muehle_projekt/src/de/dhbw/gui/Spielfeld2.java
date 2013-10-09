@@ -56,7 +56,7 @@ public class Spielfeld2 extends JFrame {
 		JPanel panel = new JPanel(){  
             public void paintComponent(Graphics g) {  
                 Image spielfeld = Toolkit.getDefaultToolkit().getImage(  
-                          Spielfeld2.class.getResource("/images/muehlespielfeld2.png"));  
+                          Spielfeld2.class.getResource("/de/dhbw/images/muehlespielfeld2.png"));  
             g.drawImage(spielfeld, 0, 0, this.getWidth(), this.getHeight(), this);  
        }  
      };  ;
