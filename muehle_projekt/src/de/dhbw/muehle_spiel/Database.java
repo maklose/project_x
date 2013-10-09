@@ -21,6 +21,7 @@ public class Database {
 		    System.out.println("Opened database successfully");
 		    
 		    Connection c = null;
+		    Statement statement= null;
 		    c = DriverManager.getConnection(url);
 	}
 
