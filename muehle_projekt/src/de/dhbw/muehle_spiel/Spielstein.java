@@ -1,3 +1,5 @@
+// Autor Marvin
+
 package de.dhbw.muehle_spiel;
 import de.dhbw.muehle_api.*;
 import de.dhbw.muehle_api.strategy.IBewegung;
@@ -11,6 +13,7 @@ public class Spielstein implements ISpielstein, IBewegung
 	private Position aktuellePosition;					//hat die aktuelle Position des Steines
 	private boolean ausgewählt; 						//true wenn der Stein ausgewählt wurde
 	
+	//neuen Spieltein erzeugen
 	public Spielstein(ESpielsteinFarbe lSpielsteinfarbe, Position laktuellePosition)
 	{
 		Spielsteinfarbe = lSpielsteinfarbe;
