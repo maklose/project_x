@@ -70,7 +70,7 @@ public class Spielfeld2 extends JFrame {
 		panel.setLayout(gl);
 	
 		
-		JButton btnNewButton_1 = new TransparentButton2("");
+		JButton btnNewButton_1 = new TransparentButtonFeld("");
 		panel.add(btnNewButton_1);
 		
 		JLabel lblNewLabel = new JLabel("");
@@ -79,7 +79,7 @@ public class Spielfeld2 extends JFrame {
 		JLabel label = new JLabel("");
 		panel.add(label);
 		
-		JButton btnNewButton_4 = new TransparentButton2("");
+		JButton btnNewButton_4 = new TransparentButtonFeld("");
 		panel.add(btnNewButton_4);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
@@ -88,25 +88,25 @@ public class Spielfeld2 extends JFrame {
 		JLabel lblNewLabel_2 = new JLabel("");
 		panel.add(lblNewLabel_2);
 		
-		JButton btnNewButton_6 = new TransparentButton2("");
+		JButton btnNewButton_6 = new TransparentButtonFeld("");
 		panel.add(btnNewButton_6);
 		
 		JLabel label_1 = new JLabel("");
 		panel.add(label_1);
 		
-		JButton btnNewButton_9 = new TransparentButton2("");
+		JButton btnNewButton_9 = new TransparentButtonFeld("");
 		panel.add(btnNewButton_9);
 		
 		JLabel label_2 = new JLabel("");
 		panel.add(label_2);
 		
-		JButton btnNewButton_10 = new TransparentButton2("");
+		JButton btnNewButton_10 = new TransparentButtonFeld("");
 		panel.add(btnNewButton_10);
 		
 		JLabel lblNewLabel_3 = new JLabel("");
 		panel.add(lblNewLabel_3);
 		
-		JButton btnNewButton_13 = new TransparentButton2("");
+		JButton btnNewButton_13 = new TransparentButtonFeld("");
 		panel.add(btnNewButton_13);
 		
 		JLabel label_3 = new JLabel("");
@@ -118,13 +118,13 @@ public class Spielfeld2 extends JFrame {
 		JLabel label_5 = new JLabel("");
 		panel.add(label_5);
 		
-		JButton btnNewButton_15 = new TransparentButton2("");
+		JButton btnNewButton_15 = new TransparentButtonFeld("");
 		panel.add(btnNewButton_15);
 		
-		JButton btnNewButton_18 = new TransparentButton2("");
+		JButton btnNewButton_18 = new TransparentButtonFeld("");
 		panel.add(btnNewButton_18);
 		
-		JButton btnNewButton_19 = new TransparentButton2("");
+		JButton btnNewButton_19 = new TransparentButtonFeld("");
 		panel.add(btnNewButton_19);
 		
 		JLabel label_6 = new JLabel("");
@@ -133,25 +133,25 @@ public class Spielfeld2 extends JFrame {
 		JLabel label_7 = new JLabel("");
 		panel.add(label_7);
 		
-		JButton btnNewButton_22 = new TransparentButton2("");
+		JButton btnNewButton_22 = new TransparentButtonFeld("");
 		panel.add(btnNewButton_22);
 		
-		JButton btnNewButton_23 = new TransparentButton2("");
+		JButton btnNewButton_23 = new TransparentButtonFeld("");
 		panel.add(btnNewButton_23);
 		
-		JButton btnNewButton_24 = new TransparentButton2("");
+		JButton btnNewButton_24 = new TransparentButtonFeld("");
 		panel.add(btnNewButton_24);
 		
 		JLabel label_8 = new JLabel("");
 		panel.add(label_8);
 		
-		JButton btnNewButton_26 = new TransparentButton2("");
+		JButton btnNewButton_26 = new TransparentButtonFeld("");
 		panel.add(btnNewButton_26);
 		
-		JButton btnNewButton_27 = new TransparentButton2("");
+		JButton btnNewButton_27 = new TransparentButtonFeld("");
 		panel.add(btnNewButton_27);
 		
-		JButton btnNewButton_28 = new TransparentButton2("");
+		JButton btnNewButton_28 = new TransparentButtonFeld("");
 		panel.add(btnNewButton_28);
 		
 		JLabel label_9 = new JLabel("");
@@ -160,13 +160,13 @@ public class Spielfeld2 extends JFrame {
 		JLabel label_10 = new JLabel("");
 		panel.add(label_10);
 		
-		JButton btnNewButton_31 = new TransparentButton2("");
+		JButton btnNewButton_31 = new TransparentButtonFeld("");
 		panel.add(btnNewButton_31);
 		
-		JButton btnNewButton_32 = new TransparentButton2("");
+		JButton btnNewButton_32 = new TransparentButtonFeld("");
 		panel.add(btnNewButton_32);
 		
-		JButton btnNewButton_33 = new TransparentButton2("");
+		JButton btnNewButton_33 = new TransparentButtonFeld("");
 		panel.add(btnNewButton_33);
 		
 		JLabel label_11 = new JLabel("");
@@ -178,25 +178,25 @@ public class Spielfeld2 extends JFrame {
 		JLabel label_13 = new JLabel("");
 		panel.add(label_13);
 		
-		JButton btnNewButton_37 = new TransparentButton2("");
+		JButton btnNewButton_37 = new TransparentButtonFeld("");
 		panel.add(btnNewButton_37);
 		
 		JLabel label_14 = new JLabel("");
 		panel.add(label_14);
 		
-		JButton btnNewButton_39 = new TransparentButton2("");
+		JButton btnNewButton_39 = new TransparentButtonFeld("");
 		panel.add(btnNewButton_39);
 		
 		JLabel label_15 = new JLabel("");
 		panel.add(label_15);
 		
-		JButton btnNewButton_41 = new TransparentButton2("");
+		JButton btnNewButton_41 = new TransparentButtonFeld("");
 		panel.add(btnNewButton_41);
 		
 		JLabel label_16 = new JLabel("");
 		panel.add(label_16);
 		
-		JButton btnNewButton_43 = new TransparentButton2("");
+		JButton btnNewButton_43 = new TransparentButtonFeld("");
 		panel.add(btnNewButton_43);
 		
 		JLabel label_17 = new JLabel("");
@@ -205,7 +205,7 @@ public class Spielfeld2 extends JFrame {
 		JLabel label_18 = new JLabel("");
 		panel.add(label_18);
 		
-		JButton btnNewButton_46 = new TransparentButton2("");
+		JButton btnNewButton_46 = new TransparentButtonFeld("");
 		panel.add(btnNewButton_46);
 		
 		JLabel label_19 = new JLabel("");
@@ -214,7 +214,7 @@ public class Spielfeld2 extends JFrame {
 		JLabel label_20 = new JLabel("");
 		panel.add(label_20);
 		
-		JButton btnNewButton_49 = new TransparentButton2("");
+		JButton btnNewButton_49 = new TransparentButtonFeld("");
 		panel.add(btnNewButton_49);
 	}
 		
