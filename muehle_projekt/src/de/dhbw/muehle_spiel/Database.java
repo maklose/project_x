@@ -20,19 +20,22 @@ public void deletedb(Statement statement){
 	String delete=("DROP DATABASE database");
 	try {
 		statement.executeQuery(delete);
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
+	} catch (SQLException e) {		
 		e.printStackTrace();
 	}
 	
 	
 }
-
+//‹bergabe der Position an DB
 public void valuetrans(Statement statement){
 	String update=("INSERT INTO position VALUES('Weiﬂ',5,5,5,6,6,6)");
-    statement.executeUpdate(update);
+    try {
+		statement.executeUpdate(update);
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
 }
-
+//Erzeugen der DB
 public void createdb(){
 	String driver="org.sqlite.JDBC";
 	String url="jdbc:sqlite:database.db";
@@ -64,4 +67,3 @@ public void createdb(){
 }
 
 
-}
