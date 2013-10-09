@@ -55,7 +55,7 @@ public void valuetrans(){
     try {
     	Connection c = null;		    
 	    c = DriverManager.getConnection(url);
-	    Statement statement=c.createStatement();
+    	Statement statement=c.createStatement();
 		statement.executeUpdate(update);
 	} catch (SQLException e) {
 		e.printStackTrace();
@@ -101,12 +101,12 @@ public void showdb(){
 public void connectdb(){
 	String driver="org.sqlite.JDBC";
 	String url="jdbc:sqlite:database.db";
-		
+	 Connection c = null;		    
+	    	
 		    //Treiber laden
 		    try {
 		    Class.forName(driver);
 		      
-		    Connection c = null;		    
 		    c = DriverManager.getConnection(url);
 		    Statement statement= null;
 		    statement = c.createStatement();
@@ -121,6 +121,7 @@ public void connectdb(){
 		    	System.err.println(e.getMessage());
 		        System.exit(0);
 		    }
+		    
 		    
 		    
 	}
