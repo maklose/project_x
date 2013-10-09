@@ -1,4 +1,5 @@
 package de.dhbw.gui;
+import de.dhbw.muehle_api.*;
 
 import java.awt.AlphaComposite;
 import java.awt.Graphics;
@@ -6,10 +7,16 @@ import java.awt.Graphics2D;
 
 import javax.swing.JButton;
 
-public class TransparentButtonFeld extends JButton {
-	public TransparentButtonFeld(String text) { 
+public class TransparentButtonFeld extends JButton 
+{
+	
+	Position gPosition;
+	
+	public TransparentButtonFeld(String text, Position lPosition) 
+	{ 
 	    super(text);
 	    setOpaque(false); 
+	    gPosition = lPosition;
 	} 
 	    
 	public void paint(Graphics g) { 
@@ -18,4 +25,11 @@ public class TransparentButtonFeld extends JButton {
 	    super.paint(g2); 
 	    g2.dispose(); 
 	} 
+	
+	public Position getPosition()
+	{
+		return gPosition;
+	}
+	
+	
 }
