@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+
 import java.awt.Color;
 
 import javax.swing.JMenuBar;
@@ -26,6 +27,7 @@ import javax.swing.JMenuItem;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ComponentEvent;
 
 public class Empfangsgui2 extends JFrame {
 
@@ -47,6 +49,8 @@ public class Empfangsgui2 extends JFrame {
 		});
 	}
 
+	
+	
 	/**
 	 * Create the frame.
 	 */
@@ -54,17 +58,7 @@ public class Empfangsgui2 extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
-		
-		JMenu mnMenue = new JMenu("Menue");
-		menuBar.add(mnMenue);
-		
-		JMenuItem mntmSpielBeenden = new JMenuItem("Spiel beenden");
-		mnMenue.add(mntmSpielBeenden);
-		
-		JMenuItem mntmNeuesSpiel = new JMenuItem("Neues Spiel");
-		mnMenue.add(mntmNeuesSpiel);
+		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
