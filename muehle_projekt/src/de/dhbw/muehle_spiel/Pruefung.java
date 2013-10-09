@@ -5,12 +5,15 @@ import de.dhbw.muehle_api.Position;
 
 public class Pruefung {
 
-	public boolean checkSpielzug (Bewegung bewegung){
+	public boolean checkZug (Bewegung bewegung, Spieler SpielerAktiv, Spieler SpielerPassiv ){
+	
+	Spielstein[] SteineSpieler1 = SpielerAktiv.Steine;
+	Spielstein[] SteineSpieler2 = SpielerPassiv.Steine;
+	
 	
 	boolean korrekt = false;
 	int aenderung = 0;
 	int vonEbene, vonX, vonY, nachEbene, nachX, nachY;
-	
 	
 	// Ablegen der Positionsindexe in einer int-Variablen
 	vonEbene = bewegung.getVon().getEbene().getValue();
@@ -19,35 +22,61 @@ public class Pruefung {
 	nachEbene= bewegung.getNach().getEbene().getValue();
 	nachX = bewegung.getNach().getX().getValue();
 	nachY = bewegung.getNach().getY().getValue();
+		
+		
+	int AnzahlSteine = SpielerAktiv.getAnzahlSteine();
 	
-	
-	// Überprüfung, ob sich der PositionsIndex um 1 oder 2 verändert hat
-	if (vonEbene- nachEbene == 1 || vonEbene- nachEbene == -1)
-		aenderung ++;
-	if (vonEbene- nachEbene == 2 || vonEbene- nachEbene == -2)
-		korrekt = false;
-	if (vonX - nachX == 1 || vonX - nachX == -1) 
-		aenderung++;
-	if (vonX - nachX == 2 || vonX - nachX == -2) 
-		korrekt = false;
-	if (vonY - nachY == 1 || vonY - nachY == -1) 
-		aenderung++;
-	if (vonY - nachY == 2 || vonY - nachY == -2) 
-		korrekt = false;
-	
-	//Überprüfung, ob sich die Ebene ungültiger Weise verändert hat
-	if (vonX == 1 && vonY ==3 && vonEbene != nachEbene)
-		korrekt = false;
-	if (vonX == 3 && vonY ==3 && vonEbene != nachEbene)
-		korrekt = false;
-	if (vonX == 3 && vonY ==1 && vonEbene != nachEbene)
-		korrekt = false;
-	if (vonX == 1 && vonY ==1 && vonEbene != nachEbene)
-		korrekt = false;
-	
-	//Wenn aenderung 1 ist, dann ist der Zug gültig
-	if (aenderung == 1)
-		korrekt = true;
+	// Wenn Anzahl Steine > 3 darf der Spieler ziehen, Wenn =3 darf er springen
+	if (AnzahlSteine > 3)
+	{	
+		// Überprüfung, ob sich der PositionsIndex um 1 verändert hat
+		// Zug ist gültig, wenn aenderung = 1
+		if (vonEbene- nachEbene == 1 || vonEbene- nachEbene == -1)
+			aenderung ++;
+		if (vonEbene- nachEbene == 2 || vonEbene- nachEbene == -2)
+			return false;
+		if (vonX - nachX == 1 || vonX - nachX == -1) 
+			aenderung++;
+		if (vonX - nachX == 2 || vonX - nachX == -2) 
+			return false;
+		if (vonY - nachY == 1 || vonY - nachY == -1) 
+			aenderung++;
+		if (vonY - nachY == 2 || vonY - nachY == -2) 
+			return false;
+		if (aenderung == 1)
+			korrekt = true;
+		
+		//Überprüfung, ob sich die Ebene ungültiger Weise verändert hat
+		if (vonX == 1 && vonY ==3 && vonEbene != nachEbene)
+			return false;
+		if (vonX == 3 && vonY ==3 && vonEbene != nachEbene)
+			return false;
+		if (vonX == 3 && vonY ==1 && vonEbene != nachEbene)
+			return false;
+		if (vonX == 1 && vonY ==1 && vonEbene != nachEbene)
+			return false;
+		
+	}
+		
+		//Überprüfung, ob die Nach-Position bereits belegt ist
+		for (int i = 0; i<=9; i++)
+		{
+			if(SteineSpieler1[i].getAktuellePosition() != bewegung.getNach() ){
+			korrekt = true;
+			}
+			
+			else{
+			return false;
+			}
+			
+			if(SteineSpieler2[i].getAktuellePosition() != bewegung.getNach() ){
+			korrekt = true;
+			}
+			else{
+			return false;
+			}
+		
+		}
 			
 			return korrekt;
 		
