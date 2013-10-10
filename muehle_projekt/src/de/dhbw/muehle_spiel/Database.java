@@ -2,10 +2,10 @@ package de.dhbw.muehle_spiel;
 
 
 import java.sql.*;
-import java.io.*;
 
 
 public class Database {
+	//Treiber laden
 	String url="jdbc:sqlite:database.db";
 	Connection c;
 	String driver="org.sqlite.JDBC";
@@ -88,21 +88,18 @@ public void showdb(){
 	    	  System.out.print(" X2: "+X2);
 	    	  System.out.print(" Y2: "+Y2);
 	    	  
-	    	  
-	    	  
+	    		    	  
 	    	}
 	} catch (SQLException e) {
 		e.printStackTrace();
 	}
 }
-//Treiber laden
 
 //Erzeugen der DB
 public void createtb(){
 		    
 		    try {
-		    
-		     
+		   		     
 		    Statement statement= null;
 		    statement = c.createStatement();
 		    String create="CREATE TABLE protokoll(ID INTEGER PRIMARY KEY AUTOINCREMENT,"
