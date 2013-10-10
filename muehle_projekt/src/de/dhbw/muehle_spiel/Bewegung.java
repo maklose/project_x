@@ -5,8 +5,8 @@ import de.dhbw.muehle_api.strategy.IBewegung;
 
 public class Bewegung implements IBewegung {
 
-	private Position von;
-	private Position nach;
+	private Position von = null;
+	private Position nach = null;
 public Position getVon() {
 		return von;
 	}
@@ -21,9 +21,18 @@ public Position getVon() {
 	}
 public Bewegung (Position von, Position nach)
 {
-	this.von = von;
-	this.nach = nach;
+	if(von == null)
+	{
+		this.nach = nach;
+	}
+	else
+	{
+		this.von = von;
+		this.nach = nach;
+	}
 }
+
+
 	@Override
 	public Position altePosition() {
 		// TODO Auto-generated method stub
@@ -34,6 +43,34 @@ public Bewegung (Position von, Position nach)
 	public Position neuePosition() {
 		
 		return nach;
+	}
+	
+	/*
+	 * diese Methode überprüft ob zwei bewegungen gleich sind 
+	 * und berücksichtigt dabei auch, dass die von variable null sein kann
+	 */
+	public boolean equals(Bewegung bBewegung)
+	{
+		if(bBewegung.von == null && this.von == null)
+		{
+			if(bBewegung.nach.equals(this.nach))
+				return true; 
+			else	
+				return false;
+		}
+		else if(bBewegung.von.equals(this.von) && bBewegung.nach.equals(this.nach))
+			return true;
+		else
+			return false;
+		 
+	}
+	
+	public String toString()
+	{
+		if(this.von != null)
+		return "Bewegung [([VON: [" + this.von.toString() + " NACH: " + this.nach.toString() + "])]";
+		else
+		return "Bewegung [([NACH: " + this.nach.toString() + "])]";
 	}
 
 }

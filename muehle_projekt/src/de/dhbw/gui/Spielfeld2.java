@@ -20,6 +20,11 @@ import javax.swing.JLabel;
 
 
 
+
+
+
+
+
 import net.miginfocom.swing.MigLayout;
 
 import java.awt.GridLayout;
@@ -29,40 +34,29 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import de.dhbw.muehle_api.*;
+import de.dhbw.muehle_spiel.Bewegung;
+import de.dhbw.muehle_spiel.Pruefung;
+import de.dhbw.muehle_spiel.Spieler;
 import de.dhbw.muehle_util.plugin.MyServiceLoader;
 
 public class Spielfeld2 extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	
-	TransparentButtonFeld btnNewButton_1;
-	TransparentButtonFeld btnNewButton_4;
-	TransparentButtonFeld btnNewButton_6;
-	TransparentButtonFeld btnNewButton_9;
-	TransparentButtonFeld btnNewButton_10;
-	TransparentButtonFeld btnNewButton_13;
-	TransparentButtonFeld btnNewButton_15;
-	TransparentButtonFeld btnNewButton_18;
-	TransparentButtonFeld btnNewButton_19;
-	TransparentButtonFeld btnNewButton_22;
-	TransparentButtonFeld btnNewButton_23;
-	TransparentButtonFeld btnNewButton_24;
-	TransparentButtonFeld btnNewButton_26;
-	TransparentButtonFeld btnNewButton_27;
-	TransparentButtonFeld btnNewButton_28;
-	TransparentButtonFeld btnNewButton_31;
-	TransparentButtonFeld btnNewButton_32;
-	TransparentButtonFeld btnNewButton_33;
-	TransparentButtonFeld btnNewButton_37;
-	TransparentButtonFeld btnNewButton_39;
-	TransparentButtonFeld btnNewButton_41;
-	TransparentButtonFeld btnNewButton_43;
-	TransparentButtonFeld btnNewButton_46;
-	TransparentButtonFeld btnNewButton_49;
+	//Die Buttons werden initialisiert
+	TransparentButtonFeld btnNewButton_1, btnNewButton_4, btnNewButton_6, btnNewButton_9, 
+							btnNewButton_10, btnNewButton_13, btnNewButton_15, btnNewButton_18,
+							btnNewButton_19, btnNewButton_22, btnNewButton_23, btnNewButton_24,
+							btnNewButton_26, btnNewButton_27, btnNewButton_28, btnNewButton_31,
+							btnNewButton_32, btnNewButton_33, btnNewButton_37, btnNewButton_39,
+							btnNewButton_41, btnNewButton_43, btnNewButton_46, btnNewButton_49;
+	
+	//Die Spieler werden initialisiert 
+	Spieler Spieler1, Spieler2;
 	
 
 	/**
-	 * Launch the application.
+	 * Hier wird das Spielfeld gestartet
 	 */
 	
 	public static void main(String[] args) 
@@ -85,7 +79,8 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 
 	
 	/**
-	 * Create the frame.
+	 * Das JPanel wird erzeugt
+	 * Die Buttons werden instanziiert und mit dem action listener verknüpft
 	 */
 	public Spielfeld2() 
 	{
@@ -97,25 +92,29 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		JPanel panel = new JPanel(){  
-            public void paintComponent(Graphics g) {  
+		//hier wird das haupt-Panel erzeugt inc. Hintergrundbild
+		JPanel panel = new JPanel()
+		{  
+            public void paintComponent(Graphics g) 
+            {  
                 Image spielfeld = Toolkit.getDefaultToolkit().getImage(  
                           Spielfeld2.class.getResource("/de/dhbw/images/muehlespielfeld2.png"));  
-            g.drawImage(spielfeld, 0, 0, this.getWidth(), this.getHeight(), this);  
-       }  
-     };  ;
+                g.drawImage(spielfeld, 0, 0, this.getWidth(), this.getHeight(), this);  
+            }  
+		};  
 		
+		//Hintergrund
      	panel.setBackground(Color.LIGHT_GRAY);
 		
 		GridLayout gl = new GridLayout(7,7,15,15);
 
-		
+		//panel wird hinzugefügt
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(gl);
-	
+		
+		//ab hier werden die ganzen knöpfe definiert und mit dem actionlistener verknüpft
 		btnNewButton_1 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Drei));
 		btnNewButton_1.addActionListener(this);
-		btnNewButton_1.setActionCommand("btnNewButton_1");
 		panel.add(btnNewButton_1);
 		
 		JLabel lblNewLabel = new JLabel("");
@@ -126,7 +125,6 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		
 		btnNewButton_4 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Zwei, EPositionIndex.Drei));
 		btnNewButton_4.addActionListener(this);
-		btnNewButton_4.setActionCommand("btnNewButton_4");
 		panel.add(btnNewButton_4);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
@@ -137,7 +135,6 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		
 		btnNewButton_6 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Drei));
 		btnNewButton_6.addActionListener(this);
-		btnNewButton_6.setActionCommand("btnNewButton_6");
 		panel.add(btnNewButton_6);
 		
 		JLabel label_1 = new JLabel("");
@@ -145,7 +142,6 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		
 		btnNewButton_9 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Drei));
 		btnNewButton_9.addActionListener(this);
-		btnNewButton_9.setActionCommand("btnNewButton_9");
 		panel.add(btnNewButton_9);
 		
 		JLabel label_2 = new JLabel("");
@@ -153,7 +149,6 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		
 		btnNewButton_10 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Zwei, EPositionIndex.Drei));
 		btnNewButton_10.addActionListener(this);
-		btnNewButton_10.setActionCommand("btnNewButton_10");
 		panel.add(btnNewButton_10);
 		
 		JLabel lblNewLabel_3 = new JLabel("");
@@ -161,7 +156,6 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		
 		btnNewButton_13 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Drei));
 		btnNewButton_13.addActionListener(this);
-		btnNewButton_13.setActionCommand("btnNewButton_13");
 		panel.add(btnNewButton_13);
 		
 		JLabel label_3 = new JLabel("");
@@ -175,17 +169,14 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		
 		btnNewButton_15 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Drei));
 		btnNewButton_15.addActionListener(this);
-		btnNewButton_15.setActionCommand("btnNewButton_15");
 		panel.add(btnNewButton_15);
 		
 		btnNewButton_18 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Zwei, EPositionIndex.Drei));
 		btnNewButton_18.addActionListener(this);
-		btnNewButton_18.setActionCommand("btnNewButton_18");
 		panel.add(btnNewButton_18);
 		
 		btnNewButton_19 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Drei));
 		btnNewButton_19.addActionListener(this);
-		btnNewButton_19.setActionCommand("btnNewButton_19");
 		panel.add(btnNewButton_19);
 		
 		JLabel label_6 = new JLabel("");
@@ -196,17 +187,14 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		
 		btnNewButton_22 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Zwei));
 		btnNewButton_22.addActionListener(this);
-		btnNewButton_22.setActionCommand("btnNewButton_22");
 		panel.add(btnNewButton_22);
 		
 		btnNewButton_23 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Zwei));
 		btnNewButton_23.addActionListener(this);
-		btnNewButton_23.setActionCommand("btnNewButton_23");
 		panel.add(btnNewButton_23);
 		
 		btnNewButton_24 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Zwei));
 		btnNewButton_24.addActionListener(this);
-		btnNewButton_24.setActionCommand("btnNewButton_24");
 		panel.add(btnNewButton_24);
 		
 		JLabel label_8 = new JLabel("");
@@ -214,17 +202,14 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		
 		btnNewButton_26 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Zwei));
 		btnNewButton_26.addActionListener(this);
-		btnNewButton_26.setActionCommand("btnNewButton_26");
 		panel.add(btnNewButton_26);
 		
 		btnNewButton_27 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Zwei));
 		btnNewButton_27.addActionListener(this);
-		btnNewButton_27.setActionCommand("btnNewButton_27");
 		panel.add(btnNewButton_27);
 		
 		btnNewButton_28 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Zwei));
 		btnNewButton_28.addActionListener(this);
-		btnNewButton_28.setActionCommand("btnNewButton_28");
 		panel.add(btnNewButton_28);
 		
 		JLabel label_9 = new JLabel("");
@@ -235,17 +220,14 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		
 		btnNewButton_31 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Eins));
 		btnNewButton_31.addActionListener(this);
-		btnNewButton_31.setActionCommand("btnNewButton_31");
 		panel.add(btnNewButton_31);
 		
 		btnNewButton_32 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Zwei, EPositionIndex.Eins));
 		btnNewButton_32.addActionListener(this);
-		btnNewButton_32.setActionCommand("btnNewButton_32");
 		panel.add(btnNewButton_32);
 		
 		btnNewButton_33 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Eins));
 		btnNewButton_33.addActionListener(this);
-		btnNewButton_33.setActionCommand("btnNewButton_33");
 		panel.add(btnNewButton_33);
 		
 		JLabel label_11 = new JLabel("");
@@ -259,7 +241,6 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		
 		btnNewButton_37 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Eins));
 		btnNewButton_37.addActionListener(this);
-		btnNewButton_37.setActionCommand("btnNewButton_37");
 		panel.add(btnNewButton_37);
 		
 		JLabel label_14 = new JLabel("");
@@ -267,7 +248,6 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		
 		btnNewButton_39 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Zwei, EPositionIndex.Eins));
 		btnNewButton_39.addActionListener(this);
-		btnNewButton_39.setActionCommand("btnNewButton_39");
 		panel.add(btnNewButton_39);
 		
 		JLabel label_15 = new JLabel("");
@@ -275,7 +255,6 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		
 		btnNewButton_41 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Eins));
 		btnNewButton_41.addActionListener(this);
-		btnNewButton_41.setActionCommand("btnNewButton_41");
 		panel.add(btnNewButton_41);
 		
 		JLabel label_16 = new JLabel("");
@@ -283,7 +262,6 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		
 		btnNewButton_43 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Eins));
 		btnNewButton_43.addActionListener(this);
-		btnNewButton_43.setActionCommand("btnNewButton_43");
 		panel.add(btnNewButton_43);
 		
 		JLabel label_17 = new JLabel("");
@@ -294,7 +272,6 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		
 		btnNewButton_46 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Zwei, EPositionIndex.Eins));
 		btnNewButton_46.addActionListener(this);
-		btnNewButton_46.setActionCommand("btnNewButton_46");
 		panel.add(btnNewButton_46);
 		
 		JLabel label_19 = new JLabel("");
@@ -303,117 +280,140 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		JLabel label_20 = new JLabel("");
 		panel.add(label_20);
 		
-		btnNewButton_49 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Zwei, EPositionIndex.Eins));
+		btnNewButton_49 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Eins));
 		btnNewButton_49.addActionListener(this);
-		btnNewButton_49.setActionCommand("btnNewButton_49");
 		panel.add(btnNewButton_49);
+		
+		
+		/*
+		 * Ab hier werden die Spieler erzuegt
+		 */
+		Spieler1 = new Spieler(ESpielsteinFarbe.WEISS);
+		Spieler2 = new Spieler(ESpielsteinFarbe.SCHWARZ);
+		
+		 
+		
 	}
 
-
+	
+	/*
+	 * Hier überprüft der actionlistener welcher Knopf 
+	 *gedrückt wurde und gibt diesen dann an die methode aktion weiter
+	 */
+	
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		if(e.equals(this.btnNewButton_1))
+		Object obj = e.getSource();
+		
+		if(obj.equals(this.btnNewButton_1))
 		{
 			this.aktion(btnNewButton_1);
 		}
-		else if(e.equals(this.btnNewButton_4))
+		else if(obj.equals(this.btnNewButton_4))
 		{
-			
+			this.aktion(btnNewButton_4);
 		}
-		else if(e.equals(this.btnNewButton_6))
+		else if(obj.equals(this.btnNewButton_6))
 		{
-			
+			this.aktion(btnNewButton_6);
 		}
-		else if(e.equals(this.btnNewButton_9))
+		else if(obj.equals(this.btnNewButton_9))
 		{
-			
+			this.aktion(btnNewButton_9);
 		}
-		else if(e.equals(this.btnNewButton_10))
+		else if(obj.equals(this.btnNewButton_10))
 		{
-			
+			this.aktion(btnNewButton_10);
 		}
-		else if(e.equals(this.btnNewButton_13))
+		else if(obj.equals(this.btnNewButton_13))
 		{
-			
+			this.aktion(btnNewButton_13);
 		}
-		else if(e.equals(this.btnNewButton_15))
+		else if(obj.equals(this.btnNewButton_15))
 		{
-			
+			this.aktion(btnNewButton_15);
 		}
-		else if(e.equals(this.btnNewButton_18))
+		else if(obj.equals(this.btnNewButton_18))
 		{
-			
+			this.aktion(btnNewButton_18);
 		}
-		else if(e.equals(this.btnNewButton_19))
+		else if(obj.equals(this.btnNewButton_19))
 		{
-			
+			this.aktion(btnNewButton_19);
 		}
-		else if(e.equals(this.btnNewButton_22))
+		else if(obj.equals(this.btnNewButton_22))
 		{
-			
+			this.aktion(btnNewButton_22);
 		}
-		else if(e.equals(this.btnNewButton_23))
+		else if(obj.equals(this.btnNewButton_23))
 		{
-			
+			this.aktion(btnNewButton_23);
 		}
-		else if(e.equals(this.btnNewButton_24))
+		else if(obj.equals(this.btnNewButton_24))
 		{
-			
+			this.aktion(btnNewButton_24);
 		}
-		else if(e.equals(this.btnNewButton_26))
+		else if(obj.equals(this.btnNewButton_26))
 		{
-			
+			this.aktion(btnNewButton_26);
 		}
-		else if(e.equals(this.btnNewButton_27))
+		else if(obj.equals(this.btnNewButton_27))
 		{
-			
+			this.aktion(btnNewButton_27);
 		}
-		else if(e.equals(this.btnNewButton_28))
+		else if(obj.equals(this.btnNewButton_28))
 		{
-			
+			this.aktion(btnNewButton_28);
 		}
-		else if(e.equals(this.btnNewButton_31))
+		else if(obj.equals(this.btnNewButton_31))
 		{
-			
+			this.aktion(btnNewButton_31);
 		}
-		else if(e.equals(this.btnNewButton_32))
+		else if(obj.equals(this.btnNewButton_32))
 		{
-			
+			this.aktion(btnNewButton_32);
 		}
-		else if(e.equals(this.btnNewButton_33))
+		else if(obj.equals(this.btnNewButton_33))
 		{
-			
+			this.aktion(btnNewButton_33);
 		}
-		else if(e.equals(this.btnNewButton_37))
+		else if(obj.equals(this.btnNewButton_37))
 		{
-			
+			this.aktion(btnNewButton_37);
 		}
-		else if(e.equals(this.btnNewButton_39))
+		else if(obj.equals(this.btnNewButton_39))
 		{
-			
+			this.aktion(btnNewButton_39);
 		}
-		else if(e.equals(this.btnNewButton_41))
+		else if(obj.equals(this.btnNewButton_41))
 		{
-			
+			this.aktion(btnNewButton_41);
 		}
-		else if(e.equals(this.btnNewButton_43))
+		else if(obj.equals(this.btnNewButton_43))
 		{
-			
+			this.aktion(btnNewButton_43);
 		}
-		else if(e.equals(this.btnNewButton_46))
+		else if(obj.equals(this.btnNewButton_46))
 		{
-			
+			this.aktion(btnNewButton_46);
 		}
-		else if(e.equals(this.btnNewButton_49))
+		else if(obj.equals(this.btnNewButton_49))
 		{
-			
+			this.aktion(btnNewButton_49);
 		}
 	}
 	
+	/*
+	 * wenn ein Knopf gedrückt wurde wird diese aktions ausgeführt
+	 */
+	
 	public void aktion(TransparentButtonFeld lButton)
 	{
-		System.out.println(lButton.getPosition().toString());
+		Position PositionGeklickt = lButton.getPosition();
+		Bewegung neueBewegung = new Bewegung(null, PositionGeklickt);
+		System.out.println(neueBewegung);
+		
 	}
 		
 }
