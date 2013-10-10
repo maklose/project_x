@@ -54,6 +54,8 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 	//Die Spieler werden initialisiert 
 	Spieler Spieler1, Spieler2;
 	
+	JPanel panel;
+	
 
 	/**
 	 * Hier wird das Spielfeld gestartet
@@ -93,7 +95,7 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		setContentPane(contentPane);
 		
 		//hier wird das haupt-Panel erzeugt inc. Hintergrundbild
-		JPanel panel = new JPanel()
+		panel = new JPanel()
 		{  
             public void paintComponent(Graphics g) 
             {  
@@ -413,6 +415,7 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		Position PositionGeklickt = lButton.getPosition();
 		Bewegung neueBewegung = new Bewegung(null, PositionGeklickt);
 		System.out.println(neueBewegung);
+			
 		
 	}
 		
