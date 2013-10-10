@@ -416,7 +416,7 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		Bewegung neueBewegung = new Bewegung(null, PositionGeklickt);
 		System.out.println(neueBewegung);
 			
-		
+		//hier kann jetzt ein stein gesetzt werden
 	}
 		
 }
