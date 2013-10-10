@@ -20,14 +20,10 @@ public class Database {
 	
 	}
 	
-	public static void main(String[]args){
-
-		    
-	}
-//Löschen der Datenbank	
+//Löschen der Tabelle	
 public void deletetb(){
 	
-	String delete=("DROP TABLE position");
+	String delete=("DROP TABLE protokoll");
 	try {
 		Statement statement=c.createStatement();
 		statement.executeUpdate(delete);
@@ -40,8 +36,23 @@ public void deletetb(){
 
 
 //Übergabe der Position an DB
-public void valuetrans(){
-	String update=("INSERT INTO position (Spielstein,E1,X1,Y1,E2,X2,Y2) VALUES('Weiß',5,5,5,6,6,6)");
+public void valuetrans(Bewegung bewegung,Spieler spieler){
+	
+	String vonEbene, vonX, vonY, nachEbene, nachX, nachY;
+	// Ablegen der Positionsindexe & Spielsteinfarbe in einer String-Variablen
+		
+	    String farbe=spieler.SpielsteinFarbeAsString();
+		vonEbene = bewegung.getVon().getEbene().toString();
+		vonX = bewegung.getVon().getX().toString();
+		vonY = bewegung.getVon().getX().toString();
+		nachEbene= bewegung.getNach().getEbene().toString();
+		nachX = bewegung.getNach().getX().toString();
+		nachY = bewegung.getNach().getY().toString();
+		
+	String update=("INSERT INTO protokoll (Spielstein,E1,X1,Y1,E2,X2,Y2)"
+				+ " VALUES("+farbe+","+vonEbene+","+vonX+","+vonY+","+nachEbene+","+nachX+","+nachY+")");
+						
+	//String update=("INSERT INTO position (Spielstein,E1,X1,Y1,E2,X2,Y2) VALUES('Weiß',5,5,5,6,6,6)");
     try {
     	Statement statement=c.createStatement();
 		statement.executeUpdate(update);
@@ -56,7 +67,7 @@ public void showdb(){
     try {
     	
 	    Statement statement=c.createStatement();
-	    String ausgabe=("SELECT * FROM position");
+	    String ausgabe=("SELECT * FROM protokoll");
 	    ResultSet result=statement.executeQuery(ausgabe);
 	    while (result.next()) {
 	    	  System.out.println();
@@ -94,10 +105,10 @@ public void createtb(){
 		     
 		    Statement statement= null;
 		    statement = c.createStatement();
-		    String create="CREATE TABLE position(ID INTEGER PRIMARY KEY AUTOINCREMENT,"
-		    			+ "Spielstein varChar(30),"
-		    			+ "E1 INT, X1 INT, Y1 INT, "
-		    			+ "E2 INT, X2 INT, Y2 INT) ";
+		    String create="CREATE TABLE protokoll(ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+		    			+ "Spielstein varChar(10),"
+		    			+ "E1 char(1), X1 char(1), Y1 char(1), "
+		    			+ "E2 char(1), X2 char(1), Y2 char(1)) ";
 		    statement.executeUpdate(create);
 		    		    		  		    
 		    } 

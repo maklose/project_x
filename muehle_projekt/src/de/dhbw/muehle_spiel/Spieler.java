@@ -74,4 +74,14 @@ public void setAmZug(boolean amZug) {
 }
 
 
+
+
+public String SpielsteinFarbeAsString()
+{
+	if(this.Spielerfarbe == ESpielsteinFarbe.SCHWARZ)
+		return "Schwarz";
+	else
+	return "Weiss";
+}
+
 }
