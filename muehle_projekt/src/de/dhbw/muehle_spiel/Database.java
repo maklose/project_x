@@ -13,23 +13,68 @@ public class Database {
 	
 	public Database(){
 		try {
-			statement=c.createStatement();
+			
 			Class.forName(driver);
 			c= DriverManager.getConnection(url);
 		} catch (SQLException | ClassNotFoundException | NullPointerException e) {
 			
 			e.printStackTrace();
 		}
+		
+	}
+
+//Speichern der Anzahl der Spielzüge
+public void saveamountmove(Spieler spieler){
 	
+	int move=spieler.getAnzahlZuege();
+	String sql=("INSERT INTO highscores(Spielstein, Züge) VALUES()");
+	try {
+		statement=c.createStatement();
+		statement.executeQuery(sql);
+		  	
+		
+		
+	}catch (SQLException e) {
+		
+		e.printStackTrace();
 	}
 	
-//Löschen der Tabelle	
-public void deletetb(){
+}
+//Erzeugen der Tabelle highscore
+public void createh(){
+	 try {
+	    statement=c.createStatement();	     
+	    String create="CREATE TABLE highscore (ID INTEGER PRIMARY KEY AUTOINCREMENT, Spieler varChar(20), Züge INT)";
+	    statement.executeUpdate(create);
+	    System.out.println("Tabelle highscore wurde erzeugt");		    		  		    
+	    } 
+	    catch ( Exception e ) {
+	    	System.err.println(e.getMessage());
+	        System.exit(0);
+	    }
+}
+//Löschen der Tabelle highscore
+public void deleteh(){
+	
+	String delete=("DROP TABLE highscore");
+	try {
+		statement=c.createStatement();
+		statement.executeUpdate(delete);
+		System.out.println("Tabelle highscore wurde gelöscht");	
+	} catch (SQLException |NullPointerException e ) {		
+		e.printStackTrace();
+	}
+	
+	
+}	
+//Löschen der Tabelle protokoll	
+public void deletep(){
 	
 	String delete=("DROP TABLE protokoll");
 	try {
-		
+		statement=c.createStatement();
 		statement.executeUpdate(delete);
+		System.out.println("Tabelle protokoll wurde gelöscht");	
 	} catch (SQLException |NullPointerException e ) {		
 		e.printStackTrace();
 	}
@@ -56,6 +101,7 @@ public void valuetrans(Bewegung bewegung,Spieler spieler){
 				+ " VALUES("+farbe+","+vonEbene+","+vonX+","+vonY+","+nachEbene+","+nachX+","+nachY+")");
 						
 	try {
+		statement=c.createStatement();
     	statement.executeUpdate(update);
 	} catch (SQLException e) {
 		e.printStackTrace();
@@ -66,7 +112,7 @@ public void valuetrans(Bewegung bewegung,Spieler spieler){
 public void showdb(){
 	
     try {
-    	
+    	statement=c.createStatement();
 	    String ausgabe=("SELECT * FROM protokoll");
 	    ResultSet result=statement.executeQuery(ausgabe);
 	    while (result.next()) {
@@ -96,16 +142,16 @@ public void showdb(){
 }
 
 //Erzeugen der DB
-public void createtb(){
+public void createp(){
 		    
 		    try {
-		   		     
+		    	statement=c.createStatement();	     
 		    String create="CREATE TABLE protokoll(ID INTEGER PRIMARY KEY AUTOINCREMENT,"
 		    			+ "Spielstein varChar(10),"
 		    			+ "E1 char(1), X1 char(1), Y1 char(1), "
 		    			+ "E2 char(1), X2 char(1), Y2 char(1)) ";
 		    statement.executeUpdate(create);
-		    		    		  		    
+		    System.out.println("Tabelle protokoll wurde erzeugt");			    		  		    
 		    } 
 		    catch ( Exception e ) {
 		    	System.err.println(e.getMessage());
