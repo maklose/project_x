@@ -425,6 +425,7 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		Position PositionGeklickt = lButton.getPosition();
 		Bewegung neueBewegung = new Bewegung(null, PositionGeklickt);
 		System.out.println(neueBewegung);
+		Spieler1.setzeSpielstein(lButton.getPosition());
 			
 		//hier kann jetzt ein stein gesetzt werden
 	}
