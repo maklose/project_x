@@ -41,6 +41,11 @@ import de.dhbw.muehle_util.plugin.MyServiceLoader;
 
 public class Spielfeld2 extends JFrame implements ActionListener{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private JPanel contentPane;
 	
 	//Die Buttons werden initialisiert
@@ -97,7 +102,12 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		//hier wird das haupt-Panel erzeugt inc. Hintergrundbild
 		panel = new JPanel()
 		{  
-            public void paintComponent(Graphics g) 
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public void paintComponent(Graphics g) 
             {  
                 Image spielfeld = Toolkit.getDefaultToolkit().getImage(  
                           Spielfeld2.class.getResource("/de/dhbw/images/muehlespielfeld2.png"));  
