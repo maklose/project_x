@@ -96,6 +96,14 @@ public class Spielstein implements ISpielstein, IBewegung
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public boolean FarbVergleich(ESpielsteinFarbe b)
+	{
+		if(this.getSpielsteinfarbe() == b)
+			return true;
+		else
+			return false;
+	}
 
 	
 }

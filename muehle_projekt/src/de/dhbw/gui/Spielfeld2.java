@@ -25,6 +25,9 @@ import javax.swing.JLabel;
 
 
 
+
+
+
 import net.miginfocom.swing.MigLayout;
 
 import java.awt.GridLayout;
@@ -37,6 +40,7 @@ import de.dhbw.muehle_api.*;
 import de.dhbw.muehle_spiel.Bewegung;
 import de.dhbw.muehle_spiel.Pruefung;
 import de.dhbw.muehle_spiel.Spieler;
+import de.dhbw.muehle_spiel.Spielstein;
 import de.dhbw.muehle_util.plugin.MyServiceLoader;
 
 public class Spielfeld2 extends JFrame implements ActionListener{
@@ -60,6 +64,8 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 	Spieler Spieler1, Spieler2;
 	
 	JPanel panel;
+	
+	Spielstein[][][] SpielfeldArray;
 	
 
 	/**
@@ -99,6 +105,21 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
+		/*
+		 * Hier wird ein Array ertzuegt in dem alle Spielsteine auf dem Feld gespeichert werden
+		 */
+		SpielfeldArray = new Spielstein[3][3][3];
+		for(int i = 0; i <= 2; i++)
+        {
+        	for(int j = 0; j <= 2; j++)
+        	{
+        		for(int k = 0; k <= 2; k++)
+        		{
+        			SpielfeldArray[i][j][k] = null;    			
+        		}
+        	}
+        }
+		
 		//hier wird das haupt-Panel erzeugt inc. Hintergrundbild
 		panel = new JPanel()
 		{  
@@ -107,12 +128,63 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 			 */
 			private static final long serialVersionUID = 1L;
 
-			public void paintComponent(Graphics g) 
+			protected void paintComponent(Graphics g) 
             {  
+			
                 Image spielfeld = Toolkit.getDefaultToolkit().getImage(  
                           Spielfeld2.class.getResource("/de/dhbw/images/muehlespielfeld2.png"));  
                 g.drawImage(spielfeld, 0, 0, this.getWidth(), this.getHeight(), this);  
-            }  
+                
+                for(int i = 0; i <= 2; i++)
+                {
+                	for(int j = 0; j <= 2; j++)
+                	{
+                		for(int k = 0; k <= 2; k++)
+                		{
+                			if(SpielfeldArray[i][j][k] != null)
+                			{
+	                			Spielstein aktuellerStein = SpielfeldArray[i][j][k];
+	                			if(aktuellerStein.FarbVergleich(ESpielsteinFarbe.WEISS))
+	                			{
+	                				/*
+	                				 * hier läuft das ab wenn auf einem Spielfeld ein weißer stein steht 
+	                				 */
+	                				
+	                				//das Bild für den weißen Stein wird geladen
+	                				Image SteinWeiss = Toolkit.getDefaultToolkit().getImage(  
+	                		                Spielfeld2.class.getResource("/de/dhbw/images/Spielstein hell.png"));
+	                				
+	                				//hier wird das Verhältnis festgelet, in dem die Steine zum Spielfeld stehen (größe)
+	                				int breite = (int) ((int)spielfeld.getWidth(this)/10);
+	                				int hoehe = (int) ((int)spielfeld.getHeight(this)/10);
+	                				
+	                				
+	                				g.drawImage(SteinWeiss,  50, 50, breite, hoehe, this);
+	                				
+	                				
+	                			}
+	                			else 
+	                			{
+	                				Image SteinSchwarz = Toolkit.getDefaultToolkit().getImage(  
+	                                        Spielfeld2.class.getResource("/de/dhbw/images/Spielstein dunkel.png"));
+	                				g.drawImage(SteinSchwarz,  10, 10, this.getWidth(), this.getHeight(), this);
+	                			}
+	                			
+                			}
+                			else
+                			{
+                				
+                			}
+                			
+                		}
+                	}
+                }
+            }
+
+			private void SteinZeichnen(ESpielsteinFarbe weiss) {
+				// TODO Auto-generated method stub
+				
+			}  
 		};  
 		
 		//Hintergrund
@@ -417,18 +489,29 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 	}
 	
 	/*
-	 * wenn ein Knopf gedrückt wurde wird diese aktions ausgeführt
+	 * wenn ein Knopf gedrückt wurde wird diese aktion ausgeführt
 	 */
 	
 	public void aktion(TransparentButtonFeld lButton)
 	{
 		Position PositionGeklickt = lButton.getPosition();
 		Bewegung neueBewegung = new Bewegung(null, PositionGeklickt);
-		System.out.println(neueBewegung);
-		Spieler1.setzeSpielstein(lButton.getPosition());
-			
-		//hier kann jetzt ein stein gesetzt werden
+		this.SpielsteinSetzen(neueBewegung);
+		
+		this.repaint();
+		
+		
 	}
+	
+	public void SpielsteinSetzen(Bewegung neueBewegung)
+	{
+		System.out.println(neueBewegung);
+		Spieler1.setzeSpielstein(neueBewegung.getNach());
+		Spielstein test = new Spielstein(ESpielsteinFarbe.WEISS, neueBewegung.getNach());
+		SpielfeldArray[1][1][1] = test;
+	}
+	
+
 		
 }
 
