@@ -1,5 +1,6 @@
 package de.dhbw.muehle_spiel;
 
+import de.dhbw.muehle_api.EPositionIndex;
 import de.dhbw.muehle_api.Position;
 
 public class Pruefung {
@@ -82,12 +83,14 @@ public class Pruefung {
 		
 	}
 	
-	//Überprüft, ob ein Stein auf dem Spielfeld weggenommen werden darf
+	//Überprüft, ob sich ein Stein auf dem Spielfeld in einer Mühle befindet
 	public boolean checkInMuehle(int IndexStein, Spielstein[] Steine){
 		
-		boolean korrekt = false;
+		boolean inMuehle = false;
+		int aenderung;
+		int zaehler = 0;
 		
-		int[][] Positionen = new int[8][2];
+		int[][] Positionen = new int[9][3];
 		
 		// Ablegen der Positionen aller Steine eines Spielers in einem Array
 		for (int i = 0; i < 9; i++){
@@ -95,6 +98,100 @@ public class Pruefung {
 			Positionen[i][1]= Steine[i].getPosition().getX().getValue();
 			Positionen[i][2]= Steine[i].getPosition().getY().getValue();		
 			}
-		return korrekt;
+		
+		for (int i =0; i <9; i++){
+			
+			aenderung = 0;
+			
+			//Verändert sich ein Positionsindex eines Steins um 1 im Vergleich mit dem betrachteten Stein(IndexStein) wird aenderung um 1 erhöht
+			//Ist aenderung == 1 wird zaehler um 1 erhöht
+			//Ist zaehler == 2 befindet sich der betrachtete Stein in einer Mühle
+			
+//			if(Positionen[i][0] - Positionen[IndexStein][0] == 1 || Positionen[i][0] - Positionen[IndexStein][0] == -1 )
+//				aenderung ++;
+//			if(Positionen[i][1] - Positionen[IndexStein][1] == 1 || Positionen[i][1] - Positionen[IndexStein][1] == -1)
+//				aenderung++;
+//			if(Positionen[i][2] - Positionen[IndexStein][2] == 1 || Positionen[i][2] - Positionen[IndexStein][2] == -1)
+//				aenderung++;
+			
+			aenderung += Math.abs(Positionen[i][0] - Positionen[IndexStein][0]);
+			aenderung += Math.abs(Positionen[i][1] - Positionen[IndexStein][1]);
+			aenderung += Math.abs(Positionen[i][2] - Positionen[IndexStein][2]);				
+			
+			if(aenderung == 1){
+			zaehler ++;
+			}
+			
+		}	
+		
+		// Ausschliesen der 4 Sonderfälle, bei denen sich der Index um 1 verändert, der Stein jedoch nicht in einer Mühle steht
+		//Sonderfälle: 1,1,3 - 2,1,3 - 3,1,3 ; 1,3,3 - 2,3,3 - 3,3,3 ; 1,3,1 - 2,3,1 - 3,3,1 ; 1,1,1 - 2,1,1 - 3,1,1		
+		
+		Position[] pos = new Position[12];
+		pos[0] = new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Drei);
+		pos[1] = new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Drei);
+		pos[2] = new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Drei);
+		pos[3] = new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Drei);
+		pos[4] = new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Drei);
+		pos[5] = new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Drei);
+		pos[6] = new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Eins);
+		pos[7] = new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Eins);
+		pos[8] = new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Eins);
+		pos[9] = new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Eins);
+		pos[10] = new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Eins);
+		pos[11] = new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Eins);
+		
+		int anzahl1 = 0;
+		int anzahl2 = 0;
+		int anzahl3 = 0;
+		int anzahl4 = 0;
+		
+		for(int j = 0; j <9 ; j++){
+			if(Steine[j].equals(pos[0]))
+				anzahl1++;
+			if(Steine[j].equals(pos[1]))
+				anzahl1++;
+			if(Steine[j].equals(pos[2]))
+				anzahl1++;
+			if(Steine[j].equals(pos[3]))
+				anzahl2++;
+			if(Steine[j].equals(pos[4]))
+				anzahl2++;
+			if(Steine[j].equals(pos[5]))
+				anzahl2++;
+			if(Steine[j].equals(pos[6]))
+				anzahl3++;
+			if(Steine[j].equals(pos[7]))
+				anzahl3++;
+			if(Steine[j].equals(pos[8]))
+				anzahl3++;
+			if(Steine[j].equals(pos[9]))
+				anzahl3++;
+			if(Steine[j].equals(pos[10]))
+				anzahl4++;
+			if(Steine[j].equals(pos[11]))
+				anzahl4++;
+		}
+			
+		//Wenn anzahl1/2/3/4 == 3 ist Fall vorhanden und zaehler wird um 2 vermindert
+		if(anzahl1 == 3)
+			zaehler = zaehler - 2;
+		if(anzahl2 == 3)
+			zaehler = zaehler - 2;
+		if(anzahl3 == 3)
+			zaehler = zaehler - 2;
+		if(anzahl4 == 3)
+			zaehler = zaehler - 2;
+		
+		if(zaehler == 2 || zaehler == 4){
+				inMuehle = true;
+			}
+			
+			// Ausschliesen der 4 Sonderfälle, bei denen sich der Index um 1 verändert, der Stein jedoch nicht in einer Mühle steht
+			//Sonderfälle: 1,1,3 - 2,1,3 - 3,1,3 ; 1,3,3 - 2,3,3 - 3,3,3 ; 1,3,1 - 2,3,1 - 3,3,1 ; 1,1,1 - 2,1,1 - 3,1,1		
+			
+			
+		
+		return inMuehle;
 	}
 }
