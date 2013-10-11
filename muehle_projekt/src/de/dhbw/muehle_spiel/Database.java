@@ -9,11 +9,14 @@ public class Database {
 	String url="jdbc:sqlite:database.db";
 	Connection c;
 	String driver="org.sqlite.JDBC";
+	Statement statement=null;
+	
 	public Database(){
 		try {
+			statement=c.createStatement();
 			Class.forName(driver);
 			c= DriverManager.getConnection(url);
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | ClassNotFoundException | NullPointerException e) {
 			
 			e.printStackTrace();
 		}
@@ -25,9 +28,9 @@ public void deletetb(){
 	
 	String delete=("DROP TABLE protokoll");
 	try {
-		Statement statement=c.createStatement();
+		
 		statement.executeUpdate(delete);
-	} catch (SQLException e) {		
+	} catch (SQLException |NullPointerException e ) {		
 		e.printStackTrace();
 	}
 	
@@ -44,7 +47,7 @@ public void valuetrans(Bewegung bewegung,Spieler spieler){
 	    String farbe=spieler.SpielsteinFarbeAsString();
 		vonEbene = bewegung.getVon().getEbene().toString();
 		vonX = bewegung.getVon().getX().toString();
-		vonY = bewegung.getVon().getX().toString();
+		vonY = bewegung.getVon().getY().toString();
 		nachEbene= bewegung.getNach().getEbene().toString();
 		nachX = bewegung.getNach().getX().toString();
 		nachY = bewegung.getNach().getY().toString();
@@ -52,10 +55,8 @@ public void valuetrans(Bewegung bewegung,Spieler spieler){
 	String update=("INSERT INTO protokoll (Spielstein,E1,X1,Y1,E2,X2,Y2)"
 				+ " VALUES("+farbe+","+vonEbene+","+vonX+","+vonY+","+nachEbene+","+nachX+","+nachY+")");
 						
-	//String update=("INSERT INTO position (Spielstein,E1,X1,Y1,E2,X2,Y2) VALUES('Weiﬂ',5,5,5,6,6,6)");
-    try {
-    	Statement statement=c.createStatement();
-		statement.executeUpdate(update);
+	try {
+    	statement.executeUpdate(update);
 	} catch (SQLException e) {
 		e.printStackTrace();
 	}
@@ -66,7 +67,6 @@ public void showdb(){
 	
     try {
     	
-	    Statement statement=c.createStatement();
 	    String ausgabe=("SELECT * FROM protokoll");
 	    ResultSet result=statement.executeQuery(ausgabe);
 	    while (result.next()) {
@@ -100,8 +100,6 @@ public void createtb(){
 		    
 		    try {
 		   		     
-		    Statement statement= null;
-		    statement = c.createStatement();
 		    String create="CREATE TABLE protokoll(ID INTEGER PRIMARY KEY AUTOINCREMENT,"
 		    			+ "Spielstein varChar(10),"
 		    			+ "E1 char(1), X1 char(1), Y1 char(1), "
