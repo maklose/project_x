@@ -1,58 +1,45 @@
 package de.dhbw.muehle_spiel;
 
 import de.dhbw.muehle_api.ESpielsteinFarbe;
+import de.dhbw.muehle_api.Position;
+import de.dhbw.muehle_spiel.Spieler;
+import de.dhbw.muehle_spiel.EPhase;
 
 public class SpielController {
 	
-	public Spieler aktuellerSpieler;
+	Spieler aktuellerSpieler;
+	Spieler Spieler1;
+	Spieler Spieler2;
 	
-	int i=1;
-	
-	
-	
-	/*  Dieser Code in der GUI, um die Spieler zu erzeugen
-	*   Spieler Spieler1 = new Spieler(ESpielsteinFarbe.SCHWARZ);
-	*   Spieler Spieler2 = new Spieler(ESpielsteinFarbe.WEISS);
-    **/
-	
-	//TO DO: hol die 2 variablen Spieler 1 und 2
+	//TO DO  Brauch ich einen Konstuktor? 
 	
 	
-	do {
-		if ((i%2)==1) { 
-			aktuellerSpieler = Spieler1; 
-			Ephase phase= new Ephase.getPhase();
-			//Spiel_beendet();
-		}
+	//TO DO: hol die 2 Objekte Spieler 1 und 2.. Aber wie?
+	
+	for (int i=1;;i++){
+	
+	if ((i%2)==1) {aktuellerSpieler=Spieler1; }
+	else {aktuellerSpieler=Spieler2; }
 		
-		else { 
-			aktuellerSpieler=Spieler2;
-		    Spieler2.getPhase(); 
-		  //Spiel_beendet();
-		    }
-		
-		i++;
-	   }
-	while (Spiel_beendet==false());
-		
-			
-			
-			
-			
-			
 		
 	
-	
-	
-	//Phase3: Einer oder beide Spieler haben 3 Steine(Unterscheidung?)
-	
-	
-	
-	/* In dieser Klasse werden nicht die Spieler erzeugt, das passiert alles in der GUI
-	 * Hier wird lediglich gesteuert welcher Spieler im Moment dran ist 
-	 * und in welcher Phase sich die einzelnen Spieler befinden...
-	 * */
-	
-	
-	
+		aktuellerSpieler.setAmZug(true); 
+		EPhase aktuellePhase= aktuellerSpieler.getPhase();
+		
+		/* Brauch ich diesen Code?
+		 * if (aktuellePhase==EPhase.Setzen){ aktuellerSpieler.setzeSpielstein(lPos);}
+		*else if(aktuellePhase==EPhase.Schieben){}
+		*else if (aktuellePhase==EPhase.Springen){}
+		**/
+		
+		//TO DO: Prüfe ob eine Mühle entstanden ist, wenn ja dann nimm einen Stein weg
+	 // TO DO:Prüfe ob das Spiel beendet ist.
+		
+		aktuellerSpieler.setAmZug(false);
+	}	
+	  
+		
+			
+			
 }
+			
