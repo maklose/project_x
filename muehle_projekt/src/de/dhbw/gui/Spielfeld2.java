@@ -28,6 +28,7 @@ import javax.swing.JLabel;
 
 
 
+
 import net.miginfocom.swing.MigLayout;
 
 import java.awt.GridLayout;
@@ -42,6 +43,11 @@ import de.dhbw.muehle_spiel.Pruefung;
 import de.dhbw.muehle_spiel.Spieler;
 import de.dhbw.muehle_spiel.Spielstein;
 import de.dhbw.muehle_util.plugin.MyServiceLoader;
+
+import javax.swing.JDialog;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class Spielfeld2 extends JFrame implements ActionListener{
 
@@ -66,6 +72,11 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 	JPanel panel;
 	
 	Spielstein[][][] SpielfeldArray;
+	private JMenuBar menuBar;
+	private JMenu mnNewMenu;
+	private JMenuItem mntmSpielBeenden;
+	private JMenuItem mntmNeuesSpiel;
+	private JMenuItem mntmAnleitung;
 	
 
 	/**
@@ -100,6 +111,39 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 			
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 450);
+		
+		menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		mnNewMenu = new JMenu("Men\u00FC");
+		menuBar.add(mnNewMenu);
+		
+		mntmSpielBeenden = new JMenuItem("Spiel beenden");
+		mntmSpielBeenden.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		mnNewMenu.add(mntmSpielBeenden);
+		
+		mntmNeuesSpiel = new JMenuItem("neues Spiel");
+		mntmNeuesSpiel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				JFrame neuesSpiel = new Spielfeld2();
+				neuesSpiel.setVisible(true);
+			}
+		});
+		mnNewMenu.add(mntmNeuesSpiel);
+		
+		mntmAnleitung = new JMenuItem("Anleitung");
+		mntmAnleitung.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JDialog anleitung = new DialogAnleitung2();
+				anleitung.show(true);
+			}
+		});
+		mnNewMenu.add(mntmAnleitung);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
