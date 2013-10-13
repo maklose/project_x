@@ -117,6 +117,7 @@ public class Empfangsgui2 extends JFrame {
 		btn_exit.setForeground(Color.BLACK);
 		btn_exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				JDialog frageBeenden = new BestaetigungBeenden ();
 				dispose();
 			}
 		});

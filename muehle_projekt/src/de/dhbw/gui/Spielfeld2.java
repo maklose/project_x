@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 
 import javax.swing.JLabel;
+import de.dhbw.gui.BestaetigungBeenden;
 
 
 
@@ -121,6 +122,7 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		mntmSpielBeenden = new JMenuItem("Spiel beenden");
 		mntmSpielBeenden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//JDialog frageBeenden = new BestaetigungBeenden();
 				dispose();
 			}
 		});
