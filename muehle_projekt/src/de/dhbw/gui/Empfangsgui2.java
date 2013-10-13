@@ -103,6 +103,12 @@ public class Empfangsgui2 extends JFrame {
 		panel.add(label_8);
 		
 		TransparentButton2 btn_start = new TransparentButton2("START");
+		btn_start.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame neuesSpiel = new Spielfeld2();
+				neuesSpiel.setVisible(true);
+			}
+		});
 		btn_start.setForeground(Color.BLACK);
 		btn_start.setBackground(new Color(245, 222, 179));
 		panel.add(btn_start);
