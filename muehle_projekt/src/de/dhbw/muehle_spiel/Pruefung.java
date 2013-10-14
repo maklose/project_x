@@ -5,7 +5,40 @@ import de.dhbw.muehle_api.Position;
 
 public class Pruefung {
 
+	// Überprüft, ob das Setzen eines Steins regelkonform ist
+	public boolean checkSetzen (Position position, Spieler SpielerAktiv, Spieler SpielerPassiv ){
+		
+		boolean korrekt = false;
+		
+		Spielstein[] SteineSpieler1 = SpielerAktiv.Steine;
+		Spielstein[] SteineSpieler2 = SpielerPassiv.Steine;
+		
+		
+		//Überprüfung, ob die Position bereits belegt ist
+				for (int i = 0; i<9; i++)
+				{
+					if(SteineSpieler1[i].getAktuellePosition() != position ){
+					korrekt = true;
+					}
+					
+					else{
+					return false;
+					}
+					
+					if(SteineSpieler2[i].getAktuellePosition() != position ){
+					korrekt = true;
+					}
+					else{
+					return false;
+					}
+				
+				}
+		
+		return korrekt;
+	}
+	
 	// Überprüft, ob ein Spielzug regelkonform ist
+	// gibt true zurück, wenn der Zug korrekt ist
 	public boolean checkZug (Bewegung bewegung, Spieler SpielerAktiv, Spieler SpielerPassiv ){
 	
 	Spielstein[] SteineSpieler1 = SpielerAktiv.Steine;
@@ -84,7 +117,9 @@ public class Pruefung {
 	}
 	
 	//Überprüft, ob sich ein Stein auf dem Spielfeld in einer Mühle befindet
-	public boolean checkInMuehle(int IndexStein, Spielstein[] Steine){
+	// Gibt true zurück, wenn sich der abgefragte Stein(int IndexStein) in einer Mühle befindet
+	public boolean checkInMuehle(int IndexStein, Spielstein[] Steine){ 
+
 		
 		boolean inMuehle = false;
 		int aenderung;
@@ -194,4 +229,8 @@ public class Pruefung {
 		
 		return inMuehle;
 	}
+
+	
+	
 }
+

@@ -22,6 +22,7 @@ public Spieler (ESpielsteinFarbe lSpielerfarbe)
 	AnzahlSteine =0;
 }
 
+//Liefert die Phase, in der sich ein Spieler befindet
 public EPhase getPhase(){
 	if (AnzahlZuege < 9)
 		Phase = EPhase.Setzen;
@@ -33,6 +34,7 @@ public EPhase getPhase(){
 	return Phase;	
 }
 
+// Erzeugt einen neuen Spielstein, solange AnzahlZuege <9
 public void setzeSpielstein(Position lPosition) {
 	if (AnzahlZuege <= 9){
 	Steine[AnzahlSteine]= new Spielstein(Spielerfarbe, lPosition );
@@ -41,15 +43,31 @@ public void setzeSpielstein(Position lPosition) {
 	}
 }
 
+//Ändert die Position eines Spielsteins
 public void bewegeSpielstein(Bewegung bewegung, int IndexStein) {
-    if (AnzahlZuege > 9){
-	Steine[IndexStein].bewegen(bewegung);
-	AnzahlZuege ++;
+	// TODO: Prüfung einbauen
+	Pruefung pruef = new Pruefung();
+	
+	boolean Zugkorrekt = false;
+	
+	if( Zugkorrekt == true){
+		if (AnzahlZuege > 9){
+				Steine[IndexStein].bewegen(bewegung);
+				AnzahlZuege ++;
+		}
     }
 }
 
+
 public void entferneSpielstein(int IndexStein){
-	Steine[IndexStein] = null;
+	
+	Pruefung pruef = new Pruefung();
+	
+	boolean inMuehle = pruef.checkInMuehle(IndexStein, Steine);
+	
+	if(inMuehle == true){
+		Steine[IndexStein] = null;
+	}
 }
 
 public int getAnzahlZuege() {
