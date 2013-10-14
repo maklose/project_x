@@ -32,8 +32,8 @@ public class SpielController {
 		*else if (aktuellePhase==EPhase.Springen){}
 		**/
 		
-		//TO DO: PrÃ¼fe ob eine MÃ¼hle entstanden ist, wenn ja dann nimm einen Stein weg
-	 // TO DO:PrÃ¼fe ob das Spiel beendet ist.
+		//TO DO: Prüe ob eine Mühle entstanden ist, wenn ja dann nimm einen Stein weg
+	 // TO DO:Prüfe ob das Spiel beendet ist.
 		
 		aktuellerSpieler.setAmZug(false);
 	}	

@@ -16,7 +16,7 @@ public class Database {
 			
 			Class.forName(driver);
 			c= DriverManager.getConnection(url);
-		} catch (SQLException | ClassNotFoundException | NullPointerException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			
 			e.printStackTrace();
 		}
@@ -24,13 +24,13 @@ public class Database {
 	}
 
 //Speichern der Anzahl der Spielzüge
-public void saveamountmove(Spieler spieler){
+public void anzahlzuegespeichern(Spieler spieler){
 	
-	int move=spieler.getAnzahlZuege();
-	String sql=("INSERT INTO highscores(Spielstein, Züge) VALUES()");
+	int zuege=spieler.getAnzahlZuege();
+	//String sql=("INSERT INTO highscores(Spieler, Züge) VALUES("+Spielername+","+zuege+")");
 	try {
 		statement=c.createStatement();
-		statement.executeQuery(sql);
+		//statement.executeQuery(sql);
 		  	
 		
 		
@@ -41,7 +41,7 @@ public void saveamountmove(Spieler spieler){
 	
 }
 //Erzeugen der Tabelle highscore
-public void createh(){
+public void erzeuge_h(){
 	 try {
 	    statement=c.createStatement();	     
 	    String create="CREATE TABLE highscore (ID INTEGER PRIMARY KEY AUTOINCREMENT, Spieler varChar(20), Züge INT)";
@@ -54,37 +54,23 @@ public void createh(){
 	    }
 }
 //Löschen der Tabelle highscore
-public void deleteh(){
+public void lösche_h(){
 	
 	String delete=("DROP TABLE highscore");
 	try {
 		statement=c.createStatement();
 		statement.executeUpdate(delete);
 		System.out.println("Tabelle highscore wurde gelöscht");	
-	} catch (SQLException |NullPointerException e ) {		
+	} catch (SQLException e ) {		
 		e.printStackTrace();
 	}
 	
 	
 }	
-//Löschen der Tabelle protokoll	
-public void deletep(){
-	
-	String delete=("DROP TABLE protokoll");
-	try {
-		statement=c.createStatement();
-		statement.executeUpdate(delete);
-		System.out.println("Tabelle protokoll wurde gelöscht");	
-	} catch (SQLException |NullPointerException e ) {		
-		e.printStackTrace();
-	}
-	
-	
-}
 
 
 //Übergabe der Position an DB
-public void valuetrans(Bewegung bewegung,Spieler spieler){
+public void zugspeichern(Bewegung bewegung,Spieler spieler){
 	
 	String vonEbene, vonX, vonY, nachEbene, nachX, nachY;
 	// Ablegen der Positionsindexe & Spielsteinfarbe in einer String-Variablen
@@ -109,7 +95,7 @@ public void valuetrans(Bewegung bewegung,Spieler spieler){
 }
 
 //Ausgabe der DB
-public void showdb(){
+public void zeige_p(){
 	
     try {
     	statement=c.createStatement();
@@ -142,7 +128,7 @@ public void showdb(){
 }
 
 //Erzeugen der DB
-public void createp(){
+public void erzeuge_p(){
 		    
 		    try {
 		    	statement=c.createStatement();	     
@@ -160,7 +146,22 @@ public void createp(){
 		    
 		    
 		    
+}
+
+//Löschen der Tabelle protokoll	
+public void lösche_p(){
+	
+	String delete=("DROP TABLE protokoll");
+	try {
+		statement=c.createStatement();
+		statement.executeUpdate(delete);
+		System.out.println("Tabelle protokoll wurde gelöscht");	
+	} catch (SQLException |NullPointerException e ) {		
+		e.printStackTrace();
 	}
+	
+	
+}
 }
 
 
