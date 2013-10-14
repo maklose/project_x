@@ -49,6 +49,7 @@ import javax.swing.JDialog;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JSplitPane;
 
 public class Spielfeld2 extends JFrame implements ActionListener{
 
@@ -78,6 +79,9 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 	private JMenuItem mntmSpielBeenden;
 	private JMenuItem mntmNeuesSpiel;
 	private JMenuItem mntmAnleitung;
+	private JPanel panel_1;
+	private JLabel lblNewLabel_4;
+	private JLabel lblNewLabel_5;
 	
 
 	/**
@@ -111,7 +115,7 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 	{
 			
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 450);
+		setBounds(100, 100, 537, 450);
 		
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -413,6 +417,15 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		btnNewButton_49 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Eins));
 		btnNewButton_49.addActionListener(this);
 		panel.add(btnNewButton_49);
+		
+		panel_1 = new JPanel();
+		contentPane.add(panel_1, BorderLayout.EAST);
+		
+		lblNewLabel_4 = new JLabel("New label");
+		panel_1.add(lblNewLabel_4);
+		
+		lblNewLabel_5 = new JLabel("New label");
+		panel_1.add(lblNewLabel_5);
 		
 		
 		/*
