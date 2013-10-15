@@ -9,23 +9,22 @@ public class Pruefung {
 	public boolean checkSetzen (Position position, Spieler SpielerAktiv, Spieler SpielerPassiv ){
 		
 		boolean korrekt = false;
-		
-		Spielstein[] SteineSpieler1 = SpielerAktiv.Steine;
-		Spielstein[] SteineSpieler2 = SpielerPassiv.Steine;
-		
-		
+				
 		//Überprüfung, ob die Position bereits belegt ist
-				for (int i = 0; i<9; i++)
+				for (int i = 0; i< SpielerAktiv.getAnzahlZuege(); i++)
 				{
-					if(SteineSpieler1[i].getAktuellePosition() != position ){
+					if(SpielerAktiv.Steine[i].getAktuellePosition().equals(position) == false ){
 					korrekt = true;
 					}
 					
 					else{
 					return false;
 					}
-					
-					if(SteineSpieler2[i].getAktuellePosition() != position ){
+				}
+				
+				for (int i = 0; i< SpielerPassiv.getAnzahlZuege(); i++)
+				{
+					if(SpielerPassiv.Steine[i].getAktuellePosition().equals(position)  == false){
 					korrekt = true;
 					}
 					else{
@@ -41,10 +40,7 @@ public class Pruefung {
 	// gibt true zurück, wenn der Zug korrekt ist
 	public boolean checkZug (Bewegung bewegung, Spieler SpielerAktiv, Spieler SpielerPassiv ){
 	
-	Spielstein[] SteineSpieler1 = SpielerAktiv.Steine;
-	Spielstein[] SteineSpieler2 = SpielerPassiv.Steine;
-	
-	
+		
 	boolean korrekt = false;
 	int aenderung = 0;
 	int vonEbene, vonX, vonY, nachEbene, nachX, nachY;
@@ -95,7 +91,7 @@ public class Pruefung {
 		//Überprüfung, ob die Nach-Position bereits belegt ist
 		for (int i = 0; i<9; i++)
 		{
-			if(SteineSpieler1[i].getAktuellePosition() != bewegung.getNach() ){
+			if(SpielerAktiv.Steine[i].getAktuellePosition().equals(bewegung.getNach()) == false ){
 			korrekt = true;
 			}
 			
@@ -103,7 +99,7 @@ public class Pruefung {
 			return false;
 			}
 			
-			if(SteineSpieler2[i].getAktuellePosition() != bewegung.getNach() ){
+			if(SpielerPassiv.Steine[i].getAktuellePosition().equals(bewegung.getNach()) == false){
 			korrekt = true;
 			}
 			else{
@@ -129,9 +125,9 @@ public class Pruefung {
 		
 		// Ablegen der Positionen aller Steine eines Spielers in einem Array
 		for (int i = 0; i < 9; i++){
-			Positionen[i][0]= Steine[i].getPosition().getEbene().getValue();
-			Positionen[i][1]= Steine[i].getPosition().getX().getValue();
-			Positionen[i][2]= Steine[i].getPosition().getY().getValue();		
+			Positionen[i][0]= Steine[i].getAktuellePosition().getEbene().getValue();
+			Positionen[i][1]= Steine[i].getAktuellePosition().getX().getValue();
+			Positionen[i][2]= Steine[i].getAktuellePosition().getY().getValue();		
 			}
 		
 		for (int i =0; i <9; i++){
@@ -182,29 +178,29 @@ public class Pruefung {
 		int anzahl4 = 0;
 		
 		for(int j = 0; j <9 ; j++){
-			if(Steine[j].equals(pos[0]))
+			if(Steine[j].getAktuellePosition().equals(pos[0]))
 				anzahl1++;
-			if(Steine[j].equals(pos[1]))
+			if(Steine[j].getAktuellePosition().equals(pos[1]))
 				anzahl1++;
-			if(Steine[j].equals(pos[2]))
+			if(Steine[j].getAktuellePosition().equals(pos[2]))
 				anzahl1++;
-			if(Steine[j].equals(pos[3]))
+			if(Steine[j].getAktuellePosition().equals(pos[3]))
 				anzahl2++;
-			if(Steine[j].equals(pos[4]))
+			if(Steine[j].getAktuellePosition().equals(pos[4]))
 				anzahl2++;
-			if(Steine[j].equals(pos[5]))
+			if(Steine[j].getAktuellePosition().equals(pos[5]))
 				anzahl2++;
-			if(Steine[j].equals(pos[6]))
+			if(Steine[j].getAktuellePosition().equals(pos[6]))
 				anzahl3++;
-			if(Steine[j].equals(pos[7]))
+			if(Steine[j].getAktuellePosition().equals(pos[7]))
 				anzahl3++;
-			if(Steine[j].equals(pos[8]))
+			if(Steine[j].getAktuellePosition().equals(pos[8]))
 				anzahl3++;
-			if(Steine[j].equals(pos[9]))
+			if(Steine[j].getAktuellePosition().equals(pos[9]))
 				anzahl3++;
-			if(Steine[j].equals(pos[10]))
+			if(Steine[j].getAktuellePosition().equals(pos[10]))
 				anzahl4++;
-			if(Steine[j].equals(pos[11]))
+			if(Steine[j].getAktuellePosition().equals(pos[11]))
 				anzahl4++;
 		}
 			

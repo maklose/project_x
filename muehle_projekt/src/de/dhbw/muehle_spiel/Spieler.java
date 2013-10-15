@@ -66,7 +66,8 @@ public void entferneSpielstein(int IndexStein){
 	boolean inMuehle = pruef.checkInMuehle(IndexStein, Steine);
 	
 	if(inMuehle == true){
-		Steine[IndexStein] = null;
+		Steine[IndexStein].setAktuellePosition(null);
+		AnzahlSteine --;
 	}
 }
 
