@@ -45,30 +45,19 @@ public void setzeSpielstein(Position lPosition) {
 
 //Ändert die Position eines Spielsteins
 public void bewegeSpielstein(Bewegung bewegung, int IndexStein) {
-	// TODO: Prüfung einbauen
-	Pruefung pruef = new Pruefung();
 	
-	boolean Zugkorrekt = false;
-	
-	if( Zugkorrekt == true){
 		if (AnzahlZuege > 9){
 				Steine[IndexStein].bewegen(bewegung);
 				AnzahlZuege ++;
 		}
-    }
-}
+   }
 
 
 public void entferneSpielstein(int IndexStein){
 	
-	Pruefung pruef = new Pruefung();
-	
-	boolean inMuehle = pruef.checkInMuehle(IndexStein, Steine);
-	
-	if(inMuehle == true){
 		Steine[IndexStein].setAktuellePosition(null);
 		AnzahlSteine --;
-	}
+	
 }
 
 public int getAnzahlZuege() {
@@ -91,8 +80,6 @@ public boolean isAmZug() {
 public void setAmZug(boolean amZug) {
 	this.amZug = amZug;
 }
-
-
 
 
 public String SpielsteinFarbeAsString()

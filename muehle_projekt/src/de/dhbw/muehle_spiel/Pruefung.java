@@ -118,7 +118,7 @@ public class Pruefung {
 
 		
 		boolean inMuehle = false;
-		int aenderung;
+		int aenderung1, aenderung2, aenderung3;
 		int zaehler = 0;
 		
 		int[][] Positionen = new int[9][3];
@@ -132,7 +132,9 @@ public class Pruefung {
 		
 		for (int i =0; i <9; i++){
 			
-			aenderung = 0;
+			aenderung1 = 0;
+			aenderung2 = 0;
+			aenderung3 = 0;
 			
 			//Verändert sich ein Positionsindex eines Steins um 1 im Vergleich mit dem betrachteten Stein(IndexStein) wird aenderung um 1 erhöht
 			//Ist aenderung == 1 wird zaehler um 1 erhöht
@@ -145,12 +147,18 @@ public class Pruefung {
 //			if(Positionen[i][2] - Positionen[IndexStein][2] == 1 || Positionen[i][2] - Positionen[IndexStein][2] == -1)
 //				aenderung++;
 			
-			aenderung += Math.abs(Positionen[i][0] - Positionen[IndexStein][0]);
-			aenderung += Math.abs(Positionen[i][1] - Positionen[IndexStein][1]);
-			aenderung += Math.abs(Positionen[i][2] - Positionen[IndexStein][2]);				
+			aenderung1 = Math.abs(Positionen[i][0] - Positionen[IndexStein][0]);
+			aenderung2 = Math.abs(Positionen[i][1] - Positionen[IndexStein][1]);
+			aenderung3 = Math.abs(Positionen[i][2] - Positionen[IndexStein][2]);				
 			
-			if(aenderung == 1){
-			zaehler ++;
+			if(	(aenderung1 == 0 && aenderung2 == 0 && aenderung3 == 1)||
+				(aenderung1 == 0 && aenderung2 == 1 && aenderung3 == 0)||
+				(aenderung1 == 1 && aenderung2 == 0 && aenderung3 == 0)||
+				(aenderung1 == 0 && aenderung2 == 0 && aenderung3 == 2)||
+				(aenderung1 == 0 && aenderung2 == 2 && aenderung3 == 0)||
+				(aenderung1 == 2 && aenderung2 == 0 && aenderung3 == 0)){
+			
+				zaehler ++;
 			}
 			
 		}	

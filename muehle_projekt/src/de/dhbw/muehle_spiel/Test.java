@@ -42,6 +42,7 @@ public class Test {
 		//System.out.println(pruef.checkSetzen(pos, Spieler1, Spieler2));
 		
 		System.out.println(pruef.checkZug(new Bewegung(pos, pos1), Spieler1, Spieler2));
+		System.out.println(pruef.checkInMuehle(1, Spieler1.Steine));
 		
 	}
 }
