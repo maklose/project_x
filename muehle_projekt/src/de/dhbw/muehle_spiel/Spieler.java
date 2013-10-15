@@ -12,8 +12,6 @@ private EPhase Phase; //Spielphase, in der sich der Spieler befindet
 
 Spielstein[] Steine = new Spielstein[9]; //Array, in dem alle Spielsteine eines Spielers abgelegt werden
 
-private boolean amZug = false;
-
 //Konstruktor, Erzeugung eines neuen Spielers unter Angabe der Spielerfarbe
 public Spieler (ESpielsteinFarbe lSpielerfarbe)
 {
@@ -71,14 +69,6 @@ public int getAnzahlSteine() {
 	
 public ESpielsteinFarbe getSpielerfarbe() {
 	return Spielerfarbe;
-}
-
-public boolean isAmZug() {
-	return amZug;
-}
-
-public void setAmZug(boolean amZug) {
-	this.amZug = amZug;
 }
 
 
