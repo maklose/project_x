@@ -28,6 +28,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ComponentEvent;
+
 import javax.swing.ImageIcon;
 
 public class Empfangsgui2 extends JFrame {
@@ -156,8 +157,23 @@ public class Empfangsgui2 extends JFrame {
 		btn_exit.setForeground(Color.BLACK);
 		btn_exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JDialog frageBeenden = new BestaetigungBeenden ();
-				dispose();
+				BestaetigungBeenden frageBeenden = new BestaetigungBeenden();
+				frageBeenden.setListener( new BestaetigungBeenden.BestatigungsListener() {
+					
+					@Override
+					public void onOK() {
+						
+						Empfangsgui2.this.dispose();
+						//schlieﬂen
+					}
+					
+					@Override
+					public void onCancel() {
+						//schlieﬂen?	
+					}
+				});
+				frageBeenden.setVisible(true);
+				
 			}
 		});
 		btn_exit.setBackground(new Color(245, 222, 179));
