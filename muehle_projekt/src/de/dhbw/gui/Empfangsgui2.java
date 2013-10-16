@@ -56,7 +56,7 @@ public class Empfangsgui2 extends JFrame {
 	 */
 	public Empfangsgui2() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 726, 456);
 		
 		setResizable(false);
 		contentPane = new JPanel();
@@ -73,7 +73,7 @@ public class Empfangsgui2 extends JFrame {
 			          };  
 		panel.setBackground(new Color(255, 255, 255));
 		contentPane.add(panel, BorderLayout.CENTER);
-		panel.setLayout(new GridLayout(6, 8, 10, 10));
+		panel.setLayout(new GridLayout(8, 6, 10, 10));
 		
 		JLabel label = new JLabel("");
 		panel.add(label);
@@ -114,34 +114,11 @@ public class Empfangsgui2 extends JFrame {
 		JLabel label_12 = new JLabel("");
 		panel.add(label_12);
 		
-		TransparentButton2 btn_start = new TransparentButton2("START");
-		btn_start.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFrame neuesSpiel = new Spielfeld2();
-				neuesSpiel.setVisible(true);
-			}
-		});
-		btn_start.setForeground(Color.BLACK);
-		btn_start.setBackground(new Color(245, 222, 179));
-		panel.add(btn_start);
-		
 		JLabel label_13 = new JLabel("");
 		panel.add(label_13);
 		
 		JLabel label_14 = new JLabel("");
 		panel.add(label_14);
-		
-		JButton btn_optionen = new TransparentButton2 ("OPTIONEN");
-		btn_optionen.setForeground(Color.BLACK);
-		btn_optionen.setBackground(new Color(245, 222, 179));
-		btn_optionen.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
-			public void actionPerformed(ActionEvent e) {
-				JDialog auswahl = new DialogOptionen2 ();
-				auswahl.show(true);
-			}
-		});
-		panel.add(btn_optionen);
 		
 		JLabel label_15 = new JLabel("");
 		panel.add(label_15);
@@ -149,23 +126,28 @@ public class Empfangsgui2 extends JFrame {
 		JLabel label_16 = new JLabel("");
 		panel.add(label_16);
 		
-		JButton btn_anleitung = new TransparentButton2("New button");
-		btn_anleitung.setForeground(Color.BLACK);
-		btn_anleitung.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JDialog anleitung = new DialogAnleitung2();
-				anleitung.show(true);
-			}
-		});
-		btn_anleitung.setText("ANLEITUNG");
-		btn_anleitung.setBackground(new Color(245, 222, 179));
-		panel.add(btn_anleitung);
-		
 		JLabel label_17 = new JLabel("");
 		panel.add(label_17);
 		
 		JLabel label_18 = new JLabel("");
 		panel.add(label_18);
+		
+		TransparentButton2 btn_start = new TransparentButton2("START");
+		btn_start.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame neuesSpiel = new Spielfeld();
+				neuesSpiel.setVisible(true);
+			}
+		});
+		btn_start.setForeground(Color.BLACK);
+		btn_start.setBackground(new Color(245, 222, 179));
+		panel.add(btn_start);
+		
+		JLabel label_19 = new JLabel("");
+		panel.add(label_19);
+		
+		JLabel label_20 = new JLabel("");
+		panel.add(label_20);
 		
 		JButton btn_exit = new TransparentButton2("EXIT");
 		btn_exit.setForeground(Color.BLACK);
@@ -177,12 +159,6 @@ public class Empfangsgui2 extends JFrame {
 		});
 		btn_exit.setBackground(new Color(245, 222, 179));
 		panel.add(btn_exit);
-		
-		JLabel label_19 = new JLabel("");
-		panel.add(label_19);
-		
-		JLabel label_20 = new JLabel("");
-		panel.add(label_20);
 		
 		JLabel label_21 = new JLabel("");
 		panel.add(label_21);
@@ -208,14 +184,56 @@ public class Empfangsgui2 extends JFrame {
 		JLabel label_28 = new JLabel("");
 		panel.add(label_28);
 		
+		JButton btn_anleitung = new TransparentButton2("New button");
+		btn_anleitung.setForeground(Color.BLACK);
+		btn_anleitung.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JDialog anleitung = new DialogAnleitung2();
+				anleitung.show(true);
+			}
+		});
+		btn_anleitung.setText("ANLEITUNG");
+		btn_anleitung.setBackground(new Color(245, 222, 179));
+		panel.add(btn_anleitung);
+		
 		JLabel label_29 = new JLabel("");
 		panel.add(label_29);
 		
 		JLabel label_30 = new JLabel("");
 		panel.add(label_30);
 		
+		JButton btn_optionen = new TransparentButton2 ("OPTIONEN");
+		btn_optionen.setForeground(Color.BLACK);
+		btn_optionen.setBackground(new Color(245, 222, 179));
+		btn_optionen.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
+			public void actionPerformed(ActionEvent e) {
+				JDialog auswahl = new DialogOptionen2 ();
+				auswahl.show(true);
+			}
+		});
+		panel.add(btn_optionen);
+		
 		JLabel label_31 = new JLabel("");
 		panel.add(label_31);
+		
+		JLabel label_32 = new JLabel("");
+		panel.add(label_32);
+		
+		JLabel label_33 = new JLabel("");
+		panel.add(label_33);
+		
+		JLabel label_34 = new JLabel("");
+		panel.add(label_34);
+		
+		JLabel label_35 = new JLabel("");
+		panel.add(label_35);
+		
+		JLabel label_36 = new JLabel("");
+		panel.add(label_36);
+		
+		JLabel label_37 = new JLabel("");
+		panel.add(label_37);
 	}
 	
 	

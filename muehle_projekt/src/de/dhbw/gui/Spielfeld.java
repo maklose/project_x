@@ -38,7 +38,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JSplitPane;
 
-public class Spielfeld2 extends JFrame implements ActionListener{
+public class Spielfeld extends JFrame implements ActionListener{
 
 	/**
 	 * 
@@ -86,7 +86,7 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 			{
 				try 
 				{
-					Spielfeld2 frame = new Spielfeld2();
+					Spielfeld frame = new Spielfeld();
 					frame.setVisible(true);
 				} catch (Exception e) 
 				{
@@ -101,7 +101,7 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 	 * Das JPanel wird erzeugt
 	 * Die Buttons werden instanziiert und mit dem action listener verknüpft
 	 */
-	public Spielfeld2() 
+	public Spielfeld() 
 	{
 			
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -122,7 +122,7 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 					@Override
 					public void onOK() {
 						
-						Spielfeld2.this.dispose();
+						Spielfeld.this.dispose();
 						//schließen
 					}
 					
@@ -141,7 +141,7 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		mntmNeuesSpiel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				JFrame neuesSpiel = new Spielfeld2();
+				JFrame neuesSpiel = new Spielfeld();
 				neuesSpiel.setVisible(true);
 			}
 		});
@@ -187,7 +187,7 @@ public class Spielfeld2 extends JFrame implements ActionListener{
             {  
 			
                 Image spielfeld = Toolkit.getDefaultToolkit().getImage(  
-                          Spielfeld2.class.getResource("/de/dhbw/images/Spielbrett_GUI.png"));  
+                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUI.png"));  
                 g.drawImage(spielfeld, 0, 0, this.getWidth(), this.getHeight(), this);  
                 
                 for(int i = 0; i <= 2; i++)
@@ -207,7 +207,7 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 	                				
 	                				//das Bild für den weißen Stein wird geladen
 	                				Image SteinWeiss = Toolkit.getDefaultToolkit().getImage(  
-	                		                Spielfeld2.class.getResource("/de/dhbw/images/Spielstein hell.png"));
+	                		                Spielfeld.class.getResource("/de/dhbw/images/Spielstein hell.png"));
 	                				
 	                				//hier wird das Verhältnis festgelet, in dem die Steine zum Spielfeld stehen (größe)
 	                				int breite = (int) ((int)spielfeld.getWidth(this)/10);
@@ -224,7 +224,7 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 	                				 * hier läuft das ab wenn auf einem Spielfeld ein weißer stein steht 
 	                				 */
 	                				Image SteinSchwarz = Toolkit.getDefaultToolkit().getImage(  
-	                                        Spielfeld2.class.getResource("/de/dhbw/images/Spielstein dunkel.png"));
+	                                        Spielfeld.class.getResource("/de/dhbw/images/Spielstein dunkel.png"));
 	                				
 	                				//hier wird das Verhältnis festgelet, in dem die Steine zum Spielfeld stehen (größe)
 	                				int breite = (int) ((int)spielfeld.getWidth(this)/10);
