@@ -35,12 +35,14 @@ public class BestaetigungBeenden extends JDialog {
 	 * Create the dialog.
 	 */
 	public BestaetigungBeenden() {
+		//Fenster
 		setBounds(100, 100, 262, 122);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new GridLayout(1, 0, 0, 0));
 		{
+			//Textfeld
 			JPanel panel = new JPanel();
 			contentPanel.add(panel);
 		}
@@ -49,6 +51,7 @@ public class BestaetigungBeenden extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
+				//Button "OK"
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -63,6 +66,7 @@ public class BestaetigungBeenden extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
+				//Button "Cancel"
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
@@ -75,6 +79,7 @@ public class BestaetigungBeenden extends JDialog {
 		}
 	}
 	
+	//Listener
 	public void setListener(BestatigungsListener listener)
 	{
 		this.listener = listener;
