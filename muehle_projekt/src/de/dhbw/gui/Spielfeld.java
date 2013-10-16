@@ -56,7 +56,9 @@ public class Spielfeld extends JFrame implements ActionListener{
 							btnNewButton_41, btnNewButton_43, btnNewButton_46, btnNewButton_49;
 	
 	//Die Spieler werden initialisiert 
-	Spieler Spieler1, Spieler2;
+	Spieler Spieler1 = new Spieler(ESpielsteinFarbe.WEISS);
+	Spieler Spieler2 = new Spieler(ESpielsteinFarbe.SCHWARZ); 
+
 	
 	JPanel panel;
 	
@@ -106,7 +108,14 @@ public class Spielfeld extends JFrame implements ActionListener{
 	{
 			
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 537, 450);
+		setBounds(100, 100, 1074, 900);
+		
+		//das Bild für den weißen und schwarzen Stein wird geladen
+		final Image SteinWeiss = Toolkit.getDefaultToolkit().getImage(  
+                Spielfeld.class.getResource("/de/dhbw/images/Spielstein hell.png"));
+		final Image SteinSchwarz = Toolkit.getDefaultToolkit().getImage(  
+                Spielfeld.class.getResource("/de/dhbw/images/Spielstein dunkel.png"));
+		
 		
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -151,7 +160,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 		mntmAnleitung = new JMenuItem("Anleitung");
 		mntmAnleitung.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JDialog anleitung = new DialogAnleitung2();
+				JFrame anleitung = new Anleitung();
 				anleitung.show(true);
 			}
 		});
@@ -191,17 +200,15 @@ public class Spielfeld extends JFrame implements ActionListener{
 	                				/*
 	                				 * hier läuft das ab wenn auf einem Spielfeld ein weißer stein steht 
 	                				 */
-	                				
-	                				//das Bild für den weißen Stein wird geladen
-	                				Image SteinWeiss = Toolkit.getDefaultToolkit().getImage(  
-	                		                Spielfeld.class.getResource("/de/dhbw/images/Spielstein hell.png"));
+	                				int xPosi = aktuellerStein.getxPos();
+	                				int yPosi = aktuellerStein.getyPos();
 	                				
 	                				//hier wird das Verhältnis festgelet, in dem die Steine zum Spielfeld stehen (größe)
 	                				int breite = (int) ((int)spielfeld.getWidth(this)/10);
 	                				int hoehe = (int) ((int)spielfeld.getHeight(this)/10);
 	                				
 	                				
-	                				g.drawImage(SteinWeiss,  xPos , yPos , breite, hoehe, this);
+	                				g.drawImage(SteinWeiss,  xPosi , yPosi , breite, hoehe, this);
 	                				
 	                				
 	                			}
@@ -210,14 +217,16 @@ public class Spielfeld extends JFrame implements ActionListener{
 	                				/*
 	                				 * hier läuft das ab wenn auf einem Spielfeld ein weißer stein steht 
 	                				 */
-	                				Image SteinSchwarz = Toolkit.getDefaultToolkit().getImage(  
-	                                        Spielfeld.class.getResource("/de/dhbw/images/Spielstein dunkel.png"));
+	                				
+	                				int xPosi = aktuellerStein.getxPos();
+	                				int yPosi = aktuellerStein.getyPos();
+	                				
 	                				
 	                				//hier wird das Verhältnis festgelet, in dem die Steine zum Spielfeld stehen (größe)
 	                				int breite = (int) ((int)spielfeld.getWidth(this)/10);
 	                				int hoehe = (int) ((int)spielfeld.getHeight(this)/10);
 	                				
-	                				g.drawImage(SteinSchwarz,  xPos, yPos, breite, hoehe, this);
+	                				g.drawImage(SteinSchwarz,  xPosi, yPosi, breite, hoehe, this);
 	                			}
 	                			
                 			}
@@ -232,10 +241,6 @@ public class Spielfeld extends JFrame implements ActionListener{
             }
 
 
-			private void SteinZeichnen(ESpielsteinFarbe weiss) {
-				// TODO Auto-generated method stub
-				
-			}  
 		};  
 		
 		//Hintergrund
@@ -432,8 +437,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 		/*
 		 * Ab hier werden die Spieler erzuegt
 		 */
-		Spieler1 = new Spieler(ESpielsteinFarbe.WEISS);
-		Spieler2 = new Spieler(ESpielsteinFarbe.SCHWARZ);
+		
 		
 		 
 		
@@ -548,6 +552,22 @@ public class Spielfeld extends JFrame implements ActionListener{
 		}
 		System.out.println("Spieler1: " + Spieler1.getAnzahlZuege());
 		System.out.println("Spieler2: " + Spieler2.getAnzahlZuege());
+		System.out.println("------------------------------------");
+		for(int i = 0; i <= 2; i++)
+        {
+        	for(int j = 0; j <= 2; j++)
+        	{
+        		for(int k = 0; k <= 2; k++)
+        		{
+        			System.out.print(i);
+        			System.out.print(j);
+        			System.out.print(k);
+        			System.out.print(" : ");
+        			System.out.println(SpielfeldArray[i][j][k]);
+        		}
+        	}
+        }
+        		
 	}
 	
 	/*
