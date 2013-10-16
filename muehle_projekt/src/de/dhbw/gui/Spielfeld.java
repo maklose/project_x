@@ -77,6 +77,8 @@ public class Spielfeld extends JFrame implements ActionListener{
 	int zaehler1 = 1;
 	int zaehler2 = 0;
 	
+	Pruefung pruef = new Pruefung();
+	
 	/**
 	 * Hier wird das Spielfeld gestartet
 	 */
@@ -204,8 +206,8 @@ public class Spielfeld extends JFrame implements ActionListener{
 	                				int yPosi = aktuellerStein.getyPos();
 	                				
 	                				//hier wird das Verhältnis festgelet, in dem die Steine zum Spielfeld stehen (größe)
-	                				int breite = (int) ((int)spielfeld.getWidth(this)/10);
-	                				int hoehe = (int) ((int)spielfeld.getHeight(this)/10);
+	                				int breite = (int) ((int)spielfeld.getWidth(this)/5);
+	                				int hoehe = (int) ((int)spielfeld.getHeight(this)/5);
 	                				
 	                				
 	                				g.drawImage(SteinWeiss,  xPosi , yPosi , breite, hoehe, this);
@@ -223,8 +225,8 @@ public class Spielfeld extends JFrame implements ActionListener{
 	                				
 	                				
 	                				//hier wird das Verhältnis festgelet, in dem die Steine zum Spielfeld stehen (größe)
-	                				int breite = (int) ((int)spielfeld.getWidth(this)/10);
-	                				int hoehe = (int) ((int)spielfeld.getHeight(this)/10);
+	                				int breite = (int) ((int)spielfeld.getWidth(this)/5);
+	                				int hoehe = (int) ((int)spielfeld.getHeight(this)/5);
 	                				
 	                				g.drawImage(SteinSchwarz,  xPosi, yPosi, breite, hoehe, this);
 	                			}
@@ -552,21 +554,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 		}
 		System.out.println("Spieler1: " + Spieler1.getAnzahlZuege());
 		System.out.println("Spieler2: " + Spieler2.getAnzahlZuege());
-		System.out.println("------------------------------------");
-		for(int i = 0; i <= 2; i++)
-        {
-        	for(int j = 0; j <= 2; j++)
-        	{
-        		for(int k = 0; k <= 2; k++)
-        		{
-        			System.out.print(i);
-        			System.out.print(j);
-        			System.out.print(k);
-        			System.out.print(" : ");
-        			System.out.println(SpielfeldArray[i][j][k]);
-        		}
-        	}
-        }
+		
         		
 	}
 	
@@ -578,6 +566,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 	{
 		while(!this.SpielBeendet())
 		{
+			//erste Phase wenn noch nicht alle Steine gesetzt wurden
 			while(Spieler2.getAnzahlZuege() <= 9)
 			{
 				
@@ -602,8 +591,14 @@ public class Spielfeld extends JFrame implements ActionListener{
 					//neue Bewegung erstellen
 					Bewegung neueBewegung = new Bewegung(null, PositionGeklickt);
 					
+					if(pruef.checkSetzen(PositionGeklickt, Spieler1, Spieler2) == true)
+					{	
+						this.SpielsteinSetzen(neueBewegung, xPos, yPos, Spieler1);
+					}else
+					{
+						System.out.println(pruef.checkSetzen(PositionGeklickt, Spieler1, Spieler2));				
+					}
 					
-					this.SpielsteinSetzen(neueBewegung, xPos, yPos, Spieler1);
 					
 					this.repaint();
 					zaehler2++;
@@ -626,8 +621,15 @@ public class Spielfeld extends JFrame implements ActionListener{
 					//neue Bewegung erstellen
 					Bewegung neueBewegung = new Bewegung(null, PositionGeklickt);
 					System.out.println(neueBewegung);
-					
-					this.SpielsteinSetzen(neueBewegung, xPos, yPos, Spieler2);
+					if(pruef.checkSetzen(PositionGeklickt, Spieler2, Spieler1) == true)
+					{	
+						this.SpielsteinSetzen(neueBewegung, xPos, yPos, Spieler2);
+					}
+					else
+					{
+						System.out.println(pruef.checkSetzen(PositionGeklickt, Spieler2, Spieler1));
+					}
+					if(pruef.checkInMuehle(index, Spieler2.Steine))
 					
 					this.repaint();
 					index++;
