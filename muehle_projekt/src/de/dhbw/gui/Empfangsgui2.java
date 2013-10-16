@@ -1,7 +1,7 @@
 package de.dhbw.gui;
 
 
-import de.dhbw.gui.DialogAnleitung2;
+import de.dhbw.gui.Anleitung;
 import de.dhbw.gui.DialogOptionen2;
 
 import java.awt.BorderLayout;
