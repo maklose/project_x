@@ -135,7 +135,7 @@ public class Empfangsgui2 extends JFrame {
 		TransparentButton2 btn_start = new TransparentButton2("START");
 		btn_start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame neuesSpiel = new Spielfeld2();
+				JFrame neuesSpiel = new Spielfeld();
 				neuesSpiel.setVisible(true);
 			}
 		});
