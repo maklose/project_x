@@ -188,6 +188,7 @@ public class Empfangsgui2 extends JFrame {
 		panel.add(label_28);
 		
 		JButton btn_anleitung = new TransparentButton2("New button");
+		btn_anleitung.setIcon(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Spielanleitung.PNG")));
 		btn_anleitung.setForeground(Color.BLACK);
 		btn_anleitung.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
