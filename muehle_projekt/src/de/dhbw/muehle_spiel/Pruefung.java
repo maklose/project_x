@@ -234,7 +234,5 @@ public class Pruefung {
 		return inMuehle;
 	}
 
-	
-	
 }
 
