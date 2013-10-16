@@ -60,7 +60,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 	
 	JPanel panel;
 	
-	Spielstein[][][] SpielfeldArray;
+	Spielstein[][][] SpielfeldArray = new Spielstein[3][3][3];
 	private JMenuBar menuBar;
 	private JMenu mnNewMenu;
 	private JMenuItem mntmSpielBeenden;
@@ -73,7 +73,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 	
 	int xPos, yPos, index;
 	int zaehler1 = 1;
-	int zaehler2 = 1;
+	int zaehler2 = 0;
 	
 	/**
 	 * Hier wird das Spielfeld gestartet
@@ -161,20 +161,6 @@ public class Spielfeld extends JFrame implements ActionListener{
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		/*
-		 * Hier wird ein Array ertzuegt in dem alle Spielsteine auf dem Feld gespeichert werden
-		 */
-		SpielfeldArray = new Spielstein[3][3][3];
-		for(int i = 0; i <= 2; i++)
-        {
-        	for(int j = 0; j <= 2; j++)
-        	{
-        		for(int k = 0; k <= 2; k++)
-        		{
-        			SpielfeldArray[i][j][k] = null;    			
-        		}
-        	}
-        }
 		
 		//hier wird das haupt-Panel erzeugt inc. Hintergrundbild
 		panel = new JPanel()
@@ -560,6 +546,8 @@ public class Spielfeld extends JFrame implements ActionListener{
 		{
 			this.aktion(btnNewButton_49);
 		}
+		System.out.println("Spieler1: " + Spieler1.getAnzahlZuege());
+		System.out.println("Spieler2: " + Spieler2.getAnzahlZuege());
 	}
 	
 	/*
@@ -572,6 +560,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 		{
 			while(Spieler2.getAnzahlZuege() <= 9)
 			{
+				
 				if(Spieler1.getAnzahlZuege() < zaehler1)
 				{
 					//Position von dem Button ermitteln der gedrückt wurde
@@ -597,8 +586,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 					this.SpielsteinSetzen(neueBewegung, xPos, yPos, Spieler1);
 					
 					this.repaint();
-					index++;
-					zaehler1++;
+					zaehler2++;
 					return;
 				}
 				else if(Spieler2.getAnzahlZuege() < zaehler2)
@@ -623,7 +611,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 					
 					this.repaint();
 					index++;
-					zaehler2++;
+					zaehler1++;
 					return;
 				}
 				else
