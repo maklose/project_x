@@ -41,9 +41,8 @@ public class BestaetigungBeenden extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new GridLayout(1, 0, 0, 0));
 		{
-			JTextPane txtpnMchtenSieDas = new JTextPane();
-			txtpnMchtenSieDas.setText("M\u00F6chten Sie das Spiel wirklich beenden?");
-			contentPanel.add(txtpnMchtenSieDas);
+			JPanel panel = new JPanel();
+			contentPanel.add(panel);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -65,6 +64,11 @@ public class BestaetigungBeenden extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}

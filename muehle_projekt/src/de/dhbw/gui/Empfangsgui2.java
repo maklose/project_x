@@ -51,15 +51,16 @@ public class Empfangsgui2 extends JFrame {
 	 * Create the frame.
 	 */
 	public Empfangsgui2() {
+		//Fenster
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 726, 456);
-		
 		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
+		//Hintergrund des Empfangsfensters
 		JPanel panel = new JPanel() {  
 			                public void paintComponent(Graphics g) {  
 			                     Image hintergrund = Toolkit.getDefaultToolkit().getImage(  
@@ -67,7 +68,6 @@ public class Empfangsgui2 extends JFrame {
 		                     g.drawImage(hintergrund, 0, 0, this.getWidth(), this.getHeight(), this);  
 		                }  
 			          };  
-		panel.setBackground(new Color(255, 255, 255));
 		contentPane.add(panel, BorderLayout.CENTER);;;
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{0, 138, 120, 138, 0, 0};
@@ -76,13 +76,13 @@ public class Empfangsgui2 extends JFrame {
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
+		//Button "Spielanleitung"
 		JButton btn_anleitung = new JButton(){
 			@Override
 			public void paintComponent(Graphics g){
 				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Spielanleitung.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
 			}
 		};;
-//		btn_anleitung.setIcon(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Spielanleitung.PNG")));
 		btn_anleitung.setForeground(Color.BLACK);
 		btn_anleitung.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -91,29 +91,28 @@ public class Empfangsgui2 extends JFrame {
 			}
 		});
 		
+		//Button "Exit"
 		JButton btn_exit = new JButton(){
 			@Override
 			public void paintComponent(Graphics g){
 				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Exit.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
 			}
 		};
-//		btn_exit.setIcon(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Exit.PNG")));
 		btn_exit.setForeground(Color.BLACK);
 		btn_exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				BestaetigungBeenden frageBeenden = new BestaetigungBeenden();
+				final BestaetigungBeenden frageBeenden = new BestaetigungBeenden();
 				frageBeenden.setListener( new BestaetigungBeenden.BestatigungsListener() {
 					
 					@Override
 					public void onOK() {
 						
 						Empfangsgui2.this.dispose();
-						//schlieﬂen
+						frageBeenden.dispose();
 					}
 					
 					@Override
-					public void onCancel() {
-						//schlieﬂen?	
+					public void onCancel() {	
 					}
 				});
 				frageBeenden.setVisible(true);
@@ -121,13 +120,13 @@ public class Empfangsgui2 extends JFrame {
 			}
 		});
 		
+		//Button "Start"
 		JButton btn_start = new JButton(){
 			@Override
 			public void paintComponent(Graphics g){
 				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Spiel starten.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
 			}
 		};
-		//		btn_start.setIcon(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Test.PNG")));
 				btn_start.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						JFrame neuesSpiel = new Spielfeld();
@@ -150,6 +149,7 @@ public class Empfangsgui2 extends JFrame {
 		gbc_btn_exit.gridy = 1;
 		panel.add(btn_exit, gbc_btn_exit);
 		
+		//Button "Optionen"
 		JButton btn_optionen = new JButton(){
 			@Override
 			public void paintComponent(Graphics g){
@@ -159,7 +159,6 @@ public class Empfangsgui2 extends JFrame {
 		btn_optionen.setForeground(Color.BLACK);
 		btn_optionen.setBackground(new Color(245, 222, 179));
 		btn_optionen.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				JDialog auswahl = new DialogOptionen2 ();
 				auswahl.setVisible(true);
