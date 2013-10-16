@@ -2,6 +2,9 @@ package de.dhbw.gui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -33,7 +36,7 @@ public class DialogAnleitung2 extends JDialog {
 		getContentPane().setLayout(new BorderLayout());
 		
 		{
-			JPanel buttonPane = new JPanel();
+			JPanel buttonPane = new JPanel() ;
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
@@ -49,11 +52,16 @@ public class DialogAnleitung2 extends JDialog {
 			}
 		}
 		{
-			JPanel panel = new JPanel();
+			JPanel panel = new JPanel(){
+				public void paintComponent(Graphics g) {  
+                    Image hintergrund = Toolkit.getDefaultToolkit().getImage(  
+                              Empfangsgui2.class.getResource("/de/dhbw/images/Spielanleitung_GUI.PNG"));  
+                g.drawImage(hintergrund, 0, 0, this.getWidth(), this.getHeight(), this);  
+				}  
+			};
 			getContentPane().add(panel, BorderLayout.CENTER);
 			panel.setLayout(new BorderLayout(0, 0));
 			{
-				JTextArea txtrDieSpielregeln = new JTextArea();
 				String anleitung = ("Die Spielregeln:\n\n\n"
 						+ "1. Jeder Spieler erhält je 9 Spielsteine, die er abwechselnd auf einen der Kreuzungspunkte auf dem Spielbrett setzen darf.\n\n"
 						+ "2. Wenn ein Spieler 3 Steine in einer Reihe hat (d.h. er macht eine Mühle),\n darf er einen Stein des Gegners vom Brett nehmen; der Stein scheidet aus.\n\n"
@@ -63,8 +71,6 @@ public class DialogAnleitung2 extends JDialog {
 						+ "6. Wenn ein Spieler nur noch drei Steine besitzt, darf er springen, d.h. einen seiner Steine auf ein beliebiges  freies Feld setzen.\n\n"
 						+ "7. Wenn der Gegner nur noch drei Steine besitzt, darf man ihm auch einen Stein aus einer Mühle entfernen.\n\n"
 						+ "8. Wer weniger als 3 Steine besitzt, verliert das Spiel.");
-				txtrDieSpielregeln.setText(anleitung);
-				panel.add(txtrDieSpielregeln, BorderLayout.CENTER);
 			}
 		}
 	}
