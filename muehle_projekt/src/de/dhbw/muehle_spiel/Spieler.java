@@ -33,19 +33,19 @@ public EPhase getPhase(){
 }
 
 // Erzeugt einen neuen Spielstein, solange AnzahlZuege <9
-public void setzeSpielstein(Position lPosition) {
+public void setzeSpielstein(Position lPosition, int lxPos, int lyPos) {
 	if (AnzahlZuege <= 9){
-	Steine[AnzahlSteine]= new Spielstein(Spielerfarbe, lPosition );
+	Steine[AnzahlSteine]= new Spielstein(Spielerfarbe, lPosition, lxPos, lyPos);
 	AnzahlZuege ++;
 	AnzahlSteine ++;
 	}
 }
 
 //Ändert die Position eines Spielsteins
-public void bewegeSpielstein(Bewegung bewegung, int IndexStein) {
+public void bewegeSpielstein(Bewegung bewegung, int IndexStein, int lxPos, int lyPos) {
 	
 		if (AnzahlZuege > 9){
-				Steine[IndexStein].bewegen(bewegung);
+				Steine[IndexStein].bewegen(bewegung, lxPos, lyPos);
 				AnzahlZuege ++;
 		}
    }
@@ -79,5 +79,11 @@ public String SpielsteinFarbeAsString()
 	else
 	return "Weiss";
 }
+
+public Spielstein getSpielstein(int index)
+{
+	return Steine[index];
+}
+
 
 }

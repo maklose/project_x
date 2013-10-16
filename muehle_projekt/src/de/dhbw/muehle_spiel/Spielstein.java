@@ -12,21 +12,48 @@ public class Spielstein implements ISpielstein, IBewegung
 	private boolean gesperrt;							//zeigt an ob ein Stein gelöscht werden darf (wenn er z.b. in einer Mühle steht
 	private Position aktuellePosition;					//hat die aktuelle Position des Steines
 	private boolean ausgewählt; 						//true wenn der Stein ausgewählt wurde
+	private int xPos, yPos;								//Die echte Position die ein Spielstein auf dem Feld hat
 	
 	//neuen Spieltein erzeugen
-	public Spielstein(ESpielsteinFarbe lSpielsteinfarbe, Position laktuellePosition)
+	public Spielstein(ESpielsteinFarbe lSpielsteinfarbe, Position laktuellePosition, int lxPos, int lyPos)
 	{
 		Spielsteinfarbe = lSpielsteinfarbe;
 		aktuellePosition = laktuellePosition; 
 		gesperrt = false;
 		ausgewählt = false;
+		xPos = lxPos;
+		yPos = lyPos;
+
 	}	
+	
+	public int getxPos() {
+		return xPos;
+	}
+	
+	
+	public void setxPos(int xPos) {
+		this.xPos = xPos;
+	}
+
+
+	public void setyPos(int yPos) {
+		this.yPos = yPos;
+	}
+
+
+	public int getyPos() {
+		return yPos;
+	}
+
 	
 	
 	//hiermit kann man einen Spielstein bewegen 
-	public void bewegen(Bewegung neueBewegung)
+	public void bewegen(Bewegung neueBewegung, int lxPos, int lyPos)
 	{
 		aktuellePosition = neueBewegung.getNach(); 
+		xPos = lxPos;
+		yPos = lyPos;
+
 	}
 	
 	public ESpielsteinFarbe getSpielsteinfarbe() 
