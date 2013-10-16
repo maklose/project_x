@@ -134,7 +134,7 @@ public class Empfangsgui2 extends JFrame {
 		panel.add(label_18);
 		
 		TransparentButton2 btn_start = new TransparentButton2("START");
-		btn_start.setIcon(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Spiel starten.PNG")));
+		btn_start.setIcon(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Test.PNG")));
 		btn_start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrame neuesSpiel = new Spielfeld();
