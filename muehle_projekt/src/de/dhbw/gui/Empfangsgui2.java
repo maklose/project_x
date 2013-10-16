@@ -28,6 +28,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ComponentEvent;
+import javax.swing.ImageIcon;
 
 public class Empfangsgui2 extends JFrame {
 
@@ -133,6 +134,7 @@ public class Empfangsgui2 extends JFrame {
 		panel.add(label_18);
 		
 		TransparentButton2 btn_start = new TransparentButton2("START");
+		btn_start.setIcon(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Spiel starten.PNG")));
 		btn_start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrame neuesSpiel = new Spielfeld();
@@ -150,6 +152,7 @@ public class Empfangsgui2 extends JFrame {
 		panel.add(label_20);
 		
 		JButton btn_exit = new TransparentButton2("EXIT");
+		btn_exit.setIcon(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Exit.PNG")));
 		btn_exit.setForeground(Color.BLACK);
 		btn_exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
