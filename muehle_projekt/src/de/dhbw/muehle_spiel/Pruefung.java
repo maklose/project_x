@@ -295,5 +295,30 @@ public class Pruefung {
 			
 	return SpielBeendet;
 	}
+
+	public boolean checkFeldBesetzt(Position Position, Spieler Spieler1, Spieler Spieler2){
+		
+		boolean korrekt = true;
+		
+		for (int i = 0; i<9; i++)
+		{
+			if(Spieler1.Steine[i].getPosition().equals(Position) == false ){
+			korrekt = true;
+			}
+			
+			else{
+			return false;
+			}
+			
+			if(Spieler2.Steine[i].getPosition().equals(Position) == false){
+			korrekt = true;
+			}
+			else{
+			return false;
+			}
+		}
+		return korrekt;
+	}
+	
 }
 
