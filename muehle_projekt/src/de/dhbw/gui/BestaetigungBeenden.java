@@ -30,6 +30,7 @@ public class BestaetigungBeenden extends JDialog {
 		}
 	}
 
+	private BestatigungsListener listener = null;
 	/**
 	 * Create the dialog.
 	 */
@@ -52,6 +53,10 @@ public class BestaetigungBeenden extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						if( listener != null )
+						{
+							listener.onOK();
+						}
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -64,6 +69,17 @@ public class BestaetigungBeenden extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+	}
+	
+	public void setListener(BestatigungsListener listener)
+	{
+		this.listener = listener;
+	}
+	
+	public interface BestatigungsListener
+	{
+		public void onOK();
+		public void onCancel();
 	}
 
 }

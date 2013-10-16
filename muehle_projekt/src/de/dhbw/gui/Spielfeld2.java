@@ -17,21 +17,6 @@ import javax.swing.JLabel;
 
 import de.dhbw.gui.BestaetigungBeenden;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import net.miginfocom.swing.MigLayout;
 
 import java.awt.GridLayout;
@@ -131,8 +116,23 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		mntmSpielBeenden = new JMenuItem("Spiel beenden");
 		mntmSpielBeenden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//JDialog frageBeenden = new BestaetigungBeenden();
-				dispose();
+				BestaetigungBeenden frageBeenden = new BestaetigungBeenden();
+				frageBeenden.setListener( new BestaetigungBeenden.BestatigungsListener() {
+					
+					@Override
+					public void onOK() {
+						
+						Spielfeld2.this.dispose();
+						//schlieﬂen
+					}
+					
+					@Override
+					public void onCancel() {
+						//schlieﬂen?	
+					}
+				});
+				frageBeenden.setVisible(true);
+				
 			}
 		});
 		mnNewMenu.add(mntmSpielBeenden);
