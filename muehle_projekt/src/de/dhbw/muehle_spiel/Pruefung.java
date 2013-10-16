@@ -8,7 +8,7 @@ public class Pruefung {
 	// Überprüft, ob das Setzen eines Steins regelkonform ist
 	public boolean checkSetzen (Position position, Spieler SpielerAktiv, Spieler SpielerPassiv ){
 		
-		boolean korrekt = false;
+		boolean korrekt = true;
 				
 		//Überprüfung, ob die Position bereits belegt ist
 				for (int i = 0; i< SpielerAktiv.getAnzahlZuege(); i++)
