@@ -9,6 +9,7 @@ public class Pruefung {
 	public boolean checkSetzen (Position position, Spieler SpielerAktiv, Spieler SpielerPassiv ){
 		
 		boolean korrekt = false;
+		
 				
 		//Überprüfung, ob die Position bereits belegt ist
 				for (int i = 0; i< SpielerAktiv.getAnzahlZuege(); i++)
