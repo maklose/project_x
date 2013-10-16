@@ -125,9 +125,11 @@ public class Pruefung {
 		
 		// Ablegen der Positionen aller Steine eines Spielers in einem Array
 		for (int i = 0; i < 9; i++){
-			Positionen[i][0]= Steine[i].getPosition().getEbene().getValue();
-			Positionen[i][1]= Steine[i].getPosition().getX().getValue();
-			Positionen[i][2]= Steine[i].getPosition().getY().getValue();		
+			if(Steine[i] != null){
+				Positionen[i][0]= Steine[i].getPosition().getEbene().getValue();
+				Positionen[i][1]= Steine[i].getPosition().getX().getValue();
+				Positionen[i][2]= Steine[i].getPosition().getY().getValue();
+				}
 			}
 		
 		for (int i =0; i <9; i++){
@@ -135,17 +137,6 @@ public class Pruefung {
 			aenderung1 = 0;
 			aenderung2 = 0;
 			aenderung3 = 0;
-			
-			//Verändert sich ein Positionsindex eines Steins um 1 im Vergleich mit dem betrachteten Stein(IndexStein) wird aenderung um 1 erhöht
-			//Ist aenderung == 1 wird zaehler um 1 erhöht
-			//Ist zaehler == 2 befindet sich der betrachtete Stein in einer Mühle
-			
-//			if(Positionen[i][0] - Positionen[IndexStein][0] == 1 || Positionen[i][0] - Positionen[IndexStein][0] == -1 )
-//				aenderung ++;
-//			if(Positionen[i][1] - Positionen[IndexStein][1] == 1 || Positionen[i][1] - Positionen[IndexStein][1] == -1)
-//				aenderung++;
-//			if(Positionen[i][2] - Positionen[IndexStein][2] == 1 || Positionen[i][2] - Positionen[IndexStein][2] == -1)
-//				aenderung++;
 			
 			aenderung1 = Math.abs(Positionen[i][0] - Positionen[IndexStein][0]);
 			aenderung2 = Math.abs(Positionen[i][1] - Positionen[IndexStein][1]);
@@ -186,30 +177,32 @@ public class Pruefung {
 		int anzahl4 = 0;
 		
 		for(int j = 0; j <9 ; j++){
-			if(Steine[j].getPosition().equals(pos[0]))
-				anzahl1++;
-			if(Steine[j].getPosition().equals(pos[1]))
-				anzahl1++;
-			if(Steine[j].getPosition().equals(pos[2]))
-				anzahl1++;
-			if(Steine[j].getPosition().equals(pos[3]))
-				anzahl2++;
-			if(Steine[j].getPosition().equals(pos[4]))
-				anzahl2++;
-			if(Steine[j].getPosition().equals(pos[5]))
-				anzahl2++;
-			if(Steine[j].getPosition().equals(pos[6]))
-				anzahl3++;
-			if(Steine[j].getPosition().equals(pos[7]))
-				anzahl3++;
-			if(Steine[j].getPosition().equals(pos[8]))
-				anzahl3++;
-			if(Steine[j].getPosition().equals(pos[9]))
-				anzahl3++;
-			if(Steine[j].getPosition().equals(pos[10]))
-				anzahl4++;
-			if(Steine[j].getPosition().equals(pos[11]))
-				anzahl4++;
+			if(Steine[j] != null){
+				if(Steine[j].getPosition().equals(pos[0]))
+					anzahl1++;
+				if(Steine[j].getPosition().equals(pos[1]))
+					anzahl1++;
+				if(Steine[j].getPosition().equals(pos[2]))
+					anzahl1++;
+				if(Steine[j].getPosition().equals(pos[3]))
+					anzahl2++;
+				if(Steine[j].getPosition().equals(pos[4]))
+					anzahl2++;
+				if(Steine[j].getPosition().equals(pos[5]))
+					anzahl2++;
+				if(Steine[j].getPosition().equals(pos[6]))
+					anzahl3++;
+				if(Steine[j].getPosition().equals(pos[7]))
+					anzahl3++;
+				if(Steine[j].getPosition().equals(pos[8]))
+					anzahl3++;
+				if(Steine[j].getPosition().equals(pos[9]))
+					anzahl3++;
+				if(Steine[j].getPosition().equals(pos[10]))
+					anzahl4++;
+				if(Steine[j].getPosition().equals(pos[11]))
+					anzahl4++;
+			}
 		}
 			
 		//Wenn anzahl1/2/3/4 == 3 ist Fall vorhanden und zaehler wird um 2 vermindert
