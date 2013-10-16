@@ -10,6 +10,7 @@ public class Spielstein implements ISpielstein
 	private Position aktuellePosition;					//hat die aktuelle Position des Steines
 	private int xPos, yPos;								//Die echte Position die ein Spielstein auf dem Feld hat
 	
+	
 	//neuen Spieltein erzeugen
 	public Spielstein(ESpielsteinFarbe lSpielsteinfarbe, Position laktuellePosition, int lxPos, int lyPos)
 	{
@@ -60,6 +61,11 @@ public class Spielstein implements ISpielstein
 		return aktuellePosition;
 	}
 	
+	
+	public void setPosition(Position position) {
+		aktuellePosition = position;
+	}
+
 	public boolean FarbVergleich(ESpielsteinFarbe b)
 	{
 		if(this.getFarbe() == b)

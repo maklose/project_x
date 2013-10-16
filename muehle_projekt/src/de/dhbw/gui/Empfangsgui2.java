@@ -29,6 +29,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ComponentEvent;
 
+import javax.swing.ImageIcon;
+
 public class Empfangsgui2 extends JFrame {
 
 	private JPanel contentPane;
@@ -133,6 +135,7 @@ public class Empfangsgui2 extends JFrame {
 		panel.add(label_18);
 		
 		TransparentButton2 btn_start = new TransparentButton2("START");
+		btn_start.setIcon(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Test.PNG")));
 		btn_start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrame neuesSpiel = new Spielfeld();
@@ -150,11 +153,27 @@ public class Empfangsgui2 extends JFrame {
 		panel.add(label_20);
 		
 		JButton btn_exit = new TransparentButton2("EXIT");
+		btn_exit.setIcon(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Exit.PNG")));
 		btn_exit.setForeground(Color.BLACK);
 		btn_exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JDialog frageBeenden = new BestaetigungBeenden ();
-				dispose();
+				BestaetigungBeenden frageBeenden = new BestaetigungBeenden();
+				frageBeenden.setListener( new BestaetigungBeenden.BestatigungsListener() {
+					
+					@Override
+					public void onOK() {
+						
+						Empfangsgui2.this.dispose();
+						//schlieﬂen
+					}
+					
+					@Override
+					public void onCancel() {
+						//schlieﬂen?	
+					}
+				});
+				frageBeenden.setVisible(true);
+				
 			}
 		});
 		btn_exit.setBackground(new Color(245, 222, 179));
@@ -185,11 +204,12 @@ public class Empfangsgui2 extends JFrame {
 		panel.add(label_28);
 		
 		JButton btn_anleitung = new TransparentButton2("New button");
+		btn_anleitung.setIcon(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Spielanleitung.PNG")));
 		btn_anleitung.setForeground(Color.BLACK);
 		btn_anleitung.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JDialog anleitung = new DialogAnleitung2();
-				anleitung.show(true);
+				anleitung.setVisible(true);
 			}
 		});
 		btn_anleitung.setText("ANLEITUNG");
@@ -206,10 +226,9 @@ public class Empfangsgui2 extends JFrame {
 		btn_optionen.setForeground(Color.BLACK);
 		btn_optionen.setBackground(new Color(245, 222, 179));
 		btn_optionen.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				JDialog auswahl = new DialogOptionen2 ();
-				auswahl.show(true);
+				auswahl.setVisible(true);
 			}
 		});
 		panel.add(btn_optionen);
