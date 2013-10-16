@@ -153,7 +153,7 @@ public class Empfangsgui2 extends JFrame {
 		JButton btn_optionen = new JButton(){
 			@Override
 			public void paintComponent(Graphics g){
-				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Form.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
+				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Optionen.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
 			}
 		};;
 		btn_optionen.setForeground(Color.BLACK);
