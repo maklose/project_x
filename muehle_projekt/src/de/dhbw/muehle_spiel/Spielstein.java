@@ -9,13 +9,14 @@ public class Spielstein implements ISpielstein
 	private ESpielsteinFarbe Spielsteinfarbe; 			//Die Farbe des Spielsteins
 	private Position aktuellePosition;					//hat die aktuelle Position des Steines
 	private int xPos, yPos;								//Die echte Position die ein Spielstein auf dem Feld hat
-	
+	private int index;
 	
 	//neuen Spieltein erzeugen
-	public Spielstein(ESpielsteinFarbe lSpielsteinfarbe, Position laktuellePosition, int lxPos, int lyPos)
+	public Spielstein(ESpielsteinFarbe lSpielsteinfarbe, Position laktuellePosition, int lxPos, int lyPos, int lindex)
 	{
 		Spielsteinfarbe = lSpielsteinfarbe;
-		aktuellePosition = laktuellePosition; 
+		aktuellePosition = laktuellePosition;
+		index = lindex;
 		xPos = lxPos;
 		yPos = lyPos;
 
@@ -72,6 +73,10 @@ public class Spielstein implements ISpielstein
 			return true;
 		else
 			return false;
+	}
+
+	public int getIndex() {
+		return index;
 	}
 
 	
