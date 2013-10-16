@@ -10,6 +10,7 @@ public class Spielstein implements ISpielstein
 	private Position aktuellePosition;					//hat die aktuelle Position des Steines
 	private int xPos, yPos;								//Die echte Position die ein Spielstein auf dem Feld hat
 	
+	
 	//neuen Spieltein erzeugen
 	public Spielstein(ESpielsteinFarbe lSpielsteinfarbe, Position laktuellePosition, int lxPos, int lyPos)
 	{
