@@ -6,10 +6,10 @@ import de.dhbw.muehle_util.plugin.MyServiceLoader;
 import de.dhbw.muehle_api.strategy.IStrategieFactory;
 
 /**
- * L&auml;dt registrierte Strategien.
+ * Lädt registrierte Strategien.
  * Jede einzelnen Strategie wird in einem Unterverzeichnis im 'strategy'-Verzeichnis der Anwendung abgelegt.
  * Eine Strategie besteht hierbei aus mindestens einer jar-Datei.
- * Der Pfad zum 'strategy'-Verzeichnis kann &uuml;ber eine System-Property 'strategy.dir' gesetzt werden.
+ * Der Pfad zum 'strategy'-Verzeichnis kann über eine System-Property 'strategy.dir' gesetzt werden.
  * Sollte diese Variable nicht gesetzt sein, wird './strategy' als Basis-Pfad angenommen.
  * <br />
  * <br /> 
