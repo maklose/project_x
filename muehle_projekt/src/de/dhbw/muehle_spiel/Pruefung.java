@@ -234,6 +234,73 @@ public class Pruefung {
 		return inMuehle;
 	}
 
-	
+	public boolean checkSpielBeendet(Spieler SpielerAktiv, Spieler SpielerPassiv){
+		
+		boolean SpielBeendet = true;
+		boolean ZugKorrekt = false;
+		EPositionIndex ebene = null;
+		EPositionIndex x = null;
+		EPositionIndex y = null;
+		
+		if(SpielerAktiv.getAnzahlSteine() > 3)
+		{
+		for (int i = 0; i <9 ; i++){
+			
+			for(int a = 1 ; a <= 3; a++)
+				{
+					if(a == 1){
+						ebene = ebene.Eins;
+						}
+					if(a == 2){
+						ebene = ebene.Zwei;
+						}
+					if(a == 3){
+						ebene = ebene.Drei;
+					}
+					
+					for(int b = 1; b <= 3; b++)
+					{
+							if(b == 1){
+								x = x.Eins;
+								}
+							if(b == 2){
+								x = x.Zwei;
+								}
+							if(b == 3){
+								x = x.Drei;
+								
+							for(int c = 1; c <= 3; c++)
+								{
+									if(c == 1){
+										y = y.Eins;
+										}
+									if(c == 2){
+										y = y.Zwei;
+										}
+									if(c == 3){
+										y = y.Drei;
+									
+									ZugKorrekt = checkZug(new Bewegung(SpielerAktiv.Steine[i].getPosition(), new Position(ebene, x, y)), 
+													SpielerAktiv, SpielerPassiv);
+									
+									if(ZugKorrekt == true){
+										return false;
+									}
+									
+								}
+							}
+						}
+					}
+			 	
+				}
+			}
+		}
+		else
+		{
+			return true;
+		}
+			
+	return SpielBeendet;
+	}
 }
 
