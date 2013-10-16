@@ -71,9 +71,10 @@ public class Spielfeld extends JFrame implements ActionListener{
 	private JLabel lblNewLabel_5;
 	
 	
-	int xPos, yPos;
+	int xPos, yPos, index;
+	int zaehler1 = 1;
+	int zaehler2 = 1;
 	
-
 	/**
 	 * Hier wird das Spielfeld gestartet
 	 */
@@ -567,40 +568,79 @@ public class Spielfeld extends JFrame implements ActionListener{
 	
 	public void aktion(TransparentButtonFeld lButton)
 	{
-		//Position von dem Button ermitteln der gedrückt wurde
-		Position PositionGeklickt = lButton.getPosition();
-		Point pos = lButton.getLocation();
-		
-		//Differenz von Buttonmitte zu der Position wo der Knopf gezeichnet werden muss (dynamisch)
-		int xPosDif = panel.getWidth() / 20;
-		int yPosDif = panel.getHeight() / 20;
-		
-		//neue reale Position für den neuen Stein festlegen = Position des Buttons - Different 
-		xPos = (int)pos.getX() - xPosDif;
-		yPos = (int)pos.getY() - yPosDif;
-		
-		
-		System.out.println(pos);
-		System.out.println(panel.getWidth() / 20);
-		
-		//neue Bewegung erstellen
-		Bewegung neueBewegung = new Bewegung(null, PositionGeklickt);
-		
-		
-		this.SpielsteinSetzen(neueBewegung, xPos, yPos);
-		
-		this.repaint();
-		
+		while(!this.SpielBeendet())
+		{
+			while(Spieler2.getAnzahlZuege() <= 9)
+			{
+				if(Spieler1.getAnzahlZuege() < zaehler1)
+				{
+					//Position von dem Button ermitteln der gedrückt wurde
+					Position PositionGeklickt = lButton.getPosition();
+					Point pos = lButton.getLocation();
+					
+					//Differenz von Buttonmitte zu der Position wo der Knopf gezeichnet werden muss (dynamisch)
+					int xPosDif = panel.getWidth() / 20;
+					int yPosDif = panel.getHeight() / 20;
+					
+					//neue reale Position für den neuen Stein festlegen = Position des Buttons - Different 
+					xPos = (int)pos.getX() - xPosDif;
+					yPos = (int)pos.getY()  + yPosDif/2;
+					
+					
+					System.out.println(pos);
+					System.out.println(panel.getWidth() / 20);
+					
+					//neue Bewegung erstellen
+					Bewegung neueBewegung = new Bewegung(null, PositionGeklickt);
+					
+					
+					this.SpielsteinSetzen(neueBewegung, xPos, yPos, Spieler1);
+					
+					this.repaint();
+					index++;
+					zaehler1++;
+					return;
+				}
+				else if(Spieler2.getAnzahlZuege() < zaehler2)
+				{
+					//Position von dem Button ermitteln der gedrückt wurde
+					Position PositionGeklickt = lButton.getPosition();
+					Point pos = lButton.getLocation();
+					
+					//Differenz von Buttonmitte zu der Position wo der Knopf gezeichnet werden muss (dynamisch)
+					int xPosDif = panel.getWidth() / 20;
+					int yPosDif = panel.getHeight() / 20;
+					
+					//neue reale Position für den neuen Stein festlegen = Position des Buttons - Different 
+					xPos = (int)pos.getX() - xPosDif;
+					yPos = (int)pos.getY() - yPosDif/2;
+					
+					//neue Bewegung erstellen
+					Bewegung neueBewegung = new Bewegung(null, PositionGeklickt);
+					System.out.println(neueBewegung);
+					
+					this.SpielsteinSetzen(neueBewegung, xPos, yPos, Spieler2);
+					
+					this.repaint();
+					index++;
+					zaehler2++;
+					return;
+				}
+				else
+				System.out.println("test");
+				
+				
+			}
+		}
 		
 	}
 
 	
-	public void SpielsteinSetzen(Bewegung neueBewegung, int xPos, int yPos)
+	public void SpielsteinSetzen(Bewegung neueBewegung, int xPos, int yPos, Spieler lSpieler)
 	{
-		System.out.println(neueBewegung);
-		Spieler1.setzeSpielstein(neueBewegung.getNach(), xPos, yPos);
-		Spielstein neuerStein = Spieler1.getSpielstein(1);
-		
+		lSpieler.setzeSpielstein(neueBewegung.getNach(), xPos, yPos);
+		Spielstein neuerStein = lSpieler.getSpielstein(index);
+			
 		int e, x, y;
 		e = posIndexUmrechnen(neueBewegung.getNach().getEbene());
 		x = posIndexUmrechnen(neueBewegung.getNach().getX());
@@ -618,6 +658,23 @@ public class Spielfeld extends JFrame implements ActionListener{
 			return 2;
 		else 
 			return 99;
+	}
+	
+	public boolean SpielBeendet()
+	{
+		if(Spieler1.getAnzahlZuege() > 3 && Spieler1.getAnzahlSteine() < 3)
+		{
+			System.out.println("Spieler 1 hat verloren");
+			return true;
+		}
+		else if(Spieler2.getAnzahlZuege() > 3 && Spieler2.getAnzahlSteine() < 3)
+		{
+			System.out.println("Spieler 2 hat verloren");
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 	
