@@ -60,6 +60,11 @@ public class Spielstein implements ISpielstein
 		return aktuellePosition;
 	}
 	
+	
+	public void setPosition(Position position) {
+		aktuellePosition = position;
+	}
+
 	public boolean FarbVergleich(ESpielsteinFarbe b)
 	{
 		if(this.getFarbe() == b)
