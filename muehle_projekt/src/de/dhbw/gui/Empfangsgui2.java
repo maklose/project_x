@@ -209,7 +209,7 @@ public class Empfangsgui2 extends JFrame {
 		btn_anleitung.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JDialog anleitung = new DialogAnleitung2();
-				anleitung.show(true);
+				anleitung.setVisible(true);
 			}
 		});
 		btn_anleitung.setText("ANLEITUNG");
@@ -226,10 +226,9 @@ public class Empfangsgui2 extends JFrame {
 		btn_optionen.setForeground(Color.BLACK);
 		btn_optionen.setBackground(new Color(245, 222, 179));
 		btn_optionen.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				JDialog auswahl = new DialogOptionen2 ();
-				auswahl.show(true);
+				auswahl.setVisible(true);
 			}
 		});
 		panel.add(btn_optionen);
