@@ -227,10 +227,13 @@ public class Pruefung {
 		return inMuehle;
 	}
 
+	// Überprüft, ob das Spiel beendet ist, weil SpielerAktiv keine Möglichkeit mehr hat zu ziehen, oder weniger als 3 Steine hat
+	// Gibt true zurück, wenn das Spiel beendet ist und false wenn das Spiel noch nicht beendet ist
 	public boolean checkSpielBeendet(Spieler SpielerAktiv, Spieler SpielerPassiv){
 		
 		boolean SpielBeendet = true;
 		boolean ZugKorrekt = false;
+		
 		EPositionIndex ebene = null;
 		EPositionIndex x = null;
 		EPositionIndex y = null;
@@ -296,25 +299,27 @@ public class Pruefung {
 	return SpielBeendet;
 	}
 
+	// Überprüft, ob eine Position auf dem Spielfeld bereits besetzt ist
+	// Gibt true zurück, wenn die Position besetzt ist und false wenn die Position frei ist
 	public boolean checkFeldBesetzt(Position Position, Spieler Spieler1, Spieler Spieler2){
 		
-		boolean korrekt = true;
+		boolean korrekt = false;
 		
 		for (int i = 0; i<9; i++)
 		{
 			if(Spieler1.Steine[i].getPosition().equals(Position) == false ){
-			korrekt = true;
+			korrekt = false;
 			}
 			
 			else{
-			return false;
+			return true;
 			}
 			
 			if(Spieler2.Steine[i].getPosition().equals(Position) == false){
-			korrekt = true;
+			korrekt = false;
 			}
 			else{
-			return false;
+			return true;
 			}
 		}
 		return korrekt;
