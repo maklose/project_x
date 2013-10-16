@@ -67,13 +67,13 @@ public class Empfangsgui2 extends JFrame {
 		JPanel panel = new JPanel() {  
 			                public void paintComponent(Graphics g) {  
 			                     Image hintergrund = Toolkit.getDefaultToolkit().getImage(  
-			                               Empfangsgui2.class.getResource("/de/dhbw/images/EmpfangsGUI.PNG"));  
+			                               Empfangsgui2.class.getResource("/de/dhbw/images/Menue_GUI.PNG"));  
 		                     g.drawImage(hintergrund, 0, 0, this.getWidth(), this.getHeight(), this);  
 		                }  
 			          };  
 		panel.setBackground(new Color(255, 255, 255));
 		contentPane.add(panel, BorderLayout.CENTER);
-		panel.setLayout(new GridLayout(0, 4, 10, 10));
+		panel.setLayout(new GridLayout(6, 8, 10, 10));
 		
 		JLabel label = new JLabel("");
 		panel.add(label);
@@ -102,6 +102,18 @@ public class Empfangsgui2 extends JFrame {
 		JLabel label_8 = new JLabel("");
 		panel.add(label_8);
 		
+		JLabel label_9 = new JLabel("");
+		panel.add(label_9);
+		
+		JLabel label_10 = new JLabel("");
+		panel.add(label_10);;;
+		
+		JLabel label_11 = new JLabel("");
+		panel.add(label_11);
+		
+		JLabel label_12 = new JLabel("");
+		panel.add(label_12);
+		
 		TransparentButton2 btn_start = new TransparentButton2("START");
 		btn_start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -113,22 +125,11 @@ public class Empfangsgui2 extends JFrame {
 		btn_start.setBackground(new Color(245, 222, 179));
 		panel.add(btn_start);
 		
-		JButton btn_exit = new TransparentButton2("EXIT");
-		btn_exit.setForeground(Color.BLACK);
-		btn_exit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JDialog frageBeenden = new BestaetigungBeenden ();
-				dispose();
-			}
-		});
-		btn_exit.setBackground(new Color(245, 222, 179));
-		panel.add(btn_exit);
+		JLabel label_13 = new JLabel("");
+		panel.add(label_13);
 		
-		JLabel label_9 = new JLabel("");
-		panel.add(label_9);
-		
-		JLabel label_10 = new JLabel("");
-		panel.add(label_10);;;
+		JLabel label_14 = new JLabel("");
+		panel.add(label_14);
 		
 		JButton btn_optionen = new TransparentButton2 ("OPTIONEN");
 		btn_optionen.setForeground(Color.BLACK);
@@ -142,6 +143,12 @@ public class Empfangsgui2 extends JFrame {
 		});
 		panel.add(btn_optionen);
 		
+		JLabel label_15 = new JLabel("");
+		panel.add(label_15);
+		
+		JLabel label_16 = new JLabel("");
+		panel.add(label_16);
+		
 		JButton btn_anleitung = new TransparentButton2("New button");
 		btn_anleitung.setForeground(Color.BLACK);
 		btn_anleitung.addActionListener(new ActionListener() {
@@ -154,17 +161,61 @@ public class Empfangsgui2 extends JFrame {
 		btn_anleitung.setBackground(new Color(245, 222, 179));
 		panel.add(btn_anleitung);
 		
-		JLabel label_11 = new JLabel("");
-		panel.add(label_11);
+		JLabel label_17 = new JLabel("");
+		panel.add(label_17);
 		
-		JLabel label_12 = new JLabel("");
-		panel.add(label_12);
+		JLabel label_18 = new JLabel("");
+		panel.add(label_18);
 		
-		JLabel label_13 = new JLabel("");
-		panel.add(label_13);
+		JButton btn_exit = new TransparentButton2("EXIT");
+		btn_exit.setForeground(Color.BLACK);
+		btn_exit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JDialog frageBeenden = new BestaetigungBeenden ();
+				dispose();
+			}
+		});
+		btn_exit.setBackground(new Color(245, 222, 179));
+		panel.add(btn_exit);
 		
-		JLabel label_14 = new JLabel("");
-		panel.add(label_14);
+		JLabel label_19 = new JLabel("");
+		panel.add(label_19);
+		
+		JLabel label_20 = new JLabel("");
+		panel.add(label_20);
+		
+		JLabel label_21 = new JLabel("");
+		panel.add(label_21);
+		
+		JLabel label_22 = new JLabel("");
+		panel.add(label_22);
+		
+		JLabel label_23 = new JLabel("");
+		panel.add(label_23);
+		
+		JLabel label_24 = new JLabel("");
+		panel.add(label_24);
+		
+		JLabel label_25 = new JLabel("");
+		panel.add(label_25);
+		
+		JLabel label_26 = new JLabel("");
+		panel.add(label_26);
+		
+		JLabel label_27 = new JLabel("");
+		panel.add(label_27);
+		
+		JLabel label_28 = new JLabel("");
+		panel.add(label_28);
+		
+		JLabel label_29 = new JLabel("");
+		panel.add(label_29);
+		
+		JLabel label_30 = new JLabel("");
+		panel.add(label_30);
+		
+		JLabel label_31 = new JLabel("");
+		panel.add(label_31);
 	}
 	
 	
