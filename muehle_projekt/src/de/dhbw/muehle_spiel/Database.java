@@ -156,7 +156,7 @@ public void lösche_p(){
 		statement=c.createStatement();
 		statement.executeUpdate(delete);
 		System.out.println("Tabelle protokoll wurde gelöscht");	
-	} catch (SQLException |NullPointerException e ) {		
+	} catch (SQLException e ) {		
 		e.printStackTrace();
 	}
 	

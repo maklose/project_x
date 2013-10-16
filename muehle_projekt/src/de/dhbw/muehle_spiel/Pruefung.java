@@ -13,7 +13,7 @@ public class Pruefung {
 		//Überprüfung, ob die Position bereits belegt ist
 				for (int i = 0; i< SpielerAktiv.getAnzahlZuege(); i++)
 				{
-					if(SpielerAktiv.Steine[i].getAktuellePosition().equals(position) == false ){
+					if(SpielerAktiv.Steine[i].getPosition().equals(position) == false ){
 					korrekt = true;
 					}
 					
@@ -24,7 +24,7 @@ public class Pruefung {
 				
 				for (int i = 0; i< SpielerPassiv.getAnzahlZuege(); i++)
 				{
-					if(SpielerPassiv.Steine[i].getAktuellePosition().equals(position)  == false){
+					if(SpielerPassiv.Steine[i].getPosition().equals(position)  == false){
 					korrekt = true;
 					}
 					else{
@@ -91,7 +91,7 @@ public class Pruefung {
 		//Überprüfung, ob die Nach-Position bereits belegt ist
 		for (int i = 0; i<9; i++)
 		{
-			if(SpielerAktiv.Steine[i].getAktuellePosition().equals(bewegung.getNach()) == false ){
+			if(SpielerAktiv.Steine[i].getPosition().equals(bewegung.getNach()) == false ){
 			korrekt = true;
 			}
 			
@@ -99,7 +99,7 @@ public class Pruefung {
 			return false;
 			}
 			
-			if(SpielerPassiv.Steine[i].getAktuellePosition().equals(bewegung.getNach()) == false){
+			if(SpielerPassiv.Steine[i].getPosition().equals(bewegung.getNach()) == false){
 			korrekt = true;
 			}
 			else{
@@ -125,9 +125,9 @@ public class Pruefung {
 		
 		// Ablegen der Positionen aller Steine eines Spielers in einem Array
 		for (int i = 0; i < 9; i++){
-			Positionen[i][0]= Steine[i].getAktuellePosition().getEbene().getValue();
-			Positionen[i][1]= Steine[i].getAktuellePosition().getX().getValue();
-			Positionen[i][2]= Steine[i].getAktuellePosition().getY().getValue();		
+			Positionen[i][0]= Steine[i].getPosition().getEbene().getValue();
+			Positionen[i][1]= Steine[i].getPosition().getX().getValue();
+			Positionen[i][2]= Steine[i].getPosition().getY().getValue();		
 			}
 		
 		for (int i =0; i <9; i++){
@@ -186,29 +186,29 @@ public class Pruefung {
 		int anzahl4 = 0;
 		
 		for(int j = 0; j <9 ; j++){
-			if(Steine[j].getAktuellePosition().equals(pos[0]))
+			if(Steine[j].getPosition().equals(pos[0]))
 				anzahl1++;
-			if(Steine[j].getAktuellePosition().equals(pos[1]))
+			if(Steine[j].getPosition().equals(pos[1]))
 				anzahl1++;
-			if(Steine[j].getAktuellePosition().equals(pos[2]))
+			if(Steine[j].getPosition().equals(pos[2]))
 				anzahl1++;
-			if(Steine[j].getAktuellePosition().equals(pos[3]))
+			if(Steine[j].getPosition().equals(pos[3]))
 				anzahl2++;
-			if(Steine[j].getAktuellePosition().equals(pos[4]))
+			if(Steine[j].getPosition().equals(pos[4]))
 				anzahl2++;
-			if(Steine[j].getAktuellePosition().equals(pos[5]))
+			if(Steine[j].getPosition().equals(pos[5]))
 				anzahl2++;
-			if(Steine[j].getAktuellePosition().equals(pos[6]))
+			if(Steine[j].getPosition().equals(pos[6]))
 				anzahl3++;
-			if(Steine[j].getAktuellePosition().equals(pos[7]))
+			if(Steine[j].getPosition().equals(pos[7]))
 				anzahl3++;
-			if(Steine[j].getAktuellePosition().equals(pos[8]))
+			if(Steine[j].getPosition().equals(pos[8]))
 				anzahl3++;
-			if(Steine[j].getAktuellePosition().equals(pos[9]))
+			if(Steine[j].getPosition().equals(pos[9]))
 				anzahl3++;
-			if(Steine[j].getAktuellePosition().equals(pos[10]))
+			if(Steine[j].getPosition().equals(pos[10]))
 				anzahl4++;
-			if(Steine[j].getAktuellePosition().equals(pos[11]))
+			if(Steine[j].getPosition().equals(pos[11]))
 				anzahl4++;
 		}
 			
@@ -234,7 +234,6 @@ public class Pruefung {
 		return inMuehle;
 	}
 
-	
 	
 }
 

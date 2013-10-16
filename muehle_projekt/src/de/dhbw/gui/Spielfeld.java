@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
@@ -13,22 +14,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 
 import javax.swing.JLabel;
+
 import de.dhbw.gui.BestaetigungBeenden;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 import net.miginfocom.swing.MigLayout;
 
@@ -51,7 +38,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JSplitPane;
 
-public class Spielfeld2 extends JFrame implements ActionListener{
+public class Spielfeld extends JFrame implements ActionListener{
 
 	/**
 	 * 
@@ -83,6 +70,9 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 	private JLabel lblNewLabel_4;
 	private JLabel lblNewLabel_5;
 	
+	
+	int xPos, yPos;
+	
 
 	/**
 	 * Hier wird das Spielfeld gestartet
@@ -96,7 +86,7 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 			{
 				try 
 				{
-					Spielfeld2 frame = new Spielfeld2();
+					Spielfeld frame = new Spielfeld();
 					frame.setVisible(true);
 				} catch (Exception e) 
 				{
@@ -111,7 +101,7 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 	 * Das JPanel wird erzeugt
 	 * Die Buttons werden instanziiert und mit dem action listener verknüpft
 	 */
-	public Spielfeld2() 
+	public Spielfeld() 
 	{
 			
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -126,8 +116,23 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		mntmSpielBeenden = new JMenuItem("Spiel beenden");
 		mntmSpielBeenden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//JDialog frageBeenden = new BestaetigungBeenden();
-				dispose();
+				BestaetigungBeenden frageBeenden = new BestaetigungBeenden();
+				frageBeenden.setListener( new BestaetigungBeenden.BestatigungsListener() {
+					
+					@Override
+					public void onOK() {
+						
+						Spielfeld.this.dispose();
+						//schließen
+					}
+					
+					@Override
+					public void onCancel() {
+						//schließen?	
+					}
+				});
+				frageBeenden.setVisible(true);
+				
 			}
 		});
 		mnNewMenu.add(mntmSpielBeenden);
@@ -136,7 +141,7 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 		mntmNeuesSpiel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				JFrame neuesSpiel = new Spielfeld2();
+				JFrame neuesSpiel = new Spielfeld();
 				neuesSpiel.setVisible(true);
 			}
 		});
@@ -182,7 +187,7 @@ public class Spielfeld2 extends JFrame implements ActionListener{
             {  
 			
                 Image spielfeld = Toolkit.getDefaultToolkit().getImage(  
-                          Spielfeld2.class.getResource("/de/dhbw/images/muehlespielfeld2.png"));  
+                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUI.png"));  
                 g.drawImage(spielfeld, 0, 0, this.getWidth(), this.getHeight(), this);  
                 
                 for(int i = 0; i <= 2; i++)
@@ -202,22 +207,30 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 	                				
 	                				//das Bild für den weißen Stein wird geladen
 	                				Image SteinWeiss = Toolkit.getDefaultToolkit().getImage(  
-	                		                Spielfeld2.class.getResource("/de/dhbw/images/Spielstein hell.png"));
+	                		                Spielfeld.class.getResource("/de/dhbw/images/Spielstein hell.png"));
 	                				
 	                				//hier wird das Verhältnis festgelet, in dem die Steine zum Spielfeld stehen (größe)
 	                				int breite = (int) ((int)spielfeld.getWidth(this)/10);
 	                				int hoehe = (int) ((int)spielfeld.getHeight(this)/10);
 	                				
 	                				
-	                				g.drawImage(SteinWeiss,  50, 50, breite, hoehe, this);
+	                				g.drawImage(SteinWeiss,  xPos , yPos , breite, hoehe, this);
 	                				
 	                				
 	                			}
 	                			else 
 	                			{
+	                				/*
+	                				 * hier läuft das ab wenn auf einem Spielfeld ein weißer stein steht 
+	                				 */
 	                				Image SteinSchwarz = Toolkit.getDefaultToolkit().getImage(  
-	                                        Spielfeld2.class.getResource("/de/dhbw/images/Spielstein dunkel.png"));
-	                				g.drawImage(SteinSchwarz,  10, 10, this.getWidth(), this.getHeight(), this);
+	                                        Spielfeld.class.getResource("/de/dhbw/images/Spielstein dunkel.png"));
+	                				
+	                				//hier wird das Verhältnis festgelet, in dem die Steine zum Spielfeld stehen (größe)
+	                				int breite = (int) ((int)spielfeld.getWidth(this)/10);
+	                				int hoehe = (int) ((int)spielfeld.getHeight(this)/10);
+	                				
+	                				g.drawImage(SteinSchwarz,  xPos, yPos, breite, hoehe, this);
 	                			}
 	                			
                 			}
@@ -230,6 +243,7 @@ public class Spielfeld2 extends JFrame implements ActionListener{
                 	}
                 }
             }
+
 
 			private void SteinZeichnen(ESpielsteinFarbe weiss) {
 				// TODO Auto-generated method stub
@@ -553,22 +567,59 @@ public class Spielfeld2 extends JFrame implements ActionListener{
 	
 	public void aktion(TransparentButtonFeld lButton)
 	{
+		//Position von dem Button ermitteln der gedrückt wurde
 		Position PositionGeklickt = lButton.getPosition();
+		Point pos = lButton.getLocation();
+		
+		//Differenz von Buttonmitte zu der Position wo der Knopf gezeichnet werden muss (dynamisch)
+		int xPosDif = panel.getWidth() / 20;
+		int yPosDif = panel.getHeight() / 20;
+		
+		//neue reale Position für den neuen Stein festlegen = Position des Buttons - Different 
+		xPos = (int)pos.getX() - xPosDif;
+		yPos = (int)pos.getY() - yPosDif;
+		
+		
+		System.out.println(pos);
+		System.out.println(panel.getWidth() / 20);
+		
+		//neue Bewegung erstellen
 		Bewegung neueBewegung = new Bewegung(null, PositionGeklickt);
-		this.SpielsteinSetzen(neueBewegung);
+		
+		
+		this.SpielsteinSetzen(neueBewegung, xPos, yPos);
 		
 		this.repaint();
 		
 		
 	}
+
 	
-	public void SpielsteinSetzen(Bewegung neueBewegung)
+	public void SpielsteinSetzen(Bewegung neueBewegung, int xPos, int yPos)
 	{
 		System.out.println(neueBewegung);
-		Spieler1.setzeSpielstein(neueBewegung.getNach());
-		Spielstein test = new Spielstein(ESpielsteinFarbe.WEISS, neueBewegung.getNach());
-		SpielfeldArray[1][1][1] = test;
+		Spieler1.setzeSpielstein(neueBewegung.getNach(), xPos, yPos);
+		Spielstein neuerStein = Spieler1.getSpielstein(1);
+		
+		int e, x, y;
+		e = posIndexUmrechnen(neueBewegung.getNach().getEbene());
+		x = posIndexUmrechnen(neueBewegung.getNach().getX());
+		y = posIndexUmrechnen(neueBewegung.getNach().getY());
+		SpielfeldArray[e][x][y] = neuerStein;
 	}
+	
+	public int posIndexUmrechnen(EPositionIndex lPosition)
+	{
+		if(lPosition.equals(EPositionIndex.Eins))
+			return 0;
+		else if(lPosition.equals(EPositionIndex.Zwei))
+			return 1;
+		else if(lPosition.equals(EPositionIndex.Drei))
+			return 2;
+		else 
+			return 99;
+	}
+
 	
 
 		
