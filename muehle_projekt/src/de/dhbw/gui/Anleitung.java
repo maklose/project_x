@@ -6,12 +6,18 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.GridBagLayout;
+
 import javax.swing.JButton;
+
 import java.awt.GridBagConstraints;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Anleitung extends JFrame {
 
@@ -58,10 +64,15 @@ public class Anleitung extends JFrame {
 		JButton btnOk = new JButton("OK"){
 			@Override
 			public void paintComponent(Graphics g){
-				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Spielanleitung.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
+				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button OK.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
 			}
 		};
-		btnOk.setBounds(582, 405, 89, 23);
+		btnOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
+		btnOk.setBounds(584, 394, 85, 40);
 		panel.add(btnOk);
 	}
 }
