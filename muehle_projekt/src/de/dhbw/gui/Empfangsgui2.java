@@ -1,7 +1,6 @@
 package de.dhbw.gui;
 
 
-import de.dhbw.gui.TransparentButton2;
 import de.dhbw.gui.DialogAnleitung2;
 import de.dhbw.gui.DialogOptionen2;
 
@@ -15,21 +14,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JButton;
 
 import java.awt.Color;
 
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-
-import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.ComponentEvent;
-
 import javax.swing.ImageIcon;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class Empfangsgui2 extends JFrame {
 
@@ -74,86 +68,36 @@ public class Empfangsgui2 extends JFrame {
 		                }  
 			          };  
 		panel.setBackground(new Color(255, 255, 255));
-		contentPane.add(panel, BorderLayout.CENTER);
-		panel.setLayout(new GridLayout(8, 6, 10, 10));
+		contentPane.add(panel, BorderLayout.CENTER);;;
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[]{0, 138, 0, 138, 0, 0};
+		gbl_panel.rowHeights = new int[]{150, 50, 20, 50, 0};
+		gbl_panel.columnWeights = new double[]{1.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panel.setLayout(gbl_panel);
 		
-		JLabel label = new JLabel("");
-		panel.add(label);
-		
-		JLabel label_1 = new JLabel("") ;
-		panel.add(label_1);
-		
-		JLabel label_2 = new JLabel("");
-		panel.add(label_2);
-		
-		JLabel label_3 = new JLabel("");
-		panel.add(label_3);
-		
-		JLabel label_4 = new JLabel("");
-		panel.add(label_4);
-		
-		JLabel label_5 = new JLabel("");
-		panel.add(label_5);
-		
-		JLabel label_6 = new JLabel("");
-		panel.add(label_6);
-		
-		JLabel label_7 = new JLabel("");
-		panel.add(label_7);
-		
-		JLabel label_8 = new JLabel("");
-		panel.add(label_8);
-		
-		JLabel label_9 = new JLabel("");
-		panel.add(label_9);
-		
-		JLabel label_10 = new JLabel("");
-		panel.add(label_10);;;
-		
-		JLabel label_11 = new JLabel("");
-		panel.add(label_11);
-		
-		JLabel label_12 = new JLabel("");
-		panel.add(label_12);
-		
-		JLabel label_13 = new JLabel("");
-		panel.add(label_13);
-		
-		JLabel label_14 = new JLabel("");
-		panel.add(label_14);
-		
-		JLabel label_15 = new JLabel("");
-		panel.add(label_15);
-		
-		JLabel label_16 = new JLabel("");
-		panel.add(label_16);
-		
-		JLabel label_17 = new JLabel("");
-		panel.add(label_17);
-		
-		JLabel label_18 = new JLabel("");
-		panel.add(label_18);
-		
-		TransparentButton2 btn_start = new TransparentButton2("START");
-		btn_start.setIcon(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Test.PNG")));
-		btn_start.addActionListener(new ActionListener() {
+		JButton btn_anleitung = new JButton(){
+			@Override
+			public void paintComponent(Graphics g){
+				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Spielanleitung.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
+			}
+		};;
+//		btn_anleitung.setIcon(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Spielanleitung.PNG")));
+		btn_anleitung.setForeground(Color.BLACK);
+		btn_anleitung.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame neuesSpiel = new Spielfeld();
-				neuesSpiel.setVisible(true);
+				JDialog anleitung = new DialogAnleitung2();
+				anleitung.setVisible(true);
 			}
 		});
-		btn_start.setForeground(Color.BLACK);
-		btn_start.setBackground(new Color(245, 222, 179));
-		panel.add(btn_start);
 		
-		JLabel label_19 = new JLabel("");
-		panel.add(label_19);
-		
-		JLabel label_20 = new JLabel("");
-		panel.add(label_20);
-		
-		JButton btn_exit = new TransparentButton2("EXIT");
-		btn_exit.setIcon(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Exit.PNG")));
+		JButton btn_exit = new JButton(){
+			@Override
+			public void paintComponent(Graphics g){
+				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Exit.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
+			}
+		};
+//		btn_exit.setIcon(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Exit.PNG")));
 		btn_exit.setForeground(Color.BLACK);
 		btn_exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -176,83 +120,64 @@ public class Empfangsgui2 extends JFrame {
 				
 			}
 		});
-		btn_exit.setBackground(new Color(245, 222, 179));
-		panel.add(btn_exit);
 		
-		JLabel label_21 = new JLabel("");
-		panel.add(label_21);
-		
-		JLabel label_22 = new JLabel("");
-		panel.add(label_22);
-		
-		JLabel label_23 = new JLabel("");
-		panel.add(label_23);
-		
-		JLabel label_24 = new JLabel("");
-		panel.add(label_24);
-		
-		JLabel label_25 = new JLabel("");
-		panel.add(label_25);
-		
-		JLabel label_26 = new JLabel("");
-		panel.add(label_26);
-		
-		JLabel label_27 = new JLabel("");
-		panel.add(label_27);
-		
-		JLabel label_28 = new JLabel("");
-		panel.add(label_28);
-		
-		JButton btn_anleitung = new TransparentButton2("New button");
-		btn_anleitung.setIcon(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Spielanleitung.PNG")));
-		btn_anleitung.setForeground(Color.BLACK);
-		btn_anleitung.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JDialog anleitung = new DialogAnleitung2();
-				anleitung.setVisible(true);
+		JButton btn_start = new JButton(){
+			@Override
+			public void paintComponent(Graphics g){
+				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Spiel starten.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
 			}
-		});
-		btn_anleitung.setText("ANLEITUNG");
-		btn_anleitung.setBackground(new Color(245, 222, 179));
-		panel.add(btn_anleitung);
+		};
+		//		btn_start.setIcon(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Test.PNG")));
+				btn_start.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						JFrame neuesSpiel = new Spielfeld();
+						neuesSpiel.setVisible(true);
+					}
+				});
+				btn_start.setForeground(Color.BLACK);
+				btn_start.setBackground(new Color(245, 222, 179));
+				GridBagConstraints gbc_btn_start = new GridBagConstraints();
+				gbc_btn_start.fill = GridBagConstraints.BOTH;
+				gbc_btn_start.insets = new Insets(0, 0, 5, 5);
+				gbc_btn_start.gridx = 1;
+				gbc_btn_start.gridy = 1;
+				panel.add(btn_start, gbc_btn_start);
+		btn_exit.setBackground(new Color(245, 222, 179));
+		GridBagConstraints gbc_btn_exit = new GridBagConstraints();
+		gbc_btn_exit.fill = GridBagConstraints.BOTH;
+		gbc_btn_exit.insets = new Insets(0, 0, 5, 5);
+		gbc_btn_exit.gridx = 3;
+		gbc_btn_exit.gridy = 1;
+		panel.add(btn_exit, gbc_btn_exit);
 		
-		JLabel label_29 = new JLabel("");
-		panel.add(label_29);
-		
-		JLabel label_30 = new JLabel("");
-		panel.add(label_30);
-		
-		JButton btn_optionen = new TransparentButton2 ("OPTIONEN");
+		JButton btn_optionen = new JButton(){
+			@Override
+			public void paintComponent(Graphics g){
+				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Optionen.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
+			}
+		};;
 		btn_optionen.setForeground(Color.BLACK);
 		btn_optionen.setBackground(new Color(245, 222, 179));
 		btn_optionen.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				JDialog auswahl = new DialogOptionen2 ();
 				auswahl.setVisible(true);
 			}
 		});
-		panel.add(btn_optionen);
-		
-		JLabel label_31 = new JLabel("");
-		panel.add(label_31);
-		
-		JLabel label_32 = new JLabel("");
-		panel.add(label_32);
-		
-		JLabel label_33 = new JLabel("");
-		panel.add(label_33);
-		
-		JLabel label_34 = new JLabel("");
-		panel.add(label_34);
-		
-		JLabel label_35 = new JLabel("");
-		panel.add(label_35);
-		
-		JLabel label_36 = new JLabel("");
-		panel.add(label_36);
-		
-		JLabel label_37 = new JLabel("");
-		panel.add(label_37);
+		GridBagConstraints gbc_btn_optionen = new GridBagConstraints();
+		gbc_btn_optionen.insets = new Insets(0, 0, 0, 5);
+		gbc_btn_optionen.fill = GridBagConstraints.BOTH;
+		gbc_btn_optionen.gridx = 1;
+		gbc_btn_optionen.gridy = 3;
+		panel.add(btn_optionen, gbc_btn_optionen);
+		btn_anleitung.setBackground(new Color(245, 222, 179));
+		GridBagConstraints gbc_btn_anleitung = new GridBagConstraints();
+		gbc_btn_anleitung.insets = new Insets(0, 0, 0, 5);
+		gbc_btn_anleitung.fill = GridBagConstraints.BOTH;
+		gbc_btn_anleitung.gridx = 3;
+		gbc_btn_anleitung.gridy = 3;
+		panel.add(btn_anleitung, gbc_btn_anleitung);
 	}
 	
 	
