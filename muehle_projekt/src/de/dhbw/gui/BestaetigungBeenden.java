@@ -35,21 +35,23 @@ public class BestaetigungBeenden extends JDialog {
 	 * Create the dialog.
 	 */
 	public BestaetigungBeenden() {
+		//Fenster
 		setBounds(100, 100, 262, 122);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new GridLayout(1, 0, 0, 0));
 		{
-			JTextPane txtpnMchtenSieDas = new JTextPane();
-			txtpnMchtenSieDas.setText("M\u00F6chten Sie das Spiel wirklich beenden?");
-			contentPanel.add(txtpnMchtenSieDas);
+			//Textfeld
+			JPanel panel = new JPanel();
+			contentPanel.add(panel);
 		}
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
+				//Button "OK"
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -64,13 +66,20 @@ public class BestaetigungBeenden extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
+				//Button "Cancel"
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
 		}
 	}
 	
+	//Listener
 	public void setListener(BestatigungsListener listener)
 	{
 		this.listener = listener;

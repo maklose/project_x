@@ -10,7 +10,7 @@ private int AnzahlSteine;  //Anzahl der Steine, die ein Spieler auf dem Spielfel
 private ESpielsteinFarbe Spielerfarbe; //Farbe der Spielsteine eines Spielers
 private EPhase Phase; //Spielphase, in der sich der Spieler befindet
 
-Spielstein[] Steine = new Spielstein[9]; //Array, in dem alle Spielsteine eines Spielers abgelegt werden
+public Spielstein[] Steine = new Spielstein[9]; //Array, in dem alle Spielsteine eines Spielers abgelegt werden
 
 //Konstruktor, Erzeugung eines neuen Spielers unter Angabe der Spielerfarbe
 public Spieler (ESpielsteinFarbe lSpielerfarbe)
@@ -35,7 +35,7 @@ public EPhase getPhase(){
 // Erzeugt einen neuen Spielstein, solange AnzahlZuege <9
 public void setzeSpielstein(Position lPosition, int lxPos, int lyPos) {
 	if (AnzahlZuege <= 9){
-	Steine[AnzahlSteine]= new Spielstein(Spielerfarbe, lPosition, lxPos, lyPos);
+	Steine[AnzahlSteine]= new Spielstein(Spielerfarbe, lPosition, lxPos, lyPos, AnzahlZuege);
 	AnzahlZuege ++;
 	AnzahlSteine ++;
 	}
