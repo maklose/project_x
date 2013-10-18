@@ -63,8 +63,9 @@ public class Spielfeld extends JFrame implements ActionListener{
 	private JLabel lblNewLabel_4;
 	private JLabel lblNewLabel_5;
 	
-	
-	int xPos, yPos, index;
+	//xPos und yPos sind die reellen Positionen auf dem Feld, 
+	//anzahlRunden zählt die Anzahl der Runden
+	int xPos, yPos, anzahlRunden;
 	int zaehler1 = 1;
 	int zaehler2 = 0;
 	
@@ -551,6 +552,9 @@ public class Spielfeld extends JFrame implements ActionListener{
 		{
 			this.aktion(btnNewButton_49);
 		}
+		
+		//verschiedene Ausgaben
+		System.out.println("Neuer Zug ------------------------");
 		System.out.println("Spieler1: " + Spieler1.getAnzahlZuege());
 		System.out.println("Spieler2: " + Spieler2.getAnzahlZuege());
 		
@@ -589,7 +593,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 					}
 					
 					//Steht der Stein in einer Mühle
-					if(pruef.checkInMuehle(index, Spieler1.Steine))
+					if(pruef.checkInMuehle(anzahlRunden, Spieler1.Steine))
 					{
 						System.out.println("Mühle");
 					}
@@ -599,7 +603,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 					}
 					
 					//neu zeichnen
-					this.repaint();
+					panel.repaint();
 					zaehler2++;
 					return;
 				}
@@ -622,7 +626,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 					}
 					
 					//Stein in Mühle?
-					if(pruef.checkInMuehle(index, Spieler2.Steine))
+					if(pruef.checkInMuehle(anzahlRunden, Spieler2.Steine))
 					{
 					System.out.println("Mühle");
 					}
@@ -631,8 +635,8 @@ public class Spielfeld extends JFrame implements ActionListener{
 						
 					}
 					
-					this.repaint();
-					index++;
+					panel.repaint();
+					anzahlRunden++;
 					zaehler1++;
 					return;
 				}
@@ -709,8 +713,8 @@ public class Spielfeld extends JFrame implements ActionListener{
 						
 					}
 					
-					this.repaint();
-					index++;
+					panel.repaint();
+					anzahlRunden++;
 					zaehler1++;
 					return;
 				}
@@ -735,7 +739,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 		e = posIndexUmrechnen(neueBewegung.getNach().getEbene());
 		x = posIndexUmrechnen(neueBewegung.getNach().getX());
 		y = posIndexUmrechnen(neueBewegung.getNach().getY());
-		SpielfeldArray[e][x][y] = lSpieler.getSpielstein(index);
+		SpielfeldArray[e][x][y] = lSpieler.getSpielstein(anzahlRunden);
 	}
 	
 	
@@ -760,6 +764,8 @@ public class Spielfeld extends JFrame implements ActionListener{
 		b = posIndexUmrechnen(neueBewegung.getNach().getX());
 		c = posIndexUmrechnen(neueBewegung.getNach().getY());
 		SpielfeldArray[a][b][c] = aktuellerStein;
+		System.out.println(SpielfeldArray[a][b][c]);
+		System.out.println(SpielfeldArray[e][x][y]);
 		
 		//Die Bewegung wird an den Spieler weitergegeben
 		lSpieler.bewegeSpielstein(neueBewegung, aktuellerStein.getIndex(), xPos, yPos);	
