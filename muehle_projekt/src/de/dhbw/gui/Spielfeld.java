@@ -63,13 +63,17 @@ public class Spielfeld extends JFrame implements ActionListener{
 	private JLabel lblNewLabel_4;
 	private JLabel lblNewLabel_5;
 	
-	
-	int xPos, yPos, index;
+	//xPos und yPos sind die reellen Positionen auf dem Feld, 
+	//anzahlRunden z‰hlt die Anzahl der Runden
+	int xPos, yPos, anzahlRunden;
 	int zaehler1 = 1;
 	int zaehler2 = 0;
 	
+	//Alte Position wenn man zieht und die variable ob der aktuelle klick schon das neue setzen ist
 	Position altePosition; 
 	boolean hatAltePosition;
+	
+
 	
 	Pruefung pruef = new Pruefung();
 	
@@ -122,13 +126,14 @@ public class Spielfeld extends JFrame implements ActionListener{
 		mntmSpielBeenden = new JMenuItem("Spiel beenden");
 		mntmSpielBeenden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BestaetigungBeenden frageBeenden = new BestaetigungBeenden();
+				final BestaetigungBeenden frageBeenden = new BestaetigungBeenden();
 				frageBeenden.setListener( new BestaetigungBeenden.BestatigungsListener() {
 					
 					@Override
 					public void onOK() {
 						
 						Spielfeld.this.dispose();
+						frageBeenden.dispose();
 						//schlieﬂen
 					}
 					
@@ -547,6 +552,9 @@ public class Spielfeld extends JFrame implements ActionListener{
 		{
 			this.aktion(btnNewButton_49);
 		}
+		
+		//verschiedene Ausgaben
+		System.out.println("Neuer Zug ------------------------");
 		System.out.println("Spieler1: " + Spieler1.getAnzahlZuege());
 		System.out.println("Spieler2: " + Spieler2.getAnzahlZuege());
 		
@@ -559,36 +567,23 @@ public class Spielfeld extends JFrame implements ActionListener{
 	
 	public void aktion(TransparentButtonFeld lButton)
 	{
+		Position PositionGeklickt = lButton.getPosition();
 		while(!this.SpielBeendet())
 		{
 			//erste Phase wenn noch nicht alle Steine gesetzt wurden
 			while(Spieler2.getAnzahlZuege() < 9)
 			{
-				
+				//Spieler1 ist dran
 				if(Spieler1.getAnzahlZuege() < zaehler1)
 				{
-					//Position von dem Button ermitteln der gedr¸ckt wurde
-					Position PositionGeklickt = lButton.getPosition();
-					Point pos = lButton.getLocation();
-					
-					//Differenz von Buttonmitte zu der Position wo der Knopf gezeichnet werden muss (dynamisch)
-					int xPosDif = panel.getWidth() / 20;
-					int yPosDif = panel.getHeight() / 20;
-					
-					//neue reale Position f¸r den neuen Stein festlegen = Position des Buttons - Different 
-					xPos = (int)pos.getX() - xPosDif;
-					yPos = (int)pos.getY()  + yPosDif/2;
-					
-					
-					System.out.println(pos);
-					System.out.println(panel.getWidth() / 20);
 					
 					//neue Bewegung erstellen
 					Bewegung neueBewegung = new Bewegung(null, PositionGeklickt);
 					
+					//verschiedene Pr¸fungen
 					if(pruef.checkSetzen(PositionGeklickt, Spieler1, Spieler2) == true)
 					{	
-						this.SpielsteinSetzen(neueBewegung, xPos, yPos, Spieler1);
+						this.SpielsteinSetzen(neueBewegung, xPos, yPos, Spieler1, lButton);
 						
 					}
 					else
@@ -597,7 +592,8 @@ public class Spielfeld extends JFrame implements ActionListener{
 						return;
 					}
 					
-					if(pruef.checkInMuehle(index, Spieler1.Steine))
+					//Steht der Stein in einer M¸hle
+					if(pruef.checkInMuehle(anzahlRunden, Spieler1.Steine))
 					{
 						System.out.println("M¸hle");
 					}
@@ -606,30 +602,21 @@ public class Spielfeld extends JFrame implements ActionListener{
 						
 					}
 					
-					this.repaint();
+					//neu zeichnen
+					panel.repaint();
 					zaehler2++;
 					return;
 				}
+				//Spieler2 ist dran
 				else if(Spieler2.getAnzahlZuege() < zaehler2)
 				{
-					//Position von dem Button ermitteln der gedr¸ckt wurde
-					Position PositionGeklickt = lButton.getPosition();
-					Point pos = lButton.getLocation();
-					
-					//Differenz von Buttonmitte zu der Position wo der Knopf gezeichnet werden muss (dynamisch)
-					int xPosDif = panel.getWidth() / 20;
-					int yPosDif = panel.getHeight() / 20;
-					
-					//neue reale Position f¸r den neuen Stein festlegen = Position des Buttons - Different 
-					xPos = (int)pos.getX() - xPosDif;
-					yPos = (int)pos.getY() - yPosDif/2;
-					
 					//neue Bewegung erstellen
 					Bewegung neueBewegung = new Bewegung(null, PositionGeklickt);
-					System.out.println(neueBewegung);
+
+					//verschiedene Pr¸fungen
 					if(pruef.checkSetzen(PositionGeklickt, Spieler2, Spieler1) == true)
 					{	
-						this.SpielsteinSetzen(neueBewegung, xPos, yPos, Spieler2);
+						this.SpielsteinSetzen(neueBewegung, xPos, yPos, Spieler2, lButton);
 						
 					}
 					else
@@ -638,7 +625,8 @@ public class Spielfeld extends JFrame implements ActionListener{
 						return;
 					}
 					
-					if(pruef.checkInMuehle(index, Spieler2.Steine))
+					//Stein in M¸hle?
+					if(pruef.checkInMuehle(anzahlRunden, Spieler2.Steine))
 					{
 					System.out.println("M¸hle");
 					}
@@ -647,25 +635,21 @@ public class Spielfeld extends JFrame implements ActionListener{
 						
 					}
 					
-					this.repaint();
-					index++;
+					panel.repaint();
+					anzahlRunden++;
 					zaehler1++;
 					return;
 				}
+				//w¸rde ausgef¸hrt wenn kein Spieler dran ist
 				else
 				{
-					System.out.println("test");
+					System.out.println("fehler! irgendwie ist kein Spieler dran");
 				}
 				
 			}
 			//Hier wird der Code ausgef¸hrt, wenn die erste Phase abgeschlossen ist
 			while(true)
 			{
-				
-				
-				Position PositionGeklickt = lButton.getPosition();
-				
-				
 				//der aktuelle und der passive spieler wird festgelegt
 				Spieler aktuellerSpieler, passiverSpieler;
 				if(Spieler1.getAnzahlZuege() >= Spieler2.getAnzahlZuege())
@@ -694,23 +678,15 @@ public class Spielfeld extends JFrame implements ActionListener{
 				}
 				else 		//hier der Fall wenn die alte Position bereits abgespeichert wurde
 				{
-					Point pos = lButton.getLocation();
-					
-					//Differenz von Buttonmitte zu der Position wo der Knopf gezeichnet werden muss (dynamisch)
-					int xPosDif = panel.getWidth() / 20;
-					int yPosDif = panel.getHeight() / 20;
-					
-					//neue reale Position f¸r den neuen Stein festlegen = Position des Buttons - Different 
-					xPos = (int)pos.getX() - xPosDif;
-					yPos = (int)pos.getY() - yPosDif/2;
 					
 					//neue Bewegung erstellen
 					Bewegung neueBewegung = new Bewegung(altePosition, PositionGeklickt);
 					System.out.println(neueBewegung);
 					
+					//verschiedene Pr¸fungen
 					if(pruef.checkSetzen(PositionGeklickt, aktuellerSpieler, passiverSpieler) == true)
 					{	
-						this.SpielsteinBewegen(neueBewegung, xPos, yPos, aktuellerSpieler);
+						this.SpielsteinBewegen(neueBewegung, xPos, yPos, aktuellerSpieler, lButton);
 						
 					}
 					else
@@ -719,12 +695,14 @@ public class Spielfeld extends JFrame implements ActionListener{
 						return;
 					}
 					
+					//aktueller Stein wird aus dem Array f¸r ¸berpr¸fungen geholt
 					Spielstein aktuellerStein;
 					int e, x, y;
 					e = posIndexUmrechnen(neueBewegung.getNach().getEbene());
 					x = posIndexUmrechnen(neueBewegung.getNach().getX());
 					y = posIndexUmrechnen(neueBewegung.getNach().getY());
 					aktuellerStein = SpielfeldArray[e][x][y];
+					System.out.println(aktuellerStein);
 					
 					if(pruef.checkInMuehle(aktuellerStein.getIndex() , aktuellerSpieler.Steine))
 					{
@@ -735,8 +713,8 @@ public class Spielfeld extends JFrame implements ActionListener{
 						
 					}
 					
-					this.repaint();
-					index++;
+					panel.repaint();
+					anzahlRunden++;
 					zaehler1++;
 					return;
 				}
@@ -746,38 +724,54 @@ public class Spielfeld extends JFrame implements ActionListener{
 	}
 
 	
-	public void SpielsteinSetzen(Bewegung neueBewegung, int xPos, int yPos, Spieler lSpieler)
+	public void SpielsteinSetzen(Bewegung neueBewegung, int xPos, int yPos, Spieler lSpieler, TransparentButtonFeld lButton)
 	{
+		//Die Position an der der Stein gezeichnet werden soll wird ermittelt 
+		Point pos = lButton.getLocation();
+		xPos = (int)pos.getX() + (lButton.getWidth()/8);
+		yPos = (int)pos.getY() + (lButton.getHeight()/8);
+		
+		//Die Bewegung wird an den Spieler weitergegeben 
 		lSpieler.setzeSpielstein(neueBewegung.getNach(), xPos, yPos);
-			
+		
+		//Das Array in dem die Spielsteine gepeichert sind wird gef¸llt
 		int e, x, y;
 		e = posIndexUmrechnen(neueBewegung.getNach().getEbene());
 		x = posIndexUmrechnen(neueBewegung.getNach().getX());
 		y = posIndexUmrechnen(neueBewegung.getNach().getY());
-		SpielfeldArray[e][x][y] = lSpieler.getSpielstein(index);
+		SpielfeldArray[e][x][y] = lSpieler.getSpielstein(anzahlRunden);
 	}
 	
 	
-	public void SpielsteinBewegen(Bewegung neueBewegung, int xPos, int yPos, Spieler lSpieler)
+	public void SpielsteinBewegen(Bewegung neueBewegung, int xPos, int yPos, Spieler lSpieler, TransparentButtonFeld lButton)
 	{
+		//Die Position an der der Stein gezeichnet werden soll wrd ermittelt
+		Point pos = lButton.getLocation();
+		xPos = (int)pos.getX() + (lButton.getWidth()/8);
+		yPos = (int)pos.getY() + (lButton.getHeight()/8);
+		
+		//Die alte Position des Steins wird aus dem Array gelˆscht und in der Variable aktueller Stein zwischengespeichert
 		int e, x, y;
 		e = posIndexUmrechnen(altePosition.getEbene());
 		x = posIndexUmrechnen(altePosition.getX());
 		y = posIndexUmrechnen(altePosition.getY());
-		
 		Spielstein aktuellerStein = SpielfeldArray[e][x][y];
 		SpielfeldArray[e][x][y] = null;
 		
+		//Die neue Position wird in das Array geschrieben 
 		int a, b, c;
 		a = posIndexUmrechnen(neueBewegung.getNach().getEbene());
 		b = posIndexUmrechnen(neueBewegung.getNach().getX());
 		c = posIndexUmrechnen(neueBewegung.getNach().getY());
 		SpielfeldArray[a][b][c] = aktuellerStein;
-			
-		lSpieler.bewegeSpielstein(neueBewegung, aktuellerStein.getIndex(), xPos, yPos);
+		System.out.println(SpielfeldArray[a][b][c]);
+		System.out.println(SpielfeldArray[e][x][y]);
 		
+		//Die Bewegung wird an den Spieler weitergegeben
+		lSpieler.bewegeSpielstein(neueBewegung, aktuellerStein.getIndex(), xPos, yPos);	
 	}
 	
+	//EPositionIndex auf dem Feld wird in int umgerechnet
 	public int posIndexUmrechnen(EPositionIndex lPosition)
 	{
 		if(lPosition.equals(EPositionIndex.Eins))
@@ -790,6 +784,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 			return 99;
 	}
 	
+	//kleiner Test zu Spiel beendet
 	public boolean SpielBeendet()
 	{
 		if(Spieler1.getAnzahlZuege() > 3 && Spieler1.getAnzahlSteine() < 3)
