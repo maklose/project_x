@@ -35,7 +35,7 @@ public EPhase getPhase(){
 // Erzeugt einen neuen Spielstein, solange AnzahlZuege <9
 public void setzeSpielstein(Position lPosition, int lxPos, int lyPos) 
 {
-	Steine[AnzahlSteine]= new Spielstein(Spielerfarbe, lPosition, lxPos, lyPos, AnzahlZuege);
+	Steine[AnzahlZuege]= new Spielstein(Spielerfarbe, lPosition, lxPos, lyPos, AnzahlZuege);
 	AnzahlZuege ++;
 	AnzahlSteine ++;
 }
