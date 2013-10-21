@@ -52,7 +52,7 @@ public void bewegeSpielstein(Bewegung bewegung, int IndexStein, int lxPos, int l
 
 public void entferneSpielstein(int IndexStein){
 	
-		Steine[IndexStein].setPosition(null);
+		Steine[IndexStein] = null;
 		AnzahlSteine --;
 	
 }
