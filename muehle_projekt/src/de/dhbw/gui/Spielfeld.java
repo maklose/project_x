@@ -167,6 +167,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 		mntmNeuesSpiel = new JMenuItem("neues Spiel");
 		mntmNeuesSpiel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				db.löschetb("protokoll");
 				dispose();
 				JFrame neuesSpiel = new Spielfeld();
 				neuesSpiel.setVisible(true);
@@ -225,7 +226,6 @@ public class Spielfeld extends JFrame implements ActionListener{
 	                				int breite = (int) ((int)spielfeld.getWidth(this)/5);
 	                				int hoehe = (int) ((int)spielfeld.getHeight(this)/5);
 	                				
-	                				
 	                				g.drawImage(SteinWeiss,  xPosi , yPosi , breite, hoehe, this);
 	                				
 	                				
@@ -235,10 +235,8 @@ public class Spielfeld extends JFrame implements ActionListener{
 	                				/*
 	                				 * hier läuft das ab wenn auf einem Spielfeld ein weißer stein steht 
 	                				 */
-	                				
 	                				int xPosi = aktuellerStein.getxPos();
 	                				int yPosi = aktuellerStein.getyPos();
-	                				
 	                				
 	                				//hier wird das Verhältnis festgelet, in dem die Steine zum Spielfeld stehen (größe)
 	                				int breite = (int) ((int)spielfeld.getWidth(this)/5);
@@ -612,6 +610,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 					}
 					else
 					{
+						System.out.print("checkSetzen ergab: ");
 						System.out.println(pruef.checkSetzen(PositionGeklickt, aktuellerSpieler, passiverSpieler));	
 						return;
 					}
@@ -634,7 +633,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 					
 					//neu zeichnen
 					panel.repaint();
-					zaehler2++;
+				//	zaehler2++;
 					return;
 				}				
 		
@@ -730,6 +729,8 @@ public class Spielfeld extends JFrame implements ActionListener{
 							|| (aktuellerStein.FarbVergleich(ESpielsteinFarbe.WEISS) && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.SCHWARZ)))
 					{
 						this.muehle(aktuellerStein, aktuellerSpieler, PositionGeklickt, neueBewegung);
+						if(aktuellerSpieler == Spieler2) //TEST
+							anzahlRunden++;
 						return;
 					}
 					else //der Spieler hat auf einen seiner eigenen Steine gedrückt
@@ -755,6 +756,8 @@ public class Spielfeld extends JFrame implements ActionListener{
 		Spielstein zuLoeschenderStein = SpielfeldArray[e][x][y];
 		SpielfeldArray[e][x][y] = null;
 		
+		passiverSpieler.entferneSpielstein(zuLoeschenderStein.getIndex());
+		
 		
 		hatMuehle = false;
 		panel.repaint();
@@ -763,7 +766,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 			anzahlRunden++;
 			rundeVorbei = false;
 		}
-		zaehler1++;
+		//zaehler1++;
 		hatAltePosition = false;	
 		
 		db.zugspeichern(neueBewegung, aktuellerSpieler, true, zuLoeschenderStein);
@@ -786,6 +789,8 @@ public class Spielfeld extends JFrame implements ActionListener{
 		x = posIndexUmrechnen(neueBewegung.getNach().getX());
 		y = posIndexUmrechnen(neueBewegung.getNach().getY());
 		SpielfeldArray[e][x][y] = lSpieler.getSpielstein(anzahlRunden);
+		System.out.print("aktuellerSpielstein: ");
+		System.out.println(lSpieler.getSpielstein(anzahlRunden));
 	}
 	
 	

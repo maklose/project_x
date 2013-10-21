@@ -8,7 +8,7 @@ public class testderdb {
 			//db.erzeuge_p();
 			//db.zugspeichern();
 			//db.zeige_p();
-			db.löschetb("highscore");
+			db.löschetb("protokoll");
 			//db.erzeuge_h();
 			//db.anzahlzuegespeichern();
 		
