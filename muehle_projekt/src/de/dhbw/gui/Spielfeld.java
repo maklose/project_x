@@ -1,8 +1,11 @@
 package de.dhbw.gui;
 
+import java.awt.AlphaComposite;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -20,6 +23,7 @@ import de.dhbw.gui.BestaetigungBeenden;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -34,7 +38,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-public class Spielfeld extends JFrame implements ActionListener, WindowListener{
+public class Spielfeld extends JFrame implements ActionListener {
 
 	/**
 	 * 
@@ -85,7 +89,7 @@ public class Spielfeld extends JFrame implements ActionListener, WindowListener{
 	private Bewegung neueBewegung;
 	
 	
-	Database db = new Database();
+	static Database db = new Database();
 	
 	//Alte Position wenn man zieht und die variable ob der aktuelle klick schon das neue setzen ist
 	Position altePosition; 
@@ -108,6 +112,9 @@ public class Spielfeld extends JFrame implements ActionListener, WindowListener{
 				try 
 				{
 					Spielfeld frame = new Spielfeld();
+					frame.addWindowListener(new WindowAdapter() {
+											public void windowClosing(WindowEvent evt) {
+											exitForm(evt);}});
 					frame.setVisible(true);
 				} catch (Exception e) 
 				{
@@ -117,6 +124,11 @@ public class Spielfeld extends JFrame implements ActionListener, WindowListener{
 		});
 	}
 
+	private static void exitForm(WindowEvent evt) 
+	{
+		db.löschetb("protokoll");
+        System.exit(0);
+    }
 	
 	/**
 	 * Das JPanel wird erzeugt
@@ -125,7 +137,7 @@ public class Spielfeld extends JFrame implements ActionListener, WindowListener{
 	public Spielfeld() 
 	{
 			
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(800, 0, 1074, 900);
 		
 		//das Bild für den weißen und schwarzen Stein wird geladen
@@ -133,6 +145,11 @@ public class Spielfeld extends JFrame implements ActionListener, WindowListener{
                 Spielfeld.class.getResource("/de/dhbw/images/Spielstein hell.png"));
 		final Image SteinSchwarz = Toolkit.getDefaultToolkit().getImage(  
                 Spielfeld.class.getResource("/de/dhbw/images/Spielstein dunkel.png"));
+		
+		final Image transparentSteinWeiss = Toolkit.getDefaultToolkit().getImage(  
+                Spielfeld.class.getResource("/de/dhbw/images/transparent Spielstein hell.png"));
+		final Image transparentSteinSchwarz = Toolkit.getDefaultToolkit().getImage(  
+                Spielfeld.class.getResource("/de/dhbw/images/transparent Spielstein dunkel.png"));
 		
 		
 		menuBar = new JMenuBar();
@@ -216,19 +233,24 @@ public class Spielfeld extends JFrame implements ActionListener, WindowListener{
                 			if(SpielfeldArray[i][j][k] != null)
                 			{
 	                			Spielstein aktuellerStein = SpielfeldArray[i][j][k];
+	                			
+	                			int xPosi = aktuellerStein.getxPos();
+                				int yPosi = aktuellerStein.getyPos();
+                				
+                				//hier wird das Verhältnis festgelet, in dem die Steine zum Spielfeld stehen (größe)
+                				int breite = (int) ((int)spielfeld.getWidth(this)/5);
+                				int hoehe = (int) ((int)spielfeld.getHeight(this)/5);
+                				
 	                			if(aktuellerStein.FarbVergleich(ESpielsteinFarbe.WEISS))
 	                			{
 	                				/*
 	                				 * hier läuft das ab wenn auf einem Spielfeld ein weißer stein steht 
 	                				 */
-	                				int xPosi = aktuellerStein.getxPos();
-	                				int yPosi = aktuellerStein.getyPos();
 	                				
-	                				//hier wird das Verhältnis festgelet, in dem die Steine zum Spielfeld stehen (größe)
-	                				int breite = (int) ((int)spielfeld.getWidth(this)/5);
-	                				int hoehe = (int) ((int)spielfeld.getHeight(this)/5);
-	                				
-	                				g.drawImage(SteinWeiss,  xPosi , yPosi , breite, hoehe, this);
+	                				if(!hatAltePosition)
+	                					g.drawImage(SteinWeiss,  xPosi , yPosi , breite, hoehe, this);
+	                				else
+	                					g.drawImage(transparentSteinWeiss,  xPosi , yPosi , breite, hoehe, this);
 	                				
 	                				
 	                			}
@@ -237,14 +259,12 @@ public class Spielfeld extends JFrame implements ActionListener, WindowListener{
 	                				/*
 	                				 * hier läuft das ab wenn auf einem Spielfeld ein weißer stein steht 
 	                				 */
-	                				int xPosi = aktuellerStein.getxPos();
-	                				int yPosi = aktuellerStein.getyPos();
 	                				
-	                				//hier wird das Verhältnis festgelet, in dem die Steine zum Spielfeld stehen (größe)
-	                				int breite = (int) ((int)spielfeld.getWidth(this)/5);
-	                				int hoehe = (int) ((int)spielfeld.getHeight(this)/5);
-	                				
-	                				g.drawImage(SteinSchwarz,  xPosi, yPosi, breite, hoehe, this);
+	                				if(!hatAltePosition)
+	                					g.drawImage(SteinSchwarz,  xPosi , yPosi , breite, hoehe, this);
+	                				else
+	                					g.drawImage(transparentSteinSchwarz,  xPosi , yPosi , breite, hoehe, this);
+	                			
 	                			}
 	                			
                 			}
@@ -255,6 +275,30 @@ public class Spielfeld extends JFrame implements ActionListener, WindowListener{
                 			
                 		}
                 	}
+                }
+                
+                //hier wird der ausgewählte Stein wieder ohne transparenz gezeichnet
+                if(hatAltePosition == true)
+                {
+                	int e, x, y;
+        			e = posIndexUmrechnen(altePosition.getEbene());
+        			x = posIndexUmrechnen(altePosition.getX());
+        			y = posIndexUmrechnen(altePosition.getY());
+        			Spielstein aktuellerStein = SpielfeldArray[e][x][y];
+        			
+        			int xPosi = aktuellerStein.getxPos();
+    				int yPosi = aktuellerStein.getyPos();
+    				
+    				//hier wird das Verhältnis festgelet, in dem die Steine zum Spielfeld stehen (größe)
+    				int breite = (int) ((int)spielfeld.getWidth(this)/5);
+    				int hoehe = (int) ((int)spielfeld.getHeight(this)/5);
+    				
+    				if(aktuellerStein.FarbVergleich(ESpielsteinFarbe.WEISS))
+        				g.drawImage(SteinSchwarz,  xPosi , yPosi , breite, hoehe, this);
+    				else
+    					g.drawImage(SteinSchwarz,  xPosi , yPosi , breite, hoehe, this);
+        			
+                	
                 }
             }
 
@@ -458,8 +502,7 @@ public class Spielfeld extends JFrame implements ActionListener, WindowListener{
 //		        timer.setInitialDelay(2000);        //first delay 2 seconds
 //		        timer.setRepeats(false);
 //		        timer.start();
-		
-		
+	
 	}
 
 	
@@ -665,6 +708,7 @@ public class Spielfeld extends JFrame implements ActionListener, WindowListener{
 							{
 								altePosition = PositionGeklickt;
 								hatAltePosition = true;
+								panel.repaint();
 								return;
 							}
 							else
@@ -861,54 +905,6 @@ public class Spielfeld extends JFrame implements ActionListener, WindowListener{
 		}
 	}
 
-
-	@Override
-	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void windowClosing(WindowEvent e) {
-		db.löschetb("protokoll");
-		
-	}
-
-
-	@Override
-	public void windowClosed(WindowEvent e) {
-		
-		
-	}
-
-
-	@Override
-	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	
 
