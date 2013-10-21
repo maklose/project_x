@@ -34,6 +34,7 @@ import de.dhbw.muehle_spiel.Pruefung;
 import de.dhbw.muehle_spiel.Spieler;
 import de.dhbw.muehle_spiel.Spielstein;
 
+import javax.swing.ImageIcon;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -304,9 +305,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 
 		};  
 		
-		//Hintergrund
-     	panel.setBackground(Color.LIGHT_GRAY);
-		
+
 		GridLayout gl = new GridLayout(7,7,15,15);
 
 		//panel wird hinzugefügt
@@ -488,8 +487,9 @@ public class Spielfeld extends JFrame implements ActionListener {
 		panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.EAST);
 		
-		lblNewLabel_4 = new JLabel("New label");
+		lblNewLabel_4 = new JLabel("testtest");
 		panel_1.add(lblNewLabel_4);
+		
 		
 		lblNewLabel_5 = new JLabel("New label");
 		panel_1.add(lblNewLabel_5);
