@@ -94,13 +94,17 @@ public class Spielfeld extends JFrame implements ActionListener {
 	
 	private boolean neuesSpielFlag = false;
 	
+	private boolean FlagRunde2 = false;
+	
 	private boolean SteinKannGeloeschtWerden = true;
 	
 	private String textSpielerWechsel = " ist dran!";
 	private String textMuehle = " hat eine Mühle!";
 	private String textNeuesSpiel = "Neues Spiel -- Weiss beginnt!";
+	private String textRunde2 = "Ab jetzt: Steine ziehen!";
 	
 	private int meldungsZeit = 1;
+	private int wichtigeMeldungsZeit = 2;
 	
 	//Alte Position wenn man zieht und die variable ob der aktuelle klick schon das neue setzen ist
 	Position altePosition; 
@@ -654,13 +658,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 		{
 			this.aktion(btnNewButton_49);
 		}
-		
-		//verschiedene Ausgaben
-		
-		System.out.print("Spieler1: " + Spieler1.getAnzahlZuege() + "  ||  ");
-		System.out.println("Spieler2: " + Spieler2.getAnzahlZuege() + "  ||  Anzahl Runden: " + anzahlRunden); 
-		System.out.println("Zug Beendet ----------------------------------------------------------------------------");
 	}
+		
 	
 	/*
 	 * wenn ein Knopf gedrückt wurde wird diese aktion ausgeführt
@@ -702,6 +701,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 					if(pruef.checkSetzen(PositionGeklickt, aktuellerSpieler, passiverSpieler) == true)
 					{	
 						this.SpielsteinSetzen(neueBewegung, aktuellerSpieler, lButton);
+						this.verschiedeneAusgaben();
 					}
 					else
 					{
@@ -731,8 +731,18 @@ public class Spielfeld extends JFrame implements ActionListener {
 					//neu zeichnen
 					panel.repaint();
 					
-					this.neueMeldung(meldungsZeit, passiverSpieler.SpielsteinFarbeAsString() + textSpielerWechsel);
-					System.out.println(passiverSpieler.SpielsteinFarbeAsString() + textSpielerWechsel);
+					
+					
+					if(!FlagRunde2 && Spieler2.getAnzahlZuege() == 9)
+					{
+						this.neueMeldung(wichtigeMeldungsZeit, textRunde2 + " -- " + passiverSpieler.SpielsteinFarbeAsString() + textSpielerWechsel);
+						FlagRunde2 = true;
+					}
+					else
+					{
+						this.neueMeldung(meldungsZeit, passiverSpieler.SpielsteinFarbeAsString() + textSpielerWechsel);
+						System.out.println(passiverSpieler.SpielsteinFarbeAsString() + textSpielerWechsel);
+					}
 					
 					return;
 				}				
@@ -740,7 +750,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				//Hier wird der Code ausgeführt, wenn die erste Phase abgeschlossen ist
 				while(true)
 				{
-
+					
 					/*if(!pruef.checkFeldBesetzt(PositionGeklickt, aktuellerSpieler, passiverSpieler))
 					{
 						break;
@@ -782,6 +792,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 						if(pruef.checkZug(neueBewegung, aktuellerSpieler, passiverSpieler) == true)
 						{	
 							this.SpielsteinBewegen(neueBewegung, aktuellerSpieler, lButton);
+							this.verschiedeneAusgaben();
 						}
 						else
 						{
@@ -993,7 +1004,14 @@ public class Spielfeld extends JFrame implements ActionListener {
 		};
 	}
 	
-	
+	public void verschiedeneAusgaben()
+	{
+		//verschiedene Ausgaben
+		System.out.print("Spieler1: " + Spieler1.getAnzahlZuege() + "  ||  ");
+		System.out.println("Spieler2: " + Spieler2.getAnzahlZuege() + "  ||  Anzahl Runden: " + anzahlRunden); 
+		System.out.println("Zug Beendet ----------------------------------------------------------------------------");
+			
+	}
 
 		
 }
