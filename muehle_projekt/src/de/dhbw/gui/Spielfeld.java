@@ -75,6 +75,8 @@ public class Spielfeld extends JFrame implements ActionListener{
 	
 	private boolean wurdeBewegt = false;
 	
+	private Spieler aktuellerSpieler, passiverSpieler;
+	
 	//Alte Position wenn man zieht und die variable ob der aktuelle klick schon das neue setzen ist
 	Position altePosition; 
 	boolean hatAltePosition;
@@ -574,18 +576,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 		Position PositionGeklickt = lButton.getPosition();
 		while(!this.SpielBeendet())
 		{
-			Spieler aktuellerSpieler, passiverSpieler;
-			if(Spieler1.getAnzahlZuege() <= Spieler2.getAnzahlZuege())
-			{
-				aktuellerSpieler = Spieler1;
-				passiverSpieler = Spieler2;
-			}
-			else
-			{
-				aktuellerSpieler = Spieler2;
-				passiverSpieler = Spieler1;
-			}
-			
+
 			int e, x, y;
 			e = posIndexUmrechnen(PositionGeklickt.getEbene());
 			x = posIndexUmrechnen(PositionGeklickt.getX());
@@ -595,6 +586,16 @@ public class Spielfeld extends JFrame implements ActionListener{
 			//solange der aktuelle Spieler keine Mühle hat
 			if(hatMuehle != true)
 			{
+				if(Spieler1.getAnzahlZuege() <= Spieler2.getAnzahlZuege())
+				{
+					aktuellerSpieler = Spieler1;
+					passiverSpieler = Spieler2;
+				}
+				else
+				{
+					aktuellerSpieler = Spieler2;
+					passiverSpieler = Spieler1;
+				}
 
 				//erste Phase wenn noch nicht alle Steine gesetzt wurden
 				while(Spieler2.getAnzahlZuege() < 9)
