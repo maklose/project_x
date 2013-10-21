@@ -18,6 +18,10 @@ public class Bewertung {                     //Final Klasse?
 	     	     
 	     
 	    public static final double NIEDERLAGE = 0;
+	    
+	    public void bewerteZug(){
+	    	
+	    }
 	}
 	
 
