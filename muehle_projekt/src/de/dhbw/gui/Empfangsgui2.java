@@ -83,40 +83,7 @@ public class Empfangsgui2 extends JFrame implements WindowListener {
 		panel.setLayout(gbl_panel);
 		
 		//Button "Spielanleitung"
-		JButton btn_anleitung = new JButton();
-		btn_anleitung.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
-				new Thread() 
-				{
-				      { 
-				    	  start(); 
-				      } 
-				      public void run() 
-				      {
-				        try 
-				        { 
-				        	JFrame probe = new Anweisung1("das ist ein Test");
-							probe.setAlwaysOnTop(true);
-							probe.setVisible(true);
-				        	sleep(2000); 
-				        	System.out.println("Zeit ist um.");
-				        	probe.setVisible(false);
-				        }
-				        catch ( InterruptedException e ) { }
-				      } 
-				};
-	
-				
-				
-				
-				
-			}
-
-			
-		});
-		/*JButton btn_anleitung = new JButton(){
+		JButton btn_anleitung = new JButton(){
 			@Override
 			public void paintComponent(Graphics g){
 				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Spielanleitung.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
@@ -128,7 +95,7 @@ public class Empfangsgui2 extends JFrame implements WindowListener {
 				JFrame anleitung = new Anleitung();
 				anleitung.setVisible(true);
 			}
-		});*/
+		});
 		
 		//Button "Exit"
 		JButton btn_exit = new JButton(){
