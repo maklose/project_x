@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -42,7 +43,7 @@ public class BestaetigungBeenden extends JDialog {
 	 */
 	public BestaetigungBeenden() {
 		//Fenster
-		setBounds(100, 100, 450, 164);
+		setBounds(100, 100, 300, 230);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -60,8 +61,14 @@ public class BestaetigungBeenden extends JDialog {
 			panel.setLayout(null);
 			{
 				//Button "OK"
-				JButton okButton = new JButton("OK");
-				okButton.setBounds(0, 82, 47, 23);
+				JButton okButton = new JButton(){
+				public void paintComponent(Graphics g){
+					g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Ja.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
+				};
+			};
+				
+
+				okButton.setBounds(28, 122, 92, 34);
 				panel.add(okButton);
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -76,8 +83,12 @@ public class BestaetigungBeenden extends JDialog {
 			}
 			{
 				//Button "Cancel"
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setBounds(349, 82, 65, 23);
+				JButton cancelButton = new JButton(){
+					public void paintComponent(Graphics g){
+						g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Nein.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
+					}
+				};	
+				cancelButton.setBounds(151, 122, 92, 34);
 				panel.add(cancelButton);
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
