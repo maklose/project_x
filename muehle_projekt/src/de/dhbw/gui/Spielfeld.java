@@ -781,7 +781,6 @@ public class Spielfeld extends JFrame implements ActionListener {
 						if(pruef.checkZug(neueBewegung, aktuellerSpieler, passiverSpieler) == true)
 						{	
 							this.SpielsteinBewegen(neueBewegung, aktuellerSpieler, lButton);
-							wurdeBewegt = true;
 						}
 						else
 						{
@@ -807,17 +806,12 @@ public class Spielfeld extends JFrame implements ActionListener {
 							return;
 						}
 		
-						if(aktuellerSpieler == Spieler2 && wurdeBewegt == true)
-							rundeVorbei = true;
+						if(aktuellerSpieler == Spieler2)
+							anzahlRunden++;
 						this.neueMeldung(meldungsZeit, passiverSpieler.SpielsteinFarbeAsString() + textSpielerWechsel);
+						System.out.println(passiverSpieler.SpielsteinFarbeAsString() + textSpielerWechsel);
 						
 						panel.repaint();
-						if(rundeVorbei == true)
-						{
-							anzahlRunden++;
-							rundeVorbei = false;
-						}
-						zaehler1++;
 						hatAltePosition = false;
 						return;		
 					}
