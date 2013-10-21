@@ -154,6 +154,7 @@ public class Pruefung {
 			{
 				zaehlerEbene ++;
 				
+				
 				// Ausschlieﬂen der Eckpositionen
 				//Sonderf‰lle: 1,1,3 - 2,1,3 - 3,1,3 ; 1,3,3 - 2,3,3 - 3,3,3 ; 1,3,1 - 2,3,1 - 3,3,1 ; 1,1,1 - 2,1,1 - 3,1,1
 				if	((Positionen[j][0] != Positionen[IndexStein][0])&&
