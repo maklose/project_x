@@ -96,7 +96,7 @@ public void zugspeichern(Bewegung bewegung,Spieler spieler,boolean muehle,Spiels
 		nachX = bewegung.getNach().getX().toString();
 		nachY = bewegung.getNach().getY().toString();
 		
-	String update=("INSERT INTO protokoll (Spielstein,E1,X1,Y1,E2,X2,Y2)"
+	String update=("INSERT INTO protokoll (Spielstein,E1,X1,Y1,E2,X2,Y2,muehle,GeloeschterStein)"
 				+ " VALUES("+farbe+","+vonEbene+","+vonX+","+vonY+","+nachEbene+","+nachX+","+nachY+","+muehle+","+lspielstein+")");
 						
 	try {
