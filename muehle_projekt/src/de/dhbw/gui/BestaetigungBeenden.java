@@ -44,6 +44,7 @@ public class BestaetigungBeenden extends JDialog {
 	public BestaetigungBeenden() {
 		//Fenster
 		setBounds(100, 100, 300, 230);
+		setResizable(false);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
