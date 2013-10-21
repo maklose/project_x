@@ -22,7 +22,9 @@ public class Database {
 		}
 		
 	}
-
+/*
+ * Implementierung der Highscoremethoden
+ */
 //Speichern der Anzahl der Spielzüge
 public void anzahlzuegespeichern(Spieler spieler){
 	
@@ -53,22 +55,11 @@ public void erzeuge_h(){
 	        System.exit(0);
 	    }
 }
-//Löschen der Tabelle highscore
-public void lösche_h(){
-	
-	String delete=("DROP TABLE highscore");
-	try {
-		statement=c.createStatement();
-		statement.executeUpdate(delete);
-		System.out.println("Tabelle highscore wurde gelöscht");	
-	} catch (SQLException e ) {		
-		e.printStackTrace();
-	}
-	
-	
-}	
 
 
+/*
+ * Implementierung der Protokollmethoden
+ */
 //Übergabe der Position an DB
 public void zugspeichern(Bewegung bewegung,Spieler spieler,boolean muehle,Spielstein rspielstein){
 	
@@ -77,7 +68,7 @@ public void zugspeichern(Bewegung bewegung,Spieler spieler,boolean muehle,Spiels
 		if(rspielstein != null)
 			lspielstein=rspielstein.toString();
 		else
-			lspielstein = "asdasd";
+			lspielstein = "-";
 		
 		if(muehle)
 			lmuehle = "richtig";
@@ -93,9 +84,9 @@ public void zugspeichern(Bewegung bewegung,Spieler spieler,boolean muehle,Spiels
 	    }
 	    else
 	    {
-	    	vonEbene = "adsdasd";
-	    	vonX = "asdasd";
-	    	vonY = "adsd";
+	    	vonEbene = "-";
+	    	vonX = "-";
+	    	vonY = "-";
 	    	
 	    }
 		nachEbene= bewegung.getNach().getEbene().toString();
@@ -122,22 +113,32 @@ public void zeige_p(){
 	    ResultSet result=statement.executeQuery(ausgabe);
 	    while (result.next()) {
 	    	  System.out.println();
-	    	  int zugID = result.getInt("ID");
-	    	  System.out.print("ID: "+zugID);
-	    	  String Spielstein=result.getString("Spielstein");
-	    	  System.out.print(" Spielstein: "+Spielstein);
-	    	  int E1=result.getInt("E1");
-	    	  int X1=result.getInt("X1");
-	    	  int Y1=result.getInt("Y1");
-	    	  int E2=result.getInt("E2");
-	    	  int X2=result.getInt("X2");
-	    	  int Y2=result.getInt("Y2");
-	    	  System.out.print(" E1: "+E1);
-	    	  System.out.print(" X1: "+X1);
-	    	  System.out.print(" Y1: "+Y1);
-	    	  System.out.print(" E2: "+E2);
-	    	  System.out.print(" X2: "+X2);
-	    	  System.out.print(" Y2: "+Y2);
+	    	
+	    	  
+	    	  int zugID = result.getInt("ID");	    	  
+	    	  String Spieler=result.getString("Spieler");	    	  
+	    	  String E1=result.getString("E1");
+	    	  String X1=result.getString("X1");
+	    	  String Y1=result.getString("Y1");
+	    	  String E2=result.getString("E2");
+	    	  String X2=result.getString("X2");
+	    	  String Y2=result.getString("Y2");
+	    	  String muehle=result.getString("muehle");
+	    	  String GeloeschterStein=result.getString("GeloeschterStein");
+	    	  
+	    	  //Ausgabe
+	    	  System.out.print("ID: ["+zugID+"]");
+	    	  System.out.print(" Spieler: ["+Spieler+"]");	    	  
+	    	  System.out.print(" E1: ["+E1+"]");
+	    	  System.out.print(" X1: ["+X1+"]");
+	    	  System.out.print(" Y1: ["+Y1+"]");
+	    	  System.out.print(" E2: ["+E2+"]");
+	    	  System.out.print(" X2: ["+X2+"]");
+	    	  System.out.print(" Y2: ["+Y2+"]");
+	    	  System.out.print(" Mühle: ["+muehle+"]");
+	    	  System.out.print(" GelöschterStein: ["+GeloeschterStein+"]");
+	    	  
+	    	  
 	    	  
 	    		    	  
 	    	}
@@ -169,13 +170,13 @@ public void erzeuge_p(){
 }
 
 //Löschen der Tabelle protokoll	
-public void lösche_p(){
+public void löschetb(String tabelle){
 	
-	String delete=("DROP TABLE protokoll");
+	String delete=("DROP TABLE '"+tabelle+"'");
 	try {
 		statement=c.createStatement();
 		statement.executeUpdate(delete);
-		System.out.println("Tabelle protokoll wurde gelöscht");	
+		System.out.println("Tabelle "+tabelle+" wurde gelöscht");	
 	} catch (SQLException e ) {		
 		e.printStackTrace();
 	}
