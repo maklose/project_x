@@ -652,9 +652,15 @@ public class Spielfeld extends JFrame implements ActionListener{
 			//Hier wird der Code ausgeführt, wenn die erste Phase abgeschlossen ist
 			while(true)
 			{
+				int e, x, y;
+				e = posIndexUmrechnen(PositionGeklickt.getEbene());
+				x = posIndexUmrechnen(PositionGeklickt.getX());
+				y = posIndexUmrechnen(PositionGeklickt.getY());
+				Spielstein aktuellerStein = SpielfeldArray[e][x][y];
+				
 				//der aktuelle und der passive spieler wird festgelegt
 				Spieler aktuellerSpieler, passiverSpieler;
-				if(Spieler1.getAnzahlZuege() >= Spieler2.getAnzahlZuege())
+				if(Spieler1.getAnzahlZuege() <= Spieler2.getAnzahlZuege())
 				{
 					aktuellerSpieler = Spieler1;
 					passiverSpieler = Spieler2;
@@ -673,17 +679,19 @@ public class Spielfeld extends JFrame implements ActionListener{
 				//hier der Fall wenn auf einen bereits gelegten Stein gedrückt wird
 				if(hatAltePosition == false)
 				{
-					/*int e, x, y;
-					e = posIndexUmrechnen(PositionGeklickt.getEbene());
-					x = posIndexUmrechnen(PositionGeklickt.getX());
-					y = posIndexUmrechnen(PositionGeklickt.getY());
-					Spielstein aktuellerStein = SpielfeldArray[e][x][y];
-					
-					if(aktuellerStein.FarbVergleich(ESpielsteinFarbe.WEISS))*/
-					altePosition = PositionGeklickt;
-					hatAltePosition = true;
-					System.out.println(altePosition);
-					return;
+					if((aktuellerStein.FarbVergleich(ESpielsteinFarbe.WEISS) && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.WEISS))
+						|| (aktuellerStein.FarbVergleich(ESpielsteinFarbe.SCHWARZ) && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.SCHWARZ)))
+					{
+						altePosition = PositionGeklickt;
+						hatAltePosition = true;
+						System.out.println(altePosition);
+						return;
+					}
+					else
+					{
+						System.out.println("Ein Spieler hat auf einen Stein gedrückt der nicht ihm gehört");
+						return;
+					}
 				}
 				else 		//hier der Fall wenn die alte Position bereits abgespeichert wurde
 				{
@@ -701,19 +709,19 @@ public class Spielfeld extends JFrame implements ActionListener{
 					else
 					{
 						System.out.println(pruef.checkSetzen(PositionGeklickt, aktuellerSpieler, passiverSpieler));
+						System.out.println("testtestttest");
 						return;
 					}
 					
-					//aktueller Stein wird aus dem Array für überprüfungen geholt
-					Spielstein aktuellerStein;
-					int e, x, y;
-					e = posIndexUmrechnen(neueBewegung.getNach().getEbene());
-					x = posIndexUmrechnen(neueBewegung.getNach().getX());
-					y = posIndexUmrechnen(neueBewegung.getNach().getY());
-					aktuellerStein = SpielfeldArray[e][x][y];
-					System.out.println(aktuellerStein);
+					int e1, x1, y1;
+					e1 = posIndexUmrechnen(PositionGeklickt.getEbene());
+					x1 = posIndexUmrechnen(PositionGeklickt.getX());
+					y1 = posIndexUmrechnen(PositionGeklickt.getY());
+					Spielstein aktuellerStein1 = SpielfeldArray[e1][x1][y1];
 					
-					if(pruef.checkInMuehle(aktuellerStein.getIndex() , aktuellerSpieler.Steine))
+					System.out.println(aktuellerStein1);
+					
+					if(pruef.checkInMuehle(aktuellerStein1.getIndex() , aktuellerSpieler.Steine))
 					{
 						System.out.println("Mühle");
 					}
@@ -721,12 +729,10 @@ public class Spielfeld extends JFrame implements ActionListener{
 					{
 						
 					}
-					
-					
-					
 					panel.repaint();
 					anzahlRunden++;
 					zaehler1++;
+					hatAltePosition = false;
 					return;
 				}
 			}
