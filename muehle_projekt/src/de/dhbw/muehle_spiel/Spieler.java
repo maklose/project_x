@@ -48,6 +48,8 @@ public void bewegeSpielstein(Bewegung bewegung, int IndexStein, int lxPos, int l
 				Steine[IndexStein].bewegen(bewegung, lxPos, lyPos);
 				AnzahlZuege ++;
 		}
+		Steine[IndexStein].setxPos(lxPos);
+		Steine[IndexStein].setyPos(lyPos);
    }
 
 
