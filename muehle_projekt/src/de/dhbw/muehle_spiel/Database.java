@@ -73,8 +73,8 @@ public void lösche_h(){
 public void zugspeichern(Bewegung bewegung,Spieler spieler,boolean muehle,Spielstein spielstein){
 	
 		// Ablegen der Positionsindexe, Spielsteinfarbe in String-Variablen & 
-		String vonEbene, vonX, vonY, nachEbene, nachX, nachY,farbe;
-		
+		String vonEbene, vonX, vonY, nachEbene, nachX, nachY,farbe,lspielstein;
+		lspielstein=spielstein.toString();
 	    farbe=spieler.SpielsteinFarbeAsString();
 		vonEbene = bewegung.getVon().getEbene().toString();
 		vonX = bewegung.getVon().getX().toString();
@@ -84,7 +84,7 @@ public void zugspeichern(Bewegung bewegung,Spieler spieler,boolean muehle,Spiels
 		nachY = bewegung.getNach().getY().toString();
 		
 	String update=("INSERT INTO protokoll (Spielstein,E1,X1,Y1,E2,X2,Y2)"
-				+ " VALUES("+farbe+","+vonEbene+","+vonX+","+vonY+","+nachEbene+","+nachX+","+nachY+","+muehle+","+spielstein+")");
+				+ " VALUES("+farbe+","+vonEbene+","+vonX+","+vonY+","+nachEbene+","+nachX+","+nachY+","+muehle+","+lspielstein+")");
 						
 	try {
 		statement=c.createStatement();
