@@ -55,12 +55,9 @@ public class Pruefung {
 	nachEbene= bewegung.getNach().getEbene().getValue();
 	nachX = bewegung.getNach().getX().getValue();
 	nachY = bewegung.getNach().getY().getValue();
-		
-		
-	int AnzahlSteine = SpielerAktiv.getAnzahlSteine();
 	
 	// Wenn Anzahl Steine > 3 darf der Spieler ziehen, Wenn =3 darf er springen
-	if (AnzahlSteine > 3)
+	if (SpielerAktiv.getAnzahlSteine() > 3)
 	{	
 		// Überprüfung, ob sich der PositionsIndex um 1 verändert hat
 		// Zug ist gültig, wenn aenderung = 1
