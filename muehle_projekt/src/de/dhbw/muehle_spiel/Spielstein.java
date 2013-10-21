@@ -78,6 +78,19 @@ public class Spielstein implements ISpielstein
 	public int getIndex() {
 		return index;
 	}
+	
+	public boolean vergleichen(Spielstein lSpielstein)
+	{
+		if(lSpielstein != null)
+		{
+			if(this.getIndex() == lSpielstein.getIndex())
+				return true;
+			else
+				return false;
+		}
+		else
+			return false;
+	}
 
 	
 }

@@ -69,6 +69,8 @@ public class Spielfeld extends JFrame implements ActionListener{
 	int zaehler1 = 1;
 	int zaehler2 = 0;
 	
+	private boolean rundeVorbei = false;
+	
 	//Alte Position wenn man zieht und die variable ob der aktuelle klick schon das neue setzen ist
 	Position altePosition; 
 	boolean hatAltePosition;
@@ -108,7 +110,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 	{
 			
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1074, 900);
+		setBounds(800, 0, 1074, 900);
 		
 		//das Bild für den weißen und schwarzen Stein wird geladen
 		final Image SteinWeiss = Toolkit.getDefaultToolkit().getImage(  
@@ -555,12 +557,8 @@ public class Spielfeld extends JFrame implements ActionListener{
 		
 		//verschiedene Ausgaben
 		System.out.println("Neuer Zug ------------------------");
-		System.out.println("Spieler1: " + Spieler1.getAnzahlZuege());
-		System.out.println("Spieler2: " + Spieler2.getAnzahlZuege());
-		System.out.println(xPos);
-		System.out.println(yPos);
-		
-        		
+		System.out.print("Spieler1: " + Spieler1.getAnzahlZuege() + "  ||  ");
+		System.out.println("Spieler2: " + Spieler2.getAnzahlZuege() + "  ||  Anzahl Runden: " + anzahlRunden);        		
 	}
 	
 	/*
@@ -658,6 +656,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 				y = posIndexUmrechnen(PositionGeklickt.getY());
 				Spielstein aktuellerStein = SpielfeldArray[e][x][y];
 				
+				
 				//der aktuelle und der passive spieler wird festgelegt
 				Spieler aktuellerSpieler, passiverSpieler;
 				if(Spieler1.getAnzahlZuege() <= Spieler2.getAnzahlZuege())
@@ -679,37 +678,46 @@ public class Spielfeld extends JFrame implements ActionListener{
 				//hier der Fall wenn auf einen bereits gelegten Stein gedrückt wird
 				if(hatAltePosition == false)
 				{
-					if((aktuellerStein.FarbVergleich(ESpielsteinFarbe.WEISS) && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.WEISS))
-						|| (aktuellerStein.FarbVergleich(ESpielsteinFarbe.SCHWARZ) && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.SCHWARZ)))
+					if(aktuellerStein != null) //nur wenn auf Feld gedrückt wird auf dem auch ein Stein steht
 					{
-						altePosition = PositionGeklickt;
-						hatAltePosition = true;
-						System.out.println(altePosition);
-						return;
+						if((aktuellerStein.FarbVergleich(ESpielsteinFarbe.WEISS) && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.WEISS))
+							|| (aktuellerStein.FarbVergleich(ESpielsteinFarbe.SCHWARZ) && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.SCHWARZ)))
+						{
+							altePosition = PositionGeklickt;
+							hatAltePosition = true;
+							return;
+						}
+						else
+						{
+							System.out.println("Ein Spieler hat auf einen Stein gedrückt der nicht ihm gehört");
+							return;
+						}
 					}
 					else
 					{
-						System.out.println("Ein Spieler hat auf einen Stein gedrückt der nicht ihm gehört");
+						System.out.println("Hier steht kein Stein");
 						return;
 					}
 				}
 				else 		//hier der Fall wenn die alte Position bereits abgespeichert wurde
 				{
-					
 					//neue Bewegung erstellen
 					Bewegung neueBewegung = new Bewegung(altePosition, PositionGeklickt);
 					System.out.println(neueBewegung);
 					
 					//verschiedene Prüfungen
-					if(pruef.checkSetzen(PositionGeklickt, aktuellerSpieler, passiverSpieler) == true)
+					if(pruef.checkZug(neueBewegung, aktuellerSpieler, passiverSpieler) == true)
 					{	
 						this.SpielsteinBewegen(neueBewegung, aktuellerSpieler, lButton);
+						if(aktuellerSpieler == Spieler2)
+						rundeVorbei = true;
 						
 					}
 					else
 					{
-						System.out.println(pruef.checkSetzen(PositionGeklickt, aktuellerSpieler, passiverSpieler));
-						System.out.println("testtestttest");
+						System.out.print("checkZug ergab: ");
+						System.out.println(pruef.checkZug(neueBewegung, aktuellerSpieler, passiverSpieler));
+						hatAltePosition = false;
 						return;
 					}
 					
@@ -718,8 +726,6 @@ public class Spielfeld extends JFrame implements ActionListener{
 					x1 = posIndexUmrechnen(PositionGeklickt.getX());
 					y1 = posIndexUmrechnen(PositionGeklickt.getY());
 					Spielstein aktuellerStein1 = SpielfeldArray[e1][x1][y1];
-					
-					System.out.println(aktuellerStein1);
 					
 					if(pruef.checkInMuehle(aktuellerStein1.getIndex() , aktuellerSpieler.Steine))
 					{
@@ -730,11 +736,16 @@ public class Spielfeld extends JFrame implements ActionListener{
 						
 					}
 					panel.repaint();
-					anzahlRunden++;
+					if(rundeVorbei == true)
+					{
+						anzahlRunden++;
+						rundeVorbei = false;
+					}
 					zaehler1++;
 					hatAltePosition = false;
-					return;
+					return;		
 				}
+				
 			}
 		}
 		
@@ -782,7 +793,10 @@ public class Spielfeld extends JFrame implements ActionListener{
 		c = posIndexUmrechnen(neueBewegung.getNach().getY());
 		SpielfeldArray[a][b][c] = aktuellerStein;
 		System.out.println(SpielfeldArray[a][b][c]);
-		System.out.println(SpielfeldArray[e][x][y]);
+		System.out.println("ebene: " + (a+1));
+		System.out.println("xPos : " + (b+1));
+		System.out.println("yPos : " + (c+1));
+		System.out.println(SpielfeldArray[e][x][y] + "alte pos sollt null sein");
 		
 		//Die Bewegung wird an den Spieler weitergegeben
 		lSpieler.bewegeSpielstein(neueBewegung, aktuellerStein.getIndex(), xPos, yPos);	
