@@ -142,21 +142,24 @@ public class Pruefung {
 			aenderung2 = Math.abs(Positionen[j][1] - Positionen[IndexStein][1]);
 			aenderung3 = Math.abs(Positionen[j][2] - Positionen[IndexStein][2]);
 					
-			if(	((aenderung1 == 0 && aenderung2 == 0 && aenderung3 == 1)||
+			// Heraufsetzen des Zählers um 1, wenn sich ein Index verändert hat
+			if	((aenderung1 == 0 && aenderung2 == 0 && aenderung3 == 1)||
 				(aenderung1 == 0 && aenderung2 == 1 && aenderung3 == 0)||
 				(aenderung1 == 1 && aenderung2 == 0 && aenderung3 == 0)||
 				(aenderung1 == 0 && aenderung2 == 0 && aenderung3 == 2)||
 				(aenderung1 == 0 && aenderung2 == 2 && aenderung3 == 0)||
 				(aenderung1 == 2 && aenderung2 == 0 && aenderung3 == 0))
-				//Ausschliesen der 4 Sonderfälle, bei denen sich der Index um 1 verändert, der Stein jedoch nicht in einer Mühle steht
-				&&
-				((Positionen[j][1] + Positionen[j][2] != 4)&&
-				(Positionen[j][1] + Positionen[j][2] != 6)&&
-				(Positionen[j][1] + Positionen[j][2] != 2)))
-			
 			{
-			
 				zaehler ++;
+			}
+			// Ausschließen der Eckpositionen
+			//Sonderfälle: 1,1,3 - 2,1,3 - 3,1,3 ; 1,3,3 - 2,3,3 - 3,3,3 ; 1,3,1 - 2,3,1 - 3,3,1 ; 1,1,1 - 2,1,1 - 3,1,1
+			if	((Positionen[j][0] != Positionen[IndexStein][0])&&
+							((Positionen[j][1] + Positionen[j][2] == 2)||
+							(Positionen[j][1] + Positionen[j][2] == 4)||
+							(Positionen[j][1] + Positionen[j][2] == 6)))
+			{
+				zaehler --;
 			}
 			
 		}
@@ -168,7 +171,7 @@ public class Pruefung {
 		return inMuehle;
 	}
 		// 
-		//Sonderfälle: 1,1,3 - 2,1,3 - 3,1,3 ; 1,3,3 - 2,3,3 - 3,3,3 ; 1,3,1 - 2,3,1 - 3,3,1 ; 1,1,1 - 2,1,1 - 3,1,1		
+				
 		
 //		Position[] pos = new Position[12];
 //		pos[0] = new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Drei);
