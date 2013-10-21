@@ -70,19 +70,19 @@ public void lösche_h(){
 
 
 //Übergabe der Position an DB
-public void zugspeichern(Bewegung bewegung,Spieler spieler,boolean muehle,Spielstein spielstein){
+public void zugspeichern(Bewegung bewegung,Spieler spieler,boolean muehle,Spielstein rspielstein){
 	
 		// Ablegen der Positionsindexe, Spielsteinfarbe in String-Variablen & 
 		String vonEbene, vonX, vonY, nachEbene, nachX, nachY,farbe,lspielstein, lmuehle;
-		if(spielstein != null)
-			lspielstein=spielstein.toString();
+		if(rspielstein != null)
+			lspielstein=rspielstein.toString();
 		else
-			lspielstein = " ";
+			lspielstein = "asdasd";
 		
 		if(muehle)
-			lmuehle = "true";
+			lmuehle = "richtig";
 		else
-			lmuehle = "false";
+			lmuehle = "falsch";
 		
 	    farbe=spieler.SpielsteinFarbeAsString();
 	    if(bewegung.getVon() != null)
@@ -93,9 +93,9 @@ public void zugspeichern(Bewegung bewegung,Spieler spieler,boolean muehle,Spiels
 	    }
 	    else
 	    {
-	    	vonEbene = " ";
-	    	vonX = " ";
-	    	vonY = " ";
+	    	vonEbene = "adsdasd";
+	    	vonX = "asdasd";
+	    	vonY = "adsd";
 	    	
 	    }
 		nachEbene= bewegung.getNach().getEbene().toString();
@@ -103,7 +103,7 @@ public void zugspeichern(Bewegung bewegung,Spieler spieler,boolean muehle,Spiels
 		nachY = bewegung.getNach().getY().toString();
 		
 	String update=("INSERT INTO protokoll (Spielstein,E1,X1,Y1,E2,X2,Y2,muehle,GeloeschterStein)"
-				+ " VALUES("+farbe+","+vonEbene+","+vonX+","+vonY+","+nachEbene+","+nachX+","+nachY+","+lmuehle+","+lspielstein+")");
+				+ " VALUES('"+farbe+"','"+vonEbene+"','"+vonX+"','"+vonY+"','"+nachEbene+"','"+nachX+"','"+nachY+"','"+lmuehle+"','"+lspielstein+"')");
 						
 	try {
 		statement=c.createStatement();
@@ -152,10 +152,10 @@ public void erzeuge_p(){
 		    try {
 		    	statement=c.createStatement();	     
 		    String create="CREATE TABLE protokoll(ID INTEGER PRIMARY KEY AUTOINCREMENT,"
-		    			+ "Spielstein varChar(10),"
+		    			+ "Spieler varChar(10),"
 		    			+ "E1 varChar(10), X1 varChar(10), Y1 varChar(10), "
 		    			+ "E2 varChar(10), X2 varChar(10), Y2 varChar(10), "
-		    			+ "muehle varChar(10), GeloeschterStein vaChar(80))";
+		    			+ "muehle varChar(10), GeloeschterStein varChar(80))";
 		    statement.executeUpdate(create);
 		    System.out.println("Tabelle protokoll wurde erzeugt");			    		  		    
 		    } 
