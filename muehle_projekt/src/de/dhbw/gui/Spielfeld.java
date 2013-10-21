@@ -691,7 +691,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				}
 
 				//erste Phase wenn noch nicht alle Steine gesetzt wurden
-				while(anzahlRunden < 9)
+				while(Spieler2.getAnzahlZuege() < 9) //(anzahlRunden < 9)
 				{
 					//neue Bewegung erstellen
 					neueBewegung = new Bewegung(null, PositionGeklickt);
