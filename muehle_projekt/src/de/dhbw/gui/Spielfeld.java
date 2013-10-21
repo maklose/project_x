@@ -203,6 +203,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 						
 						Spielfeld.this.dispose();
 						frageBeenden.dispose();
+						db.löschetb("protokoll");
 						//schließen
 					}
 					
@@ -294,9 +295,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 	                						g.drawImage(SteinWeiss,  xPosi , yPosi , breite+10, hoehe+10, this);
 	                					else
 	                						g.drawImage(transparentSteinWeiss,  xPosi , yPosi , breite, hoehe, this);
-	                				}
-	                					
 	                				
+	                				}
 	                			}
 	                			else 
 	                			{
@@ -353,7 +353,6 @@ public class Spielfeld extends JFrame implements ActionListener {
 
 		};  
 		
-
 		GridLayout gl = new GridLayout(7,7,15,15);
 
 		//panel wird hinzugefügt
@@ -655,9 +654,10 @@ public class Spielfeld extends JFrame implements ActionListener {
 		}
 		
 		//verschiedene Ausgaben
-		System.out.println("Neuer Zug ------------------------");
+		
 		System.out.print("Spieler1: " + Spieler1.getAnzahlZuege() + "  ||  ");
-		System.out.println("Spieler2: " + Spieler2.getAnzahlZuege() + "  ||  Anzahl Runden: " + anzahlRunden);        		
+		System.out.println("Spieler2: " + Spieler2.getAnzahlZuege() + "  ||  Anzahl Runden: " + anzahlRunden); 
+		System.out.println("Zug Beendet ----------------------------------------------------------------------------");
 	}
 	
 	/*
@@ -691,7 +691,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				}
 
 				//erste Phase wenn noch nicht alle Steine gesetzt wurden
-				while(Spieler2.getAnzahlZuege() < 9)
+				while(anzahlRunden < 9)
 				{
 					//neue Bewegung erstellen
 					neueBewegung = new Bewegung(null, PositionGeklickt);
@@ -712,6 +712,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 					if(pruef.checkInMuehle(anzahlRunden, aktuellerSpieler.Steine))
 					{
 						this.neueMeldung(meldungsZeit, aktuellerSpieler.SpielsteinFarbeAsString() + textMuehle);
+						System.out.println(aktuellerSpieler.SpielsteinFarbeAsString() + textMuehle);
 						panel.repaint();
 						hatMuehle = true;
 						return;
@@ -728,7 +729,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 					panel.repaint();
 					
 					this.neueMeldung(meldungsZeit, passiverSpieler.SpielsteinFarbeAsString() + textSpielerWechsel);
-					
+					System.out.println(passiverSpieler.SpielsteinFarbeAsString() + textSpielerWechsel);
 					
 					return;
 				}				
@@ -797,8 +798,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 						
 						if(pruef.checkInMuehle(aktuellerStein1.getIndex() , aktuellerSpieler.Steine))
 						{
-							System.out.println("Mühle");
 							this.neueMeldung(meldungsZeit, aktuellerSpieler.SpielsteinFarbeAsString() + textMuehle);
+							System.out.println(aktuellerSpieler.SpielsteinFarbeAsString() + textMuehle);
 							panel.repaint();
 							hatMuehle = true;
 							return;
@@ -832,6 +833,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 						if(aktuellerSpieler == Spieler2) //TEST
 							anzahlRunden++;
 						this.neueMeldung(meldungsZeit, passiverSpieler.SpielsteinFarbeAsString() + " ist dran!");
+						System.out.println(passiverSpieler.SpielsteinFarbeAsString() + " ist dran!");
 						return;
 					}
 					else //der Spieler hat auf einen seiner eigenen Steine gedrückt
@@ -892,8 +894,6 @@ public class Spielfeld extends JFrame implements ActionListener {
 		x = posIndexUmrechnen(neueBewegung.getNach().getX());
 		y = posIndexUmrechnen(neueBewegung.getNach().getY());
 		SpielfeldArray[e][x][y] = lSpieler.getSpielstein(anzahlRunden);
-		System.out.print("aktuellerSpielstein: ");
-		System.out.println(lSpieler.getSpielstein(anzahlRunden));
 	}
 	
 	
@@ -939,12 +939,12 @@ public class Spielfeld extends JFrame implements ActionListener {
 	//kleiner Test zu Spiel beendet
 	public boolean SpielBeendet()
 	{
-		if(Spieler1.getAnzahlZuege() > 3 && Spieler1.getAnzahlSteine() < 3)
+		if(Spieler1.getAnzahlZuege() > 9 && Spieler1.getAnzahlSteine() < 3)
 		{
 			System.out.println("Spieler 1 hat verloren");
 			return true;
 		}
-		else if(Spieler2.getAnzahlZuege() > 3 && Spieler2.getAnzahlSteine() < 3)
+		else if(Spieler2.getAnzahlZuege() > 9 && Spieler2.getAnzahlSteine() < 3)
 		{
 			System.out.println("Spieler 2 hat verloren");
 			return true;
@@ -960,7 +960,6 @@ public class Spielfeld extends JFrame implements ActionListener {
 		Point pos = contentPane.getLocationOnScreen();
 		xPos = (int)pos.getX() + (contentPane.getWidth() / 3);
 		yPos = (int)pos.getY() + 200;
-		System.out.println(xPos);
 		
 		new Thread() 
 		{
