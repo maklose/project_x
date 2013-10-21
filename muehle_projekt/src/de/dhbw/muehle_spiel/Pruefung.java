@@ -13,13 +13,15 @@ public class Pruefung {
 		//Überprüfung, ob die Position bereits belegt ist
 				for (int i = 0; i< SpielerAktiv.getAnzahlZuege(); i++)
 				{
-					if(SpielerAktiv.Steine[i].getPosition().equals(position) == false ){
-					korrekt = true;
-					}
+					if(SpielerAktiv.Steine[i] != null){
+						if(SpielerAktiv.Steine[i].getPosition().equals(position) == false ){
+							korrekt = true;
+						}
 					
-					else{
-					return false;
-					}
+						else{
+						return false;
+						}
+					}	
 				}
 				
 				for (int i = 0; i< SpielerPassiv.getAnzahlZuege(); i++)
