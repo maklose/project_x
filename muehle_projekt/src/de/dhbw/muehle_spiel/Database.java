@@ -72,9 +72,9 @@ public void lösche_h(){
 //Übergabe der Position an DB
 public void zugspeichern(Bewegung bewegung,Spieler spieler,boolean muehle,Spielstein spielstein){
 	
-		
+		// Ablegen der Positionsindexe, Spielsteinfarbe in String-Variablen & 
 		String vonEbene, vonX, vonY, nachEbene, nachX, nachY,farbe;
-		// Ablegen der Positionsindexe & Spielsteinfarbe in einer String-Variablen
+		
 	    farbe=spieler.SpielsteinFarbeAsString();
 		vonEbene = bewegung.getVon().getEbene().toString();
 		vonX = bewegung.getVon().getX().toString();
