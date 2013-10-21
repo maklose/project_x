@@ -5,31 +5,27 @@ public class Bewertung {                     //Final Klasse?
 	
 
 	    
-	    public static final int WIN = 5000000;
+	    public static final double SIEG = 1;
 
 	 
 	     
-	    public static final int MILL = 10000;
+	    public static final double MUEHLE = 0.8;
 
 	     
-	     public static final int VERYHIGH = 1000;
-	        
-	     
-	     public static final int HIGH = 500;
+	     	     
+	     public static final double HOCH = 0.6;
 
 	     
 	  
-	     public static final int MEDIUM = 100;
+	     public static final double MITTEL =0.5;
 	       
 	     
 	     
-	     public static final int LOW = 40;
+	     public static final double NIEDRIG = 0.2;
 	       
+	     	     
 	     
-	     public static final int VERYLOW = 10;
-	     
-	     
-	     public static final int ZERO = 0;
+	     public static final double NIEDERLAGE = 0;
 	}
 	
 
