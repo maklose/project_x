@@ -24,13 +24,14 @@ public class Pruefung {
 				
 				for (int i = 0; i< SpielerPassiv.getAnzahlZuege(); i++)
 				{
-					if(SpielerPassiv.Steine[i].getPosition().equals(position)  == false){
-					korrekt = true;
+					if(SpielerPassiv.Steine[i] != null){
+						if(SpielerPassiv.Steine[i].getPosition().equals(position)  == false){
+							korrekt = true;
+						}
+						else{
+							return false;
+						}
 					}
-					else{
-					return false;
-					}
-				
 				}
 		
 		return korrekt;
