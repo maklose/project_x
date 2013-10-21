@@ -97,7 +97,7 @@ public class Empfangsgui2 extends JFrame implements WindowListener {
 				      {
 				        try 
 				        { 
-				        	JFrame probe = new Anweisung1();
+				        	JFrame probe = new Anweisung1("das ist ein Test");
 							probe.setAlwaysOnTop(true);
 							probe.setVisible(true);
 				        	sleep(2000); 

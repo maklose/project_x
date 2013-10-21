@@ -47,7 +47,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private JPanel contentPane;
+	private static JPanel contentPane;
 	
 	//Die Buttons werden initialisiert
 	TransparentButtonFeld btnNewButton_1, btnNewButton_4, btnNewButton_6, btnNewButton_9, 
@@ -92,6 +92,14 @@ public class Spielfeld extends JFrame implements ActionListener {
 	
 	static Database db = new Database();
 	
+	private boolean neuesSpielFlag = false;
+	
+	private String textSpielerWechsel = " ist dran!";
+	private String textMuehle = " hat eine Mühle!";
+	private String textNeuesSpiel = "Neues Spiel -- Weiss beginnt!";
+	
+	private int meldungsZeit = 1;
+	
 	//Alte Position wenn man zieht und die variable ob der aktuelle klick schon das neue setzen ist
 	Position altePosition; 
 	boolean hatAltePosition;
@@ -117,10 +125,37 @@ public class Spielfeld extends JFrame implements ActionListener {
 											public void windowClosing(WindowEvent evt) {
 											exitForm(evt);}});
 					frame.setVisible(true);
+					 this.neueMeldung(frame.meldungsZeit, frame.textNeuesSpiel, frame);
 				} catch (Exception e) 
 				{
 					e.printStackTrace();
 				}
+			}
+
+			private void neueMeldung(final int sekunden, final String meldung, Spielfeld frame) {
+				//hier wird die Position festgelegt wo die meldung erscheinen soll
+				Point pos = frame.contentPane.getLocationOnScreen();
+				final int xPos = (int)pos.getX() + (contentPane.getWidth() / 3);
+				final int yPos = (int)pos.getY() + 200;
+				new Thread() 
+				{
+				      { 
+				    	  start(); 
+				      } 
+				      public void run() 
+				      {
+				        try 
+				        { 
+				        	Anweisung1 probe = new Anweisung1(meldung, xPos, yPos);
+							probe.setAlwaysOnTop(true);
+							probe.setVisible(true);
+				        	sleep(sekunden * 1000);
+				        	probe.setVisible(false);
+				        }
+				        catch ( InterruptedException e ) { }
+				      } 
+				};
+				
 			}
 		});
 	}
@@ -137,8 +172,6 @@ public class Spielfeld extends JFrame implements ActionListener {
 	 */
 	public Spielfeld() 
 	{
-			
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(800, 0, 1074, 900);
 		
 		//das Bild für den weißen und schwarzen Stein wird geladen
@@ -193,6 +226,10 @@ public class Spielfeld extends JFrame implements ActionListener {
 				neuesSpiel.setVisible(true);
 			}
 		});
+		
+		
+			
+		
 		mnNewMenu.add(mntmNeuesSpiel);
 		
 		mntmAnleitung = new JMenuItem("Anleitung");
@@ -219,7 +256,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 			private static final long serialVersionUID = 1L;
 
 			protected void paintComponent(Graphics g) 
-            {  
+            {
+				
 			
                 Image spielfeld = Toolkit.getDefaultToolkit().getImage(  
                           Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUI.png"));  
@@ -248,11 +286,16 @@ public class Spielfeld extends JFrame implements ActionListener {
 	                				 * hier läuft das ab wenn auf einem Spielfeld ein weißer stein steht 
 	                				 */
 	                				
-	                				if(!hatAltePosition)
+	                				if(!hatAltePosition && !hatMuehle)
 	                					g.drawImage(SteinWeiss,  xPosi , yPosi , breite, hoehe, this);
 	                				else
-	                					g.drawImage(transparentSteinWeiss,  xPosi , yPosi , breite, hoehe, this);
-	                				
+	                				{
+	                					if(hatMuehle && aktuellerSpieler.equals(Spieler2))
+	                						g.drawImage(SteinWeiss,  xPosi , yPosi , breite+10, hoehe+10, this);
+	                					else
+	                						g.drawImage(transparentSteinWeiss,  xPosi , yPosi , breite, hoehe, this);
+	                				}
+	                					
 	                				
 	                			}
 	                			else 
@@ -261,11 +304,15 @@ public class Spielfeld extends JFrame implements ActionListener {
 	                				 * hier läuft das ab wenn auf einem Spielfeld ein weißer stein steht 
 	                				 */
 	                				
-	                				if(!hatAltePosition)
+	                				if(!hatAltePosition && !hatMuehle)
 	                					g.drawImage(SteinSchwarz,  xPosi , yPosi , breite, hoehe, this);
 	                				else
-	                					g.drawImage(transparentSteinSchwarz,  xPosi , yPosi , breite, hoehe, this);
-	                			
+	                				{
+	                					if(hatMuehle && aktuellerSpieler.equals(Spieler1))
+	                						g.drawImage(SteinSchwarz,  xPosi , yPosi , breite+10, hoehe+10, this);
+	                					else
+	                						g.drawImage(transparentSteinSchwarz,  xPosi , yPosi , breite, hoehe, this);
+	                				}
 	                			}
 	                			
                 			}
@@ -497,12 +544,6 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 		 db.erzeuge_p();
 		 
-//			timer CODE
-//		        Timer timer = new Timer(500, task); //fire every half second
-//		        timer.setInitialDelay(2000);        //first delay 2 seconds
-//		        timer.setRepeats(false);
-//		        timer.start();
-	
 	}
 
 	
@@ -670,7 +711,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 					//Steht der Stein in einer Mühle
 					if(pruef.checkInMuehle(anzahlRunden, aktuellerSpieler.Steine))
 					{
-						System.out.println("Mühle");
+						this.neueMeldung(meldungsZeit, aktuellerSpieler.SpielsteinFarbeAsString() + textMuehle);
 						panel.repaint();
 						hatMuehle = true;
 						return;
@@ -685,7 +726,10 @@ public class Spielfeld extends JFrame implements ActionListener {
 					
 					//neu zeichnen
 					panel.repaint();
-				//	zaehler2++;
+					
+					this.neueMeldung(meldungsZeit, passiverSpieler.SpielsteinFarbeAsString() + textSpielerWechsel);
+					
+					
 					return;
 				}				
 		
@@ -754,6 +798,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 						if(pruef.checkInMuehle(aktuellerStein1.getIndex() , aktuellerSpieler.Steine))
 						{
 							System.out.println("Mühle");
+							this.neueMeldung(meldungsZeit, aktuellerSpieler.SpielsteinFarbeAsString() + textMuehle);
 							panel.repaint();
 							hatMuehle = true;
 							return;
@@ -761,6 +806,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 						if(aktuellerSpieler == Spieler2 && wurdeBewegt == true)
 							rundeVorbei = true;
+						this.neueMeldung(meldungsZeit, passiverSpieler.SpielsteinFarbeAsString() + textSpielerWechsel);
 						
 						panel.repaint();
 						if(rundeVorbei == true)
@@ -785,6 +831,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 						this.muehle(aktuellerStein, aktuellerSpieler, PositionGeklickt, neueBewegung);
 						if(aktuellerSpieler == Spieler2) //TEST
 							anzahlRunden++;
+						this.neueMeldung(meldungsZeit, passiverSpieler.SpielsteinFarbeAsString() + " ist dran!");
 						return;
 					}
 					else //der Spieler hat auf einen seiner eigenen Steine gedrückt
@@ -800,6 +847,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				
 			}	
 		}
+		
 	}
 
 	public void muehle(Spielstein aktuellerStein, Spieler aktuellerSpieler, Position PositionGeklickt, Bewegung neueBewegung)
@@ -905,8 +953,35 @@ public class Spielfeld extends JFrame implements ActionListener {
 			return false;
 		}
 	}
-
-
+	
+	public void neueMeldung(final int sekunden, final String meldung)
+	{
+		//hier wird die Position festgelegt wo die meldung erscheinen soll
+		Point pos = contentPane.getLocationOnScreen();
+		xPos = (int)pos.getX() + (contentPane.getWidth() / 3);
+		yPos = (int)pos.getY() + 200;
+		System.out.println(xPos);
+		
+		new Thread() 
+		{
+		      { 
+		    	  start(); 
+		      } 
+		      public void run() 
+		      {
+		        try 
+		        { 
+		        	Anweisung1 probe = new Anweisung1(meldung, xPos, yPos);
+					probe.setAlwaysOnTop(true);
+					probe.setVisible(true);
+		        	sleep(sekunden * 1000);
+		        	probe.setVisible(false);
+		        }
+		        catch ( InterruptedException e ) { }
+		      } 
+		};
+	}
+	
 	
 
 		
