@@ -11,7 +11,6 @@ public class AuflistungZuege {
 public void PossibleMoves(Spieler SpielerAktiv){
 		
 		
-		
 		EPositionIndex ebene = null;
 		EPositionIndex x = null;
 		EPositionIndex y = null;
