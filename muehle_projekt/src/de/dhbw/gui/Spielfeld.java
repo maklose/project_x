@@ -94,6 +94,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 	
 	private boolean neuesSpielFlag = false;
 	
+	private boolean SteinKannGeloeschtWerden = true;
+	
 	private String textSpielerWechsel = " ist dran!";
 	private String textMuehle = " hat eine Mühle!";
 	private String textNeuesSpiel = "Neues Spiel -- Weiss beginnt!";
@@ -291,7 +293,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	                					g.drawImage(SteinWeiss,  xPosi , yPosi , breite, hoehe, this);
 	                				else
 	                				{
-	                					if(hatMuehle && aktuellerSpieler.equals(Spieler2))
+	                					if(hatMuehle && aktuellerSpieler.equals(Spieler2) && !pruef.checkInMuehle(aktuellerStein.getIndex(), Spieler1.Steine))
 	                						g.drawImage(SteinWeiss,  xPosi , yPosi , breite+10, hoehe+10, this);
 	                					else
 	                						g.drawImage(transparentSteinWeiss,  xPosi , yPosi , breite, hoehe, this);
@@ -308,7 +310,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	                					g.drawImage(SteinSchwarz,  xPosi , yPosi , breite, hoehe, this);
 	                				else
 	                				{
-	                					if(hatMuehle && aktuellerSpieler.equals(Spieler1))
+	                					if(hatMuehle && aktuellerSpieler.equals(Spieler1) && !pruef.checkInMuehle(aktuellerStein.getIndex(), Spieler2.Steine))
 	                						g.drawImage(SteinSchwarz,  xPosi , yPosi , breite+10, hoehe+10, this);
 	                					else
 	                						g.drawImage(transparentSteinSchwarz,  xPosi , yPosi , breite, hoehe, this);
@@ -830,6 +832,12 @@ public class Spielfeld extends JFrame implements ActionListener {
 							|| (aktuellerStein.FarbVergleich(ESpielsteinFarbe.WEISS) && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.SCHWARZ)))
 					{
 						this.muehle(aktuellerStein, aktuellerSpieler, PositionGeklickt, neueBewegung);
+						if(!SteinKannGeloeschtWerden)
+						{
+							this.neueMeldung(meldungsZeit, "Dieser Stein steht in einer Mühle!");
+							SteinKannGeloeschtWerden = true;
+							return;
+						}
 						if(aktuellerSpieler == Spieler2) //TEST
 							anzahlRunden++;
 						this.neueMeldung(meldungsZeit, passiverSpieler.SpielsteinFarbeAsString() + " ist dran!");
@@ -859,10 +867,17 @@ public class Spielfeld extends JFrame implements ActionListener {
 		x = posIndexUmrechnen(PositionGeklickt.getX());
 		y = posIndexUmrechnen(PositionGeklickt.getY());
 		Spielstein zuLoeschenderStein = SpielfeldArray[e][x][y];
-		SpielfeldArray[e][x][y] = null;
 		
-		passiverSpieler.entferneSpielstein(zuLoeschenderStein.getIndex());
-		
+		if(!pruef.checkInMuehle(zuLoeschenderStein.getIndex() , passiverSpieler.Steine))
+		{
+			SpielfeldArray[e][x][y] = null;
+			passiverSpieler.entferneSpielstein(zuLoeschenderStein.getIndex());
+		}
+		else
+		{
+			SteinKannGeloeschtWerden = false;
+			return;
+		}
 		
 		hatMuehle = false;
 		panel.repaint();
