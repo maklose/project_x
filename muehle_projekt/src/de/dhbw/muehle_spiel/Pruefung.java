@@ -121,8 +121,10 @@ public class Pruefung {
 
 		
 		boolean inMuehle = false;
-		int aenderung1, aenderung2, aenderung3;
-		int zaehler = 0;
+		int aenderungEbene, aenderungX, aenderungY;
+		int zaehlerEbene = 0;
+		int zaehlerX = 0; 
+		int zaehlerY = 0;
 		
 		int[][] Positionen = new int[9][3];
 		
@@ -137,37 +139,70 @@ public class Pruefung {
 		
 		for (int j =0; j <9; j++){
 			
-			aenderung1 = 0;
-			aenderung2 = 0;
-			aenderung3 = 0;
+			aenderungEbene = 0;
+			aenderungX = 0;
+			aenderungY = 0;
 			
-			aenderung1 = Math.abs(Positionen[j][0] - Positionen[IndexStein][0]);
-			aenderung2 = Math.abs(Positionen[j][1] - Positionen[IndexStein][1]);
-			aenderung3 = Math.abs(Positionen[j][2] - Positionen[IndexStein][2]);
+			//Vergleicht die Position des betrachteten Steins(IndexStein) mit der des Steins an j-ter Stelle
+			aenderungEbene = Math.abs(Positionen[j][0] - Positionen[IndexStein][0]);
+			aenderungX = Math.abs(Positionen[j][1] - Positionen[IndexStein][1]);
+			aenderungY = Math.abs(Positionen[j][2] - Positionen[IndexStein][2]);
 					
-			// Heraufsetzen des Zählers um 1, wenn sich ein Index verändert hat
-			if	((aenderung1 == 0 && aenderung2 == 0 && aenderung3 == 1)||
-				(aenderung1 == 0 && aenderung2 == 1 && aenderung3 == 0)||
-				(aenderung1 == 1 && aenderung2 == 0 && aenderung3 == 0)||
-				(aenderung1 == 0 && aenderung2 == 0 && aenderung3 == 2)||
-				(aenderung1 == 0 && aenderung2 == 2 && aenderung3 == 0)||
-				(aenderung1 == 2 && aenderung2 == 0 && aenderung3 == 0))
+			//Heraufsetzen des Zählers um 1, wenn sich nur die Ebene verändert hat
+			if ((aenderungEbene == 1 && aenderungX == 0 && aenderungY == 0)||
+				(aenderungEbene == 2 && aenderungX == 0 && aenderungY == 0))
 			{
-				zaehler ++;
-			}
+				zaehlerEbene ++;
+				
+				// Ausschließen der Eckpositionen
+				//Sonderfälle: 1,1,3 - 2,1,3 - 3,1,3 ; 1,3,3 - 2,3,3 - 3,3,3 ; 1,3,1 - 2,3,1 - 3,3,1 ; 1,1,1 - 2,1,1 - 3,1,1
+				if	((Positionen[j][0] != Positionen[IndexStein][0])&&
+								((Positionen[j][1] + Positionen[j][2] == 2)||
+								(Positionen[j][1] + Positionen[j][2] == 4)||
+								(Positionen[j][1] + Positionen[j][2] == 6)))
+				{
+					zaehlerEbene ++;
+				}
+											
+			}	
+			
+			//Heraufsetzen des Zählers um 1, wenn sich nur die X-Koordinate verändert hat
+			if ((aenderungEbene == 0 && aenderungX == 1 && aenderungY == 0)||
+				(aenderungEbene == 0 && aenderungX == 2 && aenderungY == 0))
+				{
+					zaehlerX ++;
+				}
+			
+			//Heraufsetzen des Zählers um 1, wenn sich nur die Y-Koordinate verändert hat
+			if ((aenderungEbene == 0 && aenderungX == 0 && aenderungY == 1)||
+				(aenderungEbene == 0 && aenderungX == 0 && aenderungY == 2))
+					{
+						zaehlerY ++;
+					}
+			
+			// Heraufsetzen des Zählers um 1, wenn sich ein Index verändert hat
+//			if	((aenderung1 == 0 && aenderung2 == 0 && aenderung3 == 1)||
+//				(aenderung1 == 0 && aenderung2 == 1 && aenderung3 == 0)||
+//				(aenderung1 == 1 && aenderung2 == 0 && aenderung3 == 0)||
+//				(aenderung1 == 0 && aenderung2 == 0 && aenderung3 == 2)||
+//				(aenderung1 == 0 && aenderung2 == 2 && aenderung3 == 0)||
+//				(aenderung1 == 2 && aenderung2 == 0 && aenderung3 == 0))
+//			{
+//				zaehler ++;
+//			}
 			// Ausschließen der Eckpositionen
 			//Sonderfälle: 1,1,3 - 2,1,3 - 3,1,3 ; 1,3,3 - 2,3,3 - 3,3,3 ; 1,3,1 - 2,3,1 - 3,3,1 ; 1,1,1 - 2,1,1 - 3,1,1
-			if	((Positionen[j][0] != Positionen[IndexStein][0])&&
-							((Positionen[j][1] + Positionen[j][2] == 2)||
-							(Positionen[j][1] + Positionen[j][2] == 4)||
-							(Positionen[j][1] + Positionen[j][2] == 6)))
-			{
-				zaehler --;
-			}
+//			if	((Positionen[j][0] != Positionen[IndexStein][0])&&
+//							((Positionen[j][1] + Positionen[j][2] == 2)||
+//							(Positionen[j][1] + Positionen[j][2] == 4)||
+//							(Positionen[j][1] + Positionen[j][2] == 6)))
+//			{
+//				zaehler --;
+//			}
 			
 		}
 
-		if(zaehler == 2 || zaehler == 4){
+		if(zaehlerEbene == 2 || zaehlerX == 2 || zaehlerY == 2){
 				inMuehle = true;
 			}
 					
