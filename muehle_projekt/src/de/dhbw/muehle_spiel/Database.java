@@ -74,7 +74,10 @@ public void zugspeichern(Bewegung bewegung,Spieler spieler,boolean muehle,Spiels
 	
 		// Ablegen der Positionsindexe, Spielsteinfarbe in String-Variablen & 
 		String vonEbene, vonX, vonY, nachEbene, nachX, nachY,farbe,lspielstein;
+		if(spielstein != null)
 		lspielstein=spielstein.toString();
+		else
+		lspielstein = " ";
 	    farbe=spieler.SpielsteinFarbeAsString();
 		vonEbene = bewegung.getVon().getEbene().toString();
 		vonX = bewegung.getVon().getX().toString();
