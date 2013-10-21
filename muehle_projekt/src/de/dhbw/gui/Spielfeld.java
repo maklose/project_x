@@ -71,6 +71,10 @@ public class Spielfeld extends JFrame implements ActionListener{
 	
 	private boolean rundeVorbei = false;
 	
+	private boolean hatMuehle = false;
+	
+	private boolean wurdeBewegt = false;
+	
 	//Alte Position wenn man zieht und die variable ob der aktuelle klick schon das neue setzen ist
 	Position altePosition; 
 	boolean hatAltePosition;
@@ -570,187 +574,195 @@ public class Spielfeld extends JFrame implements ActionListener{
 		Position PositionGeklickt = lButton.getPosition();
 		while(!this.SpielBeendet())
 		{
-			//erste Phase wenn noch nicht alle Steine gesetzt wurden
-			while(Spieler2.getAnzahlZuege() < 9)
+			Spieler aktuellerSpieler, passiverSpieler;
+			if(Spieler1.getAnzahlZuege() <= Spieler2.getAnzahlZuege())
 			{
-				//Spieler1 ist dran
-				if(Spieler1.getAnzahlZuege() < zaehler1)
+				aktuellerSpieler = Spieler1;
+				passiverSpieler = Spieler2;
+			}
+			else
+			{
+				aktuellerSpieler = Spieler2;
+				passiverSpieler = Spieler1;
+			}
+			
+			int e, x, y;
+			e = posIndexUmrechnen(PositionGeklickt.getEbene());
+			x = posIndexUmrechnen(PositionGeklickt.getX());
+			y = posIndexUmrechnen(PositionGeklickt.getY());
+			Spielstein aktuellerStein = SpielfeldArray[e][x][y];
+			
+			//solange der aktuelle Spieler keine Mühle hat
+			if(hatMuehle != true)
+			{
+
+				//erste Phase wenn noch nicht alle Steine gesetzt wurden
+				while(Spieler2.getAnzahlZuege() < 9)
 				{
-					
 					//neue Bewegung erstellen
 					Bewegung neueBewegung = new Bewegung(null, PositionGeklickt);
 					
 					//verschiedene Prüfungen
-					if(pruef.checkSetzen(PositionGeklickt, Spieler1, Spieler2) == true)
+					if(pruef.checkSetzen(PositionGeklickt, aktuellerSpieler, passiverSpieler) == true)
 					{	
-						this.SpielsteinSetzen(neueBewegung, Spieler1, lButton);
-						
+						this.SpielsteinSetzen(neueBewegung, aktuellerSpieler, lButton);
 					}
 					else
 					{
-						System.out.println(pruef.checkSetzen(PositionGeklickt, Spieler1, Spieler2));	
+						System.out.println(pruef.checkSetzen(PositionGeklickt, aktuellerSpieler, passiverSpieler));	
 						return;
 					}
 					
 					//Steht der Stein in einer Mühle
-					if(pruef.checkInMuehle(anzahlRunden, Spieler1.Steine))
+					if(pruef.checkInMuehle(anzahlRunden, aktuellerSpieler.Steine))
 					{
 						System.out.println("Mühle");
+						panel.repaint();
+						hatMuehle = true;
+						return;
 					}
 					else
 					{
 						
 					}
+					
+					if(aktuellerSpieler == Spieler2)
+						anzahlRunden++;
 					
 					//neu zeichnen
 					panel.repaint();
 					zaehler2++;
 					return;
-				}
-				//Spieler2 ist dran
-				else if(Spieler2.getAnzahlZuege() < zaehler2)
+				}				
+		
+				//Hier wird der Code ausgeführt, wenn die erste Phase abgeschlossen ist
+				while(true)
 				{
-					//neue Bewegung erstellen
-					Bewegung neueBewegung = new Bewegung(null, PositionGeklickt);
 
-					//verschiedene Prüfungen
-					if(pruef.checkSetzen(PositionGeklickt, Spieler2, Spieler1) == true)
-					{	
-						this.SpielsteinSetzen(neueBewegung, Spieler2, lButton);
-						
-					}
-					else
+					/*if(!pruef.checkFeldBesetzt(PositionGeklickt, aktuellerSpieler, passiverSpieler))
 					{
-						System.out.println(pruef.checkSetzen(PositionGeklickt, Spieler2, Spieler1));
-						return;
-					}
+						break;
+					}*/
 					
-					//Stein in Mühle?
-					if(pruef.checkInMuehle(anzahlRunden, Spieler2.Steine))
+					//hier der Fall wenn auf einen bereits gelegten Stein gedrückt wird
+					if(hatAltePosition == false)
 					{
-					System.out.println("Mühle");
-					}
-					else
-					{
-						
-					}
-					
-					panel.repaint();
-					anzahlRunden++;
-					zaehler1++;
-					return;
-				}
-				//würde ausgeführt wenn kein Spieler dran ist | darf also nicht vorkommen
-				else
-				{
-					System.out.println("fehler! irgendwie ist kein Spieler dran");
-				}
-				
-			}
-			//Hier wird der Code ausgeführt, wenn die erste Phase abgeschlossen ist
-			while(true)
-			{
-				int e, x, y;
-				e = posIndexUmrechnen(PositionGeklickt.getEbene());
-				x = posIndexUmrechnen(PositionGeklickt.getX());
-				y = posIndexUmrechnen(PositionGeklickt.getY());
-				Spielstein aktuellerStein = SpielfeldArray[e][x][y];
-				
-				
-				//der aktuelle und der passive spieler wird festgelegt
-				Spieler aktuellerSpieler, passiverSpieler;
-				if(Spieler1.getAnzahlZuege() <= Spieler2.getAnzahlZuege())
-				{
-					aktuellerSpieler = Spieler1;
-					passiverSpieler = Spieler2;
-				}
-				else
-				{
-					aktuellerSpieler = Spieler2;
-					passiverSpieler = Spieler1;
-				}
-				
-				/*if(!pruef.checkFeldBesetzt(PositionGeklickt, aktuellerSpieler, passiverSpieler))
-				{
-					break;
-				}*/
-				
-				//hier der Fall wenn auf einen bereits gelegten Stein gedrückt wird
-				if(hatAltePosition == false)
-				{
-					if(aktuellerStein != null) //nur wenn auf Feld gedrückt wird auf dem auch ein Stein steht
-					{
-						if((aktuellerStein.FarbVergleich(ESpielsteinFarbe.WEISS) && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.WEISS))
-							|| (aktuellerStein.FarbVergleich(ESpielsteinFarbe.SCHWARZ) && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.SCHWARZ)))
+						if(aktuellerStein != null) //nur wenn auf Feld gedrückt wird auf dem auch ein Stein steht
 						{
-							altePosition = PositionGeklickt;
-							hatAltePosition = true;
-							return;
+							if((aktuellerStein.FarbVergleich(ESpielsteinFarbe.WEISS) && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.WEISS))
+								|| (aktuellerStein.FarbVergleich(ESpielsteinFarbe.SCHWARZ) && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.SCHWARZ)))
+							{
+								altePosition = PositionGeklickt;
+								hatAltePosition = true;
+								return;
+							}
+							else
+							{
+								System.out.println("Ein Spieler hat auf einen Stein gedrückt der nicht ihm gehört");
+								return;
+							}
 						}
 						else
 						{
-							System.out.println("Ein Spieler hat auf einen Stein gedrückt der nicht ihm gehört");
+							System.out.println("Hier steht kein Stein");
 							return;
 						}
 					}
-					else
-					{
-						System.out.println("Hier steht kein Stein");
-						return;
-					}
-				}
-				else 		//hier der Fall wenn die alte Position bereits abgespeichert wurde
-				{
-					//neue Bewegung erstellen
-					Bewegung neueBewegung = new Bewegung(altePosition, PositionGeklickt);
-					System.out.println(neueBewegung);
 					
-					//verschiedene Prüfungen
-					if(pruef.checkZug(neueBewegung, aktuellerSpieler, passiverSpieler) == true)
-					{	
-						this.SpielsteinBewegen(neueBewegung, aktuellerSpieler, lButton);
-						if(aktuellerSpieler == Spieler2)
-						rundeVorbei = true;
+					else 		//hier der Fall wenn die alte Position bereits abgespeichert wurde
+					{
+						//neue Bewegung erstellen
+						Bewegung neueBewegung = new Bewegung(altePosition, PositionGeklickt);
+						System.out.println(neueBewegung);
 						
-					}
-					else
-					{
-						System.out.print("checkZug ergab: ");
-						System.out.println(pruef.checkZug(neueBewegung, aktuellerSpieler, passiverSpieler));
-						hatAltePosition = false;
-						return;
-					}
-					
-					int e1, x1, y1;
-					e1 = posIndexUmrechnen(PositionGeklickt.getEbene());
-					x1 = posIndexUmrechnen(PositionGeklickt.getX());
-					y1 = posIndexUmrechnen(PositionGeklickt.getY());
-					Spielstein aktuellerStein1 = SpielfeldArray[e1][x1][y1];
-					
-					if(pruef.checkInMuehle(aktuellerStein1.getIndex() , aktuellerSpieler.Steine))
-					{
-						System.out.println("Mühle");
-					}
-					else
-					{
+						//verschiedene Prüfungen
+						if(pruef.checkZug(neueBewegung, aktuellerSpieler, passiverSpieler) == true)
+						{	
+							this.SpielsteinBewegen(neueBewegung, aktuellerSpieler, lButton);
+							wurdeBewegt = true;
+						}
+						else
+						{
+							System.out.print("checkZug ergab: ");
+							System.out.println(pruef.checkZug(neueBewegung, aktuellerSpieler, passiverSpieler));
+							hatAltePosition = false;
+							return;
+						}
 						
-					}
-					panel.repaint();
-					if(rundeVorbei == true)
-					{
-						anzahlRunden++;
-						rundeVorbei = false;
-					}
-					zaehler1++;
-					hatAltePosition = false;
-					return;		
-				}
-				
-			}
-		}
+						int e1, x1, y1;
+						e1 = posIndexUmrechnen(PositionGeklickt.getEbene());
+						x1 = posIndexUmrechnen(PositionGeklickt.getX());
+						y1 = posIndexUmrechnen(PositionGeklickt.getY());
+						Spielstein aktuellerStein1 = SpielfeldArray[e1][x1][y1];
+						
+						if(pruef.checkInMuehle(aktuellerStein1.getIndex() , aktuellerSpieler.Steine))
+						{
+							System.out.println("Mühle");
+							panel.repaint();
+							hatMuehle = true;
+							return;
+						}
 		
+						if(aktuellerSpieler == Spieler2 && wurdeBewegt == true)
+							rundeVorbei = true;
+						
+						panel.repaint();
+						if(rundeVorbei == true)
+						{
+							anzahlRunden++;
+							rundeVorbei = false;
+						}
+						zaehler1++;
+						hatAltePosition = false;
+						return;		
+					}
+				}
+			}
+			else		//hier der code wenn ein Spieler eine Mühle hat
+			{
+				if(aktuellerStein != null)
+				{
+					//hat der Spieler auf einen anderen Stein gedrückt?
+					if((aktuellerStein.FarbVergleich(ESpielsteinFarbe.SCHWARZ) && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.WEISS))
+							|| (aktuellerStein.FarbVergleich(ESpielsteinFarbe.WEISS) && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.SCHWARZ)))
+					{
+						this.muehle(aktuellerStein, aktuellerSpieler, PositionGeklickt);
+						return;
+					}
+					else //der Spieler hat auf einen seiner eigenen Steine gedrückt
+					{
+						System.out.println("Der Spieler hat auf einen eigenen Stein gedrückt obwohl er eine Mühle hat");
+						return;
+					}
+				}
+				else	//der Spieler hat auf ein leeres Feld gedrückt
+				{
+					return;
+				}
+			}	
+		}
 	}
 
+	public void muehle(Spielstein aktuellerStein, Spieler aktuellerSpieler, Position PositionGeklickt)
+	{
+		int e, x, y;
+		e = posIndexUmrechnen(PositionGeklickt.getEbene());
+		x = posIndexUmrechnen(PositionGeklickt.getX());
+		y = posIndexUmrechnen(PositionGeklickt.getY());
+		SpielfeldArray[e][x][y] = null;
+		
+		
+		hatMuehle = false;
+		panel.repaint();
+		if(aktuellerSpieler == Spieler2)
+		{
+			anzahlRunden++;
+			rundeVorbei = false;
+		}
+		zaehler1++;
+		hatAltePosition = false;	
+	}
+	
 	
 	public void SpielsteinSetzen(Bewegung neueBewegung, Spieler lSpieler, TransparentButtonFeld lButton)
 	{
@@ -792,11 +804,6 @@ public class Spielfeld extends JFrame implements ActionListener{
 		b = posIndexUmrechnen(neueBewegung.getNach().getX());
 		c = posIndexUmrechnen(neueBewegung.getNach().getY());
 		SpielfeldArray[a][b][c] = aktuellerStein;
-		System.out.println(SpielfeldArray[a][b][c]);
-		System.out.println("ebene: " + (a+1));
-		System.out.println("xPos : " + (b+1));
-		System.out.println("yPos : " + (c+1));
-		System.out.println(SpielfeldArray[e][x][y] + "alte pos sollt null sein");
 		
 		//Die Bewegung wird an den Spieler weitergegeben
 		lSpieler.bewegeSpielstein(neueBewegung, aktuellerStein.getIndex(), xPos, yPos);	
