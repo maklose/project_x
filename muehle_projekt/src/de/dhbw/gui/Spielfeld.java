@@ -88,7 +88,6 @@ public class Spielfeld extends JFrame implements ActionListener {
 	
 	private Bewegung neueBewegung;
 	
-	
 	static Database db = new Database();
 	
 	//Alte Position wenn man zieht und die variable ob der aktuelle klick schon das neue setzen ist
@@ -278,7 +277,7 @@ public class Spielfeld extends JFrame implements ActionListener {
                 }
                 
                 //hier wird der ausgewählte Stein wieder ohne transparenz gezeichnet
-                if(hatAltePosition == true)
+                if(hatAltePosition)
                 {
                 	int e, x, y;
         			e = posIndexUmrechnen(altePosition.getEbene());
@@ -294,9 +293,9 @@ public class Spielfeld extends JFrame implements ActionListener {
     				int hoehe = (int) ((int)spielfeld.getHeight(this)/5);
     				
     				if(aktuellerStein.FarbVergleich(ESpielsteinFarbe.WEISS))
-        				g.drawImage(SteinSchwarz,  xPosi , yPosi , breite, hoehe, this);
+        				g.drawImage(SteinWeiss,  xPosi , yPosi , breite + 10, hoehe + 10, this);
     				else
-    					g.drawImage(SteinSchwarz,  xPosi , yPosi , breite, hoehe, this);
+    					g.drawImage(SteinSchwarz,  xPosi , yPosi , breite + 10, hoehe + 10, this);
         			
                 	
                 }
@@ -740,6 +739,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 						{
 							System.out.print("checkZug ergab: ");
 							System.out.println(pruef.checkZug(neueBewegung, aktuellerSpieler, passiverSpieler));
+							panel.repaint();
 							hatAltePosition = false;
 							return;
 						}
@@ -831,8 +831,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 	{
 		//Die Position an der der Stein gezeichnet werden soll wird ermittelt 
 		Point pos = lButton.getLocation();
-		xPos = (int)pos.getX() + (lButton.getWidth()/50);
-		yPos = (int)pos.getY() + (lButton.getHeight()/8);
+		xPos = (int)pos.getX() + (lButton.getWidth()/50) + 10;
+		yPos = (int)pos.getY() + (lButton.getHeight()/8) + 10;
 		
 		//Die Bewegung wird an den Spieler weitergegeben 
 		lSpieler.setzeSpielstein(neueBewegung.getNach(), xPos, yPos);
@@ -852,8 +852,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 	{
 		//Die Position an der der Stein gezeichnet werden soll wrd ermittelt
 		Point pos = lButton.getLocation();
-		xPos = (int)pos.getX() + (lButton.getWidth()/50);
-		yPos = (int)pos.getY() + (lButton.getHeight()/8);
+		xPos = (int)pos.getX() + (lButton.getWidth()/50) + 10;
+		yPos = (int)pos.getY() + (lButton.getHeight()/8) + 10;
 		
 		//Die alte Position des Steins wird aus dem Array gelöscht und in der Variable aktueller Stein zwischengespeichert
 		int e, x, y;
