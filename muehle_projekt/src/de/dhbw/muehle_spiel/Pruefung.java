@@ -95,19 +95,24 @@ public class Pruefung {
 	//Überprüfung, ob die Nach-Position bereits belegt ist
 		for (int i = 0; i<9; i++)
 		{
-			if(SpielerAktiv.Steine[i].getPosition().equals(bewegung.getNach()) == false ){
-			korrekt = true;
+			if(SpielerAktiv.Steine[i] != null){
+				if(SpielerAktiv.Steine[i].getPosition().equals(bewegung.getNach()) == false ){
+					korrekt = true;
+				}
+			
+				else
+				{
+					return false;
+				}
 			}
 			
-			else{
-			return false;
-			}
-			
-			if(SpielerPassiv.Steine[i].getPosition().equals(bewegung.getNach()) == false){
-			korrekt = true;
-			}
-			else{
-			return false;
+			if(SpielerPassiv.Steine[i] != null){
+				if(SpielerPassiv.Steine[i].getPosition().equals(bewegung.getNach()) == false){
+				korrekt = true;
+				}
+				else{
+				return false;
+				}
 			}
 		
 		}
