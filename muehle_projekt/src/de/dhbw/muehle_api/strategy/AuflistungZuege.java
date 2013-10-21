@@ -4,12 +4,14 @@ import de.dhbw.muehle_api.EPositionIndex;
 import de.dhbw.muehle_api.Position;
 import de.dhbw.muehle_spiel.Bewegung;
 import de.dhbw.muehle_spiel.Spieler;
+import de.dhbw.muehle_spiel.Pruefung;
 
 public class AuflistungZuege {                  
 
 	
-public void PossibleMoves(Spieler SpielerAktiv){
-		
+public void PossibleMoves(Spieler SpielerAktiv, Spieler SpielerPassiv){
+	
+	 boolean ZugMoeglich;
 		
 		EPositionIndex ebene = null;
 		EPositionIndex x = null;
@@ -51,9 +53,14 @@ public void PossibleMoves(Spieler SpielerAktiv){
 										y = y.Zwei;
 										}
 									if(c == 3){
-										y = y.Drei;
+										y = y.Drei;  
+									}
+								
+									ZugMoeglich = checkZug(new Bewegung(SpielerAktiv.Steine[i].getPosition(), new Position(ebene, x, y)), 
+												SpielerAktiv, SpielerPassiv);
+								
+								if(ZugMoeglich == true){     // Diese Bewegung ist moeglich
 									
-									//Hier muss der Code rein
 									}
 									
 								}
@@ -67,8 +74,10 @@ public void PossibleMoves(Spieler SpielerAktiv){
 			
 
 	}
-	
 
-	}
-	
+
+}
+
+
+
 
