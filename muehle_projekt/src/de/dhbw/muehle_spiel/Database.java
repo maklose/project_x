@@ -79,9 +79,19 @@ public void zugspeichern(Bewegung bewegung,Spieler spieler,boolean muehle,Spiels
 		else
 		lspielstein = " ";
 	    farbe=spieler.SpielsteinFarbeAsString();
-		vonEbene = bewegung.getVon().getEbene().toString();
-		vonX = bewegung.getVon().getX().toString();
-		vonY = bewegung.getVon().getY().toString();
+	    if(bewegung.getVon() != null)
+	    {
+			vonEbene = bewegung.getVon().getEbene().toString();
+			vonX = bewegung.getVon().getX().toString();
+			vonY = bewegung.getVon().getY().toString();
+	    }
+	    else
+	    {
+	    	vonEbene = " ";
+	    	vonX = " ";
+	    	vonY = " ";
+	    	
+	    }
 		nachEbene= bewegung.getNach().getEbene().toString();
 		nachX = bewegung.getNach().getX().toString();
 		nachY = bewegung.getNach().getY().toString();
