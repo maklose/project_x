@@ -73,11 +73,17 @@ public void lösche_h(){
 public void zugspeichern(Bewegung bewegung,Spieler spieler,boolean muehle,Spielstein spielstein){
 	
 		// Ablegen der Positionsindexe, Spielsteinfarbe in String-Variablen & 
-		String vonEbene, vonX, vonY, nachEbene, nachX, nachY,farbe,lspielstein;
+		String vonEbene, vonX, vonY, nachEbene, nachX, nachY,farbe,lspielstein, lmuehle;
 		if(spielstein != null)
-		lspielstein=spielstein.toString();
+			lspielstein=spielstein.toString();
 		else
-		lspielstein = " ";
+			lspielstein = " ";
+		
+		if(muehle)
+			lmuehle = "true";
+		else
+			lmuehle = "false";
+		
 	    farbe=spieler.SpielsteinFarbeAsString();
 	    if(bewegung.getVon() != null)
 	    {
@@ -97,7 +103,7 @@ public void zugspeichern(Bewegung bewegung,Spieler spieler,boolean muehle,Spiels
 		nachY = bewegung.getNach().getY().toString();
 		
 	String update=("INSERT INTO protokoll (Spielstein,E1,X1,Y1,E2,X2,Y2,muehle,GeloeschterStein)"
-				+ " VALUES("+farbe+","+vonEbene+","+vonX+","+vonY+","+nachEbene+","+nachX+","+nachY+","+muehle+","+lspielstein+")");
+				+ " VALUES("+farbe+","+vonEbene+","+vonX+","+vonY+","+nachEbene+","+nachX+","+nachY+","+lmuehle+","+lspielstein+")");
 						
 	try {
 		statement=c.createStatement();
@@ -147,9 +153,9 @@ public void erzeuge_p(){
 		    	statement=c.createStatement();	     
 		    String create="CREATE TABLE protokoll(ID INTEGER PRIMARY KEY AUTOINCREMENT,"
 		    			+ "Spielstein varChar(10),"
-		    			+ "E1 char(1), X1 char(1), Y1 char(1), "
-		    			+ "E2 char(1), X2 char(1), Y2 char(1), "
-		    			+ "muehle boolean, GeloeschterStein varchar(80))";
+		    			+ "E1 varChar(10), X1 varChar(10), Y1 varChar(10), "
+		    			+ "E2 varChar(10), X2 varChar(10), Y2 varChar(10), "
+		    			+ "muehle varChar(10), GeloeschterStein vaChar(80))";
 		    statement.executeUpdate(create);
 		    System.out.println("Tabelle protokoll wurde erzeugt");			    		  		    
 		    } 
