@@ -16,15 +16,18 @@ import java.awt.Color;
 import javax.swing.JLabel;
 
 import de.dhbw.gui.BestaetigungBeenden;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import de.dhbw.muehle_api.*;
 import de.dhbw.muehle_spiel.Bewegung;
+import de.dhbw.muehle_spiel.Database;
 import de.dhbw.muehle_spiel.Pruefung;
 import de.dhbw.muehle_spiel.Spieler;
 import de.dhbw.muehle_spiel.Spielstein;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -76,6 +79,9 @@ public class Spielfeld extends JFrame implements ActionListener{
 	private boolean wurdeBewegt = false;
 	
 	private Spieler aktuellerSpieler, passiverSpieler;
+	
+	
+	Database db = new Database();
 	
 	//Alte Position wenn man zieht und die variable ob der aktuelle klick schon das neue setzen ist
 	Position altePosition; 
@@ -443,13 +449,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 		lblNewLabel_5 = new JLabel("New label");
 		panel_1.add(lblNewLabel_5);
 		
-		
-		/*
-		 * Ab hier werden die Spieler erzuegt
-		 */
-		
-		
-		 
+		 db.erzeuge_p();
 		
 	}
 
@@ -607,6 +607,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 					if(pruef.checkSetzen(PositionGeklickt, aktuellerSpieler, passiverSpieler) == true)
 					{	
 						this.SpielsteinSetzen(neueBewegung, aktuellerSpieler, lButton);
+						db.zugspeichern(neueBewegung, aktuellerSpieler);
 					}
 					else
 					{

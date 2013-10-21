@@ -92,5 +92,12 @@ public class Spielstein implements ISpielstein
 			return false;
 	}
 
+	@Override
+	public String toString() {
+		return "Spielstein [Spielsteinfarbe=" + Spielsteinfarbe
+				+ ", aktuellePosition=" + aktuellePosition + ", index=" + index
+				+ "]";
+	}
+
 	
 }
