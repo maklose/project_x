@@ -3,18 +3,17 @@ package de.dhbw.gui;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
-import javax.management.timer.Timer;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.FlowLayout;
-
 import javax.swing.JLabel;
 
 public class Anweisung1 extends JFrame  {
 
 	private JPanel contentPane;
+	
 
 	/**
 	 * Launch the application.
@@ -23,9 +22,10 @@ public class Anweisung1 extends JFrame  {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					Anweisung1 frame = new Anweisung1();
 					frame.setVisible(true);
-					Timer.();
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

@@ -18,16 +18,20 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
 import javax.swing.ImageIcon;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.util.Timer;
 
-public class Empfangsgui2 extends JFrame {
+public class Empfangsgui2 extends JFrame implements WindowListener {
 
 	private JPanel contentPane;
+	
+	Task timer = new Task();
 
 	/**
 	 * Launch the application.
@@ -52,15 +56,14 @@ public class Empfangsgui2 extends JFrame {
 	 */
 	public Empfangsgui2() {
 		//Fenster
-		final Timer timer = new Timer();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 726, 456);
 		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
 		//Hintergrund des Empfangsfensters
 		JPanel panel = new JPanel() {  
 			                public void paintComponent(Graphics g) {  
@@ -81,17 +84,10 @@ public class Empfangsgui2 extends JFrame {
 		JButton btn_anleitung = new JButton();
 		btn_anleitung.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame probe = new Anweisung1();
-				probe.setVisible(true);
-				try {
-					timer.wait(5);
-					timer.notify();
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				probe.dispose();
-			
+				//JFrame probe = new Anweisung1();
+				//timer.schedule(new Task(),2000);
+				//probe.setVisible(true);
+				
 			}
 		});
 		/*JButton btn_anleitung = new JButton(){
@@ -194,6 +190,64 @@ public class Empfangsgui2 extends JFrame {
 		gbc_btn_anleitung.gridx = 3;
 		gbc_btn_anleitung.gridy = 3;
 		panel.add(btn_anleitung, gbc_btn_anleitung);
+	}
+
+	//WindowListener
+
+	@Override
+	public void windowActivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent Event) {				
+		final BestaetigungBeenden frageBeenden = new BestaetigungBeenden();
+				frageBeenden.setListener( new BestaetigungBeenden.BestatigungsListener() {
+					
+					@Override
+					public void onOK() {
+						
+						Empfangsgui2.this.dispose();
+						frageBeenden.dispose();
+					}
+					
+					@Override
+					public void onCancel() {	
+					}
+				});
+				frageBeenden.setVisible(true);
+				
+	};	
+
+	@Override
+	public void windowDeactivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
