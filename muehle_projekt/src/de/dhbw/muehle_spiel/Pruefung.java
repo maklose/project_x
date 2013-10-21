@@ -161,7 +161,7 @@ public class Pruefung {
 								(Positionen[j][1] + Positionen[j][2] == 4)||
 								(Positionen[j][1] + Positionen[j][2] == 6)))
 				{
-					zaehlerEbene ++;
+					zaehlerEbene--;
 				}
 											
 			}	
