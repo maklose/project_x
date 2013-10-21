@@ -26,6 +26,8 @@ import javax.swing.ImageIcon;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 
 public class Empfangsgui2 extends JFrame implements WindowListener {
 
@@ -84,11 +86,35 @@ public class Empfangsgui2 extends JFrame implements WindowListener {
 		JButton btn_anleitung = new JButton();
 		btn_anleitung.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//JFrame probe = new Anweisung1();
-				//timer.schedule(new Task(),2000);
-				//probe.setVisible(true);
+				
+				
+				new Thread() 
+				{
+				      { 
+				    	  start(); 
+				      } 
+				      public void run() 
+				      {
+				        try 
+				        { 
+				        	JFrame probe = new Anweisung1();
+							probe.setAlwaysOnTop(true);
+							probe.setVisible(true);
+				        	sleep(2000); 
+				        	System.out.println("Zeit ist um.");
+				        	probe.setVisible(false);
+				        }
+				        catch ( InterruptedException e ) { }
+				      } 
+				};
+	
+				
+				
+				
 				
 			}
+
+			
 		});
 		/*JButton btn_anleitung = new JButton(){
 			@Override
@@ -191,6 +217,7 @@ public class Empfangsgui2 extends JFrame implements WindowListener {
 		gbc_btn_anleitung.gridy = 3;
 		panel.add(btn_anleitung, gbc_btn_anleitung);
 	}
+	
 
 	//WindowListener
 
