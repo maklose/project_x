@@ -130,102 +130,104 @@ public class Pruefung {
 				Positionen[i][1]= Steine[i].getPosition().getX().getValue();
 				Positionen[i][2]= Steine[i].getPosition().getY().getValue();
 				}
-			}
+		}
 		
-		for (int i =0; i <9; i++){
+		for (int j =0; j <9; j++){
 			
 			aenderung1 = 0;
 			aenderung2 = 0;
 			aenderung3 = 0;
 			
-			aenderung1 = Math.abs(Positionen[i][0] - Positionen[IndexStein][0]);
-			aenderung2 = Math.abs(Positionen[i][1] - Positionen[IndexStein][1]);
-			aenderung3 = Math.abs(Positionen[i][2] - Positionen[IndexStein][2]);				
-			
+			aenderung1 = Math.abs(Positionen[j][0] - Positionen[IndexStein][0]);
+			aenderung2 = Math.abs(Positionen[j][1] - Positionen[IndexStein][1]);
+			aenderung3 = Math.abs(Positionen[j][2] - Positionen[IndexStein][2]);
+					
 			if(	(aenderung1 == 0 && aenderung2 == 0 && aenderung3 == 1)||
 				(aenderung1 == 0 && aenderung2 == 1 && aenderung3 == 0)||
 				(aenderung1 == 1 && aenderung2 == 0 && aenderung3 == 0)||
 				(aenderung1 == 0 && aenderung2 == 0 && aenderung3 == 2)||
 				(aenderung1 == 0 && aenderung2 == 2 && aenderung3 == 0)||
-				(aenderung1 == 2 && aenderung2 == 0 && aenderung3 == 0)){
+				(aenderung1 == 2 && aenderung2 == 0 && aenderung3 == 0)||
+				//Ausschliesen der 4 Sonderfälle, bei denen sich der Index um 1 verändert, der Stein jedoch nicht in einer Mühle steht
+				(Positionen[j][1] + Positionen[j][2] != 4)||
+				(Positionen[j][1] + Positionen[j][2] != 6)||
+				(Positionen[j][1] + Positionen[j][2] != 2))
+			
+			{
 			
 				zaehler ++;
 			}
 			
-		}	
-		
-		// Ausschliesen der 4 Sonderfälle, bei denen sich der Index um 1 verändert, der Stein jedoch nicht in einer Mühle steht
-		//Sonderfälle: 1,1,3 - 2,1,3 - 3,1,3 ; 1,3,3 - 2,3,3 - 3,3,3 ; 1,3,1 - 2,3,1 - 3,3,1 ; 1,1,1 - 2,1,1 - 3,1,1		
-		
-		Position[] pos = new Position[12];
-		pos[0] = new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Drei);
-		pos[1] = new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Drei);
-		pos[2] = new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Drei);
-		pos[3] = new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Drei);
-		pos[4] = new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Drei);
-		pos[5] = new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Drei);
-		pos[6] = new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Eins);
-		pos[7] = new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Eins);
-		pos[8] = new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Eins);
-		pos[9] = new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Eins);
-		pos[10] = new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Eins);
-		pos[11] = new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Eins);
-		
-		int anzahl1 = 0;
-		int anzahl2 = 0;
-		int anzahl3 = 0;
-		int anzahl4 = 0;
-		
-		for(int j = 0; j <9 ; j++){
-			if(Steine[j] != null){
-				if(Steine[j].getPosition().equals(pos[0]))
-					anzahl1++;
-				if(Steine[j].getPosition().equals(pos[1]))
-					anzahl1++;
-				if(Steine[j].getPosition().equals(pos[2]))
-					anzahl1++;
-				if(Steine[j].getPosition().equals(pos[3]))
-					anzahl2++;
-				if(Steine[j].getPosition().equals(pos[4]))
-					anzahl2++;
-				if(Steine[j].getPosition().equals(pos[5]))
-					anzahl2++;
-				if(Steine[j].getPosition().equals(pos[6]))
-					anzahl3++;
-				if(Steine[j].getPosition().equals(pos[7]))
-					anzahl3++;
-				if(Steine[j].getPosition().equals(pos[8]))
-					anzahl3++;
-				if(Steine[j].getPosition().equals(pos[9]))
-					anzahl3++;
-				if(Steine[j].getPosition().equals(pos[10]))
-					anzahl4++;
-				if(Steine[j].getPosition().equals(pos[11]))
-					anzahl4++;
-			}
 		}
-			
-		//Wenn anzahl1/2/3/4 == 3 ist Fall vorhanden und zaehler wird um 2 vermindert
-		if(anzahl1 == 3)
-			zaehler = zaehler - 2;
-		if(anzahl2 == 3)
-			zaehler = zaehler - 2;
-		if(anzahl3 == 3)
-			zaehler = zaehler - 2;
-		if(anzahl4 == 3)
-			zaehler = zaehler - 2;
-		
+
 		if(zaehler == 2 || zaehler == 4){
 				inMuehle = true;
 			}
-			
-			// Ausschliesen der 4 Sonderfälle, bei denen sich der Index um 1 verändert, der Stein jedoch nicht in einer Mühle steht
-			//Sonderfälle: 1,1,3 - 2,1,3 - 3,1,3 ; 1,3,3 - 2,3,3 - 3,3,3 ; 1,3,1 - 2,3,1 - 3,3,1 ; 1,1,1 - 2,1,1 - 3,1,1		
-			
-			
-		
+					
 		return inMuehle;
 	}
+		// 
+		//Sonderfälle: 1,1,3 - 2,1,3 - 3,1,3 ; 1,3,3 - 2,3,3 - 3,3,3 ; 1,3,1 - 2,3,1 - 3,3,1 ; 1,1,1 - 2,1,1 - 3,1,1		
+		
+//		Position[] pos = new Position[12];
+//		pos[0] = new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Drei);
+//		pos[1] = new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Drei);
+//		pos[2] = new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Drei);
+//		pos[3] = new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Drei);
+//		pos[4] = new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Drei);
+//		pos[5] = new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Drei);
+//		pos[6] = new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Eins);
+//		pos[7] = new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Eins);
+//		pos[8] = new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Eins);
+//		pos[9] = new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Eins);
+//		pos[10] = new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Eins);
+//		pos[11] = new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Eins);
+//		
+//		int anzahl1 = 0;
+//		int anzahl2 = 0;
+//		int anzahl3 = 0;
+//		int anzahl4 = 0;
+//		
+//		for(int j = 0; j <9 ; j++){
+//			if(Steine[j] != null){
+//				if(Steine[j].getPosition().equals(pos[0]))
+//					anzahl1++;
+//				if(Steine[j].getPosition().equals(pos[1]))
+//					anzahl1++;
+//				if(Steine[j].getPosition().equals(pos[2]))
+//					anzahl1++;
+//				if(Steine[j].getPosition().equals(pos[3]))
+//					anzahl2++;
+//				if(Steine[j].getPosition().equals(pos[4]))
+//					anzahl2++;
+//				if(Steine[j].getPosition().equals(pos[5]))
+//					anzahl2++;
+//				if(Steine[j].getPosition().equals(pos[6]))
+//					anzahl3++;
+//				if(Steine[j].getPosition().equals(pos[7]))
+//					anzahl3++;
+//				if(Steine[j].getPosition().equals(pos[8]))
+//					anzahl3++;
+//				if(Steine[j].getPosition().equals(pos[9]))
+//					anzahl3++;
+//				if(Steine[j].getPosition().equals(pos[10]))
+//					anzahl4++;
+//				if(Steine[j].getPosition().equals(pos[11]))
+//					anzahl4++;
+//			}
+//		}
+//			
+//		//Wenn anzahl1/2/3/4 == 3 ist Fall vorhanden und zaehler wird um 2 vermindert
+//		if(anzahl1 == 3)
+//			zaehler = zaehler - 2;
+//		if(anzahl2 == 3)
+//			zaehler = zaehler - 2;
+//		if(anzahl3 == 3)
+//			zaehler = zaehler - 2;
+//		if(anzahl4 == 3)
+//			zaehler = zaehler - 2;
+		
+		
 
 	// Überprüft, ob das Spiel beendet ist, weil SpielerAktiv keine Möglichkeit mehr hat zu ziehen, oder weniger als 3 Steine hat
 	// Gibt true zurück, wenn das Spiel beendet ist und false wenn das Spiel noch nicht beendet ist
