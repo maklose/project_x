@@ -715,8 +715,9 @@ public class Spielfeld extends JFrame implements ActionListener {
 					{
 						this.neueMeldung(meldungsZeit, aktuellerSpieler.SpielsteinFarbeAsString() + textMuehle);
 						System.out.println(aktuellerSpieler.SpielsteinFarbeAsString() + textMuehle);
-						panel.repaint();
+						
 						hatMuehle = true;
+						panel.repaint();
 						return;
 					}
 					else
@@ -801,8 +802,10 @@ public class Spielfeld extends JFrame implements ActionListener {
 						{
 							this.neueMeldung(meldungsZeit, aktuellerSpieler.SpielsteinFarbeAsString() + textMuehle);
 							System.out.println(aktuellerSpieler.SpielsteinFarbeAsString() + textMuehle);
-							panel.repaint();
+							
 							hatMuehle = true;
+							hatAltePosition = false;
+							panel.repaint();
 							return;
 						}
 		
