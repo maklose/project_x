@@ -48,7 +48,7 @@ public class Pruefung {
 	// Ablegen der Positionsindexe in einer int-Variablen
 	vonEbene = bewegung.getVon().getEbene().getValue();
 	vonX = bewegung.getVon().getX().getValue();
-	vonY = bewegung.getVon().getX().getValue();
+	vonY = bewegung.getVon().getY().getValue();
 	nachEbene= bewegung.getNach().getEbene().getValue();
 	nachX = bewegung.getNach().getX().getValue();
 	nachY = bewegung.getNach().getY().getValue();
