@@ -2,14 +2,20 @@ package de.dhbw.gui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+
 import java.awt.GridLayout;
+
 import javax.swing.JTextPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -36,23 +42,27 @@ public class BestaetigungBeenden extends JDialog {
 	 */
 	public BestaetigungBeenden() {
 		//Fenster
-		setBounds(100, 100, 262, 122);
+		setBounds(100, 100, 450, 164);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new GridLayout(1, 0, 0, 0));
 		{
 			//Textfeld
-			JPanel panel = new JPanel();
+			JPanel panel = new JPanel() {  
+                public void paintComponent(Graphics g) {  
+                     Image hintergrund = Toolkit.getDefaultToolkit().getImage(  
+                               Empfangsgui2.class.getResource("/de/dhbw/images/Sicherheitsabfrage_GUI.PNG"));  
+                 g.drawImage(hintergrund, 0, 0, this.getWidth(), this.getHeight(), this);  
+            }  
+          };  
 			contentPanel.add(panel);
-		}
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			panel.setLayout(null);
 			{
 				//Button "OK"
 				JButton okButton = new JButton("OK");
+				okButton.setBounds(0, 82, 47, 23);
+				panel.add(okButton);
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if( listener != null )
@@ -62,19 +72,19 @@ public class BestaetigungBeenden extends JDialog {
 					}
 				});
 				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				//Button "Cancel"
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.setBounds(349, 82, 65, 23);
+				panel.add(cancelButton);
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						dispose();
 					}
 				});
 				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
 			}
 		}
 	}
