@@ -149,7 +149,7 @@ public void erzeuge_p(){
 		    			+ "Spielstein varChar(10),"
 		    			+ "E1 char(1), X1 char(1), Y1 char(1), "
 		    			+ "E2 char(1), X2 char(1), Y2 char(1), "
-		    			+ "muehle boolean, GeloeschterStein varchar(30))";
+		    			+ "muehle boolean, GeloeschterStein varchar(80))";
 		    statement.executeUpdate(create);
 		    System.out.println("Tabelle protokoll wurde erzeugt");			    		  		    
 		    } 
