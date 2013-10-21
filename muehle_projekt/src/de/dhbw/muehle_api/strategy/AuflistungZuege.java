@@ -17,6 +17,7 @@ public void PossibleMoves(Spieler SpielerAktiv){
 		EPositionIndex y = null;
 		
 		
+		
 		for (int i = 0; i <9 ; i++){
 			
 			for(int a = 1 ; a <= 3; a++)
