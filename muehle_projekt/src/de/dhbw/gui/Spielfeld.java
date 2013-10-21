@@ -832,8 +832,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 							SteinKannGeloeschtWerden = true;
 							return;
 						}
-						if(aktuellerSpieler == Spieler2) //TEST
-							anzahlRunden++;
+						else
+							
 						this.neueMeldung(meldungsZeit, passiverSpieler.SpielsteinFarbeAsString() + " ist dran!");
 						System.out.println(passiverSpieler.SpielsteinFarbeAsString() + " ist dran!");
 						return;
@@ -866,6 +866,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		{
 			SpielfeldArray[e][x][y] = null;
 			passiverSpieler.entferneSpielstein(zuLoeschenderStein.getIndex());
+			hatAltePosition = false;
 		}
 		else
 		{
@@ -873,15 +874,14 @@ public class Spielfeld extends JFrame implements ActionListener {
 			return;
 		}
 		
-		hatMuehle = false;
+		
 		panel.repaint();
 		if(aktuellerSpieler == Spieler2)
 		{
 			anzahlRunden++;
 			rundeVorbei = false;
 		}
-		//zaehler1++;
-		hatAltePosition = false;	
+		hatMuehle = false;
 		
 		db.zugspeichern(neueBewegung, aktuellerSpieler, true, zuLoeschenderStein);
 	}
