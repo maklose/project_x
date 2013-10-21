@@ -187,26 +187,6 @@ public class Pruefung {
 						zaehlerY ++;
 					}
 			
-			// Heraufsetzen des Z‰hlers um 1, wenn sich ein Index ver‰ndert hat
-//			if	((aenderung1 == 0 && aenderung2 == 0 && aenderung3 == 1)||
-//				(aenderung1 == 0 && aenderung2 == 1 && aenderung3 == 0)||
-//				(aenderung1 == 1 && aenderung2 == 0 && aenderung3 == 0)||
-//				(aenderung1 == 0 && aenderung2 == 0 && aenderung3 == 2)||
-//				(aenderung1 == 0 && aenderung2 == 2 && aenderung3 == 0)||
-//				(aenderung1 == 2 && aenderung2 == 0 && aenderung3 == 0))
-//			{
-//				zaehler ++;
-//			}
-			// Ausschlieﬂen der Eckpositionen
-			//Sonderf‰lle: 1,1,3 - 2,1,3 - 3,1,3 ; 1,3,3 - 2,3,3 - 3,3,3 ; 1,3,1 - 2,3,1 - 3,3,1 ; 1,1,1 - 2,1,1 - 3,1,1
-//			if	((Positionen[j][0] != Positionen[IndexStein][0])&&
-//							((Positionen[j][1] + Positionen[j][2] == 2)||
-//							(Positionen[j][1] + Positionen[j][2] == 4)||
-//							(Positionen[j][1] + Positionen[j][2] == 6)))
-//			{
-//				zaehler --;
-//			}
-			
 		}
 
 		if(zaehlerEbene == 2 || zaehlerX == 2 || zaehlerY == 2){
@@ -217,67 +197,6 @@ public class Pruefung {
 	}
 		// 
 				
-		
-//		Position[] pos = new Position[12];
-//		pos[0] = new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Drei);
-//		pos[1] = new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Drei);
-//		pos[2] = new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Drei);
-//		pos[3] = new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Drei);
-//		pos[4] = new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Drei);
-//		pos[5] = new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Drei);
-//		pos[6] = new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Eins);
-//		pos[7] = new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Eins);
-//		pos[8] = new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Eins);
-//		pos[9] = new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Eins);
-//		pos[10] = new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Eins);
-//		pos[11] = new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Eins);
-//		
-//		int anzahl1 = 0;
-//		int anzahl2 = 0;
-//		int anzahl3 = 0;
-//		int anzahl4 = 0;
-//		
-//		for(int j = 0; j <9 ; j++){
-//			if(Steine[j] != null){
-//				if(Steine[j].getPosition().equals(pos[0]))
-//					anzahl1++;
-//				if(Steine[j].getPosition().equals(pos[1]))
-//					anzahl1++;
-//				if(Steine[j].getPosition().equals(pos[2]))
-//					anzahl1++;
-//				if(Steine[j].getPosition().equals(pos[3]))
-//					anzahl2++;
-//				if(Steine[j].getPosition().equals(pos[4]))
-//					anzahl2++;
-//				if(Steine[j].getPosition().equals(pos[5]))
-//					anzahl2++;
-//				if(Steine[j].getPosition().equals(pos[6]))
-//					anzahl3++;
-//				if(Steine[j].getPosition().equals(pos[7]))
-//					anzahl3++;
-//				if(Steine[j].getPosition().equals(pos[8]))
-//					anzahl3++;
-//				if(Steine[j].getPosition().equals(pos[9]))
-//					anzahl3++;
-//				if(Steine[j].getPosition().equals(pos[10]))
-//					anzahl4++;
-//				if(Steine[j].getPosition().equals(pos[11]))
-//					anzahl4++;
-//			}
-//		}
-//			
-//		//Wenn anzahl1/2/3/4 == 3 ist Fall vorhanden und zaehler wird um 2 vermindert
-//		if(anzahl1 == 3)
-//			zaehler = zaehler - 2;
-//		if(anzahl2 == 3)
-//			zaehler = zaehler - 2;
-//		if(anzahl3 == 3)
-//			zaehler = zaehler - 2;
-//		if(anzahl4 == 3)
-//			zaehler = zaehler - 2;
-		
-		
-
 	// ‹berpr¸ft, ob das Spiel beendet ist, weil SpielerAktiv keine Mˆglichkeit mehr hat zu ziehen, oder weniger als 3 Steine hat
 	// Gibt true zur¸ck, wenn das Spiel beendet ist und false wenn das Spiel noch nicht beendet ist
 	public boolean checkSpielBeendet(Spieler SpielerAktiv, Spieler SpielerPassiv){
