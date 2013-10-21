@@ -80,6 +80,8 @@ public class Spielfeld extends JFrame implements ActionListener{
 	
 	private Spieler aktuellerSpieler, passiverSpieler;
 	
+	private Bewegung neueBewegung;
+	
 	
 	Database db = new Database();
 	
@@ -601,13 +603,12 @@ public class Spielfeld extends JFrame implements ActionListener{
 				while(Spieler2.getAnzahlZuege() < 9)
 				{
 					//neue Bewegung erstellen
-					Bewegung neueBewegung = new Bewegung(null, PositionGeklickt);
+					neueBewegung = new Bewegung(null, PositionGeklickt);
 					
 					//verschiedene Prüfungen
 					if(pruef.checkSetzen(PositionGeklickt, aktuellerSpieler, passiverSpieler) == true)
 					{	
 						this.SpielsteinSetzen(neueBewegung, aktuellerSpieler, lButton);
-						db.zugspeichern(neueBewegung, aktuellerSpieler);
 					}
 					else
 					{
@@ -625,7 +626,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 					}
 					else
 					{
-						
+						db.zugspeichern(neueBewegung, aktuellerSpieler, false, aktuellerStein);
 					}
 					
 					if(aktuellerSpieler == Spieler2)
@@ -674,7 +675,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 					else 		//hier der Fall wenn die alte Position bereits abgespeichert wurde
 					{
 						//neue Bewegung erstellen
-						Bewegung neueBewegung = new Bewegung(altePosition, PositionGeklickt);
+						neueBewegung = new Bewegung(altePosition, PositionGeklickt);
 						System.out.println(neueBewegung);
 						
 						//verschiedene Prüfungen
@@ -728,7 +729,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 					if((aktuellerStein.FarbVergleich(ESpielsteinFarbe.SCHWARZ) && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.WEISS))
 							|| (aktuellerStein.FarbVergleich(ESpielsteinFarbe.WEISS) && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.SCHWARZ)))
 					{
-						this.muehle(aktuellerStein, aktuellerSpieler, PositionGeklickt);
+						this.muehle(aktuellerStein, aktuellerSpieler, PositionGeklickt, neueBewegung);
 						return;
 					}
 					else //der Spieler hat auf einen seiner eigenen Steine gedrückt
@@ -745,12 +746,13 @@ public class Spielfeld extends JFrame implements ActionListener{
 		}
 	}
 
-	public void muehle(Spielstein aktuellerStein, Spieler aktuellerSpieler, Position PositionGeklickt)
+	public void muehle(Spielstein aktuellerStein, Spieler aktuellerSpieler, Position PositionGeklickt, Bewegung neueBewegung)
 	{
 		int e, x, y;
 		e = posIndexUmrechnen(PositionGeklickt.getEbene());
 		x = posIndexUmrechnen(PositionGeklickt.getX());
 		y = posIndexUmrechnen(PositionGeklickt.getY());
+		Spielstein zuLoeschenderStein = SpielfeldArray[e][x][y];
 		SpielfeldArray[e][x][y] = null;
 		
 		
@@ -763,6 +765,8 @@ public class Spielfeld extends JFrame implements ActionListener{
 		}
 		zaehler1++;
 		hatAltePosition = false;	
+		
+		db.zugspeichern(neueBewegung, aktuellerSpieler, true, zuLoeschenderStein);
 	}
 	
 	
