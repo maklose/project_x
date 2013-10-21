@@ -55,13 +55,12 @@ public void PossibleMoves(Spieler SpielerAktiv, Spieler SpielerPassiv){
 									if(c == 3){
 										y = y.Drei;  
 									}
-								
-									ZugMoeglich = checkZug(new Bewegung(SpielerAktiv.Steine[i].getPosition(), new Position(ebene, x, y)), 
+								    Pruefung pruef =new Pruefung();
+									ZugMoeglich = pruef.checkZug(new Bewegung(SpielerAktiv.Steine[i].getPosition(), new Position(ebene, x, y)), 
 												SpielerAktiv, SpielerPassiv);
 								
 									
-								if(ZugMoeglich == true){     // Diese Bewegung ist moeglich
-									
+								if(ZugMoeglich == true){     System.out.print(i+"Stein, nach:"+new Position(ebene, x, y) );									
 									}
 									
 								}
