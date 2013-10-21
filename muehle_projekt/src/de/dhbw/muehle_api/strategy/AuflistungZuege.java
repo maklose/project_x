@@ -59,6 +59,7 @@ public void PossibleMoves(Spieler SpielerAktiv, Spieler SpielerPassiv){
 									ZugMoeglich = checkZug(new Bewegung(SpielerAktiv.Steine[i].getPosition(), new Position(ebene, x, y)), 
 												SpielerAktiv, SpielerPassiv);
 								
+									
 								if(ZugMoeglich == true){     // Diese Bewegung ist moeglich
 									
 									}
