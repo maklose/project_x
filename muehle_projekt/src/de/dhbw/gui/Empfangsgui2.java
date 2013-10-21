@@ -1,7 +1,6 @@
 package de.dhbw.gui;
 
 
-import de.dhbw.gui.Anleitung;
 import de.dhbw.gui.DialogOptionen2;
 
 import java.awt.BorderLayout;
@@ -17,13 +16,14 @@ import javax.swing.JDialog;
 import javax.swing.JButton;
 
 import java.awt.Color;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.Timer;
 
 public class Empfangsgui2 extends JFrame {
 
@@ -52,6 +52,7 @@ public class Empfangsgui2 extends JFrame {
 	 */
 	public Empfangsgui2() {
 		//Fenster
+		final Timer timer = new Timer();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 726, 456);
 		setResizable(false);
@@ -77,7 +78,23 @@ public class Empfangsgui2 extends JFrame {
 		panel.setLayout(gbl_panel);
 		
 		//Button "Spielanleitung"
-		JButton btn_anleitung = new JButton(){
+		JButton btn_anleitung = new JButton();
+		btn_anleitung.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame probe = new Anweisung1();
+				probe.setVisible(true);
+				try {
+					timer.wait(5);
+					timer.notify();
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				probe.dispose();
+			
+			}
+		});
+		/*JButton btn_anleitung = new JButton(){
 			@Override
 			public void paintComponent(Graphics g){
 				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Spielanleitung.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
@@ -89,7 +106,7 @@ public class Empfangsgui2 extends JFrame {
 				JFrame anleitung = new Anleitung();
 				anleitung.setVisible(true);
 			}
-		});
+		});*/
 		
 		//Button "Exit"
 		JButton btn_exit = new JButton(){
