@@ -20,6 +20,8 @@ import de.dhbw.gui.BestaetigungBeenden;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import de.dhbw.muehle_api.*;
 import de.dhbw.muehle_spiel.Bewegung;
@@ -32,7 +34,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-public class Spielfeld extends JFrame implements ActionListener{
+public class Spielfeld extends JFrame implements ActionListener, WindowListener{
 
 	/**
 	 * 
@@ -450,6 +452,13 @@ public class Spielfeld extends JFrame implements ActionListener{
 		panel_1.add(lblNewLabel_5);
 		
 		 db.erzeuge_p();
+		 
+//			timer CODE
+//		        Timer timer = new Timer(500, task); //fire every half second
+//		        timer.setInitialDelay(2000);        //first delay 2 seconds
+//		        timer.setRepeats(false);
+//		        timer.start();
+		
 		
 	}
 
@@ -743,6 +752,7 @@ public class Spielfeld extends JFrame implements ActionListener{
 				{
 					return;
 				}
+				
 			}	
 		}
 	}
@@ -849,6 +859,55 @@ public class Spielfeld extends JFrame implements ActionListener{
 		else{
 			return false;
 		}
+	}
+
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		db.löschetb("protokoll");
+		
+	}
+
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		
+		
+	}
+
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	
