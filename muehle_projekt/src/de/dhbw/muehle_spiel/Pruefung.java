@@ -91,7 +91,8 @@ public class Pruefung {
 		
 	}
 		
-		//Überprüfung, ob die Nach-Position bereits belegt ist
+	
+	//Überprüfung, ob die Nach-Position bereits belegt ist
 		for (int i = 0; i<9; i++)
 		{
 			if(SpielerAktiv.Steine[i].getPosition().equals(bewegung.getNach()) == false ){
