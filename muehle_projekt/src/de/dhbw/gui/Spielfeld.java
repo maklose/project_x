@@ -100,7 +100,16 @@ public class Spielfeld extends JFrame implements ActionListener {
 	Position altePosition; 
 	boolean hatAltePosition;
 	
-
+	//die linken oberen Positionen der drei Felder auf der rechten Seite
+	int xPosOben = 12;				
+	int yPosOben = 48;				
+	int xPosMitte = 12;				
+	int yPosMitte = 226;
+	int xPosUnten = 12;				
+	int yPosUnten = 404;
+	
+	//variablen die mitzählen wie viel Steine von dem jeweiligen Spieler wegen Mühlen vom Spielfeld entfernt wurden
+	int entfernteSteineWeiss, entfernteSteineSchwarz = 0;
 	
 	Pruefung pruef = new Pruefung();
 	
@@ -275,8 +284,8 @@ public class Spielfeld extends JFrame implements ActionListener {
                 				int yPosi = aktuellerStein.getyPos();
                 				
                 				//hier wird das Verhältnis festgelet, in dem die Steine zum Spielfeld stehen (größe)
-                				int breite = (int) ((int)spielfeld.getWidth(this)/7);
-                				int hoehe = (int) ((int)spielfeld.getHeight(this)/7);
+                				int breite = (int) ((int)spielfeld.getWidth(this)/6);
+                				int hoehe = (int) ((int)spielfeld.getHeight(this)/6);
                 				
 	                			if(aktuellerStein.FarbVergleich(ESpielsteinFarbe.WEISS))
 	                			{
@@ -289,7 +298,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	                				else
 	                				{
 	                					if(hatMuehle && aktuellerSpieler.equals(Spieler2) && !pruef.checkInMuehle(aktuellerStein.getIndex(), Spieler1.Steine))
-	                						g.drawImage(SteinWeiss,  xPosi , yPosi , breite+10, hoehe+10, this);
+	                						g.drawImage(SteinWeiss,  xPosi , yPosi , breite+6, hoehe+6, this);
 	                					else
 	                						g.drawImage(transparentSteinWeiss,  xPosi , yPosi , breite, hoehe, this);
 	                				
@@ -302,13 +311,13 @@ public class Spielfeld extends JFrame implements ActionListener {
 	                				 */
 	                				
 	                				if(!hatAltePosition && !hatMuehle)
-	                					g.drawImage(SteinSchwarz,  xPosi , yPosi , breite, hoehe, this);
+	                					g.drawImage(SteinSchwarz,  xPosi , yPosi , breite-4, hoehe-4, this);
 	                				else
 	                				{
 	                					if(hatMuehle && aktuellerSpieler.equals(Spieler1) && !pruef.checkInMuehle(aktuellerStein.getIndex(), Spieler2.Steine))
-	                						g.drawImage(SteinSchwarz,  xPosi , yPosi , breite+10, hoehe+10, this);
+	                						g.drawImage(SteinSchwarz,  xPosi , yPosi , breite+2, hoehe+2, this);
 	                					else
-	                						g.drawImage(transparentSteinSchwarz,  xPosi , yPosi , breite, hoehe, this);
+	                						g.drawImage(transparentSteinSchwarz,  xPosi , yPosi , breite-4, hoehe-4, this);
 	                				}
 	                			}
 	                			
@@ -334,14 +343,14 @@ public class Spielfeld extends JFrame implements ActionListener {
         			int xPosi = aktuellerStein.getxPos();
     				int yPosi = aktuellerStein.getyPos();
     				
-    				//hier wird das Verhältnis festgelet, in dem die Steine zum Spielfeld stehen (größe)
+    				//hier wird das Verhältnis festgelet, in dem die Steine zum Spielfeld stehen (größer)
     				int breite = (int) ((int)spielfeld.getWidth(this)/5);
     				int hoehe = (int) ((int)spielfeld.getHeight(this)/5);
     				
     				if(aktuellerStein.FarbVergleich(ESpielsteinFarbe.WEISS))
-        				g.drawImage(SteinWeiss,  xPosi , yPosi , breite + 10, hoehe + 10, this);
+        				g.drawImage(SteinWeiss,  xPosi , yPosi , breite + 6, hoehe + 6, this);
     				else
-    					g.drawImage(SteinSchwarz,  xPosi , yPosi , breite + 10, hoehe + 10, this);
+    					g.drawImage(SteinSchwarz,  xPosi , yPosi , breite + 2, hoehe + 2, this);
         			
                 	
                 }
@@ -534,14 +543,57 @@ public class Spielfeld extends JFrame implements ActionListener {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void paint(Graphics g) {
+			public void paint(Graphics g) 
+			{
+				//Das Hintergrundbild wird geladen
 				Image spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
                         Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIrechts.png"));  
 				g.drawImage(spielfeldRechts, 0, 0, this.getWidth(), this.getHeight(), this);  
+				
+				//hier wird das Verhältnis festgelet, in dem die Steine zum Spielfeld stehen (größe)
+				int breite = panel.getWidth()/8;
+				int hoehe = panel.getWidth()/8;
+				
+				//Beschriftung der Felder
+				g.drawString("Spieler1: ", xPosOben+15, yPosOben+30);
+				g.drawString("Spieler2: ", xPosUnten+15, yPosUnten+30);
+				
+				//Zeichnet die noch vorhandenen Steine des Spielers
+				for(int i = 0; i < (9-Spieler1.getAnzahlSteine()-entfernteSteineWeiss); i++)
+				{
+					g.drawImage(SteinWeiss,  xPosOben + (i*15) , yPosOben + 30 , breite, hoehe, this);
+				}
+				for(int i = 0; i < (9-Spieler2.getAnzahlSteine()-entfernteSteineSchwarz); i++)
+				{
+					g.drawImage(SteinSchwarz,  xPosUnten + (i*15) , yPosUnten + 30 , breite-3, hoehe-3, this);
+				}
+				
+				//Zeichnet die gelöschten Steine vom Gegner
+				for(int i = 0; i < entfernteSteineSchwarz; i++)
+				{
+					g.drawImage(SteinSchwarz,  xPosOben + (i*15) , yPosOben + 85 , breite-3, hoehe-3, this);
+				}
+				for(int i = 0; i < entfernteSteineWeiss; i++)
+				{
+					g.drawImage(SteinWeiss,  xPosUnten + (i*15) , yPosUnten + 85 , breite, hoehe, this);
+				}
+				
+				//Zeichnet in das mittlere Feld einen Stein der aktuellen Farbe
+				if(Spieler1.getAnzahlSteine()==0)
+					g.drawImage(SteinWeiss,  xPosMitte + 30, yPosMitte + 10 , breite+50, hoehe+50, this);
+				else
+				{
+					if(aktuellerSpieler == Spieler2)
+						g.drawImage(SteinWeiss,  xPosMitte + 30, yPosMitte + 10 , breite+50, hoehe+50, this);
+					else
+						g.drawImage(SteinSchwarz,  xPosMitte + 30, yPosMitte + 10 , breite+43, hoehe+43, this);
+				}
+				//Rundenanzeige
+				g.drawString("Runde " + (anzahlRunden+1), xPosMitte+15, yPosMitte+130);
 			}
 		};
 		contentPane.setLayout(new MigLayout("", "[664.94px]0[300px]", "[677px]"));
-		contentPane.add(panel, "cell 0 0,grow");
+		contentPane.add(panel, "cell 0 0,alignx left,aligny top");
 		contentPane.add(panel_1, "cell 1 0,grow");
 		
 		
@@ -717,6 +769,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 						
 						hatMuehle = true;
 						panel.repaint();
+						panel_1.repaint();
 						return;
 					}
 					else
@@ -729,6 +782,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 					
 					//neu zeichnen
 					panel.repaint();
+					panel_1.repaint();
 				
 					
 					
@@ -821,6 +875,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 						this.verschiedeneAusgaben();
 						
 						panel.repaint();
+						panel_1.repaint();
 						hatAltePosition = false;
 						return;		
 					}
@@ -844,7 +899,17 @@ public class Spielfeld extends JFrame implements ActionListener {
 						}
 						else
 							
+
 						this.neueMeldung(meldungsZeit, passiverSpieler.SpielsteinFarbeAsString() + " ist dran!");
+						if(aktuellerSpieler == Spieler2)
+						{
+							anzahlRunden++;
+							entfernteSteineWeiss++;
+						}
+						else
+							entfernteSteineSchwarz++;
+						
+						panel_1.repaint();
 						this.verschiedeneAusgaben();
 						return;
 					}
@@ -892,7 +957,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		panel.repaint();
 		if(aktuellerSpieler == Spieler2)
 		{
-			anzahlRunden++;
+			//anzahlRunden++;
 			rundeVorbei = false;
 		}
 		hatMuehle = false;
@@ -905,7 +970,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	{
 		//Die Position an der der Stein gezeichnet werden soll wird ermittelt 
 		Point pos = lButton.getLocation();
-		xPos = (int)pos.getX();
+		xPos = (int)pos.getX()-5;
 		yPos = (int)pos.getY()-3;
 		
 		//Die Bewegung wird an den Spieler weitergegeben 
@@ -924,7 +989,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	{
 		//Die Position an der der Stein gezeichnet werden soll wrd ermittelt
 		Point pos = lButton.getLocation();
-		xPos = (int)pos.getX();
+		xPos = (int)pos.getX()-5;
 		yPos = (int)pos.getY()-3;
 		
 		//Die alte Position des Steins wird aus dem Array gelöscht und in der Variable aktueller Stein zwischengespeichert
