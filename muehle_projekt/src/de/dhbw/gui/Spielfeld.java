@@ -1,12 +1,7 @@
 package de.dhbw.gui;
 
-import java.awt.AlphaComposite;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -15,49 +10,25 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import java.awt.Color;
-
 import javax.swing.JLabel;
 
 import de.dhbw.gui.BestaetigungBeenden;
 
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.util.concurrent.TimeUnit;
-
 import de.dhbw.muehle_api.*;
 import de.dhbw.muehle_spiel.Bewegung;
-import de.dhbw.muehle_spiel.Database;
 import de.dhbw.muehle_spiel.EPhase;
 import de.dhbw.muehle_spiel.Pruefung;
 import de.dhbw.muehle_spiel.Spieler;
 import de.dhbw.muehle_spiel.Spielstein;
 
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.LayoutStyle;
-
 import net.miginfocom.swing.MigLayout;
-
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.factories.FormFactory;
-import com.jgoodies.forms.layout.RowSpec;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class Spielfeld extends JFrame implements ActionListener {
 
