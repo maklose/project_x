@@ -21,7 +21,7 @@ public class TransparentButtonFeld extends JButton
 	    
 	public void paint(Graphics g) { 
 	    Graphics2D g2 = (Graphics2D) g.create(); 
-	    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f)); // 0.5f hier lässt sich der Grad der Transparenz einstellen
+	    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0)); // 0.5f hier lässt sich der Grad der Transparenz einstellen
 	    super.paint(g2); 
 	    g2.dispose(); 
 	} 
