@@ -128,17 +128,11 @@ public class Spielfeld extends JFrame implements ActionListener {
 				}
 			} 
 
-			private void neueMeldung(final int sekunden, final String meldung, Spielfeld frame) {
-				
-				/*//hier wird die Position festgelegt wo die meldung erscheinen soll
-				Point pos = panel.getLocationOnScreen();
-				xPos = (int)pos.getX() +  panel.getWidth()/2 - 225;
-				yPos = (int)pos.getY();*/
-				
-				
+			private void neueMeldung(final int sekunden, final String meldung, Spielfeld frame) 
+			{
 				//hier wird die Position festgelegt wo die meldung erscheinen soll
 				Point pos = frame.panel.getLocationOnScreen();
-				final int xPos = (int)(pos.getX() + frame.panel.getWidth()/2 - 230);
+				final int xPos = (int)(pos.getX() + frame.panel.getWidth()/2 - 225);
 				final int yPos = (int)pos.getY();
 				new Thread() 
 				{
@@ -155,7 +149,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				        	sleep(sekunden * 1000);
 				        	probe.setVisible(false);
 				        }
-				        catch ( InterruptedException e ) { }
+				        catch ( InterruptedException e ) { e.printStackTrace(); }
 				      } 
 				};
 				
