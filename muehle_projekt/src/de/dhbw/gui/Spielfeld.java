@@ -2,6 +2,7 @@ package de.dhbw.gui;
 
 import java.awt.AlphaComposite;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -37,17 +38,23 @@ import de.dhbw.muehle_spiel.Spieler;
 import de.dhbw.muehle_spiel.Spielstein;
 
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.LayoutStyle;
+
 import net.miginfocom.swing.MigLayout;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.RowSpec;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -190,8 +197,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	 */
 	public Spielfeld() 
 	{
-		setBounds(20,20,903,750);		//800,0,1200,900
-		
+		setBounds(20,0,900,750);		//800,0,1200,900
 		
 		//das Bild für den weißen und schwarzen Stein wird geladen
 		final Image SteinWeiss = Toolkit.getDefaultToolkit().getImage(  
@@ -262,7 +268,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		});
 		mnNewMenu.add(mntmAnleitung);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
 		
 		
@@ -372,9 +378,6 @@ public class Spielfeld extends JFrame implements ActionListener {
 
 		};
 		
-		panel.getHeight();
-		System.out.println(panel.getHeight());
-		//panel.setBounds(0, 0, 1200, 900);
 		
 		btnNewButton_18 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Zwei, EPositionIndex.Drei));
 		btnNewButton_18.addActionListener(this);
@@ -382,14 +385,14 @@ public class Spielfeld extends JFrame implements ActionListener {
 		//ab hier werden die ganzen knöpfe definiert und mit dem actionlistener verknüpft
 		btnNewButton_1 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Drei));
 		btnNewButton_1.addActionListener(this);
-		panel.setLayout(new MigLayout("", "[9.00][115px][][115px][20.00][115px][35.00][115px][35.00][115px][][115px][][120px]", "[-9.00][98px][][98px][20.00][98px][][98px][][98px][][98px][][103px]"));
+		panel.setLayout(new MigLayout("", "[46.00][115px][115px][49.00][115px][50.00][115px][50.00][115px][115px][120px]", "[30.00][98.00px][40.00][98px][55.00][98px][40.00][98px][40.00][98px][55.00][98px][30.00][103px][30.00]"));
 		panel.add(btnNewButton_1, "cell 1 1,grow");
 		
 		JLabel lblNewLabel = new JLabel("");
-		panel.add(lblNewLabel, "cell 3 1,grow");
+		panel.add(lblNewLabel, "cell 2 1,grow");
 		
 		JLabel label = new JLabel("");
-		panel.add(label, "cell 5 1,grow");
+		panel.add(label, "cell 4 1,grow");
 		
 		btnNewButton_9 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Drei));
 		btnNewButton_9.addActionListener(this);
@@ -399,46 +402,46 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 		btnNewButton_4 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Zwei, EPositionIndex.Drei));
 		btnNewButton_4.addActionListener(this);
-		panel.add(btnNewButton_4, "cell 7 1,grow");
+		panel.add(btnNewButton_4, "cell 6 1,grow");
 		
 		JLabel lblNewLabel_1 = new JLabel("");
-		panel.add(lblNewLabel_1, "cell 9 1,grow");
+		panel.add(lblNewLabel_1, "cell 8 1,grow");
 		
 		JLabel lblNewLabel_2 = new JLabel("");
-		panel.add(lblNewLabel_2, "cell 11 1,grow");
-		panel.add(btnNewButton_6, "cell 13 1,grow");
+		panel.add(lblNewLabel_2, "cell 9 1,grow");
+		panel.add(btnNewButton_6, "cell 10 1,grow");
 		
 		JLabel label_1 = new JLabel("");
 		panel.add(label_1, "cell 1 3,grow");
-		panel.add(btnNewButton_9, "cell 3 3,grow");
+		panel.add(btnNewButton_9, "cell 2 3,grow");
 		
 		btnNewButton_10 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Zwei, EPositionIndex.Drei));
 		btnNewButton_10.addActionListener(this);
 		
 		JLabel label_2 = new JLabel("");
-		panel.add(label_2, "cell 5 3,grow");
-		panel.add(btnNewButton_10, "cell 7 3,grow");
+		panel.add(label_2, "cell 4 3,grow");
+		panel.add(btnNewButton_10, "cell 6 3,grow");
 		
 		JLabel lblNewLabel_3 = new JLabel("");
-		panel.add(lblNewLabel_3, "cell 9 3,grow");
+		panel.add(lblNewLabel_3, "cell 8 3,grow");
 		
 		btnNewButton_13 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Drei));
 		btnNewButton_13.addActionListener(this);
-		panel.add(btnNewButton_13, "cell 11 3,grow");
+		panel.add(btnNewButton_13, "cell 9 3,grow");
 		
 		JLabel label_3 = new JLabel("");
-		panel.add(label_3, "cell 13 3,grow");
+		panel.add(label_3, "cell 10 3,grow");
 		
 		JLabel label_4 = new JLabel("");
 		panel.add(label_4, "cell 1 5,grow");
 		
 		JLabel label_5 = new JLabel("");
-		panel.add(label_5, "cell 3 5,grow");
+		panel.add(label_5, "cell 2 5,grow");
 		
 		btnNewButton_15 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Drei));
 		btnNewButton_15.addActionListener(this);
-		panel.add(btnNewButton_15, "cell 5 5,grow");
-		panel.add(btnNewButton_18, "cell 7 5,grow");
+		panel.add(btnNewButton_15, "cell 4 5,grow");
+		panel.add(btnNewButton_18, "cell 6 5,grow");
 		
 		btnNewButton_31 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Eins));
 		btnNewButton_31.addActionListener(this);
@@ -448,13 +451,13 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 		btnNewButton_19 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Drei));
 		btnNewButton_19.addActionListener(this);
-		panel.add(btnNewButton_19, "cell 9 5,grow");
+		panel.add(btnNewButton_19, "cell 8 5,grow");
 		
 		JLabel label_6 = new JLabel("");
-		panel.add(label_6, "cell 11 5,grow");
+		panel.add(label_6, "cell 9 5,grow");
 		
 		JLabel label_7 = new JLabel("");
-		panel.add(label_7, "cell 13 5,grow");
+		panel.add(label_7, "cell 10 5,grow");
 		panel.add(btnNewButton_22, "cell 1 7,grow");
 		
 		btnNewButton_26 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Zwei));
@@ -462,30 +465,30 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 		btnNewButton_23 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Zwei));
 		btnNewButton_23.addActionListener(this);
-		panel.add(btnNewButton_23, "cell 3 7,grow");
+		panel.add(btnNewButton_23, "cell 2 7,grow");
 		
 		btnNewButton_24 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Zwei));
 		btnNewButton_24.addActionListener(this);
-		panel.add(btnNewButton_24, "cell 5 7,grow");
+		panel.add(btnNewButton_24, "cell 4 7,grow");
 		
 		JLabel label_8 = new JLabel("");
-		panel.add(label_8, "cell 7 7,grow");
-		panel.add(btnNewButton_26, "cell 9 7,grow");
+		panel.add(label_8, "cell 6 7,grow");
+		panel.add(btnNewButton_26, "cell 8 7,grow");
 		
 		btnNewButton_28 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Zwei));
 		btnNewButton_28.addActionListener(this);
 		
 		btnNewButton_27 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Zwei));
 		btnNewButton_27.addActionListener(this);
-		panel.add(btnNewButton_27, "cell 11 7,grow");
-		panel.add(btnNewButton_28, "cell 13 7,grow");
+		panel.add(btnNewButton_27, "cell 9 7,grow");
+		panel.add(btnNewButton_28, "cell 10 7,grow");
 		
 		JLabel label_9 = new JLabel("");
 		panel.add(label_9, "cell 1 9,grow");
 		
 		JLabel label_10 = new JLabel("");
-		panel.add(label_10, "cell 3 9,grow");
-		panel.add(btnNewButton_31, "cell 5 9,grow");
+		panel.add(label_10, "cell 2 9,grow");
+		panel.add(btnNewButton_31, "cell 4 9,grow");
 		
 		btnNewButton_46 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Zwei, EPositionIndex.Eins));
 		btnNewButton_46.addActionListener(this);
@@ -495,24 +498,24 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 		btnNewButton_32 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Zwei, EPositionIndex.Eins));
 		btnNewButton_32.addActionListener(this);
-		panel.add(btnNewButton_32, "cell 7 9,grow");
+		panel.add(btnNewButton_32, "cell 6 9,grow");
 		
 		btnNewButton_33 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Eins));
 		btnNewButton_33.addActionListener(this);
-		panel.add(btnNewButton_33, "cell 9 9,grow");
+		panel.add(btnNewButton_33, "cell 8 9,grow");
 		
 		JLabel label_11 = new JLabel("");
-		panel.add(label_11, "cell 11 9,grow");
+		panel.add(label_11, "cell 9 9,grow");
 		
 		JLabel label_12 = new JLabel("");
-		panel.add(label_12, "cell 13 9,grow");
+		panel.add(label_12, "cell 10 9,grow");
 		
 		JLabel label_13 = new JLabel("");
 		panel.add(label_13, "cell 1 11,grow");
-		panel.add(btnNewButton_37, "cell 3 11,grow");
+		panel.add(btnNewButton_37, "cell 2 11,grow");
 		
 		JLabel label_14 = new JLabel("");
-		panel.add(label_14, "cell 5 11,grow");
+		panel.add(label_14, "cell 4 11,grow");
 		
 		btnNewButton_43 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Eins));
 		btnNewButton_43.addActionListener(this);
@@ -522,66 +525,54 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 		btnNewButton_39 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Zwei, EPositionIndex.Eins));
 		btnNewButton_39.addActionListener(this);
-		panel.add(btnNewButton_39, "cell 7 11,grow");
+		panel.add(btnNewButton_39, "cell 6 11,grow");
 		
 		JLabel label_15 = new JLabel("");
-		panel.add(label_15, "cell 9 11,grow");
-		panel.add(btnNewButton_41, "cell 11 11,grow");
+		panel.add(label_15, "cell 8 11,grow");
+		panel.add(btnNewButton_41, "cell 9 11,grow");
 		
 		JLabel label_16 = new JLabel("");
-		panel.add(label_16, "cell 13 11,grow");
+		panel.add(label_16, "cell 10 11,grow");
 		panel.add(btnNewButton_43, "cell 1 13,grow");
 		
 		JLabel label_17 = new JLabel("");
-		panel.add(label_17, "cell 3 13,grow");
+		panel.add(label_17, "cell 2 13,grow");
 		
 		JLabel label_18 = new JLabel("");
-		panel.add(label_18, "cell 5 13,grow");
-		panel.add(btnNewButton_46, "cell 7 13,grow");
+		panel.add(label_18, "cell 4 13,grow");
+		panel.add(btnNewButton_46, "cell 6 13,grow");
 		
 		JLabel label_19 = new JLabel("");
-		panel.add(label_19, "cell 9 13,grow");
+		panel.add(label_19, "cell 8 13,grow");
 		
 		JLabel label_20 = new JLabel("");
-		panel.add(label_20, "cell 11 13,grow");
+		panel.add(label_20, "cell 9 13,grow");
 		
 		btnNewButton_49 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Eins));
 		btnNewButton_49.addActionListener(this);
-		panel.add(btnNewButton_49, "cell 13 13,grow");
+		panel.add(btnNewButton_49, "cell 10 13,grow");
+		
+		panel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		
 		panel_1 = new JPanel()
 		{
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void paint(Graphics g) {
 				Image spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
                         Spielfeld.class.getResource("/de/dhbw/images/Spielbrett rechts.png"));  
 				g.drawImage(spielfeldRechts, 0, 0, this.getWidth(), this.getHeight(), this);  
-				//super.paint(g);
 			}
 		};
-		
-		/*lblNewLabel_4 = new JLabel("testtest");
-		panel_1.add(lblNewLabel_4);
-		
-		
-		lblNewLabel_5 = new JLabel("New label");
-		panel_1.add(lblNewLabel_5);*/
+		contentPane.setLayout(new MigLayout("", "[715.00px]0[160px]", "[677px]"));
+		contentPane.add(panel, "cell 0 0,grow");
+		contentPane.add(panel_1, "cell 1 0,grow");
 		
 		
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 716, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
-				.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
-		);
-		contentPane.setLayout(gl_contentPane);
 		
 //		 db.erzeuge_p();
 		 
@@ -1031,7 +1022,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	{
 		//hier wird die Position festgelegt wo die meldung erscheinen soll
 		Point pos = contentPane.getLocationOnScreen();
-		xPos = (int)pos.getX() + (contentPane.getWidth() / 3);
+		xPos = (int)pos.getX() + (panel.getWidth() / 10);
 		yPos = (int)pos.getY() + 200;
 		
 		new Thread() 
