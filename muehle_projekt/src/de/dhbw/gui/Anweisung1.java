@@ -34,7 +34,7 @@ public class Anweisung1 extends JFrame  {
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel lblSpielerIst = new JLabel(Hinweis);
-		lblSpielerIst.setFont(new Font("MeldungsFont", 1, 20));
+		lblSpielerIst.setFont(new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 30));
 		panel.add(lblSpielerIst);
 		
 		setOpacity((float) 0.7);
