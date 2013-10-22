@@ -200,8 +200,8 @@ public class Pruefung {
 		EPositionIndex y = null;
 		
 		
-		// Wenn Anzahl der Steine > 3 wird überprüft, ob der Aktive Spieler noch die Möglichkeit hat zu ziehen
-		if(SpielerAktiv.getAnzahlSteine() > 3)
+		// Wenn Anzahl der Steine >= 3 wird überprüft, ob der Aktive Spieler noch die Möglichkeit hat zu ziehen
+		if(SpielerAktiv.getAnzahlSteine() >= 3)
 		{
 		for (int i = 0; i <9 ; i++){
 			

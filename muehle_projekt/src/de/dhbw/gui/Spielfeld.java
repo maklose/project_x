@@ -993,7 +993,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	{
 		//hier wird die Position festgelegt wo die meldung erscheinen soll
 		Point pos = contentPane.getLocationOnScreen();
-		xPos = (int)pos.getX() + (panel.getWidth() / 10);
+		xPos = (int)pos.getX() + (panel.getWidth()/3) + 50;
 		yPos = (int)pos.getY() + 200;
 		
 		new Thread() 
