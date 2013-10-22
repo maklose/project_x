@@ -77,10 +77,9 @@ public class Test {
 		strategy.startePartie(ESpielsteinFarbe.WEISS);
 		List<Bewegung> moves = strategy.getMöglicheBewegungen(p_SpielFeld, Spieler1.Steine[0]);
 		
-		for( Bewegung b : moves)
+		for(int i = 0; i < moves.size(); i++)
 		{
-			System.out.println("b.toString()");
+			System.out.println(moves.get(i).toString());
 		}
-		
 	}
 }

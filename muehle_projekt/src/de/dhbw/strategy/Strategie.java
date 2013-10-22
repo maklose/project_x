@@ -1,5 +1,6 @@
 package de.dhbw.strategy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.dhbw.muehle_api.EPositionIndex;
@@ -51,7 +52,7 @@ ESpielsteinFarbe farbe;
 
 	public List<Bewegung> getMöglicheBewegungen(List<ISpielstein> p_SpielFeld, Spielstein lStein){
 	
-	List<Bewegung> moeglZuege = null;
+	List<Bewegung> moeglZuege = new ArrayList<Bewegung>();
 	
 	Spieler Spieler1 = new Spieler(ESpielsteinFarbe.WEISS);
 	Spieler Spieler2 = new Spieler(ESpielsteinFarbe.SCHWARZ);
@@ -77,28 +78,28 @@ ESpielsteinFarbe farbe;
 	Pruefung pruef = new Pruefung();
 	
 		
-		for( int i = 0; i<= 3; i++){
+		for( int i = 0; i< 3; i++){
 				if(i == 0)
 					ebene = ebene.Eins;
 				if(i == 1)
 					ebene = ebene.Zwei;
 				if(i == 2)
 					ebene = ebene.Drei;
-			for(int j = 0; j <= 3; j++){
+			for(int j = 0; j < 3; j++){
 					if(j == 0)
 						x = x.Eins;
 					if(j == 1)
 						x = x.Zwei;
 					if(j == 2)
 						x = x.Drei;
-				for(int k = 0; k <= 3; k++){
+				for(int k = 0; k < 3; k++){
 						if(k == 0)
 							y = y.Eins;
 						if(k == 1)
 							y = y.Zwei;
 						if(k == 2)
 							y = y.Drei;
-
+						
 						if(pruef.checkZug(new Bewegung(lStein.getPosition(), new Position(ebene, x, y)), Spieler1, Spieler2) == true)
 						{
 							moeglZuege.add(new Bewegung(lStein.getPosition(), new Position(ebene, x, y)));
