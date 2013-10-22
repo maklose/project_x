@@ -129,10 +129,17 @@ public class Spielfeld extends JFrame implements ActionListener {
 			} 
 
 			private void neueMeldung(final int sekunden, final String meldung, Spielfeld frame) {
+				
+				/*//hier wird die Position festgelegt wo die meldung erscheinen soll
+				Point pos = panel.getLocationOnScreen();
+				xPos = (int)pos.getX() +  panel.getWidth()/2 - 225;
+				yPos = (int)pos.getY();*/
+				
+				
 				//hier wird die Position festgelegt wo die meldung erscheinen soll
-				Point pos = frame.contentPane.getLocationOnScreen();
-				final int xPos = (int)pos.getX() + (contentPane.getWidth() / 3);
-				final int yPos = (int)pos.getY() + 200;
+				Point pos = frame.panel.getLocationOnScreen();
+				final int xPos = (int)(pos.getX() + frame.panel.getWidth()/2 - 230);
+				final int yPos = (int)pos.getY();
 				new Thread() 
 				{
 				      { 
@@ -923,8 +930,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 	{
 		//Die Position an der der Stein gezeichnet werden soll wrd ermittelt
 		Point pos = lButton.getLocation();
-		xPos = (int)pos.getX() + (lButton.getWidth()/50) + 10;
-		yPos = (int)pos.getY() + (lButton.getHeight()/8) + 10;
+		xPos = (int)pos.getX();
+		yPos = (int)pos.getY()-3;
 		
 		//Die alte Position des Steins wird aus dem Array gelöscht und in der Variable aktueller Stein zwischengespeichert
 		int e, x, y;
@@ -979,9 +986,10 @@ public class Spielfeld extends JFrame implements ActionListener {
 	public void neueMeldung(final int sekunden, final String meldung)
 	{
 		//hier wird die Position festgelegt wo die meldung erscheinen soll
-		Point pos = contentPane.getLocationOnScreen();
-		xPos = (int)pos.getX() + (panel.getWidth()/3) + 50;
-		yPos = (int)pos.getY() + 200;
+		Point pos = panel.getLocationOnScreen();
+		xPos = (int)pos.getX() +  panel.getWidth()/2 - 225;
+		yPos = (int)pos.getY();
+		
 		
 		new Thread() 
 		{
