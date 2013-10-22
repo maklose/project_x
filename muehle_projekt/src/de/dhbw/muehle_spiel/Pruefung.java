@@ -288,5 +288,24 @@ public class Pruefung {
 		return korrekt;
 	}
 	
+	//Überprüft ob alle Steine des Gegners in einer Mühle stehen wenn man selber eine Mühle hat, damit man dann wieder einen Stein löschen kann
+	//gibt true zurück wenn alle Steine des Gegners in einer Mühle sind und false wenn nicht
+	public boolean checkAlleSteineInMuehle(Spieler Spieler1, Spieler Spieler2)
+	{
+		int counter = 0;
+		for (int i = 0; i<9; i++)
+		{
+			if(this.checkInMuehle(i, Spieler2.Steine) )
+				counter++;
+		}
+		if(Spieler2.getAnzahlSteine() == counter)
+		{
+			return true;
+		}
+		else 
+			return false;
+			
+	}
+	
 }
 

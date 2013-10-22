@@ -37,7 +37,7 @@ public class Anweisung1 extends JFrame  {
 		lblSpielerIst.setFont(new Font("MeldungsFont", 1, 20));
 		panel.add(lblSpielerIst);
 		
-		setOpacity((float) 0.9);
+		setOpacity((float) 0.7);
 	}
 
 	
