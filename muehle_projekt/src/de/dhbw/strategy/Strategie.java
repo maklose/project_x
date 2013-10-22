@@ -57,6 +57,7 @@ ESpielsteinFarbe farbe;
 	Spieler Spieler1 = new Spieler(ESpielsteinFarbe.WEISS);
 	Spieler Spieler2 = new Spieler(ESpielsteinFarbe.SCHWARZ);
 	
+	//Erzeugung der Spielsteine, die in p_Spielfeld vorhanden sind
 	for(ISpielstein s: p_SpielFeld){
 		if(s.getFarbe() == farbe)
 		{
@@ -73,11 +74,9 @@ ESpielsteinFarbe farbe;
 	EPositionIndex x = null;
 	EPositionIndex y = null;
 	
-
-	
 	Pruefung pruef = new Pruefung();
 	
-		
+	//Überprüfung für jede mögl. Position auf dem Brett, ob der Stein dahin/springen ziehen darf	
 		for( int i = 0; i< 3; i++){
 				if(i == 0)
 					ebene = ebene.Eins;

@@ -22,7 +22,7 @@ public class Test {
 		Spieler1.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Eins),0,0);
 		Spieler1.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Zwei, EPositionIndex.Eins),0,0);
 		Spieler1.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Eins),0,0);
-//		Spieler1.setzeSpielstein(new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Eins));
+		Spieler1.setzeSpielstein(new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Eins),0,0);
 //		Spieler1.setzeSpielstein(new Position(EPositionIndex.Zwei, EPositionIndex.Zwei, EPositionIndex.Eins));
 //		Spieler1.setzeSpielstein(new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Eins));
 //		Spieler1.setzeSpielstein(new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Eins));
@@ -34,7 +34,7 @@ public class Test {
 		Spieler2.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Drei),0,0);
 		Spieler2.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Zwei, EPositionIndex.Drei),0,0);
 		Spieler2.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Drei),0,0);
-//		Spieler2.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Zwei));
+		Spieler2.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Zwei),0,0);
 //		Spieler2.setzeSpielstein(new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Zwei));
 //		Spieler2.setzeSpielstein(new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Zwei));
 //		Spieler2.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Zwei));
@@ -60,7 +60,8 @@ public class Test {
 		Spielzug spielzug4 = new Spielzug(Spieler2.Steine[0]);
 		Spielzug spielzug5 = new Spielzug(Spieler2.Steine[1]);
 		Spielzug spielzug6 = new Spielzug(Spieler2.Steine[2]);
-		
+		Spielzug spielzug7 = new Spielzug(Spieler1.Steine[3]);
+		Spielzug spielzug8 = new Spielzug(Spieler2.Steine[3]);
 		
 		List<ISpielstein> p_SpielFeld = new ArrayList<ISpielstein>();
 		Spielstein s = Spieler1.Steine[0];
@@ -71,7 +72,8 @@ public class Test {
 		p_SpielFeld.add(spielzug4.getNeuenSpielstein());
 		p_SpielFeld.add(spielzug5.getNeuenSpielstein());
 		p_SpielFeld.add(spielzug6.getNeuenSpielstein());
-		
+		p_SpielFeld.add(spielzug7.getNeuenSpielstein());
+		p_SpielFeld.add(spielzug8.getNeuenSpielstein());
 		
 		Strategie strategy = new Strategie();
 		strategy.startePartie(ESpielsteinFarbe.WEISS);
