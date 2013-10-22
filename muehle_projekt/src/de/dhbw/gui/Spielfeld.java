@@ -527,7 +527,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 		panel_1 = new JPanel()
 		{
-			/**
+			/** 
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
