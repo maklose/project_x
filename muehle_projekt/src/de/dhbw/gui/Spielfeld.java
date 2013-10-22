@@ -168,7 +168,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	 */
 	public Spielfeld() 
 	{
-		setBounds(20,0,900,750);		//800,0,1200,900
+		setBounds(20,0,900,700);		//800,0,1200,900
 		
 		//das Bild für den weißen und schwarzen Stein wird geladen
 		final Image SteinWeiss = Toolkit.getDefaultToolkit().getImage(  
@@ -274,8 +274,8 @@ public class Spielfeld extends JFrame implements ActionListener {
                 				int yPosi = aktuellerStein.getyPos();
                 				
                 				//hier wird das Verhältnis festgelet, in dem die Steine zum Spielfeld stehen (größe)
-                				int breite = (int) ((int)spielfeld.getWidth(this)/5);
-                				int hoehe = (int) ((int)spielfeld.getHeight(this)/5);
+                				int breite = (int) ((int)spielfeld.getWidth(this)/7);
+                				int hoehe = (int) ((int)spielfeld.getHeight(this)/7);
                 				
 	                			if(aktuellerStein.FarbVergleich(ESpielsteinFarbe.WEISS))
 	                			{
@@ -539,7 +539,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				g.drawImage(spielfeldRechts, 0, 0, this.getWidth(), this.getHeight(), this);  
 			}
 		};
-		contentPane.setLayout(new MigLayout("", "[715.00px]0[160px]", "[677px]"));
+		contentPane.setLayout(new MigLayout("", "[664.94px]0[300px]", "[677px]"));
 		contentPane.add(panel, "cell 0 0,grow");
 		contentPane.add(panel_1, "cell 1 0,grow");
 		
