@@ -257,7 +257,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				 
 			
                 Image spielfeld = Toolkit.getDefaultToolkit().getImage(  
-                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUI.png"));  
+                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIlinks.png"));  
                 g.drawImage(spielfeld, 0, 0, this.getWidth(), this.getHeight(), this);  
                 
                 for(int i = 0; i <= 2; i++)
@@ -535,7 +535,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 			@Override
 			public void paint(Graphics g) {
 				Image spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
-                        Spielfeld.class.getResource("/de/dhbw/images/Spielbrett rechts.png"));  
+                        Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIrechts.png"));  
 				g.drawImage(spielfeldRechts, 0, 0, this.getWidth(), this.getHeight(), this);  
 			}
 		};
@@ -750,11 +750,6 @@ public class Spielfeld extends JFrame implements ActionListener {
 				while(true)				//Spieler1.getPhase().equals(EPhase.Schieben)
 				{
 					
-					/*if(!pruef.checkFeldBesetzt(PositionGeklickt, aktuellerSpieler, passiverSpieler))
-					{
-						break;
-					}*/
-					
 					//hier der Fall wenn auf einen bereits gelegten Stein gedrückt wird
 					if(hatAltePosition == false)
 					{
@@ -829,17 +824,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 						return;		
 					}
 				}
-				/*while(Spieler2.getPhase().equals(EPhase.Springen) || Spieler1.getPhase().equals(EPhase.Springen)) //hier die 3.phase
-				{
-					if(Spieler1.getAnzahlSteine() == 3)
-						
-					
-					System.out.println("letzte Phase");
-				}*/
-				
-				
-				
-				
+
 			}
 			else		//hier der code wenn ein Spieler eine Mühle hat
 			{
@@ -872,12 +857,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 				{
 					return;
 				}
-				
-			}
-			
-			
+			}	
 		}
-		
 	}
 
 	public void muehle(Spielstein aktuellerStein, Spieler aktuellerSpieler, Position PositionGeklickt, Bewegung neueBewegung)
