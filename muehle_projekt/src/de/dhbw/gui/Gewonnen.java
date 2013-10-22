@@ -1,4 +1,5 @@
 package de.dhbw.gui;
+import de.dhbw.gui.Spielfeld;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -11,6 +12,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+
 
 public class Gewonnen extends JFrame {
 
@@ -65,7 +70,27 @@ public class Gewonnen extends JFrame {
 			public void paintComponent(Graphics g){
 				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Exit.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
 			};
-		};;
+		};
+		btnBeenden.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				final BestaetigungBeenden frageBeenden = new BestaetigungBeenden();
+				frageBeenden.setListener( new BestaetigungBeenden.BestatigungsListener() {
+					
+					@Override
+					public void onOK() {
+						
+						Gewonnen.this.dispose();
+						//Spielfeld.dispose();
+						frageBeenden.dispose();
+					}
+					
+					@Override
+					public void onCancel() {	
+					}
+				});
+				frageBeenden.setVisible(true);
+			}
+		});;
 		btnBeenden.setBounds(55, 199, 89, 23);
 		panel.add(btnBeenden);
 	}

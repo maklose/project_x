@@ -26,14 +26,11 @@ import javax.swing.ImageIcon;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.util.Timer;
-import java.util.concurrent.TimeUnit;
 
 public class Empfangsgui2 extends JFrame implements WindowListener {
 
 	private JPanel contentPane;
 	
-	Task timer = new Task();
 
 	/**
 	 * Launch the application.
