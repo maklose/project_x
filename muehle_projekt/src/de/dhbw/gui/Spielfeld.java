@@ -554,7 +554,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				Image spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
                         Spielfeld.class.getResource("/de/dhbw/images/Spielbrett rechts.png"));  
 				g.drawImage(spielfeldRechts, 0, 0, this.getWidth(), this.getHeight(), this);  
-				super.paint(g);
+				//super.paint(g);
 			}
 		};
 		
