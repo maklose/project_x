@@ -3,11 +3,11 @@ package de.dhbw.muehle_spiel;
 import de.dhbw.muehle_api.Position;
 import de.dhbw.muehle_api.strategy.IBewegung;
 
-public class Bewegung {
+public class Bewegung implements IBewegung{
 
 	private Position von = null;
 	private Position nach = null;
-public Position getVon() {
+	public Position getVon() {
 		return von;
 	}
 	public void setVon(Position von) {
@@ -58,6 +58,14 @@ public Bewegung (Position von, Position nach)
 		return "Bewegung [([VON: [" + this.von.toString() + " NACH: " + this.nach.toString() + "])]";
 		else
 		return "Bewegung [([NACH: " + this.nach.toString() + "])]";
+	}
+	@Override
+	public Position altePosition() {
+		return von;
+	}
+	@Override
+	public Position neuePosition() {
+		return nach;
 	}
 
 }

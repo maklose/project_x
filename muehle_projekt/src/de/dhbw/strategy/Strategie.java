@@ -1,4 +1,4 @@
-package de.dhbw.strategie;
+package de.dhbw.strategy;
 
 public class Strategie {
 
