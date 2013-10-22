@@ -748,7 +748,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				}				
 		
 				//Hier wird der Code ausgeführt, wenn die erste Phase abgeschlossen ist
-				while(true)
+				while(Spieler2.getAnzahlZuege() >= 9 && Spieler1.getAnzahlSteine() > 3 && Spieler2.getAnzahlSteine() > 3)
 				{
 					
 					/*if(!pruef.checkFeldBesetzt(PositionGeklickt, aktuellerSpieler, passiverSpieler))
@@ -830,6 +830,14 @@ public class Spielfeld extends JFrame implements ActionListener {
 						return;		
 					}
 				}
+				while(Spieler2.getAnzahlZuege() >= 9 && (Spieler1.getAnzahlSteine() == 3 || Spieler2.getAnzahlSteine() == 3))
+				{
+					
+				}
+				
+				
+				
+				
 			}
 			else		//hier der code wenn ein Spieler eine Mühle hat
 			{
@@ -863,7 +871,9 @@ public class Spielfeld extends JFrame implements ActionListener {
 					return;
 				}
 				
-			}	
+			}
+			
+			
 		}
 		
 	}
