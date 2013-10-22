@@ -93,23 +93,17 @@ public class Pruefung {
 		for (int i = 0; i<9; i++)
 		{
 			if(SpielerAktiv.Steine[i] != null){
-				if(SpielerAktiv.Steine[i].getPosition().equals(bewegung.getNach()) == false ){
-					korrekt = true;
-				}
-			
-				else
-				{
+				if(SpielerAktiv.Steine[i].getPosition().equals(bewegung.getNach()) == true ){
 					return false;
 				}
-			}
+			
+		}
 			
 			if(SpielerPassiv.Steine[i] != null){
-				if(SpielerPassiv.Steine[i].getPosition().equals(bewegung.getNach()) == false){
-				korrekt = true;
+				if(SpielerPassiv.Steine[i].getPosition().equals(bewegung.getNach()) == true){
+					return false;
 				}
-				else{
-				return false;
-				}
+				
 			}
 		
 		}
