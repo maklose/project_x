@@ -1,6 +1,7 @@
 package de.dhbw.gui;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
@@ -9,7 +10,6 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import javax.swing.JLabel;
 
 import de.dhbw.gui.BestaetigungBeenden;
@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
 import de.dhbw.muehle_api.*;
 import de.dhbw.muehle_spiel.Bewegung;
 import de.dhbw.muehle_spiel.EPhase;
@@ -28,6 +29,7 @@ import de.dhbw.muehle_spiel.Spielstein;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
 import net.miginfocom.swing.MigLayout;
 
 public class Spielfeld extends JFrame implements ActionListener {
@@ -544,7 +546,10 @@ public class Spielfeld extends JFrame implements ActionListener {
 
 			@Override
 			public void paint(Graphics g) 
-			{
+			{				
+				//font wird festgelegt
+				g.setFont(new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 30));
+				
 				//Das Hintergrundbild wird geladen
 				Image spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
                         Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIrechts.png"));  
@@ -555,8 +560,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 				int hoehe = panel.getWidth()/8;
 				
 				//Beschriftung der Felder
-				g.drawString("Spieler1: ", xPosOben+15, yPosOben+30);
-				g.drawString("Spieler2: ", xPosUnten+15, yPosUnten+30);
+				g.drawString("Spieler1: ", xPosOben+15, yPosOben+35);
+				g.drawString("Spieler2: ", xPosUnten+15, yPosUnten+35);
 				
 				//Zeichnet die noch vorhandenen Steine des Spielers
 				for(int i = 0; i < (9-Spieler1.getAnzahlSteine()-entfernteSteineWeiss); i++)
@@ -589,7 +594,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 						g.drawImage(SteinSchwarz,  xPosMitte + 30, yPosMitte + 10 , breite+43, hoehe+43, this);
 				}
 				//Rundenanzeige
-				g.drawString("Runde " + (anzahlRunden+1), xPosMitte+15, yPosMitte+130);
+				g.drawString("Runde " + (anzahlRunden+1), xPosMitte+15, yPosMitte+140);
 			}
 		};
 		contentPane.setLayout(new MigLayout("", "[664.94px]0[300px]", "[677px]"));
