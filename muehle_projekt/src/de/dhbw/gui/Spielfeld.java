@@ -265,7 +265,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 
 			protected void paintComponent(Graphics g) 
             {
-				
+				 
 			
                 Image spielfeld = Toolkit.getDefaultToolkit().getImage(  
                           Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUI1.png"));  
