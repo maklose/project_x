@@ -3,7 +3,7 @@ package de.dhbw.muehle_spiel;
 import de.dhbw.muehle_api.Position;
 import de.dhbw.muehle_api.strategy.IBewegung;
 
-public class Bewegung implements IBewegung {
+public class Bewegung {
 
 	private Position von = null;
 	private Position nach = null;
@@ -31,19 +31,6 @@ public Bewegung (Position von, Position nach)
 		this.nach = nach;
 	}
 }
-
-
-	@Override
-	public Position altePosition() {
-		// TODO Auto-generated method stub
-		return von;
-	}
-
-	@Override
-	public Position neuePosition() {
-		
-		return nach;
-	}
 	
 	/*
 	 * diese Methode überprüft ob zwei bewegungen gleich sind 
