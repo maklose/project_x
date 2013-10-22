@@ -904,8 +904,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 	{
 		//Die Position an der der Stein gezeichnet werden soll wird ermittelt 
 		Point pos = lButton.getLocation();
-		xPos = (int)pos.getX() + (lButton.getWidth()/50) + 10;
-		yPos = (int)pos.getY() + (lButton.getHeight()/8) + 10;
+		xPos = (int)pos.getX();
+		yPos = (int)pos.getY()-3;
 		
 		//Die Bewegung wird an den Spieler weitergegeben 
 		lSpieler.setzeSpielstein(neueBewegung.getNach(), xPos, yPos);
