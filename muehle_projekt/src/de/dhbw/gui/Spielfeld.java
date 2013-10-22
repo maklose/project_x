@@ -40,6 +40,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import net.miginfocom.swing.MigLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.RowSpec;
 
 public class Spielfeld extends JFrame implements ActionListener {
 
@@ -358,185 +366,183 @@ public class Spielfeld extends JFrame implements ActionListener {
             }
 
 
-		};  
-		
-		GridLayout gl = new GridLayout(7,7,15,15);
+		};
 
 		//panel wird hinzugefügt
 		contentPane.add(panel, BorderLayout.CENTER);
-		panel.setLayout(gl);
+		
+		btnNewButton_18 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Zwei, EPositionIndex.Drei));
+		btnNewButton_18.addActionListener(this);
 		
 		//ab hier werden die ganzen knöpfe definiert und mit dem actionlistener verknüpft
 		btnNewButton_1 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Drei));
 		btnNewButton_1.addActionListener(this);
-		panel.add(btnNewButton_1);
+		panel.setLayout(new MigLayout("", "[115px][115px][115px][115px][115px][115px][120px]", "[98px][98px][98px][98px][98px][98px][103px]"));
+		panel.add(btnNewButton_1, "cell 0 0,grow");
 		
 		JLabel lblNewLabel = new JLabel("");
-		panel.add(lblNewLabel);
+		panel.add(lblNewLabel, "cell 1 0,grow");
 		
 		JLabel label = new JLabel("");
-		panel.add(label);
-		
-		btnNewButton_4 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Zwei, EPositionIndex.Drei));
-		btnNewButton_4.addActionListener(this);
-		panel.add(btnNewButton_4);
-		
-		JLabel lblNewLabel_1 = new JLabel("");
-		panel.add(lblNewLabel_1);
-		
-		JLabel lblNewLabel_2 = new JLabel("");
-		panel.add(lblNewLabel_2);
-		
-		btnNewButton_6 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Drei));
-		btnNewButton_6.addActionListener(this);
-		panel.add(btnNewButton_6);
-		
-		JLabel label_1 = new JLabel("");
-		panel.add(label_1);
+		panel.add(label, "cell 2 0,grow");
 		
 		btnNewButton_9 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Drei));
 		btnNewButton_9.addActionListener(this);
-		panel.add(btnNewButton_9);
 		
-		JLabel label_2 = new JLabel("");
-		panel.add(label_2);
+		btnNewButton_6 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Drei));
+		btnNewButton_6.addActionListener(this);
+		
+		btnNewButton_4 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Zwei, EPositionIndex.Drei));
+		btnNewButton_4.addActionListener(this);
+		panel.add(btnNewButton_4, "cell 3 0,grow");
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		panel.add(lblNewLabel_1, "cell 4 0,grow");
+		
+		JLabel lblNewLabel_2 = new JLabel("");
+		panel.add(lblNewLabel_2, "cell 5 0,grow");
+		panel.add(btnNewButton_6, "cell 6 0,grow");
+		
+		JLabel label_1 = new JLabel("");
+		panel.add(label_1, "cell 0 1,grow");
+		panel.add(btnNewButton_9, "cell 1 1,grow");
 		
 		btnNewButton_10 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Zwei, EPositionIndex.Drei));
 		btnNewButton_10.addActionListener(this);
-		panel.add(btnNewButton_10);
+		
+		JLabel label_2 = new JLabel("");
+		panel.add(label_2, "cell 2 1,grow");
+		panel.add(btnNewButton_10, "cell 3 1,grow");
 		
 		JLabel lblNewLabel_3 = new JLabel("");
-		panel.add(lblNewLabel_3);
+		panel.add(lblNewLabel_3, "cell 4 1,grow");
 		
 		btnNewButton_13 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Drei));
 		btnNewButton_13.addActionListener(this);
-		panel.add(btnNewButton_13);
+		panel.add(btnNewButton_13, "cell 5 1,grow");
 		
 		JLabel label_3 = new JLabel("");
-		panel.add(label_3);
+		panel.add(label_3, "cell 6 1,grow");
 		
 		JLabel label_4 = new JLabel("");
-		panel.add(label_4);
+		panel.add(label_4, "cell 0 2,grow");
 		
 		JLabel label_5 = new JLabel("");
-		panel.add(label_5);
+		panel.add(label_5, "cell 1 2,grow");
 		
 		btnNewButton_15 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Drei));
 		btnNewButton_15.addActionListener(this);
-		panel.add(btnNewButton_15);
-		
-		btnNewButton_18 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Zwei, EPositionIndex.Drei));
-		btnNewButton_18.addActionListener(this);
-		panel.add(btnNewButton_18);
-		
-		btnNewButton_19 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Drei));
-		btnNewButton_19.addActionListener(this);
-		panel.add(btnNewButton_19);
-		
-		JLabel label_6 = new JLabel("");
-		panel.add(label_6);
-		
-		JLabel label_7 = new JLabel("");
-		panel.add(label_7);
-		
-		btnNewButton_22 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Zwei));
-		btnNewButton_22.addActionListener(this);
-		panel.add(btnNewButton_22);
-		
-		btnNewButton_23 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Zwei));
-		btnNewButton_23.addActionListener(this);
-		panel.add(btnNewButton_23);
-		
-		btnNewButton_24 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Zwei));
-		btnNewButton_24.addActionListener(this);
-		panel.add(btnNewButton_24);
-		
-		JLabel label_8 = new JLabel("");
-		panel.add(label_8);
-		
-		btnNewButton_26 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Zwei));
-		btnNewButton_26.addActionListener(this);
-		panel.add(btnNewButton_26);
-		
-		btnNewButton_27 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Zwei));
-		btnNewButton_27.addActionListener(this);
-		panel.add(btnNewButton_27);
-		
-		btnNewButton_28 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Zwei));
-		btnNewButton_28.addActionListener(this);
-		panel.add(btnNewButton_28);
-		
-		JLabel label_9 = new JLabel("");
-		panel.add(label_9);
-		
-		JLabel label_10 = new JLabel("");
-		panel.add(label_10);
+		panel.add(btnNewButton_15, "cell 2 2,grow");
+		panel.add(btnNewButton_18, "cell 3 2,grow");
 		
 		btnNewButton_31 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Eins));
 		btnNewButton_31.addActionListener(this);
-		panel.add(btnNewButton_31);
 		
-		btnNewButton_32 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Zwei, EPositionIndex.Eins));
-		btnNewButton_32.addActionListener(this);
-		panel.add(btnNewButton_32);
+		btnNewButton_22 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Zwei));
+		btnNewButton_22.addActionListener(this);
 		
-		btnNewButton_33 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Eins));
-		btnNewButton_33.addActionListener(this);
-		panel.add(btnNewButton_33);
+		btnNewButton_19 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Drei));
+		btnNewButton_19.addActionListener(this);
+		panel.add(btnNewButton_19, "cell 4 2,grow");
 		
-		JLabel label_11 = new JLabel("");
-		panel.add(label_11);
+		JLabel label_6 = new JLabel("");
+		panel.add(label_6, "cell 5 2,grow");
 		
-		JLabel label_12 = new JLabel("");
-		panel.add(label_12);
+		JLabel label_7 = new JLabel("");
+		panel.add(label_7, "cell 6 2,grow");
+		panel.add(btnNewButton_22, "cell 0 3,grow");
 		
-		JLabel label_13 = new JLabel("");
-		panel.add(label_13);
+		btnNewButton_26 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Zwei));
+		btnNewButton_26.addActionListener(this);
 		
-		btnNewButton_37 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Eins));
-		btnNewButton_37.addActionListener(this);
-		panel.add(btnNewButton_37);
+		btnNewButton_23 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Zwei));
+		btnNewButton_23.addActionListener(this);
+		panel.add(btnNewButton_23, "cell 1 3,grow");
 		
-		JLabel label_14 = new JLabel("");
-		panel.add(label_14);
+		btnNewButton_24 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Zwei));
+		btnNewButton_24.addActionListener(this);
+		panel.add(btnNewButton_24, "cell 2 3,grow");
 		
-		btnNewButton_39 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Zwei, EPositionIndex.Eins));
-		btnNewButton_39.addActionListener(this);
-		panel.add(btnNewButton_39);
+		JLabel label_8 = new JLabel("");
+		panel.add(label_8, "cell 3 3,grow");
+		panel.add(btnNewButton_26, "cell 4 3,grow");
 		
-		JLabel label_15 = new JLabel("");
-		panel.add(label_15);
+		btnNewButton_28 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Zwei));
+		btnNewButton_28.addActionListener(this);
 		
-		btnNewButton_41 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Eins));
-		btnNewButton_41.addActionListener(this);
-		panel.add(btnNewButton_41);
+		btnNewButton_27 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Zwei));
+		btnNewButton_27.addActionListener(this);
+		panel.add(btnNewButton_27, "cell 5 3,grow");
+		panel.add(btnNewButton_28, "cell 6 3,grow");
 		
-		JLabel label_16 = new JLabel("");
-		panel.add(label_16);
+		JLabel label_9 = new JLabel("");
+		panel.add(label_9, "cell 0 4,grow");
 		
-		btnNewButton_43 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Eins));
-		btnNewButton_43.addActionListener(this);
-		panel.add(btnNewButton_43);
-		
-		JLabel label_17 = new JLabel("");
-		panel.add(label_17);
-		
-		JLabel label_18 = new JLabel("");
-		panel.add(label_18);
+		JLabel label_10 = new JLabel("");
+		panel.add(label_10, "cell 1 4,grow");
+		panel.add(btnNewButton_31, "cell 2 4,grow");
 		
 		btnNewButton_46 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Zwei, EPositionIndex.Eins));
 		btnNewButton_46.addActionListener(this);
-		panel.add(btnNewButton_46);
+		
+		btnNewButton_37 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Eins));
+		btnNewButton_37.addActionListener(this);
+		
+		btnNewButton_32 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Zwei, EPositionIndex.Eins));
+		btnNewButton_32.addActionListener(this);
+		panel.add(btnNewButton_32, "cell 3 4,grow");
+		
+		btnNewButton_33 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Eins));
+		btnNewButton_33.addActionListener(this);
+		panel.add(btnNewButton_33, "cell 4 4,grow");
+		
+		JLabel label_11 = new JLabel("");
+		panel.add(label_11, "cell 5 4,grow");
+		
+		JLabel label_12 = new JLabel("");
+		panel.add(label_12, "cell 6 4,grow");
+		
+		JLabel label_13 = new JLabel("");
+		panel.add(label_13, "cell 0 5,grow");
+		panel.add(btnNewButton_37, "cell 1 5,grow");
+		
+		JLabel label_14 = new JLabel("");
+		panel.add(label_14, "cell 2 5,grow");
+		
+		btnNewButton_43 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Eins));
+		btnNewButton_43.addActionListener(this);
+		
+		btnNewButton_41 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Eins));
+		btnNewButton_41.addActionListener(this);
+		
+		btnNewButton_39 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Zwei, EPositionIndex.Eins));
+		btnNewButton_39.addActionListener(this);
+		panel.add(btnNewButton_39, "cell 3 5,grow");
+		
+		JLabel label_15 = new JLabel("");
+		panel.add(label_15, "cell 4 5,grow");
+		panel.add(btnNewButton_41, "cell 5 5,grow");
+		
+		JLabel label_16 = new JLabel("");
+		panel.add(label_16, "cell 6 5,grow");
+		panel.add(btnNewButton_43, "cell 0 6,grow");
+		
+		JLabel label_17 = new JLabel("");
+		panel.add(label_17, "cell 1 6,grow");
+		
+		JLabel label_18 = new JLabel("");
+		panel.add(label_18, "cell 2 6,grow");
+		panel.add(btnNewButton_46, "cell 3 6,grow");
 		
 		JLabel label_19 = new JLabel("");
-		panel.add(label_19);
+		panel.add(label_19, "cell 4 6,grow");
 		
 		JLabel label_20 = new JLabel("");
-		panel.add(label_20);
+		panel.add(label_20, "cell 5 6,grow");
 		
 		btnNewButton_49 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Eins));
 		btnNewButton_49.addActionListener(this);
-		panel.add(btnNewButton_49);
+		panel.add(btnNewButton_49, "cell 6 6,grow");
 		
 		panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.EAST);
