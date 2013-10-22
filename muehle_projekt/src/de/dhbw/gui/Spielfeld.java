@@ -102,7 +102,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	
 	private Bewegung neueBewegung;
 	
-	static Database db = new Database();
+	//static Database db = new Database();
 	
 	private boolean neuesSpielFlag = false;
 	
@@ -180,7 +180,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 
 	private static void exitForm(WindowEvent evt) 
 	{
-		db.löschetb("protokoll");
+//		db.löschetb("protokoll");
         System.exit(0);
     }
 	
@@ -222,7 +222,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 						
 						Spielfeld.this.dispose();
 						frageBeenden.dispose();
-						db.löschetb("protokoll");
+//						db.löschetb("protokoll");
 						//schließen
 					}
 					
@@ -240,7 +240,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		mntmNeuesSpiel = new JMenuItem("neues Spiel");
 		mntmNeuesSpiel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				db.löschetb("protokoll");
+//				db.löschetb("protokoll");
 				dispose();
 				JFrame neuesSpiel = new Spielfeld();
 				neuesSpiel.setVisible(true);
@@ -583,7 +583,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		);
 		contentPane.setLayout(gl_contentPane);
 		
-		 db.erzeuge_p();
+//		 db.erzeuge_p();
 		 
 	}
 
@@ -758,7 +758,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 					}
 					else
 					{
-						db.zugspeichern(neueBewegung, aktuellerSpieler, false, aktuellerStein);
+//						db.zugspeichern(neueBewegung, aktuellerSpieler, false, aktuellerStein);
 					}
 					
 					if(aktuellerSpieler == Spieler2)
@@ -947,7 +947,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		}
 		hatMuehle = false;
 		
-		db.zugspeichern(neueBewegung, aktuellerSpieler, true, zuLoeschenderStein);
+//		db.zugspeichern(neueBewegung, aktuellerSpieler, true, zuLoeschenderStein);
 	}
 	
 	
