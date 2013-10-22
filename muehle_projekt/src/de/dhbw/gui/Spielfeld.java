@@ -740,14 +740,14 @@ public class Spielfeld extends JFrame implements ActionListener {
 					else
 					{
 						this.neueMeldung(meldungsZeit, passiverSpieler.SpielsteinFarbeAsString() + textSpielerWechsel);
-						System.out.println(passiverSpieler.SpielsteinFarbeAsString() + textSpielerWechsel);
+						this.verschiedeneAusgaben();
 					}
 					
 					return;
 				}				
 		
 				//Hier wird der Code ausgeführt, wenn die erste Phase abgeschlossen ist
-				while(Spieler1.getPhase().equals(EPhase.Schieben))
+				while(true)				//Spieler1.getPhase().equals(EPhase.Schieben)
 				{
 					
 					/*if(!pruef.checkFeldBesetzt(PositionGeklickt, aktuellerSpieler, passiverSpieler))
@@ -811,7 +811,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 						if(pruef.checkInMuehle(aktuellerStein1.getIndex() , aktuellerSpieler.Steine))
 						{
 							this.neueMeldung(meldungsZeit, aktuellerSpieler.SpielsteinFarbeAsString() + textMuehle);
-							System.out.println(aktuellerSpieler.SpielsteinFarbeAsString() + textMuehle);
+							this.verschiedeneAusgaben();
 							
 							hatMuehle = true;
 							hatAltePosition = false;
@@ -822,20 +822,20 @@ public class Spielfeld extends JFrame implements ActionListener {
 						if(aktuellerSpieler == Spieler2)
 							anzahlRunden++;
 						this.neueMeldung(meldungsZeit, passiverSpieler.SpielsteinFarbeAsString() + textSpielerWechsel);
-						System.out.println(passiverSpieler.SpielsteinFarbeAsString() + textSpielerWechsel);
+						this.verschiedeneAusgaben();
 						
 						panel.repaint();
 						hatAltePosition = false;
 						return;		
 					}
 				}
-				while(Spieler2.getPhase().equals(EPhase.Springen) || Spieler1.getPhase().equals(EPhase.Springen))
+				/*while(Spieler2.getPhase().equals(EPhase.Springen) || Spieler1.getPhase().equals(EPhase.Springen)) //hier die 3.phase
 				{
 					if(Spieler1.getAnzahlSteine() == 3)
 						
 					
 					System.out.println("letzte Phase");
-				}
+				}*/
 				
 				
 				
@@ -859,7 +859,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 						else
 							
 						this.neueMeldung(meldungsZeit, passiverSpieler.SpielsteinFarbeAsString() + " ist dran!");
-						System.out.println(passiverSpieler.SpielsteinFarbeAsString() + " ist dran!");
+						this.verschiedeneAusgaben();
 						return;
 					}
 					else //der Spieler hat auf einen seiner eigenen Steine gedrückt
@@ -1019,8 +1019,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 	public void verschiedeneAusgaben()
 	{
 		//verschiedene Ausgaben
-		System.out.print("Spieler1: " + Spieler1.getAnzahlZuege() + "  ||  ");
-		System.out.println("Spieler2: " + Spieler2.getAnzahlZuege() + "  ||  Anzahl Runden: " + anzahlRunden); 
+		System.out.print("Spieler1: " + Spieler1.getAnzahlZuege() + " Züge, " + Spieler1.getAnzahlSteine() + " Steine ||  ");
+		System.out.println("Spieler2: " + Spieler2.getAnzahlZuege() + " Züge, " + Spieler2.getAnzahlSteine() + " Steine ||  Anzahl Runden: " + anzahlRunden); 
 		System.out.println("Zug Beendet ----------------------------------------------------------------------------");
 			
 	}
