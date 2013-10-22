@@ -31,6 +31,7 @@ import java.util.concurrent.TimeUnit;
 import de.dhbw.muehle_api.*;
 import de.dhbw.muehle_spiel.Bewegung;
 import de.dhbw.muehle_spiel.Database;
+import de.dhbw.muehle_spiel.EPhase;
 import de.dhbw.muehle_spiel.Pruefung;
 import de.dhbw.muehle_spiel.Spieler;
 import de.dhbw.muehle_spiel.Spielstein;
@@ -267,7 +268,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				
 			
                 Image spielfeld = Toolkit.getDefaultToolkit().getImage(  
-                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUI.png"));  
+                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUI1.png"));  
                 g.drawImage(spielfeld, 0, 0, this.getWidth(), this.getHeight(), this);  
                 
                 for(int i = 0; i <= 2; i++)
@@ -692,7 +693,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				}
 
 				//erste Phase wenn noch nicht alle Steine gesetzt wurden
-				while(Spieler2.getAnzahlZuege() < 9) //(anzahlRunden < 9)
+				while(Spieler2.getPhase().equals(EPhase.Setzen)) //(anzahlRunden < 9)
 				{
 					//neue Bewegung erstellen
 					neueBewegung = new Bewegung(null, PositionGeklickt);
@@ -748,7 +749,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				}				
 		
 				//Hier wird der Code ausgeführt, wenn die erste Phase abgeschlossen ist
-				while(Spieler2.getAnzahlZuege() >= 9 && Spieler1.getAnzahlSteine() > 3 && Spieler2.getAnzahlSteine() > 3)
+				while(Spieler1.getPhase().equals(EPhase.Schieben))
 				{
 					
 					/*if(!pruef.checkFeldBesetzt(PositionGeklickt, aktuellerSpieler, passiverSpieler))
@@ -830,9 +831,12 @@ public class Spielfeld extends JFrame implements ActionListener {
 						return;		
 					}
 				}
-				while(Spieler2.getAnzahlZuege() >= 9 && (Spieler1.getAnzahlSteine() == 3 || Spieler2.getAnzahlSteine() == 3))
+				while(Spieler2.getPhase().equals(EPhase.Springen) || Spieler1.getPhase().equals(EPhase.Springen))
 				{
+					if(Spieler1.getAnzahlSteine() == 3)
+						
 					
+					System.out.println("letzte Phase");
 				}
 				
 				

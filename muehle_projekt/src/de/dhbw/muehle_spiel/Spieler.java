@@ -24,7 +24,7 @@ public Spieler (ESpielsteinFarbe lSpielerfarbe)
 public EPhase getPhase(){
 	if (AnzahlZuege < 9)
 		Phase = EPhase.Setzen;
-	else if (AnzahlSteine == 3)
+	else if (AnzahlSteine == 3 && AnzahlZuege > 9)
 		Phase = EPhase.Springen;
 	else
 		Phase = EPhase.Schieben;
