@@ -547,14 +547,25 @@ public class Spielfeld extends JFrame implements ActionListener {
 		btnNewButton_49.addActionListener(this);
 		panel.add(btnNewButton_49, "cell 13 13,grow");
 		
-		panel_1 = new JPanel();
+		panel_1 = new JPanel()
+		{
+			@Override
+			public void paint(Graphics g) {
+				Image spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
+                        Spielfeld.class.getResource("/de/dhbw/images/Spielbrett rechts.png"));  
+				g.drawImage(spielfeldRechts, 0, 0, this.getWidth(), this.getHeight(), this);  
+				super.paint(g);
+			}
+		};
 		
-		lblNewLabel_4 = new JLabel("testtest");
+		/*lblNewLabel_4 = new JLabel("testtest");
 		panel_1.add(lblNewLabel_4);
 		
 		
 		lblNewLabel_5 = new JLabel("New label");
-		panel_1.add(lblNewLabel_5);
+		panel_1.add(lblNewLabel_5);*/
+		
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -752,6 +763,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 					
 					//neu zeichnen
 					panel.repaint();
+				
 					
 					
 					
