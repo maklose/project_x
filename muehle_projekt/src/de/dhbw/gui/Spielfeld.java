@@ -136,7 +136,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				{
 					e.printStackTrace();
 				}
-			}
+			} 
 
 			private void neueMeldung(final int sekunden, final String meldung, Spielfeld frame) {
 				//hier wird die Position festgelegt wo die meldung erscheinen soll
