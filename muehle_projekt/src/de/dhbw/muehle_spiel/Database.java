@@ -42,24 +42,8 @@ public void anzahlzuegespeichern(Spieler spieler){
 	}
 	
 }
-//Erzeugen der Tabelle highscore
-public void erzeuge_h(){
-	 try {
-	    statement=c.createStatement();	     
-	    String create="CREATE TABLE highscore (ID INTEGER PRIMARY KEY AUTOINCREMENT, Spieler varChar(20), Züge INT)";
-	    statement.executeUpdate(create);
-	    System.out.println("Tabelle highscore wurde erzeugt");		    		  		    
-	    } 
-	    catch ( Exception e ) {
-	    	System.err.println(e.getMessage());
-	        System.exit(0);
-	    }
-}
 
 
-/*
- * Implementierung der Protokollmethoden
- */
 //Übergabe der Position an DB
 public void zugspeichern(Bewegung bewegung,Spieler spieler,boolean muehle,Spielstein rspielstein){
 	
@@ -148,22 +132,38 @@ public void zeige_p(){
 }
 
 //Erzeugen der DB
-public void erzeuge_p(){
-		    
-		    try {
-		    	statement=c.createStatement();	     
-		    String create="CREATE TABLE protokoll(ID INTEGER PRIMARY KEY AUTOINCREMENT,"
-		    			+ "Spieler varChar(10),"
-		    			+ "E1 varChar(10), X1 varChar(10), Y1 varChar(10), "
-		    			+ "E2 varChar(10), X2 varChar(10), Y2 varChar(10), "
-		    			+ "muehle varChar(10), GeloeschterStein varChar(80))";
-		    statement.executeUpdate(create);
-		    System.out.println("Tabelle protokoll wurde erzeugt");			    		  		    
-		    } 
-		    catch ( Exception e ) {
-		    	System.err.println(e.getMessage());
-		        System.exit(0);
+public void erzeugetb(String tabelle){
+		    if(tabelle=="protokoll")
+		    {
+		    	try {
+				    statement=c.createStatement();	     
+				    String create="CREATE TABLE protokoll(ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+				    			+ "Spieler varChar(10),"
+				    			+ "E1 varChar(10), X1 varChar(10), Y1 varChar(10), "
+				    			+ "E2 varChar(10), X2 varChar(10), Y2 varChar(10), "
+				    			+ "muehle varChar(10), GeloeschterStein varChar(80))";
+				    statement.executeUpdate(create);
+				    System.out.println("Tabelle protokoll wurde erzeugt");			    		  		    
+			    } 
+			    catch ( Exception e ) {
+			    	System.err.println(e.getMessage());
+			        System.exit(0);
+			    }
+		    	
+		    }else if(tabelle=="highscore")
+		    {
+		    	try {
+			    	statement=c.createStatement();	     
+			    	String create="CREATE TABLE highscore (ID INTEGER PRIMARY KEY AUTOINCREMENT, Spieler varChar(20), Züge INT)";
+		    	    statement.executeUpdate(create);
+		    	    System.out.println("Tabelle highscore wurde erzeugt");		    		  		    
+		    	    } 
+		    	catch ( Exception e ) {
+		    	    	System.err.println(e.getMessage());
+		    	        System.exit(0);
+		    	}
 		    }
+		    
 		    
 		    
 		    
