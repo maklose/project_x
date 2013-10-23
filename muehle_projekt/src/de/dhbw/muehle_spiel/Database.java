@@ -41,68 +41,76 @@ public void anzahlzuegespeichern(Spieler spieler){
 	
 }
 //Ausgabe einer Tabelle
-public void zeigetb(String tabelle){
+public String[][] zeigetb(String tabelle){
 	if(tabelle=="highscore")
 	{
 		try{
 			statement=c.createStatement();
 			String ausgabe=("SELECT Züge, Spielername FROM highscore ORDER BY Züge ASC");
 			ResultSet result=statement.executeQuery(ausgabe);
-			
+			String [][] highscore=new String[10][2];
 			for(int i=1; i<=10; i++){
 				result.absolute(i);
-				int zuege=result.getInt("Züge");
+				
+				int züge_1=result.getInt("Züge");
+				Integer züge_2=new Integer(züge_1);
+				String zuege=züge_2.toString();
+				
 				String spielername=result.getString("Spielername");
+				highscore[i][0]=zuege;
+				highscore[i][1]=spielername;
 				
-				
-				
+				 
 			}
 			
+			return highscore;
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+		
 	}
-	else if(tabelle=="protokoll")
-	{
-		 try {
-		    	statement=c.createStatement();
-			    String ausgabe=("SELECT * FROM protokoll");
-			    ResultSet result=statement.executeQuery(ausgabe);
-			    while (result.next()) {
-			    	  System.out.println();
-			    	
-			    	  
-			    	  int zugID = result.getInt("ID");	    	  
-			    	  String Spieler=result.getString("Spieler");	    	  
-			    	  String E1=result.getString("E1");
-			    	  String X1=result.getString("X1");
-			    	  String Y1=result.getString("Y1");
-			    	  String E2=result.getString("E2");
-			    	  String X2=result.getString("X2");
-			    	  String Y2=result.getString("Y2");
-			    	  String muehle=result.getString("muehle");
-			    	  String GeloeschterStein=result.getString("GeloeschterStein");
-			    	  
-			    	  //Ausgabe
-			    	  System.out.print("ID: ["+zugID+"]");
-			    	  System.out.print(" Spieler: ["+Spieler+"]");	    	  
-			    	  System.out.print(" E1: ["+E1+"]");
-			    	  System.out.print(" X1: ["+X1+"]");
-			    	  System.out.print(" Y1: ["+Y1+"]");
-			    	  System.out.print(" E2: ["+E2+"]");
-			    	  System.out.print(" X2: ["+X2+"]");
-			    	  System.out.print(" Y2: ["+Y2+"]");
-			    	  System.out.print(" Mühle: ["+muehle+"]");
-			    	  System.out.print(" GelöschterStein: ["+GeloeschterStein+"]");  
-			    	  
-			    	  
-			    		    	  
-			    	}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-	}
+//	else if(tabelle=="protokoll")
+//	{
+////		 try {
+////		    	statement=c.createStatement();
+////			    String ausgabe=("SELECT * FROM protokoll");
+////			    ResultSet result=statement.executeQuery(ausgabe);
+////			    while (result.next()) {
+////			    	  System.out.println();
+////			    	
+////			    	  
+////			    	  int zugID = result.getInt("ID");
+////			    	  
+////			    	  String Spieler=result.getString("Spieler");	    	  
+////			    	  String E1=result.getString("E1");
+////			    	  String X1=result.getString("X1");
+////			    	  String Y1=result.getString("Y1");
+////			    	  String E2=result.getString("E2");
+////			    	  String X2=result.getString("X2");
+////			    	  String Y2=result.getString("Y2");
+////			    	  String muehle=result.getString("muehle");
+////			    	  String GeloeschterStein=result.getString("GeloeschterStein");
+////			    	  
+////			    	  //Ausgabe
+////			    	  System.out.print("ID: ["+zugID+"]");
+////			    	  System.out.print(" Spieler: ["+Spieler+"]");	    	  
+////			    	  System.out.print(" E1: ["+E1+"]");
+////			    	  System.out.print(" X1: ["+X1+"]");
+////			    	  System.out.print(" Y1: ["+Y1+"]");
+////			    	  System.out.print(" E2: ["+E2+"]");
+////			    	  System.out.print(" X2: ["+X2+"]");
+////			    	  System.out.print(" Y2: ["+Y2+"]");
+////			    	  System.out.print(" Mühle: ["+muehle+"]");
+////			    	  System.out.print(" GelöschterStein: ["+GeloeschterStein+"]");  
+////			    	  
+////			    	  
+////			    		    	  
+////			    	}
+////			} catch (SQLException e) {
+////				e.printStackTrace();
+////			}
+//	}
 }
 
 
