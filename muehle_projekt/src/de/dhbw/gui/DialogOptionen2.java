@@ -37,6 +37,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import javax.swing.JComboBox;
 
 public class DialogOptionen2 extends JDialog {
 
@@ -63,7 +64,7 @@ public class DialogOptionen2 extends JDialog {
 	 */
 	public DialogOptionen2() {
 		//Fenster
-		setBounds(100, 100, 450, 340);
+		setBounds(100, 100, 450, 400);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -81,9 +82,9 @@ public class DialogOptionen2 extends JDialog {
 			contentPanel.add(panel, BorderLayout.CENTER);
 			GridBagLayout gbl_panel = new GridBagLayout();
 			gbl_panel.columnWidths = new int[]{20, 225, 30, 0, 0, 20, 0};
-			gbl_panel.rowHeights = new int[]{20, 0, 0, 0, 0, 20, 0, 0, 0, 20, 33, 0, 0};
-			gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+			gbl_panel.rowHeights = new int[]{20, 20, 20, 20, 20, 0, 0, 0, 20, 0, 20, 20, 33, 0, 0};
+			gbl_panel.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 			panel.setLayout(gbl_panel);
 			//Aufforderung zur Wahl einer Option
 			{
@@ -128,22 +129,6 @@ public class DialogOptionen2 extends JDialog {
 				gbc_rdbtnMgC.gridy = 3;
 				panel.add(rdbtnMgC, gbc_rdbtnMgC);
 			}
-			{
-				JRadioButton rdbtnCgC = new JRadioButton("Computer gegen Computer");
-				rdbtnCgC.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						txtSpieler1.setEnabled(false);
-						txtSpieler2.setEnabled(false);
-					}
-				});
-				buttonGroup.add(rdbtnCgC);
-				GridBagConstraints gbc_rdbtnCgC = new GridBagConstraints();
-				gbc_rdbtnCgC.anchor = GridBagConstraints.WEST;
-				gbc_rdbtnCgC.insets = new Insets(0, 0, 5, 5);
-				gbc_rdbtnCgC.gridx = 1;
-				gbc_rdbtnCgC.gridy = 4;
-				panel.add(rdbtnCgC, gbc_rdbtnCgC);
-			}
 			//Aufforderung zur Eingabe eines Spielernamens
 			{	
 				JLabel lblNamen = new JLabel("  Geben Sie einen Namen ein.");
@@ -151,7 +136,7 @@ public class DialogOptionen2 extends JDialog {
 				gbc_lblNamen.anchor = GridBagConstraints.WEST;
 				gbc_lblNamen.insets = new Insets(0, 0, 5, 5);
 				gbc_lblNamen.gridx = 1;
-				gbc_lblNamen.gridy = 6;
+				gbc_lblNamen.gridy = 5;
 				panel.add(lblNamen, gbc_lblNamen);
 			}
 			//Textfelder zur Eingabe des Spielernamens; zunächst deaktiviert
@@ -169,7 +154,7 @@ public class DialogOptionen2 extends JDialog {
 				gbc_txtSpieler1.insets = new Insets(0, 0, 5, 5);
 				gbc_txtSpieler1.fill = GridBagConstraints.HORIZONTAL;
 				gbc_txtSpieler1.gridx = 1;
-				gbc_txtSpieler1.gridy = 7;
+				gbc_txtSpieler1.gridy = 6;
 				panel.add(txtSpieler1, gbc_txtSpieler1);
 				txtSpieler1.setColumns(10);
 			}
@@ -187,11 +172,39 @@ public class DialogOptionen2 extends JDialog {
 				gbc_txtSpieler2.insets = new Insets(0, 0, 5, 5);
 				gbc_txtSpieler2.fill = GridBagConstraints.HORIZONTAL;
 				gbc_txtSpieler2.gridx = 1;
-				gbc_txtSpieler2.gridy = 8;
+				gbc_txtSpieler2.gridy = 7;
 				panel.add(txtSpieler2, gbc_txtSpieler2);
 				txtSpieler2.setColumns(10);
 			}
 			{;
+			}
+			{
+				JLabel lblSchwierigkeit = new JLabel("  W\u00E4hlen Sie einen Schwierigkeitsgrad.");
+				GridBagConstraints gbc_lblSchwierigkeit = new GridBagConstraints();
+				gbc_lblSchwierigkeit.anchor = GridBagConstraints.SOUTHWEST;
+				gbc_lblSchwierigkeit.insets = new Insets(0, 0, 5, 5);
+				gbc_lblSchwierigkeit.gridx = 1;
+				gbc_lblSchwierigkeit.gridy = 9;
+				panel.add(lblSchwierigkeit, gbc_lblSchwierigkeit);
+			}
+			{
+				JComboBox cbSchwierigkeitsgrad = new JComboBox();
+				cbSchwierigkeitsgrad.addItem("1 (leicht)");
+				cbSchwierigkeitsgrad.addItem("2");
+				cbSchwierigkeitsgrad.addItem("3");
+				cbSchwierigkeitsgrad.addItem("4");
+				cbSchwierigkeitsgrad.addItem("5 (mittel)");
+				cbSchwierigkeitsgrad.addItem("6");
+				cbSchwierigkeitsgrad.addItem("7");
+				cbSchwierigkeitsgrad.addItem("8");
+				cbSchwierigkeitsgrad.addItem("9");
+				cbSchwierigkeitsgrad.addItem("10 (schwer)");
+				GridBagConstraints gbc_cbSchwierigkeitsgrad = new GridBagConstraints();
+				gbc_cbSchwierigkeitsgrad.insets = new Insets(0, 0, 5, 5);
+				gbc_cbSchwierigkeitsgrad.fill = GridBagConstraints.HORIZONTAL;
+				gbc_cbSchwierigkeitsgrad.gridx = 1;
+				gbc_cbSchwierigkeitsgrad.gridy = 10;
+				panel.add(cbSchwierigkeitsgrad, gbc_cbSchwierigkeitsgrad);
 			}
 			JButton cancelButton = new JButton("Cancel"){
 				public void paintComponent(Graphics g){
@@ -201,7 +214,7 @@ public class DialogOptionen2 extends JDialog {
 			GridBagConstraints gbc_cancelButton = new GridBagConstraints();
 			gbc_cancelButton.insets = new Insets(0, 0, 5, 5);
 			gbc_cancelButton.gridx = 3;
-			gbc_cancelButton.gridy = 10;
+			gbc_cancelButton.gridy = 12;
 			panel.add(cancelButton, gbc_cancelButton);
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -217,7 +230,7 @@ public class DialogOptionen2 extends JDialog {
 				GridBagConstraints gbc_okButton = new GridBagConstraints();
 				gbc_okButton.insets = new Insets(0, 0, 5, 5);
 				gbc_okButton.gridx = 4;
-				gbc_okButton.gridy = 10;
+				gbc_okButton.gridy = 12;
 				panel.add(okButton, gbc_okButton);
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
