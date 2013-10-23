@@ -87,6 +87,8 @@ public class Pruefung {
 			return false;
 		
 	}
+	else
+		korrekt = true;
 		
 	
 	//Überprüfung, ob die Nach-Position bereits belegt ist
