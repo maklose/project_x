@@ -707,10 +707,10 @@ public class Spielfeld extends JFrame implements ActionListener {
 		Object obj = e.getSource();
 		
 		//Abfrage welcher Button gedrückt wurde
-		for(int i = 1; i <= gButtons.size(); i++)
+		for(int i = 0; i <= gButtons.size()-1; i++)
 		{
-			if(obj.equals(gButtons.get(i-1)))
-				this.aktion(gButtons.get(i-1));
+			if(obj.equals(gButtons.get(i)))
+				this.aktion(gButtons.get(i));
 		}
 		
 		/*
@@ -884,7 +884,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 						{
 							if(!pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler, Indizes) == true 
 									& passiverSpieler.getAnzahlSteine() != 3)
-							this.neueMeldung(meldungsZeit, aktuellerSpieler.SpielsteinFarbeAsString() + textMuehle);
+							this.neueMeldung(meldungsZeit, aktuellerSpieler.getName() + textMuehle);
 							this.verschiedeneAusgaben();
 							
 							hatMuehle = true;
@@ -1017,7 +1017,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		gSteine.add(lSpieler.getSpielstein(anzahlRunden));
 		
 		//Ausgabe der Bewertung des Zuges ZUM TEST
-		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung));
+//		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung));
 	}
 	
 	
@@ -1052,7 +1052,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		SpielfeldArray[e][x][y] = null;
 		
 		//Ausgabe der Bewertung des Zuges ZUM TEST
-		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung));
+//		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung));
 	}
 	
 	//EPositionIndex auf dem Feld wird in int umgerechnet
