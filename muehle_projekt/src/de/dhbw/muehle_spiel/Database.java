@@ -118,8 +118,7 @@ public void zeige_p(){
 	    	  System.out.print(" X2: ["+X2+"]");
 	    	  System.out.print(" Y2: ["+Y2+"]");
 	    	  System.out.print(" Mühle: ["+muehle+"]");
-	    	  System.out.print(" GelöschterStein: ["+GeloeschterStein+"]");
-	    	  
+	    	  System.out.print(" GelöschterStein: ["+GeloeschterStein+"]");  
 	    	  
 	    	  
 	    		    	  
