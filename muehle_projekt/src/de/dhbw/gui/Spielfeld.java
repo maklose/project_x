@@ -348,8 +348,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		                				else
 		                				{
 		                					if(hatMuehle && aktuellerSpieler.equals(Spieler2) && 
-		                							if(!pruef.checkInMuehle2(new Bewegung(null, new Position(this.posIndexUmrechnen(i), this.posIndexUmrechnen(j), this.posIndexUmrechnen(k))), passiverSpieler.Steine))	
-		                							//(!pruef.checkInMuehle(aktuellerStein.getIndex(), Spieler1.Steine) || alleGegnerSteineInMühle(Spieler1)))
+		                							(!pruef.checkInMuehle(aktuellerStein.getIndex(), Spieler1.Steine) || alleGegnerSteineInMühle(Spieler1)))
 		                						g.drawImage(SteinWeiss,  xPosi , yPosi , breite+6, hoehe+6, this);
 		                					else
 		                						g.drawImage(transparentSteinWeiss,  xPosi , yPosi , breite, hoehe, this);
@@ -789,7 +788,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 					}
 					
 					//Steht der Stein in einer Mühle
-					if(pruef.checkInMuehle2(neueBewegung, aktuellerSpieler.Steine))  	//if(pruef.checkInMuehle(anzahlRunden, aktuellerSpieler.Steine))
+					if(pruef.checkInMuehle(anzahlRunden, aktuellerSpieler.Steine))
 					{
 						this.neueMeldung(meldungsZeit, aktuellerSpieler.getName() + textMuehle);
 						System.out.println(aktuellerSpieler.SpielsteinFarbeAsString() + textMuehle);
@@ -862,7 +861,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 							this.SpielsteinBewegen(neueBewegung, aktuellerSpieler, lButton);
 							this.verschiedeneAusgaben();
 							this.createArrayEigenerIndeizes(aktuellerSpieler);
-							if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler, Indizes) == true)
+							if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true)
 							{
 								SpielBeendet = true;
 								this.aktion(btnNewButton_1);
@@ -883,9 +882,9 @@ public class Spielfeld extends JFrame implements ActionListener {
 						y1 = posIndexUmrechnen(PositionGeklickt.getY());
 						Spielstein aktuellerStein1 = SpielfeldArray[e1][x1][y1];
 						
-						if(pruef.checkInMuehle2(neueBewegung , aktuellerSpieler.Steine))		//if(pruef.checkInMuehle(aktuellerStein1.getIndex() , aktuellerSpieler.Steine))
+						if(pruef.checkInMuehle(aktuellerStein1.getIndex() , aktuellerSpieler.Steine))
 						{
-							if(!pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler, Indizes) == true 
+							if(!pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true 
 									& passiverSpieler.getAnzahlSteine() != 3)
 							this.neueMeldung(meldungsZeit, aktuellerSpieler.getName() + textMuehle);
 							this.verschiedeneAusgaben();
@@ -977,8 +976,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 		
 		// wenn der ausgewählte Stein nicht in einer Mühle steht oder alle Steine des Gegners in einer Mühle stehen, kann der Stein gelöscht werden
-		if(!pruef.checkInMuehle2(new Bewegung(null, new Position(PositionGeklickt.getEbene(), PositionGeklickt.getX(), PositionGeklickt.getY())) , passiverSpieler.Steine) || this.alleGegnerSteineInMühle(passiverSpieler) == true)
-			//if(!pruef.checkInMuehle(zuLoeschenderStein.getIndex() , passiverSpieler.Steine) || this.alleGegnerSteineInMühle(passiverSpieler) == true)
+		if(!pruef.checkInMuehle(zuLoeschenderStein.getIndex() , passiverSpieler.Steine) || this.alleGegnerSteineInMühle(passiverSpieler) == true)
 		{
 			SpielfeldArray[e][x][y] = null;
 			passiverSpieler.entferneSpielstein(zuLoeschenderStein.getIndex());
@@ -1106,8 +1104,7 @@ public class Spielfeld extends JFrame implements ActionListener {
             			Spielstein aktuellerStein = SpielfeldArray[i][j][k];
             			if(aktuellerStein.getFarbe() == passiverSpieler.getSpielerfarbe())
             			{
-            				if(pruef.checkInMuehle2(new Bewegung(null, new Position(this.posIndexUmrechnen(i), this.posIndexUmrechnen(j), this.posIndexUmrechnen(k))), passiverSpieler.Steine))			
-            					//if(pruef.checkInMuehle(aktuellerStein.getIndex(), passiverSpieler.Steine))
+            				if(pruef.checkInMuehle(aktuellerStein.getIndex(), passiverSpieler.Steine))
             					counter++;
             			}
             				
