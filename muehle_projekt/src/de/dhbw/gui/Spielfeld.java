@@ -118,6 +118,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 	//Wenn man auf einen Stein drückt um ihn zu verschieben, wird dieser Stein in dieser Variable gespeichert
 	Spielstein ausgewaehlterStein;
 	
+	
+	
 	Pruefung pruef = new Pruefung();
 	
 	/**
@@ -816,13 +818,15 @@ public class Spielfeld extends JFrame implements ActionListener {
 					//neu zeichnen
 					panel.repaint();
 					panel_1.repaint();
+					if(Spieler2.getAnzahlZuege()==9)
+						this.neueMeldung(wichtigeMeldungsZeit, textRunde2);
 					return;
 				}				
 		
 				//Hier wird der Code ausgeführt, wenn die erste Phase abgeschlossen ist
 				while(true)				//Spieler1.getPhase().equals(EPhase.Schieben)
 				{
-					
+	
 					//hier der Fall wenn auf einen bereits gelegten Stein gedrückt wird
 					if(hatAltePosition == false)
 					{
@@ -931,6 +935,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 						
 						panel_1.repaint();
 						this.verschiedeneAusgaben();
+						if(Spieler2.getAnzahlZuege() == 9)
+							this.neueMeldung(wichtigeMeldungsZeit, textRunde2);
 						return;
 					}
 					else //der Spieler hat auf einen seiner eigenen Steine gedrückt
