@@ -302,7 +302,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 		                					g.drawImage(SteinWeiss,  xPosi , yPosi , breite, hoehe, this);
 		                				else
 		                				{
-		                					if(hatMuehle && aktuellerSpieler.equals(Spieler2) && !pruef.checkInMuehle(aktuellerStein.getIndex(), Spieler1.Steine))
+		                					if(hatMuehle && aktuellerSpieler.equals(Spieler2) && 
+		                							(!pruef.checkInMuehle(aktuellerStein.getIndex(), Spieler1.Steine) || alleGegnerSteineInMühle(Spieler1)))
 		                						g.drawImage(SteinWeiss,  xPosi , yPosi , breite+6, hoehe+6, this);
 		                					else
 		                						g.drawImage(transparentSteinWeiss,  xPosi , yPosi , breite, hoehe, this);
@@ -318,7 +319,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 		                					g.drawImage(SteinSchwarz,  xPosi , yPosi , breite-4, hoehe-4, this);
 		                				else
 		                				{
-		                					if(hatMuehle && aktuellerSpieler.equals(Spieler1) && !pruef.checkInMuehle(aktuellerStein.getIndex(), Spieler2.Steine))
+		                					if(hatMuehle && aktuellerSpieler.equals(Spieler1) && 
+		                							(!pruef.checkInMuehle(aktuellerStein.getIndex(), Spieler2.Steine) || alleGegnerSteineInMühle(Spieler2)))
 		                						g.drawImage(SteinSchwarz,  xPosi , yPosi , breite+2, hoehe+2, this);
 		                					else
 		                						g.drawImage(transparentSteinSchwarz,  xPosi , yPosi , breite-4, hoehe-4, this);
@@ -794,6 +796,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 					{
 						this.neueMeldung(meldungsZeit, aktuellerSpieler.SpielsteinFarbeAsString() + textMuehle);
 						System.out.println(aktuellerSpieler.SpielsteinFarbeAsString() + textMuehle);
+						System.out.println("Alle gegnerischen Steine stehen in einer Mühle: " + this.alleGegnerSteineInMühle(passiverSpieler));
 						
 						hatMuehle = true;
 						panel.repaint();
@@ -908,7 +911,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 							|| (aktuellerStein.FarbVergleich(ESpielsteinFarbe.WEISS) && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.SCHWARZ)))
 					{
 						this.muehle(aktuellerStein, aktuellerSpieler, PositionGeklickt, neueBewegung);
-						if(!SteinKannGeloeschtWerden && passiverSpieler.getPhase()!=EPhase.Springen)	 	//g			
+						if(!SteinKannGeloeschtWerden)	 
 						{
 							System.out.println("Dieser Stein steht in einer Mühle, und kann daher nicht gelöscht werden!");
 							SteinKannGeloeschtWerden = true;
@@ -953,18 +956,15 @@ public class Spielfeld extends JFrame implements ActionListener {
 		y = posIndexUmrechnen(PositionGeklickt.getY());
 		Spielstein zuLoeschenderStein = SpielfeldArray[e][x][y];
 		
-		if(!pruef.checkInMuehle(zuLoeschenderStein.getIndex() , passiverSpieler.Steine))
+		
+		// wenn der ausgewählte Stein nicht in einer Mühle steht oder alle Steine des Gegners in einer Mühle stehen, kann der Stein gelöscht werden
+		if(!pruef.checkInMuehle(zuLoeschenderStein.getIndex() , passiverSpieler.Steine) || this.alleGegnerSteineInMühle(passiverSpieler) == true)
 		{
 			SpielfeldArray[e][x][y] = null;
 			passiverSpieler.entferneSpielstein(zuLoeschenderStein.getIndex());
 			hatAltePosition = false;
 		}
-		else if (pruef.checkInMuehle(zuLoeschenderStein.getIndex() , passiverSpieler.Steine) && passiverSpieler.getPhase()==EPhase.Springen) 	//g
-		{
-			SpielfeldArray[e][x][y] = null;
-			passiverSpieler.entferneSpielstein(zuLoeschenderStein.getIndex());
-			hatAltePosition = false;
-		}
+
 		else
 		{
 			SteinKannGeloeschtWerden = false;
@@ -1042,11 +1042,32 @@ public class Spielfeld extends JFrame implements ActionListener {
 	public boolean alleGegnerSteineInMühle(Spieler passiverSpieler)
 	{
 		int counter = 0;
-		for(int i = 1; i < passiverSpieler.getAnzahlSteine(); i++)
-		{
-			pruef.checkInMuehle(i, passiverSpieler.Steine);
-			counter++;
-		}
+		
+		/*
+		 * das array mit allen Spielsteinen durchlaufen und prüfen ob der aktuelle Stein vom passiven Spieler ist, 
+		 * wenn ja dann gucken ob dieser Stein in einer Mühle steht und wenn das auch true ist dann den counter hochsetzen
+		 */
+		for(int i = 0; i <= 2; i++)
+        {
+        	for(int j = 0; j <= 2; j++)
+        	{
+        		for(int k = 0; k <= 2; k++)
+        		{
+        			if(SpielfeldArray[i][j][k] != null)
+        			{
+            			Spielstein aktuellerStein = SpielfeldArray[i][j][k];
+            			if(aktuellerStein.getFarbe() == passiverSpieler.getSpielerfarbe())
+            			{
+            				if(pruef.checkInMuehle(aktuellerStein.getIndex(), passiverSpieler.Steine))
+            					counter++;
+            			}
+            				
+        			}
+        		}
+        	}
+        }
+		
+		//wenn der counter gleich der Anzahl Steine des passiven Spielers ist stehen alle Steine in einer Mühle
 		if(passiverSpieler.getAnzahlSteine() == counter)
 			return true;
 		else
