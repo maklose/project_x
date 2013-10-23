@@ -192,7 +192,7 @@ public class Pruefung {
 				
 	// Überprüft, ob das Spiel beendet ist, weil SpielerAktiv keine Möglichkeit mehr hat zu ziehen, oder weniger als 3 Steine hat
 	// Gibt true zurück, wenn das Spiel beendet ist und false wenn das Spiel noch nicht beendet ist
-	public boolean checkSpielBeendet(Spieler SpielerAktiv, Spieler SpielerPassiv, int[] indizes)
+	public boolean checkSpielBeendet(Spieler SpielerAktiv, Spieler SpielerPassiv)
 	{
 		
 		boolean ZugKorrekt = false;

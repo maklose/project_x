@@ -894,7 +894,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 							hatAltePosition = false;
 							panel.repaint();
 							this.createArrayEigenerIndeizes(aktuellerSpieler);
-							if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler, Indizes) == true 
+							if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true 
 									|| passiverSpieler.getAnzahlSteine() == 3)
 							{
 								SpielBeendet = true;
