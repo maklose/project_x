@@ -91,6 +91,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	private String textNeuesSpiel = "Neues Spiel -- Weiss beginnt!";
 	private String textRunde2 = "Ab jetzt: Steine ziehen!";
 	private static String textSpielName = "Mühle Spiel";
+	private String textGewonnen = " hat gewonnen!!!";
 	
 	private int meldungsZeit = 1;
 	private int wichtigeMeldungsZeit = 2;
@@ -967,8 +968,17 @@ public class Spielfeld extends JFrame implements ActionListener {
 				}
 			}	
 		}
-		System.out.println("das Spiel ist beendet");
-	}
+		if(aktuellerSpieler == Spieler1)
+		{
+			this.neueMeldung(wichtigeMeldungsZeit, "Weiss" + textGewonnen);
+			System.out.println("Spieler 1 hat gewonnen");
+		}
+		else
+		{
+			this.neueMeldung(wichtigeMeldungsZeit, "Schwarz" + textGewonnen);
+			System.out.println("Spieler 2 hat gewonnen");
+		}	
+	}	
 
 	public void muehle(Spielstein aktuellerStein, Spieler aktuellerSpieler, Position PositionGeklickt, Bewegung neueBewegung)
 	{
