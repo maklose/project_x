@@ -316,7 +316,7 @@ public class Spielfeld extends JFrame implements ActionListener {
                 Image spielfeld = Toolkit.getDefaultToolkit().getImage(  
                           Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIlinks.png"));  
                 g.drawImage(spielfeld, 0, 0, this.getWidth(), this.getHeight(), this);  
-                
+             
                 for(int i = 0; i <= 2; i++)
                 {
                 	for(int j = 0; j <= 2; j++)
@@ -687,19 +687,12 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 		JLabel labelSpieler2 = new JLabel("Spieler 2: ");
 		panel_1.add(labelSpieler2, "cell 0 2,grow");*/
-		
-		
-		
-		
+
 		contentPane.setLayout(new MigLayout("", "[664.94px]0[300px]", "[677px]"));
 		contentPane.add(panel, "cell 0 0,alignx left,aligny top");
 		contentPane.add(panel_1, "cell 1 0,grow");
 		
-		
-		
-//		 db.erzeugetb("protokoll");
-		System.out.println(gButtons); 
-		
+//		 db.erzeugetb("protokoll");	
 	}
 
 	
@@ -713,107 +706,12 @@ public class Spielfeld extends JFrame implements ActionListener {
 	{
 		Object obj = e.getSource();
 		
-		if(obj.equals(this.btnNewButton_1))
+		//Abfrage welcher Button gedrückt wurde
+		for(int i = 1; i <= gButtons.size(); i++)
 		{
-			this.aktion(btnNewButton_1);
+			if(obj.equals(gButtons.get(i-1)))
+				this.aktion(gButtons.get(i-1));
 		}
-		else if(obj.equals(this.btnNewButton_2))
-		{
-			this.aktion(btnNewButton_2);
-		}
-		else if(obj.equals(this.btnNewButton_3))
-		{
-			this.aktion(btnNewButton_3);
-		}
-		else if(obj.equals(this.btnNewButton_4))
-		{
-			this.aktion(btnNewButton_4);
-		}
-		else if(obj.equals(this.btnNewButton_5))
-		{
-			this.aktion(btnNewButton_5);
-		}
-		else if(obj.equals(this.btnNewButton_6))
-		{
-			this.aktion(btnNewButton_6);
-		}
-		else if(obj.equals(this.btnNewButton_7))
-		{
-			this.aktion(btnNewButton_7);
-		}
-		else if(obj.equals(this.btnNewButton_8))
-		{
-			this.aktion(btnNewButton_8);
-		}
-		else if(obj.equals(this.btnNewButton_9))
-		{
-			this.aktion(btnNewButton_9);
-		}
-		else if(obj.equals(this.btnNewButton_10))
-		{
-			this.aktion(btnNewButton_10);
-		}
-		else if(obj.equals(this.btnNewButton_11))
-		{
-			this.aktion(btnNewButton_11);
-		}
-		else if(obj.equals(this.btnNewButton_12))
-		{
-			this.aktion(btnNewButton_12);
-		}
-		else if(obj.equals(this.btnNewButton_13))
-		{
-			this.aktion(btnNewButton_13);
-		}
-		else if(obj.equals(this.btnNewButton_14))
-		{
-			this.aktion(btnNewButton_14);
-		}
-		else if(obj.equals(this.btnNewButton_15))
-		{
-			this.aktion(btnNewButton_15);
-		}
-		else if(obj.equals(this.btnNewButton_16))
-		{
-			this.aktion(btnNewButton_16);
-		}
-		else if(obj.equals(this.btnNewButton_17))
-		{
-			this.aktion(btnNewButton_17);
-		}
-		else if(obj.equals(this.btnNewButton_18))
-		{
-			this.aktion(btnNewButton_18);
-		}
-		else if(obj.equals(this.btnNewButton_19))
-		{
-			this.aktion(btnNewButton_19);
-		}
-		else if(obj.equals(this.btnNewButton_20))
-		{
-			this.aktion(btnNewButton_20);
-		}
-		else if(obj.equals(this.btnNewButton_21))
-		{
-			this.aktion(btnNewButton_21);
-		}
-		else if(obj.equals(this.btnNewButton_22))
-		{
-			this.aktion(btnNewButton_22);
-		}
-		else if(obj.equals(this.btnNewButton_23))
-		{
-			this.aktion(btnNewButton_23);
-		}
-		else if(obj.equals(this.btnNewButton_24))
-		{
-			this.aktion(btnNewButton_24);
-		}
-		/*
-		 * Ausgabe der ArrayList mit den aktuellen Steinen
-		 * TEST
-		 */
-//		System.out.println(gSteine);
 		
 		/*
 		 * hier wird der neue Zug der Strategie abgefragt und this.aktion mit dem entsprechenden Button,
@@ -1286,6 +1184,7 @@ public class Spielfeld extends JFrame implements ActionListener {
         	}
         }
 	}
+
 
 		
 }
