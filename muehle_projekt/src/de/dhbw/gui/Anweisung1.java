@@ -23,7 +23,7 @@ public class Anweisung1 extends JFrame  {
 	{
 		setUndecorated(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(xPos, yPos, 490, 100);
+		setBounds(xPos, yPos, 600, 100);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -34,7 +34,7 @@ public class Anweisung1 extends JFrame  {
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel lblSpielerIst = new JLabel(Hinweis);
-		lblSpielerIst.setFont(new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 40));
+		lblSpielerIst.setFont(new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 30));
 		panel.add(lblSpielerIst);
 		
 		setOpacity((float) 0.7);

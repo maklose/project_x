@@ -87,11 +87,14 @@ public class Spielfeld extends JFrame implements ActionListener {
 	
 	private boolean SteinKannGeloeschtWerden = true;
 	
+	private String nameSpieler1 = "Weisser Spieler";
+	private String nameSpieler2 = "Schwarzer Spieler";
 	private String textMuehle = " hat eine Mühle!";
-	private String textNeuesSpiel = "Neues Spiel -- Weiss beginnt!";
+	private String textNeuesSpiel = "Neues Spiel -- " + nameSpieler1 + " beginnt!";
 	private String textRunde2 = "Ab jetzt: Steine ziehen!";
 	private static String textSpielName = "Mühle Spiel";
 	private String textGewonnen = " hat gewonnen!!!";
+	private String textDarfSpringen = " darf jetzt springen!";
 	
 	private int meldungsZeit = 1;
 	private int wichtigeMeldungsZeit = 2;
@@ -147,7 +150,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 			{
 				//hier wird die Position festgelegt wo die meldung erscheinen soll
 				Point pos = frame.panel.getLocationOnScreen();
-				final int xPos = (int)(pos.getX() + frame.panel.getWidth()/2 - 205);
+				final int xPos = (int)(pos.getX() + 20);
 				final int yPos = (int)pos.getY()+200;
 				new Thread() 
 				{
@@ -938,9 +941,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 							System.out.println("Dieser Stein steht in einer Mühle, und kann daher nicht gelöscht werden!");
 							SteinKannGeloeschtWerden = true;
 							return;
-						}
-						else
-							
+						}							
 
 						if(aktuellerSpieler == Spieler2)
 						{
@@ -954,6 +955,17 @@ public class Spielfeld extends JFrame implements ActionListener {
 						this.verschiedeneAusgaben();
 						if(Spieler2.getAnzahlZuege() == 9)
 							this.neueMeldung(wichtigeMeldungsZeit, textRunde2);
+						
+						//wenn duch das Mühle schlagen der passive Spieler nur noch 3 Steine hat wird die Meldung erzeugt, dass dieser jetzt springen darf
+						if(passiverSpieler.getAnzahlSteine() == 3 && passiverSpieler.getAnzahlZuege() > 9)
+							if(aktuellerSpieler == Spieler1)
+							{
+								this.neueMeldung(wichtigeMeldungsZeit, nameSpieler2 + textDarfSpringen);
+							}
+							else
+							{
+								this.neueMeldung(wichtigeMeldungsZeit, nameSpieler1 + textDarfSpringen);
+							}
 						return;
 					}
 					else //der Spieler hat auf einen seiner eigenen Steine gedrückt
@@ -970,12 +982,12 @@ public class Spielfeld extends JFrame implements ActionListener {
 		}
 		if(aktuellerSpieler == Spieler1)
 		{
-			this.neueMeldung(wichtigeMeldungsZeit, "Weiss" + textGewonnen);
+			this.neueMeldung(wichtigeMeldungsZeit, nameSpieler1 + textGewonnen);
 			System.out.println("Spieler 1 hat gewonnen");
 		}
 		else
 		{
-			this.neueMeldung(wichtigeMeldungsZeit, "Schwarz" + textGewonnen);
+			this.neueMeldung(wichtigeMeldungsZeit, nameSpieler2 + textGewonnen);
 			System.out.println("Spieler 2 hat gewonnen");
 		}	
 	}	
@@ -1128,7 +1140,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	{
 		//hier wird die Position festgelegt wo die meldung erscheinen soll
 		Point pos = panel.getLocationOnScreen();
-		xPos = (int)pos.getX() +  panel.getWidth()/2 - 205;
+		xPos = (int)pos.getX() + 20;
 		yPos = (int)pos.getY() + 200;
 		
 		
