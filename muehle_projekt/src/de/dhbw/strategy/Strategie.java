@@ -19,6 +19,9 @@ public class Strategie implements IStrategie{
 
 int anzahlZuege;
 ESpielsteinFarbe farbe;
+int tiefe = 3;
+Bewegung Zug;
+
 
 	@Override
 	public void startePartie(ESpielsteinFarbe p_SpielerFarbe) throws StrategieException {
@@ -52,25 +55,32 @@ ESpielsteinFarbe farbe;
 	}
 
 	//Liefert alle möglichen Bewegungnen eines Spielsteins
-	public List<Bewegung> getMöglicheBewegungen(List<ISpielstein> p_SpielFeld, Spielstein lStein){
+	public List<Bewegung> getMoeglicheBewegungen(List<ISpielstein> p_SpielFeld, Spielstein lStein){
 	
 	List<Bewegung> moeglZuege = new ArrayList<Bewegung>();
 	
-	Spieler Spieler1 = new Spieler(ESpielsteinFarbe.WEISS);
-	Spieler Spieler2 = new Spieler(ESpielsteinFarbe.SCHWARZ);
+	ESpielsteinFarbe farbeSpieler2;
+	
+	if( lStein.getFarbe() == ESpielsteinFarbe.SCHWARZ){
+		farbeSpieler2 = ESpielsteinFarbe.WEISS;
+	}
+	else{
+		farbeSpieler2 = ESpielsteinFarbe.SCHWARZ;
+	}
+		
+	Spieler Spieler1 = new Spieler(lStein.getFarbe(), "");
+	Spieler Spieler2 = new Spieler(farbeSpieler2, "");
 	
 	//Erzeugung der Spielsteine, die in p_Spielfeld vorhanden sind
 	for(ISpielstein s: p_SpielFeld){
-		if(s.getFarbe() == farbe)
+		if(s.getFarbe() == lStein.getFarbe())
 		{
 			Spieler1.setzeSpielstein(s.getPosition(), 0, 0);
 		}
-		else
-		{
+		else{
 			Spieler2.setzeSpielstein(s.getPosition(), 0, 0);
 		}
 	}
-		
 		
 	EPositionIndex ebene = null;
 	EPositionIndex x = null;
@@ -101,6 +111,11 @@ ESpielsteinFarbe farbe;
 						if(k == 2)
 							y = y.Drei;
 						
+						if((ebene == ebene.Eins && x == x.Zwei && y == y.Zwei) 
+								|| (ebene == ebene.Zwei && x == x.Zwei && y == y.Zwei)
+								|| (ebene == ebene.Drei && x == x.Zwei && y == y.Zwei))
+							continue;
+						
 						if(pruef.checkZug(new Bewegung(lStein.getPosition(), new Position(ebene, x, y)), Spieler1, Spieler2) == true)
 						{
 							moeglZuege.add(new Bewegung(lStein.getPosition(), new Position(ebene, x, y)));
@@ -117,12 +132,63 @@ ESpielsteinFarbe farbe;
 		
 		return bewertung;
 	}
-	private double max (int tiefe){
+	
+	
+	private double max (int ltiefe, List<ISpielstein> p_SpielFeld){	
 		
+	Spieler spieler = new Spieler(farbe, "");
 		
+	//Erzeugung der Spielsteine, die in p_Spielfeld vorhanden sind
+	for(ISpielstein s: p_SpielFeld){
+			if(s.getFarbe() == farbe)
+			{
+				spieler.setzeSpielstein(s.getPosition(), 0, 0);
+			}
+		}
+	
+	List<Bewegung> moeglBewegungen = new ArrayList<Bewegung>();
+	
+	if(tiefe == 0)
+	{
+	//Bewertung
 	}
 	
-	private double min (int tiefe){
+	double maxWert= 2;
+	double wert;
+	
+	for(int i = 0; i < spieler.getAnzahlSteine(); i++){	
+		
+		moeglBewegungen = getMoeglicheBewegungen(p_SpielFeld, spieler.Steine[i]);
+		for(int j = 0; j < moeglBewegungen.size();j++){
+			
+			// Bewegung ausführen
+			spieler.Steine[i].bewegen(moeglBewegungen.get(j), 0, 0);
+			
+			//neues Spielfeld erzeugen
+			int zaehler = 0;
+			List<ISpielstein> neuesSpielFeld = p_SpielFeld;
+			for(int k = 0; k < p_SpielFeld.size() ; k++){
+				if(neuesSpielFeld.get(k).getFarbe()== farbe){	
+				neuesSpielFeld.set(k, spieler.Steine[zaehler]);
+				zaehler++;
+				}
+			}
+			
+			//Rekursion
+			wert= min((ltiefe - 1) ,neuesSpielFeld);
+			if( wert > maxWert){
+			wert = min((ltiefe - 1) ,neuesSpielFeld);	
+			 if(ltiefe == tiefe)
+			Zug = moeglBewegungen.get(j); 	 
+			}
+			}	
+		}
+	
+	
+	}
+		
+	
+	private double min (int ltiefe, List<ISpielstein> p_SpielFeld){
 		
 	}
 	
