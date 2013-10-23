@@ -19,6 +19,7 @@ public class Strategie implements IStrategie{
 
 int anzahlZuege;
 ESpielsteinFarbe farbe;
+ESpielsteinFarbe farbeSpieler2;
 int tiefe = 3;
 Bewegung Zug;
 
@@ -134,62 +135,137 @@ Bewegung Zug;
 	}
 	
 	
-	private double max (int ltiefe, List<ISpielstein> p_SpielFeld){	
-		
-	Spieler spieler = new Spieler(farbe, "");
-		
-	//Erzeugung der Spielsteine, die in p_Spielfeld vorhanden sind
-	for(ISpielstein s: p_SpielFeld){
+	private double max (int ltiefe, List<ISpielstein> p_SpielFeld, Bewegung bewegung){	
+			
+	ESpielsteinFarbe farbeSpieler2;
+	
+	//Festlegen, welche Farbe der Gegner hat
+	if( farbe == ESpielsteinFarbe.SCHWARZ)
+		farbeSpieler2 = ESpielsteinFarbe.WEISS;
+	else
+		farbeSpieler2 = ESpielsteinFarbe.SCHWARZ;
+	
+	//Spieler erzeugen
+	Spieler spieler1 = new Spieler(farbe, "");
+	Spieler spieler2 = new Spieler(farbeSpieler2, "");
+
+	//neues Spielfeld erzeugen
+	List<ISpielstein> neuesSpielFeld = p_SpielFeld;
+	int zaehler = 0;
+	for(ISpielstein s : neuesSpielFeld){
+		zaehler++;
+		if(s.getPosition() == bewegung.getNach()){
+			neuesSpielFeld.set(zaehler, new Spielstein(farbe, bewegung.getVon(), 0,0,0));
+		}			
+	}
+	
+	//Erzeugung der Spielsteine des KI Spielers, die in p_Spielfeld vorhanden sind
+	for(ISpielstein s: neuesSpielFeld){
 			if(s.getFarbe() == farbe)
 			{
-				spieler.setzeSpielstein(s.getPosition(), 0, 0);
+				spieler1.setzeSpielstein(s.getPosition(), 0, 0);
+			}
+			else
+			{
+				spieler2.setzeSpielstein(s.getPosition(),0,0);
 			}
 		}
 	
+	
+	Pruefung pruef = new Pruefung();
+	
+	if(tiefe == 0 || pruef.checkSpielBeendet(spieler1, spieler2) == true)
+	{
+	return Bewertung(p_SpielFeld, bewegung);
+	}	
+		
 	List<Bewegung> moeglBewegungen = new ArrayList<Bewegung>();
 	
-	if(tiefe == 0)
-	{
-	//Bewertung
-	}
-	
-	double maxWert= 2;
+	double maxWert= -1;
 	double wert;
 	
-	for(int i = 0; i < spieler.getAnzahlSteine(); i++){	
-		
-		moeglBewegungen = getMoeglicheBewegungen(p_SpielFeld, spieler.Steine[i]);
-		for(int j = 0; j < moeglBewegungen.size();j++){
-			
-			// Bewegung ausführen
-			spieler.Steine[i].bewegen(moeglBewegungen.get(j), 0, 0);
-			
-			//neues Spielfeld erzeugen
-			int zaehler = 0;
-			List<ISpielstein> neuesSpielFeld = p_SpielFeld;
-			for(int k = 0; k < p_SpielFeld.size() ; k++){
-				if(neuesSpielFeld.get(k).getFarbe()== farbe){	
-				neuesSpielFeld.set(k, spieler.Steine[zaehler]);
-				zaehler++;
-				}
-			}
-			
+	for(int i = 0; i < spieler1.getAnzahlSteine(); i++){	
+	
+		moeglBewegungen = getMoeglicheBewegungen(neuesSpielFeld, spieler1.Steine[i]);
+		for(int j = 0; j < moeglBewegungen.size();j++){	
 			//Rekursion
-			wert= min((ltiefe - 1) ,neuesSpielFeld);
+			wert= min((ltiefe - 1) , neuesSpielFeld, moeglBewegungen.get(j));
 			if( wert > maxWert){
-			wert = min((ltiefe - 1) ,neuesSpielFeld);	
-			 if(ltiefe == tiefe)
-			Zug = moeglBewegungen.get(j); 	 
+				wert = min((ltiefe - 1) ,neuesSpielFeld, bewegung);	
+				if(ltiefe == tiefe)
+				Zug = moeglBewegungen.get(j); 	 
 			}
-			}	
-		}
+		}	
+	}
 	
-	
+	return maxWert;
 	}
 		
 	
-	private double min (int ltiefe, List<ISpielstein> p_SpielFeld){
+	private double min (int ltiefe, List<ISpielstein> p_SpielFeld, Bewegung bewegung){
 		
+		ESpielsteinFarbe farbeSpieler2;
+		
+		//Festlegen, welche Farbe der Gegner hat
+		if( farbe == ESpielsteinFarbe.SCHWARZ)
+			farbeSpieler2 = ESpielsteinFarbe.WEISS;
+		else
+			farbeSpieler2 = ESpielsteinFarbe.SCHWARZ;
+		
+		//Spieler erzeugen
+		Spieler spieler1 = new Spieler(farbe, "");
+		Spieler spieler2 = new Spieler(farbeSpieler2, "");
+
+		//neues Spielfeld erzeugen
+		List<ISpielstein> neuesSpielFeld = p_SpielFeld;
+		int zaehler = 0;
+		for(ISpielstein s : neuesSpielFeld){
+			zaehler++;
+			if(s.getPosition() == bewegung.getNach()){
+				neuesSpielFeld.set(zaehler, new Spielstein(farbe, bewegung.getVon(), 0,0,0));
+			}			
+		}
+		
+		//Erzeugung der Spielsteine des KI Gegners, die in p_Spielfeld vorhanden sind
+		for(ISpielstein s: neuesSpielFeld){
+				if(s.getFarbe() == farbe)
+				{
+					spieler1.setzeSpielstein(s.getPosition(), 0, 0);
+				}
+				else
+				{
+					spieler2.setzeSpielstein(s.getPosition(),0,0);
+				}
+			}
+		
+		
+		Pruefung pruef = new Pruefung();
+		
+		if(tiefe == 0 || pruef.checkSpielBeendet(spieler2, spieler1) == true)
+		{
+		return Bewertung(p_SpielFeld, bewegung);
+		}	
+			
+		List<Bewegung> moeglBewegungen = new ArrayList<Bewegung>();
+		
+		double minWert= 2;
+		double wert;
+		
+		for(int i = 0; i < spieler2.getAnzahlSteine(); i++){	
+		
+			moeglBewegungen = getMoeglicheBewegungen(neuesSpielFeld, spieler2.Steine[i]);
+			for(int j = 0; j < moeglBewegungen.size();j++){	
+				//Rekursion
+				wert= min((ltiefe - 1) , neuesSpielFeld, moeglBewegungen.get(j));
+				if( wert < minWert){
+					wert = max((ltiefe - 1) ,neuesSpielFeld, moeglBewegungen.get(j));	
+					if(ltiefe == tiefe)
+					Zug = moeglBewegungen.get(j); 	 
+				}
+			}	
+		}
+		
+		return minWert;
 	}
 	
 	
