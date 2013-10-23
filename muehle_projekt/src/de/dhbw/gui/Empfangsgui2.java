@@ -74,25 +74,32 @@ public class Empfangsgui2 extends JFrame implements WindowListener {
 		contentPane.add(panel, BorderLayout.CENTER);;;
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{0, 138, 120, 138, 0, 0};
-		gbl_panel.rowHeights = new int[]{190, 50, 25, 50, 0};
+		gbl_panel.rowHeights = new int[]{190, 50, 50, 50, 0};
 		gbl_panel.columnWeights = new double[]{1.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panel.setLayout(gbl_panel);
+		panel.setLayout(gbl_panel);;
 		
-		//Button "Spielanleitung"
-		JButton btn_anleitung = new JButton(){
+		//Button "Start"
+		JButton btn_start = new JButton(){
 			@Override
 			public void paintComponent(Graphics g){
-				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Spielanleitung.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
+				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Spiel starten.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
 			}
-		};;
-		btn_anleitung.setForeground(Color.BLACK);
-		btn_anleitung.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFrame anleitung = new Anleitung();
-				anleitung.setVisible(true);
-			}
-		});
+		};
+				btn_start.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						JDialog optionenAuswahl = new DialogOptionen2();
+						optionenAuswahl.setVisible(true);
+					}
+				});
+				btn_start.setForeground(Color.BLACK);
+				btn_start.setBackground(new Color(245, 222, 179));
+				GridBagConstraints gbc_btn_start = new GridBagConstraints();
+				gbc_btn_start.fill = GridBagConstraints.BOTH;
+				gbc_btn_start.insets = new Insets(0, 0, 5, 5);
+				gbc_btn_start.gridx = 1;
+				gbc_btn_start.gridy = 1;
+				panel.add(btn_start, gbc_btn_start);;
 		
 		//Button "Exit"
 		JButton btn_exit = new JButton(){
@@ -123,63 +130,34 @@ public class Empfangsgui2 extends JFrame implements WindowListener {
 			}
 		});
 		
-		//Button "Start"
-		JButton btn_start = new JButton(){
+		//Button "Spielanleitung"
+		JButton btn_anleitung = new JButton(){
 			@Override
 			public void paintComponent(Graphics g){
-				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Spiel starten.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
+				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Spielanleitung.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
 			}
 		};
-				btn_start.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						JFrame neuesSpiel = new Spielfeld();
-						neuesSpiel.setVisible(true);
-					}
-				});
-				btn_start.setForeground(Color.BLACK);
-				btn_start.setBackground(new Color(245, 222, 179));
-				GridBagConstraints gbc_btn_start = new GridBagConstraints();
-				gbc_btn_start.fill = GridBagConstraints.BOTH;
-				gbc_btn_start.insets = new Insets(0, 0, 5, 5);
-				gbc_btn_start.gridx = 1;
-				gbc_btn_start.gridy = 1;
-				panel.add(btn_start, gbc_btn_start);
+		btn_anleitung.setForeground(Color.BLACK);
+		btn_anleitung.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame anleitung = new Anleitung();
+				anleitung.setVisible(true);
+			}
+		});
+		btn_anleitung.setBackground(new Color(245, 222, 179));
+		GridBagConstraints gbc_btn_anleitung = new GridBagConstraints();
+		gbc_btn_anleitung.insets = new Insets(0, 0, 5, 5);
+		gbc_btn_anleitung.fill = GridBagConstraints.BOTH;
+		gbc_btn_anleitung.gridx = 3;
+		gbc_btn_anleitung.gridy = 2;
+		panel.add(btn_anleitung, gbc_btn_anleitung);
 		btn_exit.setBackground(new Color(245, 222, 179));
 		GridBagConstraints gbc_btn_exit = new GridBagConstraints();
 		gbc_btn_exit.fill = GridBagConstraints.BOTH;
-		gbc_btn_exit.insets = new Insets(0, 0, 5, 5);
-		gbc_btn_exit.gridx = 3;
-		gbc_btn_exit.gridy = 1;
+		gbc_btn_exit.insets = new Insets(0, 0, 0, 5);
+		gbc_btn_exit.gridx = 1;
+		gbc_btn_exit.gridy = 3;
 		panel.add(btn_exit, gbc_btn_exit);
-		
-		//Button "Optionen"
-		JButton btn_optionen = new JButton(){
-			@Override
-			public void paintComponent(Graphics g){
-				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Optionen.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
-			}
-		};;
-		btn_optionen.setForeground(Color.BLACK);
-		btn_optionen.setBackground(new Color(245, 222, 179));
-		btn_optionen.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JDialog auswahl = new DialogOptionen2 ();
-				auswahl.setVisible(true);
-			}
-		});
-		GridBagConstraints gbc_btn_optionen = new GridBagConstraints();
-		gbc_btn_optionen.insets = new Insets(0, 0, 0, 5);
-		gbc_btn_optionen.fill = GridBagConstraints.BOTH;
-		gbc_btn_optionen.gridx = 1;
-		gbc_btn_optionen.gridy = 3;
-		panel.add(btn_optionen, gbc_btn_optionen);
-		btn_anleitung.setBackground(new Color(245, 222, 179));
-		GridBagConstraints gbc_btn_anleitung = new GridBagConstraints();
-		gbc_btn_anleitung.insets = new Insets(0, 0, 0, 5);
-		gbc_btn_anleitung.fill = GridBagConstraints.BOTH;
-		gbc_btn_anleitung.gridx = 3;
-		gbc_btn_anleitung.gridy = 3;
-		panel.add(btn_anleitung, gbc_btn_anleitung);
 	}
 	
 
