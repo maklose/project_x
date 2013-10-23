@@ -9,6 +9,7 @@ import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -80,7 +81,7 @@ public class DialogOptionen2 extends JDialog {
 			contentPanel.add(panel, BorderLayout.CENTER);
 			GridBagLayout gbl_panel = new GridBagLayout();
 			gbl_panel.columnWidths = new int[]{20, 225, 30, 0, 0, 20, 0};
-			gbl_panel.rowHeights = new int[]{20, 0, 0, 0, 0, 20, 0, 0, 0, 20, 0, 10, 0};
+			gbl_panel.rowHeights = new int[]{20, 0, 0, 0, 0, 20, 0, 0, 0, 20, 33, 0, 0};
 			gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 			panel.setLayout(gbl_panel);
@@ -190,6 +191,24 @@ public class DialogOptionen2 extends JDialog {
 				panel.add(txtSpieler2, gbc_txtSpieler2);
 				txtSpieler2.setColumns(10);
 			}
+			{;
+			}
+			JButton cancelButton = new JButton("Cancel"){
+				public void paintComponent(Graphics g){
+					g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Nein.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
+				}
+			};	
+			GridBagConstraints gbc_cancelButton = new GridBagConstraints();
+			gbc_cancelButton.insets = new Insets(0, 0, 5, 5);
+			gbc_cancelButton.gridx = 3;
+			gbc_cancelButton.gridy = 10;
+			panel.add(cancelButton, gbc_cancelButton);
+			cancelButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+				}
+			});
+			cancelButton.setActionCommand("Cancel");
 			{
 				JButton okButton = new JButton("OK"){
 					public void paintComponent(Graphics g){
@@ -197,35 +216,19 @@ public class DialogOptionen2 extends JDialog {
 					}};
 				GridBagConstraints gbc_okButton = new GridBagConstraints();
 				gbc_okButton.insets = new Insets(0, 0, 5, 5);
-				gbc_okButton.gridx = 3;
+				gbc_okButton.gridx = 4;
 				gbc_okButton.gridy = 10;
 				panel.add(okButton, gbc_okButton);
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						JFrame neuesSpiel = new Spielfeld();
+						neuesSpiel.setVisible(true);
 						//option = ...
 						dispose();
 					}
 				});
 				okButton.setActionCommand("OK");
 				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel"){
-					public void paintComponent(Graphics g){
-						g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Nein.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
-					}
-				};	;
-				GridBagConstraints gbc_cancelButton = new GridBagConstraints();
-				gbc_cancelButton.insets = new Insets(0, 0, 5, 5);
-				gbc_cancelButton.gridx = 4;
-				gbc_cancelButton.gridy = 10;
-				panel.add(cancelButton, gbc_cancelButton);
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-					}
-				});
-				cancelButton.setActionCommand("Cancel");
 			}
 		}
 	}
