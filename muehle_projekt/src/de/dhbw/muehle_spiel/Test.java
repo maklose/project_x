@@ -16,8 +16,8 @@ public class Test {
 
 	public static void main(String[] args) throws StrategieException {
 		
-		Spieler Spieler1 = new Spieler(ESpielsteinFarbe.SCHWARZ);
-		Spieler Spieler2 = new Spieler(ESpielsteinFarbe.WEISS);
+		Spieler Spieler1 = new Spieler(ESpielsteinFarbe.SCHWARZ, "Spieler1");
+		Spieler Spieler2 = new Spieler(ESpielsteinFarbe.WEISS, "Spieler2");
 //		
 		Spieler1.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Eins),0,0);
 		Spieler1.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Zwei, EPositionIndex.Eins),0,0);
