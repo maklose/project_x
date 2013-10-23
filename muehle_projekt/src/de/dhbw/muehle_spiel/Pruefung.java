@@ -205,7 +205,7 @@ public class Pruefung {
 		// Wenn Anzahl der Steine > 3 wird überprüft, ob der Aktive Spieler noch die Möglichkeit hat zu ziehen
 		if(SpielerAktiv.getAnzahlSteine() > 3)
 		{
-			for (int i = 0; i < indizes.length ; i++)
+			for (int i = 0; i < SpielerAktiv.Steine.length ; i++)
 			{			
 				for(int a = 1 ; a <= 3; a++)
 				{
@@ -246,7 +246,7 @@ public class Pruefung {
 									|| (ebene == ebene.Drei && x == x.Zwei && y == y.Zwei))
 								continue;
 							
-							ZugKorrekt = checkZug(new Bewegung(SpielerAktiv.Steine[indizes[i]].getPosition(), new Position(ebene, x, y)), 
+							ZugKorrekt = checkZug(new Bewegung(SpielerAktiv.Steine[i].getPosition(), new Position(ebene, x, y)), 
 									SpielerAktiv, SpielerPassiv);
 							
 							if(ZugKorrekt == true)
@@ -312,6 +312,108 @@ public class Pruefung {
 			return false;
 			
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		//VERSION MARVIN
+		//Überprüft, ob sich ein Stein auf dem Spielfeld in einer Mühle befindet
+		// Gibt true zurück, wenn sich der abgefragte Stein(int IndexStein) in einer Mühle befindet
+		public boolean checkInMuehle2(Bewegung neueBewegung, Spielstein[] Steine)
+		{ 
+			boolean inMuehle = false;
+			int aenderungEbene, aenderungX, aenderungY;
+			int zaehlerEbene = 0;
+			int zaehlerX = 0; 
+			int zaehlerY = 0;
+			
+			Position von = neueBewegung.getVon();
+			Position nach = neueBewegung.getNach();
+			
+			int[][] Positionen = new int[9][3];
+			
+			// Ablegen der Positionen aller Steine eines Spielers in einem Array
+			for (int i = 0; i < 9; i++){
+				if(Steine[i] != null){
+					Positionen[i][0]= Steine[i].getPosition().getEbene().getValue();
+					Positionen[i][1]= Steine[i].getPosition().getX().getValue();
+					Positionen[i][2]= Steine[i].getPosition().getY().getValue();
+					}
+			}
+			
+			for (int j =0; j <9; j++){
+				
+				aenderungEbene = 0;
+				aenderungX = 0;
+				aenderungY = 0;
+				
+				//Vergleicht die Position des betrachteten Steins(IndexStein) mit der des Steins an j-ter Stelle
+				aenderungEbene = Math.abs(Positionen[j][0] - Positionen[nach.getEbene().getValue()][0]);
+				aenderungX = Math.abs(Positionen[j][1] - Positionen[nach.getX().getValue()][1]);
+				aenderungY = Math.abs(Positionen[j][2] - Positionen[nach.getY().getValue()][2]);
+						
+				//Heraufsetzen des Zählers um 1, wenn sich nur die Ebene verändert hat
+				if ((aenderungEbene == 1 && aenderungX == 0 && aenderungY == 0)||
+					(aenderungEbene == 2 && aenderungX == 0 && aenderungY == 0))
+				{
+					zaehlerEbene ++;
+					
+					
+					// Ausschließen der Eckpositionen
+					//Sonderfälle: 1,1,3 - 2,1,3 - 3,1,3 ; 1,3,3 - 2,3,3 - 3,3,3 ; 1,3,1 - 2,3,1 - 3,3,1 ; 1,1,1 - 2,1,1 - 3,1,1
+					if	((Positionen[j][0] != Positionen[nach.getEbene().getValue()][0])&&
+									((Positionen[j][1] + Positionen[j][2] == 2)||
+									(Positionen[j][1] + Positionen[j][2] == 4)||
+									(Positionen[j][1] + Positionen[j][2] == 6)))
+					{
+						zaehlerEbene--;
+					}
+												
+				}	
+				
+				//Heraufsetzen des Zählers um 1, wenn sich nur die X-Koordinate verändert hat
+				if ((aenderungEbene == 0 && aenderungX == 1 && aenderungY == 0)||
+					(aenderungEbene == 0 && aenderungX == 2 && aenderungY == 0))
+					{
+						zaehlerX ++;
+					}
+				
+				//Heraufsetzen des Zählers um 1, wenn sich nur die Y-Koordinate verändert hat
+				if ((aenderungEbene == 0 && aenderungX == 0 && aenderungY == 1)||
+					(aenderungEbene == 0 && aenderungX == 0 && aenderungY == 2))
+						{
+							zaehlerY ++;
+						}
+				
+			}
+
+			if(zaehlerEbene == 2 || zaehlerX == 2 || zaehlerY == 2){
+					inMuehle = true;
+				}
+						
+			return inMuehle;
+		}
+		
 	
 }
 
