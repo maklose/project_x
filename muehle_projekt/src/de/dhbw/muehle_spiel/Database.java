@@ -40,6 +40,8 @@ public void anzahlzuegespeichern(Spieler spieler){
 	}
 	
 }
+
+//Befüllend er Tabelle highscore mit Beispielen
 public void testmethode_h(){
 	try {
     	statement=c.createStatement();	     
