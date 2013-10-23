@@ -50,6 +50,7 @@ ESpielsteinFarbe farbe;
 		return zug;
 	}
 
+	//Liefert alle möglichen Bewegungnen eines Spielsteins
 	public List<Bewegung> getMöglicheBewegungen(List<ISpielstein> p_SpielFeld, Spielstein lStein){
 	
 	List<Bewegung> moeglZuege = new ArrayList<Bewegung>();
@@ -108,6 +109,13 @@ ESpielsteinFarbe farbe;
 		}		
 		return moeglZuege;
 	}
+	
+	public int Bewertung(List<ISpielstein> p_SpielFeld, Bewegung bewegung){
+		int bewertung = 0;
+		
+		return bewertung;
+	}
+	
 	@Override
 	public ISpielstein entferneStein(List<ISpielstein> p_SpielFeld, ISpielzug p_LetzterSpielzug) throws StrategieException {
 		// TODO Auto-generated method stub
