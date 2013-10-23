@@ -93,7 +93,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	private String nameSpieler1; //= "default Name Spieler 1";
 	private String nameSpieler2; //= "default Name Spieler 2";
 	private String textMuehle = " hat eine Mühle!";
-	private String textNeuesSpiel = "Neues Spiel -- Stefan beginnt!";
+	private String textNeuesSpiel = "Neues Spiel - Stefan beginnt!";
 	private String textRunde2 = "Ab jetzt: Steine ziehen!";
 	private static String textSpielName = "Mühle Spiel";
 	private String textGewonnen = " hat gewonnen!!!";
@@ -963,7 +963,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 						
 						panel_1.repaint();
 						this.verschiedeneAusgaben();
-						if(Spieler2.getAnzahlZuege() == 9)
+						if(Spieler2.getAnzahlZuege() == 9 && Spieler1.getAnzahlZuege() == 9)
 							this.neueMeldung(wichtigeMeldungsZeit, textRunde2);
 						
 						//wenn duch das Mühle schlagen der passive Spieler nur noch 3 Steine hat wird die Meldung erzeugt, dass dieser jetzt springen darf
