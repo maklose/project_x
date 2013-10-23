@@ -415,7 +415,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		panel.setLayout(new MigLayout("", "[5][66.15][25][66.15][25][60][2][60][2.00][60][25][66.15][25][66.15]", "[20][66.15px][35][66.15][37.48][60][5][60][2.2][60][37.48][66.15][40.79][66.15][25]"));
 		
 		
-		//ab hier werden die ganzen knöpfe definiert und mit dem actionlistener verknüpft
+		//ab hier werden die ganzen knöpfe definiert und mit dem actionlistener verknüpft und in die Button Liste eingefügt
 		btnNewButton_1 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Drei));
 		btnNewButton_1.addActionListener(this);
 		gButtons.add(btnNewButton_1);
@@ -536,29 +536,27 @@ public class Spielfeld extends JFrame implements ActionListener {
 		gButtons.add(btnNewButton_24);
 		panel.add(btnNewButton_24, "cell 13 13,grow");
 
-
-		
+		//ab hier werden die Labels definiert die als Platzhalter zwischen den Buttons dienen
 		JLabel lblNewLabel = new JLabel("");
 		panel.add(lblNewLabel, "cell 3 1,grow");
-		
-		JLabel label = new JLabel("");
-		panel.add(label, "cell 5 1,grow");
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		panel.add(lblNewLabel_1, "cell 9 1,grow");
 		
 		JLabel lblNewLabel_2 = new JLabel("");
 		panel.add(lblNewLabel_2, "cell 11 1,grow");
+	
+		JLabel lblNewLabel_3 = new JLabel("");
+		panel.add(lblNewLabel_3, "cell 9 3,grow");
+		
+		JLabel label = new JLabel("");
+		panel.add(label, "cell 5 1,grow");
 		
 		JLabel label_1 = new JLabel("");
 		panel.add(label_1, "cell 1 3,grow");
 		
 		JLabel label_2 = new JLabel("");
 		panel.add(label_2, "cell 5 3,grow");
-		
-		
-		JLabel lblNewLabel_3 = new JLabel("");
-		panel.add(lblNewLabel_3, "cell 9 3,grow");
 		
 		JLabel label_3 = new JLabel("");
 		panel.add(label_3, "cell 13 3,grow");
@@ -574,11 +572,9 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 		JLabel label_7 = new JLabel("");
 		panel.add(label_7, "cell 13 5,grow");
-		
 
 		JLabel label_8 = new JLabel("");
 		panel.add(label_8, "cell 7 7,grow");
-		
 
 		JLabel label_9 = new JLabel("");
 		panel.add(label_9, "cell 1 9,grow");
@@ -595,17 +591,11 @@ public class Spielfeld extends JFrame implements ActionListener {
 		JLabel label_13 = new JLabel("");
 		panel.add(label_13, "cell 1 11,grow");
 		
-		
-		JLabel label_14 = new JLabel("");
-		
-		
 		JLabel label_15 = new JLabel("");
 		panel.add(label_15, "cell 9 11,grow");
 		
-		
 		JLabel label_16 = new JLabel("");
 		panel.add(label_16, "cell 13 11,grow");
-		
 		
 		JLabel label_17 = new JLabel("");
 		panel.add(label_17, "cell 3 13,grow");
@@ -613,7 +603,6 @@ public class Spielfeld extends JFrame implements ActionListener {
 		JLabel label_18 = new JLabel("");
 		panel.add(label_18, "cell 5 13,grow");
 
-		
 		JLabel label_19 = new JLabel("");
 		panel.add(label_19, "cell 9 13,grow");
 		
@@ -623,7 +612,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		panel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		
 		
-		
+		//hier wird das Panel auf der rechten seite erzeugt
 		panel_1 = new JPanel()
 		{
 			/**  
@@ -709,7 +698,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 		
 //		 db.erzeugetb("protokoll");
-		 
+		System.out.println(gButtons); 
+		
 	}
 
 	
