@@ -108,6 +108,9 @@ public class Spielfeld extends JFrame implements ActionListener {
 	//Wenn man auf einen Stein drückt um ihn zu verschieben, wird dieser Stein in dieser Variable gespeichert
 	Spielstein ausgewaehlterStein;	
 	
+	//Variable die mit true anzeigt ob das Spiel beendet ist
+	private boolean SpielBeendet = false;
+	
 	Pruefung pruef = new Pruefung();
 	
 	/**
@@ -749,7 +752,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	public void aktion(TransparentButtonFeld lButton)
 	{
 		Position PositionGeklickt = lButton.getPosition();
-		while(!this.SpielBeendet())
+		while(!SpielBeendet)
 		{
 
 			int e, x, y;
@@ -864,6 +867,11 @@ public class Spielfeld extends JFrame implements ActionListener {
 						{	
 							this.SpielsteinBewegen(neueBewegung, aktuellerSpieler, lButton);
 							this.verschiedeneAusgaben();
+							/*if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true)
+							{
+								SpielBeendet = true;
+								this.aktion(null);
+							}*/
 						}
 						else
 						{
@@ -888,6 +896,11 @@ public class Spielfeld extends JFrame implements ActionListener {
 							hatMuehle = true;
 							hatAltePosition = false;
 							panel.repaint();
+							/*if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true)
+							{
+								SpielBeendet = true;
+								this.aktion(null);
+							}*/
 							return;
 						}
 		
@@ -946,6 +959,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				}
 			}	
 		}
+		System.out.println("das Spiel ist beendet");
 	}
 
 	public void muehle(Spielstein aktuellerStein, Spieler aktuellerSpieler, Position PositionGeklickt, Bewegung neueBewegung)
@@ -1074,7 +1088,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 			return false; 
 	}
 	
-	//kleiner Test zu Spiel beendet
+	/*//kleiner Test zu Spiel beendet
 	public boolean SpielBeendet()
 	{
 		if(Spieler1.getAnzahlZuege() > 9 && Spieler1.getAnzahlSteine() < 3)
@@ -1090,7 +1104,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		else{
 			return false;
 		}
-	}
+	}*/
 	
 	public void neueMeldung(final int sekunden, final String meldung)
 	{
