@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -60,20 +61,30 @@ public class DialogOptionen2 extends JDialog {
 	 * Create the dialog.
 	 */
 	public DialogOptionen2() {
-		setBounds(100, 100, 450, 320);
+		//Fenster
+		setBounds(100, 100, 450, 340);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
-			JPanel panel = new JPanel();
+			//Hintergrundbild
+			JPanel panel = new JPanel(){  
+                public void paintComponent(Graphics g) {  
+                    Image hintergrund = Toolkit.getDefaultToolkit().getImage(  
+                              Empfangsgui2.class.getResource("/de/dhbw/images/Sicherheitsabfrage_GUI.PNG"));  
+                g.drawImage(hintergrund, 0, 0, this.getWidth(), this.getHeight(), this);  
+           }  
+         }; 
+         	//Layoutmanager
 			contentPanel.add(panel, BorderLayout.CENTER);
 			GridBagLayout gbl_panel = new GridBagLayout();
-			gbl_panel.columnWidths = new int[]{0, 225, 0, 0, 0};
-			gbl_panel.rowHeights = new int[]{20, 0, 0, 0, 0, 20, 0, 0, 0, 0};
-			gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+			gbl_panel.columnWidths = new int[]{20, 225, 30, 0, 0, 20, 0};
+			gbl_panel.rowHeights = new int[]{20, 0, 0, 0, 0, 20, 0, 0, 0, 20, 0, 10, 0};
+			gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 			panel.setLayout(gbl_panel);
+			//Aufforderung zur Wahl einer Option
 			{
 				JLabel lblOption = new JLabel("  Bitte w\u00E4hlen Sie eine Option aus.");
 				GridBagConstraints gbc_lblOption = new GridBagConstraints();
@@ -83,6 +94,7 @@ public class DialogOptionen2 extends JDialog {
 				gbc_lblOption.gridy = 1;
 				panel.add(lblOption, gbc_lblOption);
 			}
+			//Radiobuttons und Gruppierung derselben
 			{
 				JRadioButton rdbtnMgM = new JRadioButton("Mensch gegen Mensch");
 				rdbtnMgM.addActionListener(new ActionListener() {
@@ -131,7 +143,8 @@ public class DialogOptionen2 extends JDialog {
 				gbc_rdbtnCgC.gridy = 4;
 				panel.add(rdbtnCgC, gbc_rdbtnCgC);
 			}
-			{
+			//Aufforderung zur Eingabe eines Spielernamens
+			{	
 				JLabel lblNamen = new JLabel("  Geben Sie einen Namen ein.");
 				GridBagConstraints gbc_lblNamen = new GridBagConstraints();
 				gbc_lblNamen.anchor = GridBagConstraints.WEST;
@@ -140,6 +153,7 @@ public class DialogOptionen2 extends JDialog {
 				gbc_lblNamen.gridy = 6;
 				panel.add(lblNamen, gbc_lblNamen);
 			}
+			//Textfelder zur Eingabe des Spielernamens; zunächst deaktiviert
 			{
 				txtSpieler1 = new JTextField();
 				txtSpieler1.setEnabled(false);
@@ -169,20 +183,23 @@ public class DialogOptionen2 extends JDialog {
 				});
 				txtSpieler2.setText("Name von Spieler 2");
 				GridBagConstraints gbc_txtSpieler2 = new GridBagConstraints();
-				gbc_txtSpieler2.insets = new Insets(0, 0, 0, 5);
+				gbc_txtSpieler2.insets = new Insets(0, 0, 5, 5);
 				gbc_txtSpieler2.fill = GridBagConstraints.HORIZONTAL;
 				gbc_txtSpieler2.gridx = 1;
 				gbc_txtSpieler2.gridy = 8;
 				panel.add(txtSpieler2, gbc_txtSpieler2);
 				txtSpieler2.setColumns(10);
 			}
-		}
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				JButton okButton = new JButton("OK"){
+					public void paintComponent(Graphics g){
+						g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Ja.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
+					}};
+				GridBagConstraints gbc_okButton = new GridBagConstraints();
+				gbc_okButton.insets = new Insets(0, 0, 5, 5);
+				gbc_okButton.gridx = 3;
+				gbc_okButton.gridy = 10;
+				panel.add(okButton, gbc_okButton);
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						//option = ...
@@ -190,18 +207,25 @@ public class DialogOptionen2 extends JDialog {
 					}
 				});
 				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Cancel"){
+					public void paintComponent(Graphics g){
+						g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Nein.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
+					}
+				};	;
+				GridBagConstraints gbc_cancelButton = new GridBagConstraints();
+				gbc_cancelButton.insets = new Insets(0, 0, 5, 5);
+				gbc_cancelButton.gridx = 4;
+				gbc_cancelButton.gridy = 10;
+				panel.add(cancelButton, gbc_cancelButton);
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
 					}
 				});
 				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
 			}
 		}
 	}
