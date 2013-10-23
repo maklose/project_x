@@ -30,8 +30,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-import com.jgoodies.forms.layout.CellConstraints.Alignment;
-
 import net.miginfocom.swing.MigLayout;
 
 public class Spielfeld extends JFrame implements ActionListener {
@@ -65,20 +63,16 @@ public class Spielfeld extends JFrame implements ActionListener {
 	private JMenuItem mntmNeuesSpiel;
 	private JMenuItem mntmAnleitung;
 	private JPanel panel_1;
-	private JLabel lblNewLabel_4;
-	private JLabel lblNewLabel_5;
+
 	
 	//xPos und yPos sind die reellen Positionen auf dem Feld, 
 	//anzahlRunden zählt die Anzahl der Runden
 	int xPos, yPos, anzahlRunden;
 	int zaehler1 = 1;
 	int zaehler2 = 0;
-	
-	private boolean rundeVorbei = false;
+
 	
 	private boolean hatMuehle = false;
-	
-	private boolean wurdeBewegt = false;
 	
 	private Spieler aktuellerSpieler, passiverSpieler;
 	
@@ -86,16 +80,12 @@ public class Spielfeld extends JFrame implements ActionListener {
 	
 	//static Database db = new Database();
 	
-	private boolean neuesSpielFlag = false;
-	
-	private boolean FlagRunde2 = false;
-	
 	private boolean SteinKannGeloeschtWerden = true;
 	
-	private String textSpielerWechsel = " ist dran!";
 	private String textMuehle = " hat eine Mühle!";
 	private String textNeuesSpiel = "Neues Spiel -- Weiss beginnt!";
 	private String textRunde2 = "Ab jetzt: Steine ziehen!";
+	private static String textSpielName = "Mühle Spiel";
 	
 	private int meldungsZeit = 1;
 	private int wichtigeMeldungsZeit = 2;
@@ -116,9 +106,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	int entfernteSteineWeiss, entfernteSteineSchwarz = 0;
 	
 	//Wenn man auf einen Stein drückt um ihn zu verschieben, wird dieser Stein in dieser Variable gespeichert
-	Spielstein ausgewaehlterStein;
-	
-	
+	Spielstein ausgewaehlterStein;	
 	
 	Pruefung pruef = new Pruefung();
 	
@@ -187,7 +175,13 @@ public class Spielfeld extends JFrame implements ActionListener {
 	 */
 	public Spielfeld() 
 	{
-		setBounds(20,0,900,700);		//800,0,1200,900
+		//Name der in dem Fenster angezeigt wird
+		super(textSpielName);
+		
+		//Fenster fixieren
+		setResizable(false);
+		
+		setBounds(20,20,900,700);		//800,0,1200,900
 		
 		//das Bild für den weißen und schwarzen Stein wird geladen
 		final Image SteinWeiss = Toolkit.getDefaultToolkit().getImage(  
@@ -207,6 +201,19 @@ public class Spielfeld extends JFrame implements ActionListener {
 		mnNewMenu = new JMenu("Men\u00FC");
 		menuBar.add(mnNewMenu);
 		
+		//Menüleiste Neues Spiel
+		mntmNeuesSpiel = new JMenuItem("Neues Spiel");
+		mntmNeuesSpiel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+//				db.löschetb("protokoll");
+				dispose();
+				JFrame neuesSpiel = new Spielfeld();
+				neuesSpiel.setVisible(true);
+			}
+		});
+		mnNewMenu.add(mntmNeuesSpiel);
+		
+		//Menüleiste Spiel Beenden
 		mntmSpielBeenden = new JMenuItem("Spiel beenden");
 		mntmSpielBeenden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -233,21 +240,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		});
 		mnNewMenu.add(mntmSpielBeenden);
 		
-		mntmNeuesSpiel = new JMenuItem("neues Spiel");
-		mntmNeuesSpiel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-//				db.löschetb("protokoll");
-				dispose();
-				JFrame neuesSpiel = new Spielfeld();
-				neuesSpiel.setVisible(true);
-			}
-		});
-		
-		
-			
-		
-		mnNewMenu.add(mntmNeuesSpiel);
-		
+		//Menüleiste Anleitung
 		mntmAnleitung = new JMenuItem("Anleitung");
 		mntmAnleitung.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
@@ -981,11 +974,6 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 		
 		panel.repaint();
-		if(aktuellerSpieler == Spieler2)
-		{
-			//anzahlRunden++;
-			rundeVorbei = false;
-		}
 		hatMuehle = false;
 		
 //		db.zugspeichern(neueBewegung, aktuellerSpieler, true, zuLoeschenderStein);
