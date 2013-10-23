@@ -241,8 +241,13 @@ public class Pruefung {
 							if(c == 3){
 								y = y.Drei;
 							}
+							if((ebene == ebene.Eins && x == x.Zwei && y == y.Zwei) 
+									|| (ebene == ebene.Zwei && x == x.Zwei && y == y.Zwei)
+									|| (ebene == ebene.Drei && x == x.Zwei && y == y.Zwei))
+								continue;
+							
 							ZugKorrekt = checkZug(new Bewegung(SpielerAktiv.Steine[indizes[i]].getPosition(), new Position(ebene, x, y)), 
-											SpielerAktiv, SpielerPassiv);
+									SpielerAktiv, SpielerPassiv);
 							
 							if(ZugKorrekt == true)
 								return false;
