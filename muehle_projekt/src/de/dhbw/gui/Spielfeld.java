@@ -30,6 +30,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import com.jgoodies.forms.layout.CellConstraints.Alignment;
+
 import net.miginfocom.swing.MigLayout;
 
 public class Spielfeld extends JFrame implements ActionListener {
@@ -112,6 +114,9 @@ public class Spielfeld extends JFrame implements ActionListener {
 	
 	//variablen die mitzählen wie viel Steine von dem jeweiligen Spieler wegen Mühlen vom Spielfeld entfernt wurden
 	int entfernteSteineWeiss, entfernteSteineSchwarz = 0;
+	
+	//Wenn man auf einen Stein drückt um ihn zu verschieben, wird dieser Stein in dieser Variable gespeichert
+	Spielstein ausgewaehlterStein;
 	
 	Pruefung pruef = new Pruefung();
 	
@@ -289,39 +294,42 @@ public class Spielfeld extends JFrame implements ActionListener {
                 				int breite = (int) ((int)spielfeld.getWidth(this)/6);
                 				int hoehe = (int) ((int)spielfeld.getHeight(this)/6);
                 				
-	                			if(aktuellerStein.FarbVergleich(ESpielsteinFarbe.WEISS))
-	                			{
-	                				/*
-	                				 * hier läuft das ab wenn auf einem Spielfeld ein weißer stein steht 
-	                				 */
-	                				
-	                				if(!hatAltePosition && !hatMuehle)
-	                					g.drawImage(SteinWeiss,  xPosi , yPosi , breite, hoehe, this);
-	                				else
-	                				{
-	                					if(hatMuehle && aktuellerSpieler.equals(Spieler2) && !pruef.checkInMuehle(aktuellerStein.getIndex(), Spieler1.Steine))
-	                						g.drawImage(SteinWeiss,  xPosi , yPosi , breite+6, hoehe+6, this);
-	                					else
-	                						g.drawImage(transparentSteinWeiss,  xPosi , yPosi , breite, hoehe, this);
-	                				
-	                				}
-	                			}
-	                			else 
-	                			{
-	                				/*
-	                				 * hier läuft das ab wenn auf einem Spielfeld ein weißer stein steht 
-	                				 */
-	                				
-	                				if(!hatAltePosition && !hatMuehle)
-	                					g.drawImage(SteinSchwarz,  xPosi , yPosi , breite-4, hoehe-4, this);
-	                				else
-	                				{
-	                					if(hatMuehle && aktuellerSpieler.equals(Spieler1) && !pruef.checkInMuehle(aktuellerStein.getIndex(), Spieler2.Steine))
-	                						g.drawImage(SteinSchwarz,  xPosi , yPosi , breite+2, hoehe+2, this);
-	                					else
-	                						g.drawImage(transparentSteinSchwarz,  xPosi , yPosi , breite-4, hoehe-4, this);
-	                				}
-	                			}
+                				
+                				if(aktuellerStein != ausgewaehlterStein)
+                				{	
+		                			if(aktuellerStein.FarbVergleich(ESpielsteinFarbe.WEISS))
+		                			{
+		                				/*
+		                				 * hier läuft das ab wenn auf einem Spielfeld ein weißer stein steht 
+		                				 */
+		                				
+		                				if(!hatAltePosition && !hatMuehle)
+		                					g.drawImage(SteinWeiss,  xPosi , yPosi , breite, hoehe, this);
+		                				else
+		                				{
+		                					if(hatMuehle && aktuellerSpieler.equals(Spieler2) && !pruef.checkInMuehle(aktuellerStein.getIndex(), Spieler1.Steine))
+		                						g.drawImage(SteinWeiss,  xPosi , yPosi , breite+6, hoehe+6, this);
+		                					else
+		                						g.drawImage(transparentSteinWeiss,  xPosi , yPosi , breite, hoehe, this);
+		                				}
+		                			}
+		                			else 
+		                			{
+		                				/*
+		                				 * hier läuft das ab wenn auf einem Spielfeld ein weißer stein steht 
+		                				 */
+		                				
+		                				if(!hatAltePosition && !hatMuehle)
+		                					g.drawImage(SteinSchwarz,  xPosi , yPosi , breite-4, hoehe-4, this);
+		                				else
+		                				{
+		                					if(hatMuehle && aktuellerSpieler.equals(Spieler1) && !pruef.checkInMuehle(aktuellerStein.getIndex(), Spieler2.Steine))
+		                						g.drawImage(SteinSchwarz,  xPosi , yPosi , breite+2, hoehe+2, this);
+		                					else
+		                						g.drawImage(transparentSteinSchwarz,  xPosi , yPosi , breite-4, hoehe-4, this);
+		                				}
+		                			}
+                				}
 	                			
                 			}
                 			else
@@ -537,6 +545,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 		panel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		
+		
+		
 		panel_1 = new JPanel()
 		{
 			/**  
@@ -585,25 +595,43 @@ public class Spielfeld extends JFrame implements ActionListener {
 				
 				//Zeichnet in das mittlere Feld einen Stein der aktuellen Farbe
 				if(Spieler1.getAnzahlSteine()==0)
-					g.drawImage(SteinWeiss,  xPosMitte + 30, yPosMitte + 10 , breite+50, hoehe+50, this);
+					g.drawImage(SteinWeiss,  xPosMitte + 40, yPosMitte + 10 , breite+50, hoehe+50, this);
 				else
 				{
 					if(aktuellerSpieler == Spieler2)
-						g.drawImage(SteinWeiss,  xPosMitte + 30, yPosMitte + 10 , breite+50, hoehe+50, this);
+						g.drawImage(SteinWeiss,  xPosMitte + 40, yPosMitte + 10 , breite+50, hoehe+50, this);
 					else
-						g.drawImage(SteinSchwarz,  xPosMitte + 30, yPosMitte + 10 , breite+43, hoehe+43, this);
+						g.drawImage(SteinSchwarz,  xPosMitte + 40, yPosMitte + 10 , breite+43, hoehe+43, this);
 				}
 				//Rundenanzeige
 				g.drawString("Runde " + (anzahlRunden+1), xPosMitte+15, yPosMitte+140);
 			}
 		};
+		
+		/*panel_1.setLayout(new MigLayout("", "[300]", "[225][227][225]"));
+		
+		JLabel labelSpieler1 = new JLabel("Spieler 1: ");
+		labelSpieler1.setFont(new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 30));
+		labelSpieler1.setText("Hallo das hier ist der Text");
+		labelSpieler1.setVisible(true);
+		panel_1.add(labelSpieler1, "cell 0 0,grow");
+		
+		JLabel labelMitte = new JLabel("Mitte: ");
+		panel_1.add(labelMitte, "cell 0 1,grow");
+		
+		JLabel labelSpieler2 = new JLabel("Spieler 2: ");
+		panel_1.add(labelSpieler2, "cell 0 2,grow");*/
+		
+		
+		
+		
 		contentPane.setLayout(new MigLayout("", "[664.94px]0[300px]", "[677px]"));
 		contentPane.add(panel, "cell 0 0,alignx left,aligny top");
 		contentPane.add(panel_1, "cell 1 0,grow");
 		
 		
 		
-//		 db.erzeuge_p();
+//		 db.erzeugetb("protokoll");
 		 
 	}
 
@@ -820,6 +848,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 							{
 								altePosition = PositionGeklickt;
 								hatAltePosition = true;
+								ausgewaehlterStein = aktuellerStein;
 								panel.repaint();
 								return;
 							}
@@ -838,6 +867,9 @@ public class Spielfeld extends JFrame implements ActionListener {
 					
 					else 		//hier der Fall wenn die alte Position bereits abgespeichert wurde
 					{
+						//den ausgewaehlten Stein wieder zurücksetzen
+						ausgewaehlterStein = null;
+						
 						//neue Bewegung erstellen
 						neueBewegung = new Bewegung(altePosition, PositionGeklickt);
 						System.out.println(neueBewegung);
