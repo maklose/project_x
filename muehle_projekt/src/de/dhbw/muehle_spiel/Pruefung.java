@@ -44,7 +44,7 @@ public class Pruefung {
 	public boolean checkZug (Bewegung bewegung, Spieler SpielerAktiv, Spieler SpielerPassiv ){
 	
 		
-	boolean korrekt = true;			//test marvin
+	boolean korrekt = false;			
 	int aenderung = 0;
 	int vonEbene, vonX, vonY, nachEbene, nachX, nachY;
 	
