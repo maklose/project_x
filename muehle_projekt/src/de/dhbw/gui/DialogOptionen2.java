@@ -45,6 +45,9 @@ public class DialogOptionen2 extends JDialog {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JTextField txtSpieler1;
 	private JTextField txtSpieler2;
+	private int i;
+	private String name1;
+	private String name2;
 
 	/**
 	 * Launch the application.
@@ -106,6 +109,7 @@ public class DialogOptionen2 extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						txtSpieler1.setEnabled(true);
 						txtSpieler2.setEnabled(true);
+						i=0;
 					}
 				});
 				buttonGroup.add(rdbtnMgM);
@@ -125,6 +129,7 @@ public class DialogOptionen2 extends JDialog {
 					public void actionPerformed(ActionEvent arg0) {
 						txtSpieler1.setEnabled(true);
 						txtSpieler2.setEnabled(false);
+						i=1;
 					}
 				});
 				buttonGroup.add(rdbtnMgC);
@@ -163,6 +168,8 @@ public class DialogOptionen2 extends JDialog {
 				gbc_txtSpieler1.gridy = 6;
 				panel.add(txtSpieler1, gbc_txtSpieler1);
 				txtSpieler1.setColumns(10);
+				name1=txtSpieler1.getText();
+				name2=txtSpieler2.getText();
 			}
 			{
 				txtSpieler2 = new JTextField();
@@ -181,6 +188,7 @@ public class DialogOptionen2 extends JDialog {
 				gbc_txtSpieler2.gridy = 7;
 				panel.add(txtSpieler2, gbc_txtSpieler2);
 				txtSpieler2.setColumns(10);
+				name1=txtSpieler1.getText();
 			}
 			{;
 			}
@@ -248,8 +256,7 @@ public class DialogOptionen2 extends JDialog {
 				panel.add(okButton, gbc_okButton);
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						//JFrame neuesSpiel = new Spielfeld(name1, );
-						//neuesSpiel.setVisible(true);
+						pruefeAuswahl();
 						dispose();
 					}
 				});
@@ -257,5 +264,24 @@ public class DialogOptionen2 extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 		}
+	}
+	private void pruefeAuswahl() {
+		if (buttonGroup.isSelected(null)==true) { // null?
+			System.out.println("nix ausgewählt");			
+		}
+		if (/*(.isSelected(null)==true) &&*/ (txtSpieler1.getText()=="Name von Spieler 1")||(txtSpieler2.getText()=="Name von Spieler 2")){ //problem inhalt wird erst bei focussieren gelöscht
+			System.out.println("kein name eingegeben");
+			//name standardmäßig auf Spieler 1 und Spieler 2 setzen?
+		}
+		if (/*(.isSelected(null)==true) &&*/ (txtSpieler1.getText()=="Name von Spieler 1")) {
+			System.out.println("kein name eingegeben");
+			//s.o.
+		}
+		//schwierigkeitsstufe muss eig. nicht abgefragt werden, da 1 voreingestellt
+		else{
+			JFrame neuesSpiel = new Spielfeld(name1, name2, i);
+			neuesSpiel.setVisible(true);
+		}
+		
 	}
 }
