@@ -56,7 +56,12 @@ public class Spielfeld extends JFrame implements ActionListener {
 	
 	JPanel panel;
 	
+	//Array mit den Steinen die aktuell auf dem Spielfeld stehen an der Position im Array
 	Spielstein[][][] SpielfeldArray = new Spielstein[3][3][3];
+	
+	//Array mit den Indizes der Steine die man aktuell auf dem Spielfeld hat
+	int[] Indizes = new int[9];
+	
 	private JMenuBar menuBar;
 	private JMenu mnNewMenu;
 	private JMenuItem mntmSpielBeenden;
@@ -867,11 +872,12 @@ public class Spielfeld extends JFrame implements ActionListener {
 						{	
 							this.SpielsteinBewegen(neueBewegung, aktuellerSpieler, lButton);
 							this.verschiedeneAusgaben();
-							/*if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true)
+							this.createArrayEigenerIndeizes(aktuellerSpieler);
+							if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler, Indizes) == true)
 							{
 								SpielBeendet = true;
-								this.aktion(null);
-							}*/
+								this.aktion(btnNewButton_1);
+							}
 						}
 						else
 						{
@@ -896,11 +902,13 @@ public class Spielfeld extends JFrame implements ActionListener {
 							hatMuehle = true;
 							hatAltePosition = false;
 							panel.repaint();
-							/*if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true)
+							this.createArrayEigenerIndeizes(aktuellerSpieler);
+							if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler, Indizes) == true 
+									|| passiverSpieler.getAnzahlSteine() == 3)
 							{
 								SpielBeendet = true;
-								this.aktion(null);
-							}*/
+								this.aktion(btnNewButton_1);
+							}
 							return;
 						}
 		
@@ -1142,6 +1150,30 @@ public class Spielfeld extends JFrame implements ActionListener {
 		System.out.println("Spieler2: " + Spieler2.getAnzahlZuege() + " Züge, " + Spieler2.getAnzahlSteine() + " Steine ||  Anzahl Runden: " + anzahlRunden); 
 		System.out.println("Zug Beendet ----------------------------------------------------------------------------");
 			
+	}
+	
+	public void createArrayEigenerIndeizes(Spieler aktuellerSpieler)
+	{
+		int zaehler = 0;
+		for(int i = 0; i <= 2; i++)
+        {
+        	for(int j = 0; j <= 2; j++)
+        	{
+        		for(int k = 0; k <= 2; k++)
+        		{
+        			if(SpielfeldArray[i][j][k] != null)
+        			{
+            			Spielstein aktuellerStein = SpielfeldArray[i][j][k];
+            			if(aktuellerStein.getFarbe() == aktuellerSpieler.getSpielerfarbe())
+            			{
+            				Indizes[zaehler] = aktuellerStein.getIndex();
+            				zaehler++;
+            			}
+            				
+        			}
+        		}
+        	}
+        }
 	}
 
 		

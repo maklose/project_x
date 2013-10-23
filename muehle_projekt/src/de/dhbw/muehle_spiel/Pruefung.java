@@ -192,9 +192,9 @@ public class Pruefung {
 				
 	// Überprüft, ob das Spiel beendet ist, weil SpielerAktiv keine Möglichkeit mehr hat zu ziehen, oder weniger als 3 Steine hat
 	// Gibt true zurück, wenn das Spiel beendet ist und false wenn das Spiel noch nicht beendet ist
-	public boolean checkSpielBeendet(Spieler SpielerAktiv, Spieler SpielerPassiv){
+	public boolean checkSpielBeendet(Spieler SpielerAktiv, Spieler SpielerPassiv, int[] indizes)
+	{
 		
-		boolean SpielBeendet = true;
 		boolean ZugKorrekt = false;
 		
 		EPositionIndex ebene = null;
@@ -205,9 +205,9 @@ public class Pruefung {
 		// Wenn Anzahl der Steine > 3 wird überprüft, ob der Aktive Spieler noch die Möglichkeit hat zu ziehen
 		if(SpielerAktiv.getAnzahlSteine() > 3)
 		{
-		for (int i = 0; i <9 ; i++){
-			
-			for(int a = 1 ; a <= 3; a++)
+			for (int i = 0; i < indizes.length ; i++)
+			{			
+				for(int a = 1 ; a <= 3; a++)
 				{
 					if(a == 1){
 						ebene = ebene.Eins;
@@ -221,47 +221,46 @@ public class Pruefung {
 					
 					for(int b = 1; b <= 3; b++)
 					{
-							if(b == 1){
-								x = x.Eins;
-								}
-							if(b == 2){
-								x = x.Zwei;
-								}
-							if(b == 3){
-								x = x.Drei;
-								
-							for(int c = 1; c <= 3; c++)
-								{
-									if(c == 1){
-										y = y.Eins;
-										}
-									if(c == 2){
-										y = y.Zwei;
-										}
-									if(c == 3){
-										y = y.Drei;
-									
-									ZugKorrekt = checkZug(new Bewegung(SpielerAktiv.Steine[i].getPosition(), new Position(ebene, x, y)), 
-													SpielerAktiv, SpielerPassiv);
-									
-									if(ZugKorrekt == true){
-										return false;
-									}
-									
-								}
+						if(b == 1){
+							x = x.Eins;
 							}
+						if(b == 2){
+							x = x.Zwei;
+							}
+						if(b == 3){
+							x = x.Drei;
+						}
+						for(int c = 1; c <= 3; c++)
+						{
+							if(c == 1){
+								y = y.Eins;
+								}
+							if(c == 2){
+								y = y.Zwei;
+								}
+							if(c == 3){
+								y = y.Drei;
+							}
+							ZugKorrekt = checkZug(new Bewegung(SpielerAktiv.Steine[indizes[i]].getPosition(), new Position(ebene, x, y)), 
+											SpielerAktiv, SpielerPassiv);
+							
+							if(ZugKorrekt == true)
+								return false;
+								
 						}
 					}
-			 	
 				}
-			}
+			}	 	
+		}
+		else if(SpielerAktiv.getAnzahlSteine() == 3)
+		{
+			return false;
 		}
 		else
 		{
 			return true;
 		}
-			
-	return SpielBeendet;
+		return false;
 	}
 
 	// Überprüft, ob eine Position auf dem Spielfeld bereits besetzt ist
