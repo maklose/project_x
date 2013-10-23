@@ -12,12 +12,19 @@ private EPhase Phase; //Spielphase, in der sich der Spieler befindet
 
 public Spielstein[] Steine = new Spielstein[9]; //Array, in dem alle Spielsteine eines Spielers abgelegt werden
 
+String name;
+
 //Konstruktor, Erzeugung eines neuen Spielers unter Angabe der Spielerfarbe
-public Spieler (ESpielsteinFarbe lSpielerfarbe)
+public Spieler (ESpielsteinFarbe lSpielerfarbe, String lName)
 {
 	Spielerfarbe = lSpielerfarbe;
 	AnzahlZuege = 0;
 	AnzahlSteine =0;
+	name = lName;
+}
+
+public String getName() {
+	return name;
 }
 
 //Liefert die Phase, in der sich ein Spieler befindet

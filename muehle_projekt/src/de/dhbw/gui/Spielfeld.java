@@ -50,8 +50,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 							btnNewButton_41, btnNewButton_43, btnNewButton_46, btnNewButton_49;
 	
 	//Die Spieler werden initialisiert 
-	Spieler Spieler1 = new Spieler(ESpielsteinFarbe.WEISS);
-	Spieler Spieler2 = new Spieler(ESpielsteinFarbe.SCHWARZ); 
+	Spieler Spieler1;
+	Spieler Spieler2;
 
 	
 	JPanel panel;
@@ -87,10 +87,13 @@ public class Spielfeld extends JFrame implements ActionListener {
 	
 	private boolean SteinKannGeloeschtWerden = true;
 	
-	private String nameSpieler1 = "Weisser Spieler";
-	private String nameSpieler2 = "Schwarzer Spieler";
+	//Mode des Spiels 1 = mensch gg mensch; 2 = mensch gg pc
+	private int mode = 1;
+	
+	private String nameSpieler1; //= "default Name Spieler 1";
+	private String nameSpieler2; //= "default Name Spieler 2";
 	private String textMuehle = " hat eine Mühle!";
-	private String textNeuesSpiel = "Neues Spiel -- " + nameSpieler1 + " beginnt!";
+	private String textNeuesSpiel = "Neues Spiel -- Stefan beginnt!";
 	private String textRunde2 = "Ab jetzt: Steine ziehen!";
 	private static String textSpielName = "Mühle Spiel";
 	private String textGewonnen = " hat gewonnen!!!";
@@ -134,7 +137,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 			{
 				try 
 				{
-					Spielfeld frame = new Spielfeld();
+					Spielfeld frame = new Spielfeld("Stefan", "Georg", 1);
 					frame.addWindowListener(new WindowAdapter() {
 											public void windowClosing(WindowEvent evt) {
 											exitForm(evt);}});
@@ -185,11 +188,18 @@ public class Spielfeld extends JFrame implements ActionListener {
 	 * Das JPanel wird erzeugt
 	 * Die Buttons werden instanziiert und mit dem action listener verknüpft
 	 */
-	public Spielfeld() 
+	public Spielfeld(String Spieler1Name, String Spieler2Name, int lmode) 
 	{
 		//Name der in dem Fenster angezeigt wird
 		super(textSpielName);
+
+		final String nameSpieler1 = Spieler1Name;
+		final String nameSpieler2 = Spieler2Name;
+		mode = lmode;
 		
+		Spieler1 = new Spieler(ESpielsteinFarbe.WEISS, nameSpieler1);
+		Spieler2 = new Spieler(ESpielsteinFarbe.SCHWARZ, nameSpieler2); 
+
 		//Fenster fixieren
 		setResizable(false);
 		
@@ -219,7 +229,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 //				db.löschetb("protokoll");
 				dispose();
-				JFrame neuesSpiel = new Spielfeld();
+				JFrame neuesSpiel = new Spielfeld(nameSpieler1, nameSpieler2, mode);
 				neuesSpiel.setVisible(true);
 			}
 		});
@@ -579,8 +589,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 				int hoehe = panel.getWidth()/8;
 				
 				//Beschriftung der Felder
-				g.drawString("Spieler1: ", xPosOben+15, yPosOben+35);
-				g.drawString("Spieler2: ", xPosUnten+15, yPosUnten+42);
+				g.drawString(nameSpieler1 + ": ", xPosOben+15, yPosOben+35);
+				g.drawString(nameSpieler2 + ": ", xPosUnten+15, yPosUnten+42);
 				
 				//Zeichnet die noch vorhandenen Steine des Spielers
 				for(int i = 0; i < (9-Spieler1.getAnzahlSteine()-entfernteSteineWeiss); i++)
@@ -806,7 +816,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 					//Steht der Stein in einer Mühle
 					if(pruef.checkInMuehle(anzahlRunden, aktuellerSpieler.Steine))
 					{
-						this.neueMeldung(meldungsZeit, aktuellerSpieler.SpielsteinFarbeAsString() + textMuehle);
+						this.neueMeldung(meldungsZeit, aktuellerSpieler.getName() + textMuehle);
 						System.out.println(aktuellerSpieler.SpielsteinFarbeAsString() + textMuehle);
 						System.out.println("Alle gegnerischen Steine stehen in einer Mühle: " + this.alleGegnerSteineInMühle(passiverSpieler));
 						
@@ -958,14 +968,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 						
 						//wenn duch das Mühle schlagen der passive Spieler nur noch 3 Steine hat wird die Meldung erzeugt, dass dieser jetzt springen darf
 						if(passiverSpieler.getAnzahlSteine() == 3 && passiverSpieler.getAnzahlZuege() > 9)
-							if(aktuellerSpieler == Spieler1)
-							{
-								this.neueMeldung(wichtigeMeldungsZeit, nameSpieler2 + textDarfSpringen);
-							}
-							else
-							{
-								this.neueMeldung(wichtigeMeldungsZeit, nameSpieler1 + textDarfSpringen);
-							}
+							this.neueMeldung(wichtigeMeldungsZeit, aktuellerSpieler.getName() + textDarfSpringen);
+							
 						return;
 					}
 					else //der Spieler hat auf einen seiner eigenen Steine gedrückt
@@ -980,16 +984,10 @@ public class Spielfeld extends JFrame implements ActionListener {
 				}
 			}	
 		}
-		if(aktuellerSpieler == Spieler1)
-		{
-			this.neueMeldung(wichtigeMeldungsZeit, nameSpieler1 + textGewonnen);
-			System.out.println("Spieler 1 hat gewonnen");
-		}
-		else
-		{
-			this.neueMeldung(wichtigeMeldungsZeit, nameSpieler2 + textGewonnen);
-			System.out.println("Spieler 2 hat gewonnen");
-		}	
+		
+		this.neueMeldung(wichtigeMeldungsZeit, aktuellerSpieler.getName() + textGewonnen);
+		System.out.println("Spieler beendet!");
+		
 	}	
 
 	public void muehle(Spielstein aktuellerStein, Spieler aktuellerSpieler, Position PositionGeklickt, Bewegung neueBewegung)
