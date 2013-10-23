@@ -137,7 +137,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 											public void windowClosing(WindowEvent evt) {
 											exitForm(evt);}});
 					frame.setVisible(true);
-					 this.neueMeldung(frame.meldungsZeit, frame.textNeuesSpiel, frame);
+					 this.neueMeldung(frame.wichtigeMeldungsZeit, frame.textNeuesSpiel, frame);
 				} catch (Exception e) 
 				{
 					e.printStackTrace();
@@ -148,8 +148,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 			{
 				//hier wird die Position festgelegt wo die meldung erscheinen soll
 				Point pos = frame.panel.getLocationOnScreen();
-				final int xPos = (int)(pos.getX() + frame.panel.getWidth()/2 - 225);
-				final int yPos = (int)pos.getY();
+				final int xPos = (int)(pos.getX() + frame.panel.getWidth()/2 - 205);
+				final int yPos = (int)pos.getY()+200;
 				new Thread() 
 				{
 				      { 
@@ -816,21 +816,6 @@ public class Spielfeld extends JFrame implements ActionListener {
 					//neu zeichnen
 					panel.repaint();
 					panel_1.repaint();
-				
-					
-					
-					
-					if(!FlagRunde2 && Spieler2.getAnzahlZuege() == 9)
-					{
-						this.neueMeldung(wichtigeMeldungsZeit, textRunde2 + " -- " + passiverSpieler.SpielsteinFarbeAsString() + textSpielerWechsel);
-						FlagRunde2 = true;
-					}
-					else
-					{
-						this.neueMeldung(meldungsZeit, passiverSpieler.SpielsteinFarbeAsString() + textSpielerWechsel);
-						this.verschiedeneAusgaben();
-					}
-					
 					return;
 				}				
 		
@@ -908,7 +893,6 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 						if(aktuellerSpieler == Spieler2)
 							anzahlRunden++;
-						this.neueMeldung(meldungsZeit, passiverSpieler.SpielsteinFarbeAsString() + textSpielerWechsel);
 						this.verschiedeneAusgaben();
 						
 						panel.repaint();
@@ -930,14 +914,13 @@ public class Spielfeld extends JFrame implements ActionListener {
 						this.muehle(aktuellerStein, aktuellerSpieler, PositionGeklickt, neueBewegung);
 						if(!SteinKannGeloeschtWerden && passiverSpieler.getPhase()!=EPhase.Springen)	 	//g			
 						{
-							this.neueMeldung(meldungsZeit, "Dieser Stein steht in einer Mühle!");
+							System.out.println("Dieser Stein steht in einer Mühle, und kann daher nicht gelöscht werden!");
 							SteinKannGeloeschtWerden = true;
 							return;
 						}
 						else
 							
 
-						this.neueMeldung(meldungsZeit, passiverSpieler.SpielsteinFarbeAsString() + " ist dran!");
 						if(aktuellerSpieler == Spieler2)
 						{
 							anzahlRunden++;
@@ -1083,10 +1066,11 @@ public class Spielfeld extends JFrame implements ActionListener {
 	{
 		//hier wird die Position festgelegt wo die meldung erscheinen soll
 		Point pos = panel.getLocationOnScreen();
-		xPos = (int)pos.getX() +  panel.getWidth()/2 - 225;
-		yPos = (int)pos.getY();
+		xPos = (int)pos.getX() +  panel.getWidth()/2 - 205;
+		yPos = (int)pos.getY() + 200;
 		
 		
+	
 		new Thread() 
 		{
 		      { 
