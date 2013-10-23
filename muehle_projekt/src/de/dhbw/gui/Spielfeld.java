@@ -732,9 +732,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 			{
 				
 			}
-			
 		}
-		
 	}
 		
 	
@@ -884,6 +882,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 						
 						if(pruef.checkInMuehle(aktuellerStein1.getIndex() , aktuellerSpieler.Steine))
 						{
+							if(!pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler, Indizes) == true 
+									& passiverSpieler.getAnzahlSteine() != 3)
 							this.neueMeldung(meldungsZeit, aktuellerSpieler.SpielsteinFarbeAsString() + textMuehle);
 							this.verschiedeneAusgaben();
 							
@@ -942,7 +942,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 						
 						//wenn duch das Mühle schlagen der passive Spieler nur noch 3 Steine hat wird die Meldung erzeugt, dass dieser jetzt springen darf
 						if(passiverSpieler.getAnzahlSteine() == 3 && passiverSpieler.getAnzahlZuege() > 9)
-							this.neueMeldung(wichtigeMeldungsZeit, aktuellerSpieler.getName() + textDarfSpringen);
+							this.neueMeldung(wichtigeMeldungsZeit, passiverSpieler.getName() + textDarfSpringen);
 							
 						return;
 					}
@@ -958,7 +958,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				}
 			}	
 		}
-		
+		//ab hier der code wenn das Spiel beendet wurde
 		this.neueMeldung(wichtigeMeldungsZeit, aktuellerSpieler.getName() + textGewonnen);
 		System.out.println("Spieler beendet!");
 		
