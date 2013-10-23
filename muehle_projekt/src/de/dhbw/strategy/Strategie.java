@@ -39,7 +39,8 @@ ESpielsteinFarbe farbe;
 	public ISpielzug bewegeStein(List<ISpielstein> p_SpielFeld) throws StrategieException {
 		Spielzug zug;
 		if(anzahlZuege < 9){
-			// setzen eines Steins
+			
+			
 			
 			
 		}
@@ -110,11 +111,21 @@ ESpielsteinFarbe farbe;
 		return moeglZuege;
 	}
 	
-	public int Bewertung(List<ISpielstein> p_SpielFeld, Bewegung bewegung){
-		int bewertung = 0;
+	// Liefert die Bewertung eines Spielzugs
+	private double Bewertung(List<ISpielstein> p_SpielFeld, Bewegung bewegung){
+		double bewertung = 0;
 		
 		return bewertung;
 	}
+	private double max (int tiefe){
+		
+		
+	}
+	
+	private double min (int tiefe){
+		
+	}
+	
 	
 	@Override
 	public ISpielstein entferneStein(List<ISpielstein> p_SpielFeld, ISpielzug p_LetzterSpielzug) throws StrategieException {
