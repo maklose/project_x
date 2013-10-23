@@ -40,6 +40,28 @@ public void anzahlzuegespeichern(Spieler spieler){
 	}
 	
 }
+public void testmethode_h(){
+	try {
+    	statement=c.createStatement();	     
+    	String create="INSERT INTO highscore (Spielername, Züge) VALUES('Peter',1)";
+    	String create1="INSERT INTO highscore (Spielername, Züge) VALUES('Stefan',2)";
+    	String create2="INSERT INTO highscore (Spielername, Züge) VALUES('Axel',3)";
+    	String create3="INSERT INTO highscore (Spielername, Züge) VALUES('Lisa',3)";
+    	String create4="INSERT INTO highscore (Spielername, Züge) VALUES('Jennifer',4)";
+    	
+	    statement.executeUpdate(create);
+	    statement.executeUpdate(create1);
+	    statement.executeUpdate(create2);
+	    statement.executeUpdate(create3);
+	    statement.executeUpdate(create4);
+	    
+	    System.out.println("Die Werte wurden übertragen");	    		  		    
+	    } 
+	catch ( Exception e ) {
+	    	System.err.println(e.getMessage());
+	        System.exit(0);
+	}
+}
 //Speichern der ersten 10 Züge, Spielernamen in ein 2-dimensionales Array
 public String[][] zeige_h(){
 	String [][] highscore=new String[10][2];
@@ -49,16 +71,19 @@ public String[][] zeige_h(){
 			String ausgabe=("SELECT Züge, Spielername FROM highscore ORDER BY Züge ASC");
 			ResultSet result=statement.executeQuery(ausgabe);
 			
-			for(int i=1; i<=10; i++){
-				result.absolute(i);
+			for(int i=0; i<10; i++){
 				
-				int züge_1=result.getInt("Züge");
-				Integer züge_2=new Integer(züge_1);
-				String zuege=züge_2.toString();
+					if(result.next()==true){
+					
+					int züge_1=result.getInt("Züge");
+					Integer züge_2=new Integer(züge_1);
+					String zuege=züge_2.toString();
+					
+					String spielername=result.getString("Spielername");
+					highscore[i][0]=zuege;
+					highscore[i][1]=spielername;
+					}
 				
-				String spielername=result.getString("Spielername");
-				highscore[i][0]=zuege;
-				highscore[i][1]=spielername;
 								 
 			}
 			
