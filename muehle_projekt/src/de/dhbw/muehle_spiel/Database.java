@@ -22,9 +22,7 @@ public class Database {
 		}
 		
 	}
-/*
- * Implementierung der Highscoremethoden
- */
+
 //Speichern der Anzahl der Spielzüge
 public void anzahlzuegespeichern(Spieler spieler){
 	
@@ -88,7 +86,7 @@ public void zugspeichern(Bewegung bewegung,Spieler spieler,boolean muehle,Spiels
 	}
 }
 
-//Ausgabe der DB
+//Ausgabe der Tabelle protokoll
 public void zeige_p(){
 	
     try {
@@ -131,7 +129,7 @@ public void zeige_p(){
 	}
 }
 
-//Erzeugen der DB
+//Erzeugen einer Tabelle
 public void erzeugetb(String tabelle){
 		    if(tabelle=="protokoll")
 		    {
@@ -163,13 +161,11 @@ public void erzeugetb(String tabelle){
 		    	        System.exit(0);
 		    	}
 		    }
-		    
-		    
-		    
+		    		    
 		    
 }
 
-//Löschen der Tabelle protokoll	
+//Löschen einer Tabelle	
 public void löschetb(String tabelle){
 	
 	String delete=("DROP TABLE '"+tabelle+"'");
