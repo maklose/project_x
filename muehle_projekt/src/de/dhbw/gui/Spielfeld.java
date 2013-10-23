@@ -181,7 +181,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		//Fenster fixieren
 		setResizable(false);
 		
-		setBounds(20,20,900,700);		//800,0,1200,900
+		setBounds(20,20,890,700);		//20,20,900,700
 		
 		//das Bild für den weißen und schwarzen Stein wird geladen
 		final Image SteinWeiss = Toolkit.getDefaultToolkit().getImage(  
@@ -566,7 +566,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				
 				//Beschriftung der Felder
 				g.drawString("Spieler1: ", xPosOben+15, yPosOben+35);
-				g.drawString("Spieler2: ", xPosUnten+15, yPosUnten+35);
+				g.drawString("Spieler2: ", xPosUnten+15, yPosUnten+42);
 				
 				//Zeichnet die noch vorhandenen Steine des Spielers
 				for(int i = 0; i < (9-Spieler1.getAnzahlSteine()-entfernteSteineWeiss); i++)
@@ -575,7 +575,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				}
 				for(int i = 0; i < (9-Spieler2.getAnzahlSteine()-entfernteSteineSchwarz); i++)
 				{
-					g.drawImage(SteinSchwarz,  xPosUnten + (i*15) , yPosUnten + 30 , breite-3, hoehe-3, this);
+					g.drawImage(SteinSchwarz,  xPosUnten + (i*15) , yPosUnten + 37 , breite-3, hoehe-3, this);
 				}
 				
 				//Zeichnet die gelöschten Steine vom Gegner
@@ -585,7 +585,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				}
 				for(int i = 0; i < entfernteSteineWeiss; i++)
 				{
-					g.drawImage(SteinWeiss,  xPosUnten + (i*15) , yPosUnten + 85 , breite, hoehe, this);
+					g.drawImage(SteinWeiss,  xPosUnten + (i*15) , yPosUnten + 92 , breite, hoehe, this);
 				}
 				
 				//Zeichnet in das mittlere Feld einen Stein der aktuellen Farbe
@@ -890,7 +890,6 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 						if(aktuellerSpieler == Spieler2)
 							anzahlRunden++;
-						this.verschiedeneAusgaben();
 						
 						panel.repaint();
 						panel_1.repaint();
@@ -1036,6 +1035,22 @@ public class Spielfeld extends JFrame implements ActionListener {
 			return 2;
 		else 
 			return 99;
+	}
+	
+	//Überprüft ob alle gegnerischen Steine in Mühle stehen
+	//True wenn alle Steine in Mühle Stehen, false wenn nicht 
+	public boolean alleGegnerSteineInMühle(Spieler passiverSpieler)
+	{
+		int counter = 0;
+		for(int i = 1; i < passiverSpieler.getAnzahlSteine(); i++)
+		{
+			pruef.checkInMuehle(i, passiverSpieler.Steine);
+			counter++;
+		}
+		if(passiverSpieler.getAnzahlSteine() == counter)
+			return true;
+		else
+			return false; 
 	}
 	
 	//kleiner Test zu Spiel beendet
