@@ -18,13 +18,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.dhbw.muehle_api.*;
+import de.dhbw.muehle_api.strategy.ISpielzug;
+import de.dhbw.muehle_api.strategy.StrategieException;
 import de.dhbw.muehle_spiel.Bewegung;
 import de.dhbw.muehle_spiel.EPhase;
 import de.dhbw.muehle_spiel.Pruefung;
 import de.dhbw.muehle_spiel.Spieler;
 import de.dhbw.muehle_spiel.Spielstein;
+import de.dhbw.strategy.Bewertung;
+import de.dhbw.strategy.Spielzug;
+import de.dhbw.strategy.Strategie;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -42,12 +49,12 @@ public class Spielfeld extends JFrame implements ActionListener {
 	private static JPanel contentPane;
 	
 	//Die Buttons werden initialisiert
-	TransparentButtonFeld btnNewButton_1, btnNewButton_4, btnNewButton_6, btnNewButton_9, 
-							btnNewButton_10, btnNewButton_13, btnNewButton_15, btnNewButton_18,
-							btnNewButton_19, btnNewButton_22, btnNewButton_23, btnNewButton_24,
-							btnNewButton_26, btnNewButton_27, btnNewButton_28, btnNewButton_31,
-							btnNewButton_32, btnNewButton_33, btnNewButton_37, btnNewButton_39,
-							btnNewButton_41, btnNewButton_43, btnNewButton_46, btnNewButton_49;
+	TransparentButtonFeld btnNewButton_1, btnNewButton_2, btnNewButton_3, btnNewButton_4, 
+							btnNewButton_5, btnNewButton_6, btnNewButton_7, btnNewButton_8,
+							btnNewButton_9, btnNewButton_10, btnNewButton_11, btnNewButton_12,
+							btnNewButton_13, btnNewButton_14, btnNewButton_15, btnNewButton_16,
+							btnNewButton_17, btnNewButton_18, btnNewButton_19, btnNewButton_20,
+							btnNewButton_21, btnNewButton_22, btnNewButton_23, btnNewButton_24;
 	
 	//Die Spieler werden initialisiert 
 	Spieler Spieler1;
@@ -82,6 +89,9 @@ public class Spielfeld extends JFrame implements ActionListener {
 	private Spieler aktuellerSpieler, passiverSpieler;
 	
 	private Bewegung neueBewegung;
+	
+	//Array mit den aktuellen Steinen auf dem Feld
+	List<ISpielstein> gSteine = new ArrayList<ISpielstein>();
 	
 	//static Database db = new Database();
 	
@@ -123,7 +133,17 @@ public class Spielfeld extends JFrame implements ActionListener {
 	//Variable die mit true anzeigt ob das Spiel beendet ist
 	private boolean SpielBeendet = false;
 	
+	//neue Instanz der Prüfungsklasse
 	Pruefung pruef = new Pruefung();
+	
+	//neue Instanz der Strategie, falls man gegen den PC spielen möchte
+	Strategie strategie;
+	
+	//Liste mit allen Knöpfen auf dem Feld
+	List<TransparentButtonFeld> gButtons = new ArrayList<TransparentButtonFeld>();
+	
+	//neue Instanz der Prüfung ZUM TESTEN!
+	Bewertung bewertung = new Bewertung();
 	
 	/**
 	 * Hier wird das Spielfeld gestartet
@@ -198,8 +218,11 @@ public class Spielfeld extends JFrame implements ActionListener {
 		mode = lmode;
 		
 		Spieler1 = new Spieler(ESpielsteinFarbe.WEISS, nameSpieler1);
-		Spieler2 = new Spieler(ESpielsteinFarbe.SCHWARZ, nameSpieler2); 
-
+		if(mode == 1)
+			Spieler2 = new Spieler(ESpielsteinFarbe.SCHWARZ, nameSpieler2); 
+		else
+			strategie = new Strategie();
+		
 		//Fenster fixieren
 		setResizable(false);
 		
@@ -388,15 +411,132 @@ public class Spielfeld extends JFrame implements ActionListener {
 
 		};
 		
+		//Layout des Panels
+		panel.setLayout(new MigLayout("", "[5][66.15][25][66.15][25][60][2][60][2.00][60][25][66.15][25][66.15]", "[20][66.15px][35][66.15][37.48][60][5][60][2.2][60][37.48][66.15][40.79][66.15][25]"));
 		
-		btnNewButton_18 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Zwei, EPositionIndex.Drei));
-		btnNewButton_18.addActionListener(this);
 		
 		//ab hier werden die ganzen knöpfe definiert und mit dem actionlistener verknüpft
 		btnNewButton_1 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Drei));
 		btnNewButton_1.addActionListener(this);
-		panel.setLayout(new MigLayout("", "[5][66.15][25][66.15][25][60][2][60][2.00][60][25][66.15][25][66.15]", "[20][66.15px][35][66.15][37.48][60][5][60][2.2][60][37.48][66.15][40.79][66.15][25]"));
+		gButtons.add(btnNewButton_1);
 		panel.add(btnNewButton_1, "cell 1 1,grow");
+		
+		btnNewButton_2 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Zwei, EPositionIndex.Drei));
+		btnNewButton_2.addActionListener(this);
+		gButtons.add(btnNewButton_2);
+		panel.add(btnNewButton_2, "cell 7 1,grow");
+		
+		btnNewButton_3 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Drei));
+		btnNewButton_3.addActionListener(this);
+		gButtons.add(btnNewButton_3);
+		panel.add(btnNewButton_3, "cell 13 1,grow");
+		
+		btnNewButton_4 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Drei));
+		btnNewButton_4.addActionListener(this);
+		gButtons.add(btnNewButton_4);
+		panel.add(btnNewButton_4, "cell 3 3,grow");
+		
+		btnNewButton_5 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Zwei, EPositionIndex.Drei));
+		btnNewButton_5.addActionListener(this);
+		gButtons.add(btnNewButton_5);
+		panel.add(btnNewButton_5, "cell 7 3,grow");
+		
+		btnNewButton_6 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Drei));
+		btnNewButton_6.addActionListener(this);
+		gButtons.add(btnNewButton_6);
+		panel.add(btnNewButton_6, "cell 11 3,grow");
+		
+		btnNewButton_7 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Drei));
+		btnNewButton_7.addActionListener(this);
+		gButtons.add(btnNewButton_7);
+		panel.add(btnNewButton_7, "cell 5 5,grow");
+
+		btnNewButton_8 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Zwei, EPositionIndex.Drei));
+		btnNewButton_8.addActionListener(this);
+		gButtons.add(btnNewButton_8);
+		panel.add(btnNewButton_8, "cell 7 5,grow");
+		
+		btnNewButton_9 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Drei));
+		btnNewButton_9.addActionListener(this);
+		gButtons.add(btnNewButton_9);
+		panel.add(btnNewButton_9, "cell 9 5,grow");
+		
+		btnNewButton_10 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Zwei));
+		btnNewButton_10.addActionListener(this);
+		gButtons.add(btnNewButton_10);
+		panel.add(btnNewButton_10, "cell 1 7,grow");
+		
+		btnNewButton_11 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Zwei));
+		btnNewButton_11.addActionListener(this);
+		gButtons.add(btnNewButton_11);
+		panel.add(btnNewButton_11, "cell 3 7,grow");
+		
+		btnNewButton_12 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Zwei));
+		btnNewButton_12.addActionListener(this);
+		gButtons.add(btnNewButton_12);
+		panel.add(btnNewButton_12, "cell 5 7,grow");
+		
+		btnNewButton_13 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Zwei));
+		btnNewButton_13.addActionListener(this);
+		gButtons.add(btnNewButton_13);
+		panel.add(btnNewButton_13, "cell 9 7,grow");
+		
+		btnNewButton_14 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Zwei));
+		btnNewButton_14.addActionListener(this);
+		gButtons.add(btnNewButton_14);
+		panel.add(btnNewButton_14, "cell 11 7,grow");
+		
+		btnNewButton_15 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Zwei));
+		btnNewButton_15.addActionListener(this);
+		gButtons.add(btnNewButton_15);
+		panel.add(btnNewButton_15, "cell 13 7,grow");
+			
+		btnNewButton_16 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Eins));
+		btnNewButton_16.addActionListener(this);
+		gButtons.add(btnNewButton_16);
+		panel.add(btnNewButton_16, "cell 5 9,grow");
+		
+		btnNewButton_17 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Zwei, EPositionIndex.Eins));
+		btnNewButton_17.addActionListener(this);
+		gButtons.add(btnNewButton_17);
+		panel.add(btnNewButton_17, "cell 7 9,grow");
+		
+		btnNewButton_18 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Eins));
+		btnNewButton_18.addActionListener(this);
+		gButtons.add(btnNewButton_18);
+		panel.add(btnNewButton_18, "cell 9 9,grow");
+		
+		btnNewButton_19 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Eins));
+		btnNewButton_19.addActionListener(this);
+		gButtons.add(btnNewButton_19);
+		panel.add(btnNewButton_19, "cell 3 11,grow");
+		
+		btnNewButton_20 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Zwei, EPositionIndex.Eins));
+		btnNewButton_20.addActionListener(this);
+		gButtons.add(btnNewButton_20);
+		panel.add(btnNewButton_20, "cell 7 11,grow");
+		
+		btnNewButton_21 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Eins));
+		btnNewButton_21.addActionListener(this);
+		gButtons.add(btnNewButton_21);
+		panel.add(btnNewButton_21, "cell 11 11,grow");
+		
+		btnNewButton_22 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Eins));
+		btnNewButton_22.addActionListener(this);
+		gButtons.add(btnNewButton_22);
+		panel.add(btnNewButton_22, "cell 1 13,grow");
+		
+		btnNewButton_23 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Zwei, EPositionIndex.Eins));
+		btnNewButton_23.addActionListener(this);
+		gButtons.add(btnNewButton_23);
+		panel.add(btnNewButton_23, "cell 7 13,grow");
+		
+		btnNewButton_24 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Eins));
+		btnNewButton_24.addActionListener(this);
+		gButtons.add(btnNewButton_24);
+		panel.add(btnNewButton_24, "cell 13 13,grow");
+
+
 		
 		JLabel lblNewLabel = new JLabel("");
 		panel.add(lblNewLabel, "cell 3 1,grow");
@@ -404,40 +544,21 @@ public class Spielfeld extends JFrame implements ActionListener {
 		JLabel label = new JLabel("");
 		panel.add(label, "cell 5 1,grow");
 		
-		btnNewButton_9 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Drei));
-		btnNewButton_9.addActionListener(this);
-		
-		btnNewButton_6 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Drei));
-		btnNewButton_6.addActionListener(this);
-		
-		btnNewButton_4 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Zwei, EPositionIndex.Drei));
-		btnNewButton_4.addActionListener(this);
-		panel.add(btnNewButton_4, "cell 7 1,grow");
-		
 		JLabel lblNewLabel_1 = new JLabel("");
 		panel.add(lblNewLabel_1, "cell 9 1,grow");
 		
 		JLabel lblNewLabel_2 = new JLabel("");
 		panel.add(lblNewLabel_2, "cell 11 1,grow");
-		panel.add(btnNewButton_6, "cell 13 1,grow");
 		
 		JLabel label_1 = new JLabel("");
 		panel.add(label_1, "cell 1 3,grow");
-		panel.add(btnNewButton_9, "cell 3 3,grow");
-		
-		btnNewButton_10 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Zwei, EPositionIndex.Drei));
-		btnNewButton_10.addActionListener(this);
 		
 		JLabel label_2 = new JLabel("");
 		panel.add(label_2, "cell 5 3,grow");
-		panel.add(btnNewButton_10, "cell 7 3,grow");
+		
 		
 		JLabel lblNewLabel_3 = new JLabel("");
 		panel.add(lblNewLabel_3, "cell 9 3,grow");
-		
-		btnNewButton_13 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Drei));
-		btnNewButton_13.addActionListener(this);
-		panel.add(btnNewButton_13, "cell 11 3,grow");
 		
 		JLabel label_3 = new JLabel("");
 		panel.add(label_3, "cell 13 3,grow");
@@ -447,72 +568,23 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 		JLabel label_5 = new JLabel("");
 		panel.add(label_5, "cell 3 5,grow");
-		
-		btnNewButton_15 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Drei));
-		btnNewButton_15.addActionListener(this);
-		panel.add(btnNewButton_15, "cell 5 5,grow");
-		panel.add(btnNewButton_18, "cell 7 5,grow");
-		
-		btnNewButton_31 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Eins));
-		btnNewButton_31.addActionListener(this);
-		
-		btnNewButton_22 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Zwei));
-		btnNewButton_22.addActionListener(this);
-		
-		btnNewButton_19 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Drei));
-		btnNewButton_19.addActionListener(this);
-		panel.add(btnNewButton_19, "cell 9 5,grow");
-		
+
 		JLabel label_6 = new JLabel("");
 		panel.add(label_6, "cell 11 5,grow");
 		
 		JLabel label_7 = new JLabel("");
 		panel.add(label_7, "cell 13 5,grow");
-		panel.add(btnNewButton_22, "cell 1 7,grow");
 		
-		btnNewButton_26 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Zwei));
-		btnNewButton_26.addActionListener(this);
-		
-		btnNewButton_23 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Zwei));
-		btnNewButton_23.addActionListener(this);
-		panel.add(btnNewButton_23, "cell 3 7,grow");
-		
-		btnNewButton_24 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Zwei));
-		btnNewButton_24.addActionListener(this);
-		panel.add(btnNewButton_24, "cell 5 7,grow");
-		
+
 		JLabel label_8 = new JLabel("");
 		panel.add(label_8, "cell 7 7,grow");
-		panel.add(btnNewButton_26, "cell 9 7,grow");
 		
-		btnNewButton_28 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Zwei));
-		btnNewButton_28.addActionListener(this);
-		
-		btnNewButton_27 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Zwei));
-		btnNewButton_27.addActionListener(this);
-		panel.add(btnNewButton_27, "cell 11 7,grow");
-		panel.add(btnNewButton_28, "cell 13 7,grow");
-		
+
 		JLabel label_9 = new JLabel("");
 		panel.add(label_9, "cell 1 9,grow");
 		
 		JLabel label_10 = new JLabel("");
 		panel.add(label_10, "cell 3 9,grow");
-		panel.add(btnNewButton_31, "cell 5 9,grow");
-		
-		btnNewButton_46 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Zwei, EPositionIndex.Eins));
-		btnNewButton_46.addActionListener(this);
-		
-		btnNewButton_37 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Eins));
-		btnNewButton_37.addActionListener(this);
-		
-		btnNewButton_32 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Zwei, EPositionIndex.Eins));
-		btnNewButton_32.addActionListener(this);
-		panel.add(btnNewButton_32, "cell 7 9,grow");
-		
-		btnNewButton_33 = new TransparentButtonFeld("", new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Eins));
-		btnNewButton_33.addActionListener(this);
-		panel.add(btnNewButton_33, "cell 9 9,grow");
 		
 		JLabel label_11 = new JLabel("");
 		panel.add(label_11, "cell 11 9,grow");
@@ -522,45 +594,31 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 		JLabel label_13 = new JLabel("");
 		panel.add(label_13, "cell 1 11,grow");
-		panel.add(btnNewButton_37, "cell 3 11,grow");
+		
 		
 		JLabel label_14 = new JLabel("");
-		panel.add(label_14, "cell 5 11,grow");
 		
-		btnNewButton_43 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Eins));
-		btnNewButton_43.addActionListener(this);
-		
-		btnNewButton_41 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Eins));
-		btnNewButton_41.addActionListener(this);
-		
-		btnNewButton_39 = new TransparentButtonFeld("", new Position(EPositionIndex.Zwei, EPositionIndex.Zwei, EPositionIndex.Eins));
-		btnNewButton_39.addActionListener(this);
-		panel.add(btnNewButton_39, "cell 7 11,grow");
 		
 		JLabel label_15 = new JLabel("");
 		panel.add(label_15, "cell 9 11,grow");
-		panel.add(btnNewButton_41, "cell 11 11,grow");
+		
 		
 		JLabel label_16 = new JLabel("");
 		panel.add(label_16, "cell 13 11,grow");
-		panel.add(btnNewButton_43, "cell 1 13,grow");
+		
 		
 		JLabel label_17 = new JLabel("");
 		panel.add(label_17, "cell 3 13,grow");
 		
 		JLabel label_18 = new JLabel("");
 		panel.add(label_18, "cell 5 13,grow");
-		panel.add(btnNewButton_46, "cell 7 13,grow");
+
 		
 		JLabel label_19 = new JLabel("");
 		panel.add(label_19, "cell 9 13,grow");
 		
 		JLabel label_20 = new JLabel("");
 		panel.add(label_20, "cell 11 13,grow");
-		
-		btnNewButton_49 = new TransparentButtonFeld("", new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Eins));
-		btnNewButton_49.addActionListener(this);
-		panel.add(btnNewButton_49, "cell 13 13,grow");
 		
 		panel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		
@@ -669,13 +727,33 @@ public class Spielfeld extends JFrame implements ActionListener {
 		{
 			this.aktion(btnNewButton_1);
 		}
+		else if(obj.equals(this.btnNewButton_2))
+		{
+			this.aktion(btnNewButton_2);
+		}
+		else if(obj.equals(this.btnNewButton_3))
+		{
+			this.aktion(btnNewButton_3);
+		}
 		else if(obj.equals(this.btnNewButton_4))
 		{
 			this.aktion(btnNewButton_4);
 		}
+		else if(obj.equals(this.btnNewButton_5))
+		{
+			this.aktion(btnNewButton_5);
+		}
 		else if(obj.equals(this.btnNewButton_6))
 		{
 			this.aktion(btnNewButton_6);
+		}
+		else if(obj.equals(this.btnNewButton_7))
+		{
+			this.aktion(btnNewButton_7);
+		}
+		else if(obj.equals(this.btnNewButton_8))
+		{
+			this.aktion(btnNewButton_8);
 		}
 		else if(obj.equals(this.btnNewButton_9))
 		{
@@ -685,13 +763,33 @@ public class Spielfeld extends JFrame implements ActionListener {
 		{
 			this.aktion(btnNewButton_10);
 		}
+		else if(obj.equals(this.btnNewButton_11))
+		{
+			this.aktion(btnNewButton_11);
+		}
+		else if(obj.equals(this.btnNewButton_12))
+		{
+			this.aktion(btnNewButton_12);
+		}
 		else if(obj.equals(this.btnNewButton_13))
 		{
 			this.aktion(btnNewButton_13);
 		}
+		else if(obj.equals(this.btnNewButton_14))
+		{
+			this.aktion(btnNewButton_14);
+		}
 		else if(obj.equals(this.btnNewButton_15))
 		{
 			this.aktion(btnNewButton_15);
+		}
+		else if(obj.equals(this.btnNewButton_16))
+		{
+			this.aktion(btnNewButton_16);
+		}
+		else if(obj.equals(this.btnNewButton_17))
+		{
+			this.aktion(btnNewButton_17);
 		}
 		else if(obj.equals(this.btnNewButton_18))
 		{
@@ -700,6 +798,14 @@ public class Spielfeld extends JFrame implements ActionListener {
 		else if(obj.equals(this.btnNewButton_19))
 		{
 			this.aktion(btnNewButton_19);
+		}
+		else if(obj.equals(this.btnNewButton_20))
+		{
+			this.aktion(btnNewButton_20);
+		}
+		else if(obj.equals(this.btnNewButton_21))
+		{
+			this.aktion(btnNewButton_21);
 		}
 		else if(obj.equals(this.btnNewButton_22))
 		{
@@ -713,54 +819,34 @@ public class Spielfeld extends JFrame implements ActionListener {
 		{
 			this.aktion(btnNewButton_24);
 		}
-		else if(obj.equals(this.btnNewButton_26))
+		/*
+		 * Ausgabe der ArrayList mit den aktuellen Steinen
+		 * TEST
+		 */
+//		System.out.println(gSteine);
+		
+		/*
+		 * hier wird der neue Zug der Strategie abgefragt und this.aktion mit dem entsprechenden Button,
+		 * also wo die Strategie hin will, ausgeführt
+		 */
+		if(mode == 2)
 		{
-			this.aktion(btnNewButton_26);
+			try 
+			{
+				ISpielzug neuerZug = strategie.bewegeStein(gSteine);
+			} 
+			catch (StrategieException e1) 
+			{
+				e1.printStackTrace();
+			}
+			
+			for(int i = 1; i <= 24; i++)
+			{
+				
+			}
+			
 		}
-		else if(obj.equals(this.btnNewButton_27))
-		{
-			this.aktion(btnNewButton_27);
-		}
-		else if(obj.equals(this.btnNewButton_28))
-		{
-			this.aktion(btnNewButton_28);
-		}
-		else if(obj.equals(this.btnNewButton_31))
-		{
-			this.aktion(btnNewButton_31);
-		}
-		else if(obj.equals(this.btnNewButton_32))
-		{
-			this.aktion(btnNewButton_32);
-		}
-		else if(obj.equals(this.btnNewButton_33))
-		{
-			this.aktion(btnNewButton_33);
-		}
-		else if(obj.equals(this.btnNewButton_37))
-		{
-			this.aktion(btnNewButton_37);
-		}
-		else if(obj.equals(this.btnNewButton_39))
-		{
-			this.aktion(btnNewButton_39);
-		}
-		else if(obj.equals(this.btnNewButton_41))
-		{
-			this.aktion(btnNewButton_41);
-		}
-		else if(obj.equals(this.btnNewButton_43))
-		{
-			this.aktion(btnNewButton_43);
-		}
-		else if(obj.equals(this.btnNewButton_46))
-		{
-			this.aktion(btnNewButton_46);
-		}
-		else if(obj.equals(this.btnNewButton_49))
-		{
-			this.aktion(btnNewButton_49);
-		}
+		
 	}
 		
 	
@@ -1005,6 +1091,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 			SpielfeldArray[e][x][y] = null;
 			passiverSpieler.entferneSpielstein(zuLoeschenderStein.getIndex());
 			hatAltePosition = false;
+			gSteine.remove(zuLoeschenderStein);
 		}
 
 		else
@@ -1037,6 +1124,12 @@ public class Spielfeld extends JFrame implements ActionListener {
 		x = posIndexUmrechnen(neueBewegung.getNach().getX());
 		y = posIndexUmrechnen(neueBewegung.getNach().getY());
 		SpielfeldArray[e][x][y] = lSpieler.getSpielstein(anzahlRunden);
+		
+		//Stein wird der Liste mit den aktuellen Steinen auf dem Feld hinzugefügt
+		gSteine.add(lSpieler.getSpielstein(anzahlRunden));
+		
+		//Ausgabe der Bewertung des Zuges ZUM TEST
+		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung));
 	}
 	
 	
@@ -1053,7 +1146,6 @@ public class Spielfeld extends JFrame implements ActionListener {
 		x = posIndexUmrechnen(altePosition.getX());
 		y = posIndexUmrechnen(altePosition.getY());
 		Spielstein aktuellerStein = SpielfeldArray[e][x][y];
-		SpielfeldArray[e][x][y] = null;
 		
 		//Die neue Position wird in das Array geschrieben 
 		int a, b, c;
@@ -1064,6 +1156,15 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 		//Die Bewegung wird an den Spieler weitergegeben
 		lSpieler.bewegeSpielstein(neueBewegung, aktuellerStein.getIndex(), xPos, yPos);	
+		
+		//Stein wird in der Liste mit den aktuellen Steinen auf dem Feld verändert
+		gSteine.set(gSteine.indexOf(SpielfeldArray[e][x][y]), aktuellerStein);
+		
+		//Stein wird aus dem SpielfeldArray gelöscht
+		SpielfeldArray[e][x][y] = null;
+		
+		//Ausgabe der Bewertung des Zuges ZUM TEST
+		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung));
 	}
 	
 	//EPositionIndex auf dem Feld wird in int umgerechnet
