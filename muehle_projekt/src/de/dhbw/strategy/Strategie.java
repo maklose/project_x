@@ -46,7 +46,8 @@ Bewegung bewegung;
 		
 		}
 		Spielzug zug = new Spielzug(bewegung);	
-		anzahlZuege++;	
+		anzahlZuege++;
+		
 		return zug;
 	}
 
