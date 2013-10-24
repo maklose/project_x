@@ -907,9 +907,16 @@ public class Spielfeld extends JFrame implements ActionListener {
 						System.out.println(aktuellerSpieler.SpielsteinFarbeAsString() + textMuehle);
 						System.out.println("Alle gegnerischen Steine stehen in einer Mühle: " + this.alleGegnerSteineInMühle(passiverSpieler));
 						
+						if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true)
+						{
+							SpielBeendet = true;
+							this.aktion(btnNewButton_1);
+						}
+						
 						hatMuehle = true;
 						panel.repaint();
 						panel_1.repaint();
+						
 						return;
 					}
 					else
@@ -925,6 +932,17 @@ public class Spielfeld extends JFrame implements ActionListener {
 					panel_1.repaint();
 					if(Spieler2.getAnzahlZuege()==9)
 						this.neueMeldung(wichtigeMeldungsZeit, textRunde2);
+					
+					if(pruef.checkSpielBeendet(passiverSpieler, aktuellerSpieler) == true)
+					{
+						SpielBeendet = true;
+						this.aktion(btnNewButton_1);
+					}
+					if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true)
+					{
+						SpielBeendet = true;
+						this.aktion(btnNewButton_1);
+					}
 					return;
 				}				
 		
@@ -975,6 +993,11 @@ public class Spielfeld extends JFrame implements ActionListener {
 							this.verschiedeneAusgaben();
 							this.createArrayEigenerIndeizes(aktuellerSpieler);
 							if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true)
+							{
+								SpielBeendet = true;
+								this.aktion(btnNewButton_1);
+							}
+							if(pruef.checkSpielBeendet(passiverSpieler, aktuellerSpieler) == true)
 							{
 								SpielBeendet = true;
 								this.aktion(btnNewButton_1);
@@ -1046,8 +1069,19 @@ public class Spielfeld extends JFrame implements ActionListener {
 							entfernteSteineWeiss++;
 						}
 						else
+						{
 							entfernteSteineSchwarz++;
-						
+							if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true)
+							{
+								SpielBeendet = true;
+								this.aktion(btnNewButton_1);
+							}
+							if(pruef.checkSpielBeendet(passiverSpieler, aktuellerSpieler) == true)
+							{
+								SpielBeendet = true;
+								this.aktion(btnNewButton_1);
+							}
+						}
 						panel_1.repaint();
 						this.verschiedeneAusgaben();
 						if(Spieler2.getAnzahlZuege() == 9 && Spieler1.getAnzahlZuege() == 9)
@@ -1130,7 +1164,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		gSteine.add(lSpieler.getSpielstein(anzahlRunden));
 		
 		//Ausgabe der Bewertung des Zuges ZUM TEST
-		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung, aktuellerSpieler));
+		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung, gSteine.indexOf(lSpieler.getSpielstein(anzahlRunden))));
 	}
 	
 	
@@ -1165,7 +1199,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		SpielfeldArray[e][x][y] = null;
 		
 		//Ausgabe der Bewertung des Zuges ZUM TEST
-		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung, aktuellerSpieler));
+		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung, gSteine.indexOf(aktuellerStein)));
 	}
 	
 	//EPositionIndex auf dem Feld wird in int umgerechnet

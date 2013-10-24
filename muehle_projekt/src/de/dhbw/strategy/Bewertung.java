@@ -19,35 +19,43 @@ public class Bewertung
 	ISpielstein[] aSteine, aSteineWeiss, aSteineSchwarz;
 	Position von, nach;
 	Pruefung pruef = new Pruefung();
-	Spieler weisserSpielerb;
-	Spieler schwarzerSpielerb;
+	Spieler aktuellerSpieler;
+	Spieler passiverSpieler;
+	ISpielstein bewegterStein;
 	
-	public Bewertung()
-	{
-		weisserSpielerb = new Spieler(ESpielsteinFarbe.WEISS, "BewertungsSpiler1");
-		schwarzerSpielerb = new Spieler(ESpielsteinFarbe.SCHWARZ, "BewertungsSpieler2");
-		
-	}
-	
-	public double bewerteZug(List<ISpielstein> p_SpielFeld, Bewegung lbewegung, Spieler laktuellerSpieler)
+	public double bewerteZug(List<ISpielstein> p_SpielFeld, Bewegung lbewegung, int index)
 	{
 		double Score = 0;
 		von = lbewegung.getVon();
 		nach = lbewegung.getNach();
 		lSteine = p_SpielFeld;
-		Spieler aktuellerSpieler = laktuellerSpieler;
+		bewegterStein = p_SpielFeld.get(index);
+		Spieler aktuellerSpieler = new Spieler(bewegterStein.getFarbe(), "aktuellerSpielerB");
+		if(bewegterStein.getFarbe() == ESpielsteinFarbe.WEISS)
+			passiverSpieler = new Spieler(bewegterStein.getFarbe(), "passiverSpielerB");
+		else
+			passiverSpieler = new Spieler(bewegterStein.getFarbe(), "passiverSpielerB");
+			
 		aSteine = this.ListeUmrechnen(lSteine);
 		this.SteineAufteilen(aSteine);
 		
 		if(aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.WEISS) && this.checkInMuehle(lbewegung, aSteineWeiss))
+		{
 			Score += 0.8;
+			if(this.checkSpielBeendet(aktuellerSpieler, passiverSpieler) || passiverSpieler.getAnzahlSteine() == 3)
+				Score += 1;
+		}
+			
 		if(aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.SCHWARZ) && this.checkInMuehle(lbewegung, aSteineSchwarz))
+		{
 			Score += 0.8;
-		if(aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.WEISS) && this.checkSpielBeendet(weisserSpielerb, schwarzerSpielerb))
-			Score += 1;
-		if(aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.SCHWARZ) && this.checkSpielBeendet(schwarzerSpielerb, weisserSpielerb))
-			Score += 1;
-
+			if(this.checkSpielBeendet(aktuellerSpieler, passiverSpieler) || passiverSpieler.getAnzahlSteine() == 3)
+				Score += 1;
+		}
+			
+		
+			
+		
 					
 		
 		return Score;
@@ -240,8 +248,6 @@ public class Bewertung
 		{
 			return false;
 		}
-		else if(SpielerPassiv.getAnzahlSteine() < 3 && SpielerAktiv.getAnzahlZuege() < 9)
-			return false;
 		else
 		{
 			return true;

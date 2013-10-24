@@ -203,7 +203,7 @@ public class Pruefung {
 		
 		
 		// Wenn Anzahl der Steine > 3 wird überprüft, ob der Aktive Spieler noch die Möglichkeit hat zu ziehen
-		if(SpielerAktiv.getAnzahlSteine() > 3)
+		if(SpielerAktiv.getAnzahlSteine() > 3 || (SpielerAktiv.getAnzahlSteine() == 3 && SpielerAktiv.getAnzahlZuege() <= 9))
 		{
 			for (int i = 0; i <= 8 ; i++)		//for (int i = 0; i < SpielerAktiv.Steine.length ; i++)
 			{			
@@ -262,6 +262,8 @@ public class Pruefung {
 		{
 			return false;
 		}
+		else if(SpielerAktiv.getAnzahlSteine() <= 3 && SpielerAktiv.getAnzahlZuege() <= 4)
+			return false;
 		else
 		{
 			return true;
