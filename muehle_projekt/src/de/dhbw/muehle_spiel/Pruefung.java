@@ -246,7 +246,7 @@ public class Pruefung {
 									|| (ebene == ebene.Drei && x == x.Zwei && y == y.Zwei))
 								continue;
 							
-							if(SpielerAktiv.Steine[i].getPosition() != null)	//TEST MARVIN
+							if(SpielerAktiv.Steine[i] != null)	//TEST MARVIN
 							ZugKorrekt = checkZug(new Bewegung(SpielerAktiv.Steine[i].getPosition(), new Position(ebene, x, y)), 
 									SpielerAktiv, SpielerPassiv);
 							
