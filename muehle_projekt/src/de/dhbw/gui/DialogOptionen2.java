@@ -65,7 +65,7 @@ public class DialogOptionen2 extends JDialog {
 	 */
 	public DialogOptionen2() {
 		//Fenster
-		setBounds(100, 100, 500, 400);
+		setBounds(100, 100, 501, 402);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -82,9 +82,9 @@ public class DialogOptionen2 extends JDialog {
          	//Layoutmanager
 			contentPanel.add(panel, BorderLayout.CENTER);
 			GridBagLayout gbl_panel = new GridBagLayout();
-			gbl_panel.columnWidths = new int[]{20, 225, 30, 80, 80, 20, 0};
-			gbl_panel.rowHeights = new int[]{20, 20, 20, 20, 20, 0, 0, 0, 20, 0, 20, 20, 33, 0, 0};
-			gbl_panel.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+			gbl_panel.columnWidths = new int[]{10, 230, 10, 110, 10, 0};
+			gbl_panel.rowHeights = new int[]{20, 20, 20, 20, 20, 0, 0, 0, 20, 0, 20, 40, 40, 0, 0};
+			gbl_panel.columnWeights = new double[]{1.0, 1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 			panel.setLayout(gbl_panel);
 			//Aufforderung zur Wahl einer Option
@@ -234,26 +234,6 @@ public class DialogOptionen2 extends JDialog {
 				gbc_cbSchwierigkeitsgrad.gridy = 10;
 				panel.add(cbSchwierigkeitsgrad, gbc_cbSchwierigkeitsgrad);
 			}
-			//Cancel-Button
-			{
-				JButton cancelButton = new JButton("Cancel"){
-					public void paintComponent(Graphics g){
-						g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Abbruch.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
-					}
-				};	
-				GridBagConstraints gbc_cancelButton = new GridBagConstraints();
-				gbc_cancelButton.fill = GridBagConstraints.BOTH;
-				gbc_cancelButton.insets = new Insets(0, 0, 5, 5);
-				gbc_cancelButton.gridx = 3;
-				gbc_cancelButton.gridy = 12;
-				panel.add(cancelButton, gbc_cancelButton);
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-					}
-				});
-				cancelButton.setActionCommand("Cancel");
-			}
 			//Spiel-starten-Button
 			{
 				JButton okButton = new JButton(""){
@@ -263,8 +243,8 @@ public class DialogOptionen2 extends JDialog {
 				GridBagConstraints gbc_okButton = new GridBagConstraints();
 				gbc_okButton.fill = GridBagConstraints.BOTH;
 				gbc_okButton.insets = new Insets(0, 0, 5, 5);
-				gbc_okButton.gridx = 4;
-				gbc_okButton.gridy = 12;
+				gbc_okButton.gridx = 3;
+				gbc_okButton.gridy = 11;
 				panel.add(okButton, gbc_okButton);
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -284,6 +264,26 @@ public class DialogOptionen2 extends JDialog {
 				});
 				okButton.setActionCommand("OK");
 				getRootPane().setDefaultButton(okButton);
+			}
+			//Cancel-Button
+			{
+				JButton cancelButton = new JButton("Cancel"){
+					public void paintComponent(Graphics g){
+						g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Abbruch.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
+					}
+				};	
+				GridBagConstraints gbc_cancelButton = new GridBagConstraints();
+				gbc_cancelButton.fill = GridBagConstraints.BOTH;
+				gbc_cancelButton.insets = new Insets(0, 0, 5, 5);
+				gbc_cancelButton.gridx = 3;
+				gbc_cancelButton.gridy = 12;
+				panel.add(cancelButton, gbc_cancelButton);
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
+				cancelButton.setActionCommand("Cancel");
 			}
 		}
 	}
