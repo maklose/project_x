@@ -65,7 +65,8 @@ public class DialogOptionen2 extends JDialog {
 	 */
 	public DialogOptionen2() {
 		//Fenster
-		setBounds(100, 100, 500, 400);
+		setBounds(100, 100, 600, 480);
+		setResizable(false);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -82,10 +83,10 @@ public class DialogOptionen2 extends JDialog {
          	//Layoutmanager
 			contentPanel.add(panel, BorderLayout.CENTER);
 			GridBagLayout gbl_panel = new GridBagLayout();
-			gbl_panel.columnWidths = new int[]{20, 225, 30, 80, 80, 20, 0};
-			gbl_panel.rowHeights = new int[]{20, 20, 20, 20, 20, 0, 0, 0, 20, 0, 20, 20, 33, 0, 0};
-			gbl_panel.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+			gbl_panel.columnWidths = new int[]{10, 230, 110, 110, 10, 0};
+			gbl_panel.rowHeights = new int[]{20, 20, 20, 20, 20, 0, 0, 0, 20, 20, 20, 20, 0, 0, 40, 40, 0, 0};
+			gbl_panel.columnWeights = new double[]{1.0, 1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 			panel.setLayout(gbl_panel);
 			//Aufforderung zur Wahl einer Option
 			{
@@ -177,8 +178,7 @@ public class DialogOptionen2 extends JDialog {
 						txtSpieler2.setText("");
 					}
 				});
-				txtSpieler2.setEnabled(false);
-//			
+				txtSpieler2.setEnabled(false);		
 				txtSpieler2.setText("Name von Spieler 2");
 				GridBagConstraints gbc_txtSpieler2 = new GridBagConstraints();
 				gbc_txtSpieler2.insets = new Insets(0, 0, 5, 5);
@@ -187,10 +187,6 @@ public class DialogOptionen2 extends JDialog {
 				gbc_txtSpieler2.gridy = 7;
 				panel.add(txtSpieler2, gbc_txtSpieler2);
 				txtSpieler2.setColumns(10);
-//				name1=txtSpieler1.getText();
-//				name2=txtSpieler2.getText();
-			}
-			{;
 			}
 			//Aufforderung zur Wahl des Schwierigkeitsgrades
 			{
@@ -234,25 +230,28 @@ public class DialogOptionen2 extends JDialog {
 				gbc_cbSchwierigkeitsgrad.gridy = 10;
 				panel.add(cbSchwierigkeitsgrad, gbc_cbSchwierigkeitsgrad);
 			}
-			//Cancel-Button
 			{
-				JButton cancelButton = new JButton("Cancel"){
-					public void paintComponent(Graphics g){
-						g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Abbruch.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
-					}
-				};	
-				GridBagConstraints gbc_cancelButton = new GridBagConstraints();
-				gbc_cancelButton.fill = GridBagConstraints.BOTH;
-				gbc_cancelButton.insets = new Insets(0, 0, 5, 5);
-				gbc_cancelButton.gridx = 3;
-				gbc_cancelButton.gridy = 12;
-				panel.add(cancelButton, gbc_cancelButton);
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-					}
-				});
-				cancelButton.setActionCommand("Cancel");
+				JLabel lblThema = new JLabel("  W\u00E4hlen Sie ein Hintergrundthema.");
+				GridBagConstraints gbc_lblThema = new GridBagConstraints();
+				gbc_lblThema.anchor = GridBagConstraints.WEST;
+				gbc_lblThema.insets = new Insets(0, 0, 5, 5);
+				gbc_lblThema.gridx = 1;
+				gbc_lblThema.gridy = 12;
+				panel.add(lblThema, gbc_lblThema);
+			}
+			{
+				JComboBox cbThema = new JComboBox();
+				cbThema.addItem("Classic");
+				cbThema.addItem("Frühling");
+				cbThema.addItem("Sommer");
+				cbThema.addItem("Herbst");
+				cbThema.addItem("Winter");
+				GridBagConstraints gbc_cbThema = new GridBagConstraints();
+				gbc_cbThema.insets = new Insets(0, 0, 5, 5);
+				gbc_cbThema.fill = GridBagConstraints.HORIZONTAL;
+				gbc_cbThema.gridx = 1;
+				gbc_cbThema.gridy = 13;
+				panel.add(cbThema, gbc_cbThema);
 			}
 			//Spiel-starten-Button
 			{
@@ -263,8 +262,8 @@ public class DialogOptionen2 extends JDialog {
 				GridBagConstraints gbc_okButton = new GridBagConstraints();
 				gbc_okButton.fill = GridBagConstraints.BOTH;
 				gbc_okButton.insets = new Insets(0, 0, 5, 5);
-				gbc_okButton.gridx = 4;
-				gbc_okButton.gridy = 12;
+				gbc_okButton.gridx = 2;
+				gbc_okButton.gridy = 15;
 				panel.add(okButton, gbc_okButton);
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -285,6 +284,26 @@ public class DialogOptionen2 extends JDialog {
 				okButton.setActionCommand("OK");
 				getRootPane().setDefaultButton(okButton);
 			}
+			//Cancel-Button
+			{
+				JButton cancelButton = new JButton("Cancel"){
+					public void paintComponent(Graphics g){
+						g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Abbruch.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
+					}
+				};	
+				GridBagConstraints gbc_cancelButton = new GridBagConstraints();
+				gbc_cancelButton.fill = GridBagConstraints.BOTH;
+				gbc_cancelButton.insets = new Insets(0, 0, 5, 5);
+				gbc_cancelButton.gridx = 3;
+				gbc_cancelButton.gridy = 15;
+				panel.add(cancelButton, gbc_cancelButton);
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
+				cancelButton.setActionCommand("Cancel");
+			}
 		}
 	}
 	private void pruefeAuswahl() {
@@ -296,10 +315,10 @@ public class DialogOptionen2 extends JDialog {
 		}
 		else if (rdbtnMgM.isSelected()==true && ((txtSpieler1.getText().equals("Name von Spieler 1") && txtSpieler2.getText().equals("Name von Spieler 2"))
 					|| (txtSpieler1.getText().equals("") || txtSpieler2.getText().equals("")))) 
-		{ //problem inhalt wird erst bei focussieren gelöscht
+		{ 
 			this.neueMeldung(2, "Bitte geben Sie für beide Spieler einen Namen ein!", this);
 			System.out.println("kein name eingegeben");
-			//name standardmäßig auf Spieler 1 und Spieler 2 setzen?
+			
 			flag = false;
 		}
 		else if ((rdbtnMgC.isSelected()==true) && (txtSpieler1.getText().equals("Name von Spieler 1")
@@ -308,9 +327,7 @@ public class DialogOptionen2 extends JDialog {
 			System.out.println("kein name eingegeben");
 			flag = false;
 			this.neueMeldung(2, "Bitte geben Sie für den Spieler einen Namen ein!", this);
-			//s.o.
 		}
-		//schwierigkeitsstufe muss eig. nicht abgefragt werden, da 1 voreingestellt
 		else{
 			flag = true;
 		}
@@ -320,7 +337,7 @@ public class DialogOptionen2 extends JDialog {
 	
 	private void neueMeldung(final int sekunden, final String meldung, final DialogOptionen2 frame) 
 	{
-		//hier wird die Position festgelegt wo die meldung erscheinen soll
+		//hier wird die Position festgelegt wo die Meldung erscheinen soll
 		Point pos = frame.getLocationOnScreen();
 		final int xPos = (int)(pos.getX() + 20);
 		final int yPos = (int)pos.getY() + 50;
