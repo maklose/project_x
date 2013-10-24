@@ -21,7 +21,7 @@ int anzahlZuege;
 ESpielsteinFarbe farbe;
 ESpielsteinFarbe farbeSpieler2;
 int tiefe = 3;
-Bewegung Zug;
+Bewegung bewegung;
 
 
 	@Override
@@ -41,17 +41,12 @@ Bewegung Zug;
 
 	@Override
 	public ISpielzug bewegeStein(List<ISpielstein> p_SpielFeld) throws StrategieException {
-		Spielzug zug;
-		if(anzahlZuege < 9){
-			
-			
-			
-			
-		}
-		else{
-			// schieben eines Steins
-		}
 		
+		if(anzahlZuege < 9){
+		
+		}
+		Spielzug zug = new Spielzug(bewegung);	
+		anzahlZuege++;	
 		return zug;
 	}
 
@@ -193,7 +188,7 @@ Bewegung Zug;
 			if( wert > maxWert){
 				wert = min((ltiefe - 1) ,neuesSpielFeld, bewegung);	
 				if(ltiefe == tiefe)
-				Zug = moeglBewegungen.get(j); 	 
+				bewegung = moeglBewegungen.get(j); 	 
 			}
 		}	
 	}
@@ -260,7 +255,7 @@ Bewegung Zug;
 				if( wert < minWert){
 					wert = max((ltiefe - 1) ,neuesSpielFeld, moeglBewegungen.get(j));	
 					if(ltiefe == tiefe)
-					Zug = moeglBewegungen.get(j); 	 
+					bewegung = moeglBewegungen.get(j); 	 
 				}
 			}	
 		}
