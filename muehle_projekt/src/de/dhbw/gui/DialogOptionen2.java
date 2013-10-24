@@ -83,9 +83,9 @@ public class DialogOptionen2 extends JDialog {
          	//Layoutmanager
 			contentPanel.add(panel, BorderLayout.CENTER);
 			GridBagLayout gbl_panel = new GridBagLayout();
-			gbl_panel.columnWidths = new int[]{10, 230, 110, 110, 10, 0};
+			gbl_panel.columnWidths = new int[]{10, 230, 110, 10, 110, 10, 0};
 			gbl_panel.rowHeights = new int[]{20, 20, 20, 20, 20, 0, 0, 0, 20, 20, 20, 20, 0, 0, 40, 40, 0, 0};
-			gbl_panel.columnWeights = new double[]{1.0, 1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+			gbl_panel.columnWeights = new double[]{1.0, 1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 			panel.setLayout(gbl_panel);
 			//Aufforderung zur Wahl einer Option
@@ -294,7 +294,7 @@ public class DialogOptionen2 extends JDialog {
 				GridBagConstraints gbc_cancelButton = new GridBagConstraints();
 				gbc_cancelButton.fill = GridBagConstraints.BOTH;
 				gbc_cancelButton.insets = new Insets(0, 0, 5, 5);
-				gbc_cancelButton.gridx = 3;
+				gbc_cancelButton.gridx = 4;
 				gbc_cancelButton.gridy = 15;
 				panel.add(cancelButton, gbc_cancelButton);
 				cancelButton.addActionListener(new ActionListener() {
