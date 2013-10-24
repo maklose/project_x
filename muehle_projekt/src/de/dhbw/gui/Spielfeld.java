@@ -907,7 +907,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 						System.out.println(aktuellerSpieler.SpielsteinFarbeAsString() + textMuehle);
 						System.out.println("Alle gegnerischen Steine stehen in einer Mühle: " + this.alleGegnerSteineInMühle(passiverSpieler));
 						
-						if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true)
+						if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true && passiverSpieler.getAnzahlZuege() == 9)
 						{
 							SpielBeendet = true;
 							this.aktion(btnNewButton_1);
@@ -933,12 +933,12 @@ public class Spielfeld extends JFrame implements ActionListener {
 					if(Spieler2.getAnzahlZuege()==9)
 						this.neueMeldung(wichtigeMeldungsZeit, textRunde2);
 					
-					if(pruef.checkSpielBeendet(passiverSpieler, aktuellerSpieler) == true)
+					if(pruef.checkSpielBeendet(passiverSpieler, aktuellerSpieler) == true && passiverSpieler.getAnzahlZuege() == 9)
 					{
 						SpielBeendet = true;
 						this.aktion(btnNewButton_1);
 					}
-					if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true)
+					if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true && passiverSpieler.getAnzahlZuege() == 9)
 					{
 						SpielBeendet = true;
 						this.aktion(btnNewButton_1);

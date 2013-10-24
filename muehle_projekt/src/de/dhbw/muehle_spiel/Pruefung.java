@@ -264,11 +264,9 @@ public class Pruefung {
 		}
 		else if(SpielerAktiv.getAnzahlSteine() <= 3 && SpielerAktiv.getAnzahlZuege() <= 4)
 			return false;
-		else
-		{
-			return true;
-		}
-		return false;
+
+		
+		return true;
 	}
 
 	// Überprüft, ob eine Position auf dem Spielfeld bereits besetzt ist
