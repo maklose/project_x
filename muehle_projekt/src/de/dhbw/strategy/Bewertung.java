@@ -22,6 +22,7 @@ public class Bewertung
 	Spieler aktuellerSpieler;
 	Spieler passiverSpieler;
 	ISpielstein bewegterStein;
+
 	
 	public double bewerteZug(List<ISpielstein> p_SpielFeld, Bewegung lbewegung, int index)
 	{
@@ -30,7 +31,7 @@ public class Bewertung
 		nach = lbewegung.getNach();
 		lSteine = p_SpielFeld;
 		bewegterStein = p_SpielFeld.get(index);
-		Spieler aktuellerSpieler = new Spieler(bewegterStein.getFarbe(), "aktuellerSpielerB");
+		aktuellerSpieler = new Spieler(bewegterStein.getFarbe(), "aktuellerSpielerB");
 		if(bewegterStein.getFarbe() == ESpielsteinFarbe.WEISS)
 			passiverSpieler = new Spieler(bewegterStein.getFarbe(), "passiverSpielerB");
 		else
@@ -42,16 +43,19 @@ public class Bewertung
 		if(aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.WEISS) && this.checkInMuehle(lbewegung, aSteineWeiss))
 		{
 			Score += 0.8;
-			if(this.checkSpielBeendet(aktuellerSpieler, passiverSpieler) || passiverSpieler.getAnzahlSteine() == 3)
-				Score += 1;
+			
 		}
 			
 		if(aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.SCHWARZ) && this.checkInMuehle(lbewegung, aSteineSchwarz))
 		{
 			Score += 0.8;
-			if(this.checkSpielBeendet(aktuellerSpieler, passiverSpieler) || passiverSpieler.getAnzahlSteine() == 3)
-				Score += 1;
+			
 		}
+		
+		if(this.checkSpielBeendet(aktuellerSpieler, passiverSpieler) || passiverSpieler.getAnzahlSteine() == 3)
+			Score += 1;
+		if(this.checkSpielBeendet(passiverSpieler,aktuellerSpieler) || passiverSpieler.getAnzahlSteine() == 3)
+			Score += 1;
 			
 		
 			
@@ -179,6 +183,8 @@ public class Bewertung
 	}
 	
 	
+	// Überprüft, ob das Spiel beendet ist, weil SpielerAktiv keine Möglichkeit mehr hat zu ziehen, oder weniger als 3 Steine hat
+	// Gibt true zurück, wenn das Spiel beendet ist und false wenn das Spiel noch nicht beendet ist
 	public boolean checkSpielBeendet(Spieler SpielerAktiv, Spieler SpielerPassiv)
 	{
 		
@@ -190,9 +196,9 @@ public class Bewertung
 		
 		
 		// Wenn Anzahl der Steine > 3 wird überprüft, ob der Aktive Spieler noch die Möglichkeit hat zu ziehen
-		if(SpielerPassiv.getAnzahlSteine() > 3)
+		if(SpielerAktiv.getAnzahlSteine() > 3 || (SpielerAktiv.getAnzahlSteine() == 3 && SpielerAktiv.getAnzahlZuege() <= 9))
 		{
-			for (int i = 0; i <= 8 ; i++)
+			for (int i = 0; i <= 8 ; i++)		//for (int i = 0; i < SpielerAktiv.Steine.length ; i++)
 			{			
 				for(int a = 1 ; a <= 3; a++)
 				{
@@ -233,8 +239,9 @@ public class Bewertung
 									|| (ebene == ebene.Drei && x == x.Zwei && y == y.Zwei))
 								continue;
 							
-							if(SpielerAktiv.Steine[i] != null)
-							ZugKorrekt = this.checkZug(new Bewegung(SpielerAktiv.Steine[i].getPosition(), new Position(ebene, x, y)), SpielerAktiv, SpielerPassiv); 
+							if(SpielerAktiv.Steine[i] != null)	//TEST MARVIN
+							ZugKorrekt = checkZug(new Bewegung(SpielerAktiv.Steine[i].getPosition(), new Position(ebene, x, y)), 
+									SpielerAktiv, SpielerPassiv);
 							
 							if(ZugKorrekt == true)
 								return false;
@@ -244,15 +251,15 @@ public class Bewertung
 				}
 			}	 	
 		}
-		else if(SpielerPassiv.getAnzahlSteine() == 3)
+		else if(SpielerAktiv.getAnzahlSteine() == 3)
 		{
 			return false;
 		}
-		else
-		{
-			return true;
-		}
-		return false;
+		else if(SpielerAktiv.getAnzahlSteine() <= 3 && SpielerAktiv.getAnzahlZuege() <= 4)
+			return false;
+
+		
+		return true;
 	}
 
 	
