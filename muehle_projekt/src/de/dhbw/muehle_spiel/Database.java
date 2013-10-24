@@ -5,6 +5,7 @@ import java.sql.*;
 
 
 public class Database {
+	
 	//Treiber laden
 	String url="jdbc:sqlite:database.db";
 	Connection c;
@@ -64,8 +65,9 @@ public void testmethode_h(){
 	        System.exit(0);
 	}
 }
-//Speichern der ersten 10 Züge, Spielernamen in ein 2-dimensionales Array
-public String[][] zeige_h(){
+
+//Speichern der ersten 10 Züge und Spielernamen in ein 2-dimensionales Array
+public String[][] speichern_h(){
 	String [][] highscore=new String[10][2];
 	
 		try{
@@ -94,9 +96,14 @@ public String[][] zeige_h(){
 			e.printStackTrace();
 		}
 	return highscore;
-		
-	
 }
+
+//Speichern der Tabelle protokoll in ein 2-dimensionales Array, abhängig von der übergebenen PartieID
+public String[][] speichern_p(int partie)
+{	String [][] protokoll = null;
+	return protokoll;
+}
+
 //Anzeigen der Tabelle protokoll
 public void zeige_p()
 {

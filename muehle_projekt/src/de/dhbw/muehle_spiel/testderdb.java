@@ -11,7 +11,7 @@ public class testderdb {
 //			db.löschetb("highscore");
 			//db.anzahlzuegespeichern();
 //			db.testmethode_h();
-			String [][] ergebnis=db.zeige_h();
+			String [][] ergebnis=db.speichern_h();
 			for(int i=0;i<10;i++)
 			{	if(ergebnis[i][0]!=null && ergebnis[i][1]!=null){
 					System.out.print("Züge: ["+ergebnis[i][0]+"] ");
