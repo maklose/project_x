@@ -262,7 +262,7 @@ public class Pruefung {
 		{
 			return false;
 		}
-		else if(SpielerAktiv.getAnzahlSteine() <= 3 && SpielerAktiv.getAnzahlZuege() <= 4)
+		else if(SpielerAktiv.getAnzahlSteine() <= 3 && SpielerAktiv.getAnzahlZuege() <= 8)
 			return false;
 
 		
