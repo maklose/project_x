@@ -21,16 +21,33 @@ public class Bewertung
 	Spieler aktuellerSpieler;
 	Spieler passiverSpieler;
 	ISpielstein bewegterStein;
+	
+	//Variablen für die Bewertung 
+	int bSpielBeendet = 10;
+	
+	//Phase Setzen
+	double b1Muehle = 0.2;
+	double b1Doppelangriff = 0;
+	double b1StrategischePunkte = 0.3;
+	double b1MuehleBewachen = 0;
+	
+	//Phase Bewegen
+	double b2Muehle = 0;
+	double b2Doppelangriff = 0;
+	double b2StrategischePunkte = 0;
+	double b2MuehleBewachen = 0;
 
 	
-	public double bewerteZug(List<ISpielstein> p_SpielFeld, Bewegung lbewegung, int index, int anzahlZuege)
+	public double bewerteZug(List<ISpielstein> p_SpielFeld, Bewegung lBewegung, int index, int anzahlZuege)
 	{
 		double Score = 0;
-		von = lbewegung.getVon();
-		nach = lbewegung.getNach();
+		von = lBewegung.getVon();
+		nach = lBewegung.getNach();
 		lSteine = p_SpielFeld;
 		bewegterStein = p_SpielFeld.get(index);
 		aktuellerSpieler = new Spieler(bewegterStein.getFarbe(), "aktuellerSpielerB");
+		
+		//passiven Spieler festlegen und Arrays der Spieler füllen
 		if(bewegterStein.getFarbe() == ESpielsteinFarbe.WEISS)
 		{
 			passiverSpieler = new Spieler(ESpielsteinFarbe.SCHWARZ, "passiverSpielerB");
@@ -43,19 +60,45 @@ public class Bewertung
 		}
 			
 		
-		if(this.checkInMuehle(lbewegung, aktuellerSpieler.Steine))
+		//Beginn der Bewertung
+		
+		//Wenn wir in der setzen Phase sind
+		if(anzahlZuege <= 9)
 		{
-			Score += 0.2;
-			if(passiverSpieler.getAnzahlSteine() == 3 && anzahlZuege > 9 || 
-					(anzahlZuege == 10 && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.WEISS) && passiverSpieler.getAnzahlZuege() == 3) ||
-					(anzahlZuege == 9 && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.SCHWARZ) && passiverSpieler.getAnzahlZuege() == 3))
-				Score += 0.3;
+			//Wenn man eine Mühle erstellen kann
+			if(this.checkInMuehle(lBewegung, aktuellerSpieler.Steine))
+			{
+				Score += b1Muehle;
+				
+				//wenn man duch die Mühle das Spiel gewonnen hat
+				if(passiverSpieler.getAnzahlSteine() == 3 && anzahlZuege > 9 || 
+						(anzahlZuege == 9 && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.SCHWARZ) && passiverSpieler.getAnzahlZuege() == 3))
+					Score += bSpielBeendet;
+			}
+			
+			//Wenn man duch das Zustellen des Gegners gewinnen kann
+			if(this.checkBewegungsunfaehig(passiverSpieler, aktuellerSpieler))
+				Score += bSpielBeendet;
+			
+			if(this.isStrategischerPunkt(lBewegung))
+				Score += b1StrategischePunkte;
 		}
-		
-		
-		if(this.checkBewegungsunfaehig(passiverSpieler, aktuellerSpieler))
-			Score += 0.4;
-		
+		else	//Wenn wir in der Bewegen Phase sind
+		{
+			//Wenn man eine Mühle erstellen kann
+			if(this.checkInMuehle(lBewegung, aktuellerSpieler.Steine))
+			{
+				Score += b1Muehle;
+				if(passiverSpieler.getAnzahlSteine() == 3 && anzahlZuege > 9 || 
+						(anzahlZuege == 10 && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.WEISS) && passiverSpieler.getAnzahlZuege() == 3))
+					Score += bSpielBeendet;
+			}
+			
+			
+			if(this.checkBewegungsunfaehig(passiverSpieler, aktuellerSpieler))
+				Score += bSpielBeendet;
+			
+		}
 		
 			
 		
@@ -64,8 +107,7 @@ public class Bewertung
 		return Score;
 	}
 
-	
-	
+
 	//aufteilen des Arrays aSteine in Arrays für jeweils einen Spieler
 	public void SteineAufteilen(List<ISpielstein> p_SpielFeld, ESpielsteinFarbe farbe)
 	{
@@ -324,6 +366,21 @@ public class Bewertung
 		}
 		return counter;
 		
+	}
+	
+	//Strategische Punkte sind 223, 221, 212, 232
+	public boolean isStrategischerPunkt(Bewegung neueBewegung)
+	{
+		Position nach = neueBewegung.getNach();
+		
+		if(nach.getEbene().equals(EPositionIndex.Zwei) && (					//Ebene ist immer 2
+				(nach.getX().equals(EPositionIndex.Zwei) &&					//Wenn x = 2 
+						(nach.getY().equals(EPositionIndex.Drei) || nach.getY().equals(EPositionIndex.Eins)))
+				||(nach.getY().equals(EPositionIndex.Zwei) &&				//Wenn y = 2 
+						(nach.getX().equals(EPositionIndex.Drei) || nach.getX().equals(EPositionIndex.Eins)))))
+			return true;
+		else
+			return false;
 	}
 	
 	
