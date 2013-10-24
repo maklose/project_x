@@ -16,7 +16,6 @@ public class Bewertung
 {
 	//Array mit den aktuellen Steinen auf dem Feld
 	List<ISpielstein> lSteine;
-	ISpielstein[] aSteine, aSteineWeiss, aSteineSchwarz;
 	Position von, nach;
 	Pruefung pruef = new Pruefung();
 	Spieler aktuellerSpieler;
@@ -24,7 +23,7 @@ public class Bewertung
 	ISpielstein bewegterStein;
 
 	
-	public double bewerteZug(List<ISpielstein> p_SpielFeld, Bewegung lbewegung, int index)
+	public double bewerteZug(List<ISpielstein> p_SpielFeld, Bewegung lbewegung, int index, int anzahlZuege)
 	{
 		double Score = 0;
 		von = lbewegung.getVon();
@@ -33,30 +32,30 @@ public class Bewertung
 		bewegterStein = p_SpielFeld.get(index);
 		aktuellerSpieler = new Spieler(bewegterStein.getFarbe(), "aktuellerSpielerB");
 		if(bewegterStein.getFarbe() == ESpielsteinFarbe.WEISS)
-			passiverSpieler = new Spieler(bewegterStein.getFarbe(), "passiverSpielerB");
+		{
+			passiverSpieler = new Spieler(ESpielsteinFarbe.SCHWARZ, "passiverSpielerB");
+			this.SteineAufteilen(p_SpielFeld, ESpielsteinFarbe.WEISS);
+		}
 		else
-			passiverSpieler = new Spieler(bewegterStein.getFarbe(), "passiverSpielerB");
-			
-		aSteine = this.ListeUmrechnen(lSteine);
-		this.SteineAufteilen(aSteine);
-		
-		if(aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.WEISS) && this.checkInMuehle(lbewegung, aSteineWeiss))
 		{
-			Score += 0.8;
-			
+			passiverSpieler = new Spieler(ESpielsteinFarbe.WEISS, "passiverSpielerB");
+			this.SteineAufteilen(p_SpielFeld, ESpielsteinFarbe.SCHWARZ);
 		}
 			
-		if(aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.SCHWARZ) && this.checkInMuehle(lbewegung, aSteineSchwarz))
+		
+		if(this.checkInMuehle(lbewegung, aktuellerSpieler.Steine))
 		{
-			Score += 0.8;
-			
+			Score += 0.2;
+			if(passiverSpieler.getAnzahlSteine() == 3 && anzahlZuege > 9 || 
+					(anzahlZuege == 10 && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.WEISS) && passiverSpieler.getAnzahlZuege() == 3) ||
+					(anzahlZuege == 9 && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.SCHWARZ) && passiverSpieler.getAnzahlZuege() == 3))
+				Score += 0.3;
 		}
 		
-		if(this.checkSpielBeendet(aktuellerSpieler, passiverSpieler) || passiverSpieler.getAnzahlSteine() == 3)
-			Score += 1;
-		if(this.checkSpielBeendet(passiverSpieler,aktuellerSpieler) || passiverSpieler.getAnzahlSteine() == 3)
-			Score += 1;
-			
+		
+		if(this.checkBewegungsunfaehig(passiverSpieler, aktuellerSpieler))
+			Score += 0.4;
+		
 		
 			
 		
@@ -67,44 +66,20 @@ public class Bewertung
 
 	
 	
-	public ISpielstein[] ListeUmrechnen(List<ISpielstein> p_SpielFeld)
-	{
-		
-		if(!p_SpielFeld.isEmpty())
-		{
-			Spielstein[] aSteine = new Spielstein[p_SpielFeld.size()];
-			for(int i = 0; i <= p_SpielFeld.size()-1; i++)
-			{
-				aSteine[i] = (Spielstein)p_SpielFeld.get(i);
-			}
-				
-			return aSteine;
-		}
-		else
-			return null;
-		
-	}
-	
 	//aufteilen des Arrays aSteine in Arrays für jeweils einen Spieler
-	public void SteineAufteilen(ISpielstein[] Steine)
+	public void SteineAufteilen(List<ISpielstein> p_SpielFeld, ESpielsteinFarbe farbe)
 	{
-		aSteineWeiss = new ISpielstein[9];
-		aSteineSchwarz = new ISpielstein[9];
-
-		int a = 0, b = 0;
-		for(int i = 0; i <= Steine.length-1; i++)
-		{
-			if(Steine[i].getFarbe() == ESpielsteinFarbe.WEISS)
+		for(ISpielstein s: p_SpielFeld){
+			if(s.getFarbe() == farbe)
 			{
-				aSteineWeiss[a]	= Steine[i];
-				a++;
+				aktuellerSpieler.setzeSpielstein(s.getPosition(), 0, 0);
 			}
 			else
 			{
-				aSteineSchwarz[b] = Steine[i];
-				b++;
+				passiverSpieler.setzeSpielstein(s.getPosition(),0,0);
 			}
 		}
+	
 	}
 	
 	//Überprüft, ob sich ein Stein auf dem Spielfeld in einer Mühle befindet
@@ -185,7 +160,7 @@ public class Bewertung
 	
 	// Überprüft, ob das Spiel beendet ist, weil SpielerAktiv keine Möglichkeit mehr hat zu ziehen, oder weniger als 3 Steine hat
 	// Gibt true zurück, wenn das Spiel beendet ist und false wenn das Spiel noch nicht beendet ist
-	public boolean checkSpielBeendet(Spieler SpielerAktiv, Spieler SpielerPassiv)
+	public boolean checkBewegungsunfaehig(Spieler SpielerAktiv, Spieler SpielerPassiv)
 	{
 		
 		boolean ZugKorrekt = false;
@@ -338,6 +313,18 @@ public class Bewertung
 				return korrekt;
 			
 		}
+	
+	public int getAnzahlSteine(ISpielstein[] Steine)
+	{
+		int counter = 0;
+		for (int i = 0; i < Steine.length; i++)
+		{
+			if(Steine[i] != null)
+				counter++;
+		}
+		return counter;
+		
+	}
 	
 	
 }
