@@ -182,7 +182,7 @@ public class Bewertung
 		
 		
 		// Wenn Anzahl der Steine > 3 wird überprüft, ob der Aktive Spieler noch die Möglichkeit hat zu ziehen
-		if(SpielerAktiv.getAnzahlSteine() > 3)
+		if(SpielerPassiv.getAnzahlSteine() > 3)
 		{
 			for (int i = 0; i <= 8 ; i++)
 			{			
@@ -225,7 +225,7 @@ public class Bewertung
 									|| (ebene == ebene.Drei && x == x.Zwei && y == y.Zwei))
 								continue;
 							
-							if(SpielerAktiv.Steine[i].getPosition() != null)
+							if(SpielerAktiv.Steine[i] != null)
 							ZugKorrekt = this.checkZug(new Bewegung(SpielerAktiv.Steine[i].getPosition(), new Position(ebene, x, y)), SpielerAktiv, SpielerPassiv); 
 							
 							if(ZugKorrekt == true)
@@ -236,11 +236,11 @@ public class Bewertung
 				}
 			}	 	
 		}
-		else if(SpielerAktiv.getAnzahlSteine() == 3)
+		else if(SpielerPassiv.getAnzahlSteine() == 3)
 		{
 			return false;
 		}
-		else if(SpielerAktiv.getAnzahlSteine() < 3 && SpielerAktiv.getAnzahlZuege() < 9)
+		else if(SpielerPassiv.getAnzahlSteine() < 3 && SpielerAktiv.getAnzahlZuege() < 9)
 			return false;
 		else
 		{
