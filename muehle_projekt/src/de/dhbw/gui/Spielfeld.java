@@ -166,7 +166,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 			{
 				try 
 				{
-					Spielfeld frame = new Spielfeld("Stefan", "Georg", 1, 5);
+					Spielfeld frame = new Spielfeld("Stefan", "Georg", 1, 5, 2);
 					frame.addWindowListener(new WindowAdapter() {
 											public void windowClosing(WindowEvent evt) {
 											exitForm(evt);}});
@@ -217,7 +217,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	 * Das JPanel wird erzeugt
 	 * Die Buttons werden instanziiert und mit dem action listener verknüpft
 	 */
-	public Spielfeld(String Spieler1Name, String Spieler2Name, int lmode, int lSchwierigkeit) 
+	public Spielfeld(String Spieler1Name, String Spieler2Name, int lmode, int lSchwierigkeit, final int theme) 
 	{
 		//Name der in dem Fenster angezeigt wird
 		super(textSpielName);
@@ -263,7 +263,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 //				db.löschetb("protokoll");
 				dispose();
-				JFrame neuesSpiel = new Spielfeld(nameSpieler1, nameSpieler2, mode, gSchwierigkeit);
+				JFrame neuesSpiel = new Spielfeld(nameSpieler1, nameSpieler2, mode, gSchwierigkeit, theme);
 				neuesSpiel.setVisible(true);
 			}
 		});
@@ -322,10 +322,24 @@ public class Spielfeld extends JFrame implements ActionListener {
 
 			protected void paintComponent(Graphics g) 
             {
-				 
-			
-                Image spielfeld = Toolkit.getDefaultToolkit().getImage(  
-                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIlinks.png"));  
+				Image spielfeld;
+				
+				if(theme == 2)
+	                spielfeld = Toolkit.getDefaultToolkit().getImage(  
+	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_Frühling_GUIlinks.png"));  
+				else if(theme == 3)
+	                spielfeld = Toolkit.getDefaultToolkit().getImage(  
+	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIlinks.png"));  
+				else if(theme == 4)
+	                spielfeld = Toolkit.getDefaultToolkit().getImage(  
+	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIlinks.png"));  
+				else if(theme == 5)
+	                spielfeld = Toolkit.getDefaultToolkit().getImage(  
+	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIlinks.png"));  
+				else
+	                spielfeld = Toolkit.getDefaultToolkit().getImage(  
+	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIlinks.png"));  
+				
                 g.drawImage(spielfeld, 0, 0, this.getWidth(), this.getHeight(), this);  
                 
                 for(int i = 0; i <= 2; i++)
@@ -638,8 +652,24 @@ public class Spielfeld extends JFrame implements ActionListener {
 				g.setFont(new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 30));
 				
 				//Das Hintergrundbild wird geladen
-				Image spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
-                        Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIrechts.png"));  
+				Image spielfeldRechts;
+				
+				if(theme == 2)
+					spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
+	                        Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_Frühling_GUIrechts.png"));  
+				else if(theme == 3)
+					spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
+	                        Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIrechts.png"));    
+				else if(theme == 4)
+					spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
+	                        Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIrechts.png"));   
+				else if(theme == 5)
+					spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
+	                        Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIrechts.png"));    
+				else
+					spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
+	                        Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIrechts.png"));  
+				  
 				g.drawImage(spielfeldRechts, 0, 0, this.getWidth(), this.getHeight(), this);  
 				
 				//hier wird das Verhältnis festgelet, in dem die Steine zum Spielfeld stehen (größe)
