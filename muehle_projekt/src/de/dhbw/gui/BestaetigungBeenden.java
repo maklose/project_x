@@ -70,7 +70,7 @@ public class BestaetigungBeenden extends JDialog {
 			};
 				
 
-				okButton.setBounds(28, 122, 92, 34);
+				okButton.setBounds(32, 146, 106, 34);
 				panel.add(okButton);
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -90,7 +90,7 @@ public class BestaetigungBeenden extends JDialog {
 						g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Nein.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
 					}
 				};	
-				cancelButton.setBounds(151, 122, 92, 34);
+				cancelButton.setBounds(154, 146, 106, 34);
 				panel.add(cancelButton);
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
