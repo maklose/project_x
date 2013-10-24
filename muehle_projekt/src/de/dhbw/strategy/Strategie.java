@@ -48,6 +48,7 @@ Bewegung bewegung;
 		if(anzahlZuege < 9){
 		bewertung = max(tiefe, p_SpielFeld, null, anzahlZuege);
 		anzahlZuege++;
+		System.out.println(bewegung.toString());
 		zug = new Spielzug(bewegung);
 		}
 		else{
@@ -317,6 +318,7 @@ Bewegung bewegung;
 		double minWert= 2;
 		double wert;
 		
+		if(lanzahlZuege >= 9){  // Ziehen und Springen Phase
 		for(int i = 0; i < spieler2.getAnzahlSteine(); i++){	
 		
 			moeglBewegungen = getMoeglicheBewegungen(neuesSpielFeld, spieler2.Steine[i], lanzahlZuege);
@@ -329,6 +331,23 @@ Bewegung bewegung;
 					bewegung = moeglBewegungen.get(j); 	 
 				}
 			}	
+		}
+		}
+		
+		else{
+			moeglBewegungen = getMoeglicheBewegungen(neuesSpielFeld, new Spielstein(spieler2.getSpielerfarbe(), null, 0,0,0), lanzahlZuege);
+			for(int j = 0; j < moeglBewegungen.size();j++){	
+				//Rekursion
+				wert= min((ltiefe - 1) , neuesSpielFeld, moeglBewegungen.get(j), (lanzahlZuege + 1));
+				if( wert < minWert){
+					minWert = wert;	
+					if(ltiefe == tiefe)
+					bewegung = moeglBewegungen.get(j);			
+				}
+			}
+		
+			
+			
 		}
 		
 		return minWert;
