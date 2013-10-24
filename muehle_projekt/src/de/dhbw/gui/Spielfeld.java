@@ -1019,7 +1019,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		gSteine.add(lSpieler.getSpielstein(anzahlRunden));
 		
 		//Ausgabe der Bewertung des Zuges ZUM TEST
-//		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung));
+		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung, aktuellerSpieler));
 	}
 	
 	
@@ -1054,7 +1054,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		SpielfeldArray[e][x][y] = null;
 		
 		//Ausgabe der Bewertung des Zuges ZUM TEST
-//		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung));
+		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung, aktuellerSpieler));
 	}
 	
 	//EPositionIndex auf dem Feld wird in int umgerechnet
