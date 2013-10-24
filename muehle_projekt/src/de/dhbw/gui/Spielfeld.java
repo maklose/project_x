@@ -107,7 +107,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	private String textMuehle = " hat eine Mühle!";
 	private String textNeuesSpiel = "Neues Spiel - Stefan beginnt!";
 	private String textRunde2 = "Ab jetzt: Steine ziehen!";
-	private static String textSpielName = "Mühle Spiel";
+	private static String textSpielName = "Mühle - Das Brettspiel für Groß und Klein";
 	private String textGewonnen = " hat gewonnen!!!";
 	private String textDarfSpringen = " darf jetzt springen!";
 	

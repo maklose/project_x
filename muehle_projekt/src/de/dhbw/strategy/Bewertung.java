@@ -3,6 +3,7 @@ package de.dhbw.strategy;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.dhbw.muehle_api.EPositionIndex;
 import de.dhbw.muehle_api.ESpielsteinFarbe;
 import de.dhbw.muehle_api.ISpielstein;
 import de.dhbw.muehle_api.Position;
@@ -18,13 +19,13 @@ public class Bewertung
 	ISpielstein[] aSteine, aSteineWeiss, aSteineSchwarz;
 	Position von, nach;
 	Pruefung pruef = new Pruefung();
-//	Spieler aktiverSpielerb;
-//	Spieler passiverSpielerb;
+	Spieler weisserSpielerb;
+	Spieler schwarzerSpielerb;
 	
 	public Bewertung()
 	{
-//		aktiverSpielerb = new Spieler(ESpielsteinFarbe.WEISS, "BewertungsSpiler1");
-//		passiverSpielerb = new Spieler(ESpielsteinFarbe.SCHWARZ, "BewertungsSpieler2");
+		weisserSpielerb = new Spieler(ESpielsteinFarbe.WEISS, "BewertungsSpiler1");
+		schwarzerSpielerb = new Spieler(ESpielsteinFarbe.SCHWARZ, "BewertungsSpieler2");
 		
 	}
 	
@@ -42,6 +43,10 @@ public class Bewertung
 			Score += 0.8;
 		if(aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.SCHWARZ) && this.checkInMuehle(lbewegung, aSteineSchwarz))
 			Score += 0.8;
+		if(aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.WEISS) && this.checkSpielBeendet(weisserSpielerb, schwarzerSpielerb))
+			Score += 1;
+		if(aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.SCHWARZ) && this.checkSpielBeendet(schwarzerSpielerb, weisserSpielerb))
+			Score += 1;
 
 					
 		
@@ -164,7 +169,161 @@ public class Bewertung
 					
 		return inMuehle;
 	}
+	
+	
+	public boolean checkSpielBeendet(Spieler SpielerAktiv, Spieler SpielerPassiv)
+	{
+		
+		boolean ZugKorrekt = false;
+		
+		EPositionIndex ebene = null;
+		EPositionIndex x = null;
+		EPositionIndex y = null;
+		
+		
+		// Wenn Anzahl der Steine > 3 wird überprüft, ob der Aktive Spieler noch die Möglichkeit hat zu ziehen
+		if(SpielerAktiv.getAnzahlSteine() > 3)
+		{
+			for (int i = 0; i < SpielerAktiv.Steine.length ; i++)
+			{			
+				for(int a = 1 ; a <= 3; a++)
+				{
+					if(a == 1){
+						ebene = ebene.Eins;
+						}
+					if(a == 2){
+						ebene = ebene.Zwei;
+						}
+					if(a == 3){
+						ebene = ebene.Drei;
+					}
+					
+					for(int b = 1; b <= 3; b++)
+					{
+						if(b == 1){
+							x = x.Eins;
+							}
+						if(b == 2){
+							x = x.Zwei;
+							}
+						if(b == 3){
+							x = x.Drei;
+						}
+						for(int c = 1; c <= 3; c++)
+						{
+							if(c == 1){
+								y = y.Eins;
+								}
+							if(c == 2){
+								y = y.Zwei;
+								}
+							if(c == 3){
+								y = y.Drei;
+							}
+							if((ebene == ebene.Eins && x == x.Zwei && y == y.Zwei) 
+									|| (ebene == ebene.Zwei && x == x.Zwei && y == y.Zwei)
+									|| (ebene == ebene.Drei && x == x.Zwei && y == y.Zwei))
+								continue;
+							
+							ZugKorrekt = this.checkZug(new Bewegung(SpielerAktiv.Steine[i].getPosition(), new Position(ebene, x, y)), SpielerAktiv, SpielerPassiv); 
+							
+							if(ZugKorrekt == true)
+								return false;
+								
+						}
+					}
+				}
+			}	 	
+		}
+		else if(SpielerAktiv.getAnzahlSteine() == 3)
+		{
+			return false;
+		}
+		else if(SpielerAktiv.getAnzahlSteine() < 3 && SpielerAktiv.getAnzahlZuege() < 9)
+			return false;
+		else
+		{
+			return true;
+		}
+		return false;
+	}
 
+	
+	
+	
+	public boolean checkZug (Bewegung bewegung, Spieler SpielerAktiv, Spieler SpielerPassiv )
+	{
+		
+		
+		boolean korrekt = false;			
+		int aenderung = 0;
+		int vonEbene, vonX, vonY, nachEbene, nachX, nachY;
+		
+		// Ablegen der Positionsindexe in einer int-Variablen
+		vonEbene = bewegung.getVon().getEbene().getValue();
+		vonX = bewegung.getVon().getX().getValue();
+		vonY = bewegung.getVon().getY().getValue();
+		nachEbene= bewegung.getNach().getEbene().getValue();
+		nachX = bewegung.getNach().getX().getValue();
+		nachY = bewegung.getNach().getY().getValue();
+		
+		// Wenn Anzahl Steine > 3 darf der Spieler ziehen, Wenn =3 darf er springen
+		if (SpielerAktiv.getAnzahlSteine() > 3)
+		{	
+			// Überprüfung, ob sich der PositionsIndex um 1 verändert hat
+			// Zug ist gültig, wenn aenderung = 1
+			if (vonEbene- nachEbene == 1 || vonEbene- nachEbene == -1)
+				aenderung ++;
+			if (vonEbene- nachEbene == 2 || vonEbene- nachEbene == -2)
+				return false;
+			if (vonX - nachX == 1 || vonX - nachX == -1) 
+				aenderung++;
+			if (vonX - nachX == 2 || vonX - nachX == -2) 
+				return false;
+			if (vonY - nachY == 1 || vonY - nachY == -1) 
+				aenderung++;
+			if (vonY - nachY == 2 || vonY - nachY == -2) 
+				return false;
+			if (aenderung == 1)
+				korrekt = true;
+			
+			//Überprüfung, ob sich die Ebene ungültiger Weise verändert hat
+			if (vonX == 1 && vonY ==3 && vonEbene != nachEbene)
+				return false;
+			if (vonX == 3 && vonY ==3 && vonEbene != nachEbene)
+				return false;
+			if (vonX == 3 && vonY ==1 && vonEbene != nachEbene)
+				return false;
+			if (vonX == 1 && vonY ==1 && vonEbene != nachEbene)
+				return false;
+			
+		}
+		else
+			korrekt = true;
+			
+		
+		//Überprüfung, ob die Nach-Position bereits belegt ist
+			for (int i = 0; i<9; i++)
+			{
+				if(SpielerAktiv.Steine[i] != null){
+					if(SpielerAktiv.Steine[i].getPosition().equals(bewegung.getNach()) == true ){
+						return false;
+					}
+				
+			}
+				
+				if(SpielerPassiv.Steine[i] != null){
+					if(SpielerPassiv.Steine[i].getPosition().equals(bewegung.getNach()) == true){
+						return false;
+					}
+					
+				}
+			
+			}
+				
+				return korrekt;
+			
+		}
 	
 	
 }

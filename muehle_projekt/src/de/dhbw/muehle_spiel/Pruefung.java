@@ -205,7 +205,7 @@ public class Pruefung {
 		// Wenn Anzahl der Steine > 3 wird überprüft, ob der Aktive Spieler noch die Möglichkeit hat zu ziehen
 		if(SpielerAktiv.getAnzahlSteine() > 3)
 		{
-			for (int i = 0; i < SpielerAktiv.Steine.length ; i++)
+			for (int i = 0; i <= 8 ; i++)		//for (int i = 0; i < SpielerAktiv.Steine.length ; i++)
 			{			
 				for(int a = 1 ; a <= 3; a++)
 				{
@@ -246,6 +246,7 @@ public class Pruefung {
 									|| (ebene == ebene.Drei && x == x.Zwei && y == y.Zwei))
 								continue;
 							
+							if(SpielerAktiv.Steine[i].getPosition() != null)	//TEST MARVIN
 							ZugKorrekt = checkZug(new Bewegung(SpielerAktiv.Steine[i].getPosition(), new Position(ebene, x, y)), 
 									SpielerAktiv, SpielerPassiv);
 							
