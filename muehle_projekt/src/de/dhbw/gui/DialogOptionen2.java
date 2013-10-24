@@ -1,43 +1,31 @@
 package de.dhbw.gui;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Insets;
+import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import java.awt.GridLayout;
-
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-
-import java.awt.Font;
-
-import javax.swing.JRadioButton;
-import javax.swing.JPopupMenu;
-
-import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.ButtonGroup;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import javax.swing.JComboBox;
 
 public class DialogOptionen2 extends JDialog {
 
@@ -48,6 +36,16 @@ public class DialogOptionen2 extends JDialog {
 	private int i;
 	private String name1;
 	private String name2;
+	
+	private boolean flag = true;
+	
+	private JRadioButton rdbtnMgM, rdbtnMgC;
+	
+	private Font gFont = new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 20);
+	
+	private int gSchwierigkeit = 1;
+	
+	private JComboBox cbSchwierigkeitsgrad;
 
 	/**
 	 * Launch the application.
@@ -101,7 +99,7 @@ public class DialogOptionen2 extends JDialog {
 			}
 			//Radiobuttons und Gruppierung derselben
 			{
-				JRadioButton rdbtnMgM = new JRadioButton("Mensch gegen Mensch");
+				rdbtnMgM = new JRadioButton("Mensch gegen Mensch");
 				rdbtnMgM.setOpaque(false);
 				rdbtnMgM.setContentAreaFilled(false);
 				rdbtnMgM.setBorderPainted(false);
@@ -109,7 +107,7 @@ public class DialogOptionen2 extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						txtSpieler1.setEnabled(true);
 						txtSpieler2.setEnabled(true);
-						i=0;
+						i=1;
 					}
 				});
 				buttonGroup.add(rdbtnMgM);
@@ -121,7 +119,7 @@ public class DialogOptionen2 extends JDialog {
 				panel.add(rdbtnMgM, gbc_rdbtnMgM);
 			}
 			{
-				JRadioButton rdbtnMgC = new JRadioButton("Mensch gegen Computer");
+				rdbtnMgC = new JRadioButton("Mensch gegen Computer");
 				rdbtnMgC.setOpaque(false);
 				rdbtnMgC.setContentAreaFilled(false);
 				rdbtnMgC.setBorderPainted(false);
@@ -129,7 +127,7 @@ public class DialogOptionen2 extends JDialog {
 					public void actionPerformed(ActionEvent arg0) {
 						txtSpieler1.setEnabled(true);
 						txtSpieler2.setEnabled(false);
-						i=1;
+						i=2;
 					}
 				});
 				buttonGroup.add(rdbtnMgC);
@@ -153,13 +151,14 @@ public class DialogOptionen2 extends JDialog {
 			//Textfelder zur Eingabe des Spielernamens; zunächst deaktiviert
 			{
 				txtSpieler1 = new JTextField();
-				txtSpieler1.setEnabled(false);
 				txtSpieler1.addFocusListener(new FocusAdapter() {
 					@Override
 					public void focusGained(FocusEvent arg0) {
 						txtSpieler1.setText("");
 					}
 				});
+				txtSpieler1.setEnabled(false);
+				
 				txtSpieler1.setText("Name von Spieler 1");
 				GridBagConstraints gbc_txtSpieler1 = new GridBagConstraints();
 				gbc_txtSpieler1.insets = new Insets(0, 0, 5, 5);
@@ -168,18 +167,18 @@ public class DialogOptionen2 extends JDialog {
 				gbc_txtSpieler1.gridy = 6;
 				panel.add(txtSpieler1, gbc_txtSpieler1);
 				txtSpieler1.setColumns(10);
-				name1=txtSpieler1.getText();
-				name2=txtSpieler2.getText();
+
 			}
 			{
 				txtSpieler2 = new JTextField();
-				txtSpieler2.setEnabled(false);
 				txtSpieler2.addFocusListener(new FocusAdapter() {
 					@Override
 					public void focusGained(FocusEvent e) {
 						txtSpieler2.setText("");
 					}
 				});
+				txtSpieler2.setEnabled(false);
+//			
 				txtSpieler2.setText("Name von Spieler 2");
 				GridBagConstraints gbc_txtSpieler2 = new GridBagConstraints();
 				gbc_txtSpieler2.insets = new Insets(0, 0, 5, 5);
@@ -188,7 +187,8 @@ public class DialogOptionen2 extends JDialog {
 				gbc_txtSpieler2.gridy = 7;
 				panel.add(txtSpieler2, gbc_txtSpieler2);
 				txtSpieler2.setColumns(10);
-				name1=txtSpieler1.getText();
+//				name1=txtSpieler1.getText();
+//				name2=txtSpieler2.getText();
 			}
 			{;
 			}
@@ -204,17 +204,29 @@ public class DialogOptionen2 extends JDialog {
 			}
 			//Drop-down-Liste zur Auswahl des Schwierigkeitsgrades; nicht editierbar zur Vermeidung von Falscheingaben
 			{
-				JComboBox cbSchwierigkeitsgrad = new JComboBox();
-				cbSchwierigkeitsgrad.addItem("1 (leicht)");
-				cbSchwierigkeitsgrad.addItem("2");
-				cbSchwierigkeitsgrad.addItem("3");
-				cbSchwierigkeitsgrad.addItem("4");
-				cbSchwierigkeitsgrad.addItem("5");
-				cbSchwierigkeitsgrad.addItem("6");
-				cbSchwierigkeitsgrad.addItem("7");
-				cbSchwierigkeitsgrad.addItem("8");
-				cbSchwierigkeitsgrad.addItem("9");
-				cbSchwierigkeitsgrad.addItem("10 (schwer)");
+				final JComboBox<Integer> cbSchwierigkeitsgrad = new JComboBox<Integer>();
+				
+				
+				cbSchwierigkeitsgrad.addItem(1);
+				cbSchwierigkeitsgrad.addItem(2);
+				cbSchwierigkeitsgrad.addItem(3);
+				cbSchwierigkeitsgrad.addItem(4);
+				cbSchwierigkeitsgrad.addItem(5);
+				cbSchwierigkeitsgrad.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) 
+					{
+						if ((int)cbSchwierigkeitsgrad.getSelectedItem() == 2)
+						gSchwierigkeit = 2;
+						if ((int)cbSchwierigkeitsgrad.getSelectedItem() == 3)
+							gSchwierigkeit = 3;
+						if ((int)cbSchwierigkeitsgrad.getSelectedItem() == 4)
+							gSchwierigkeit = 4;
+						if ((int)cbSchwierigkeitsgrad.getSelectedItem() == 5)
+							gSchwierigkeit = 5;
+					}
+				});
+		
+				
 				GridBagConstraints gbc_cbSchwierigkeitsgrad = new GridBagConstraints();
 				gbc_cbSchwierigkeitsgrad.insets = new Insets(0, 0, 5, 5);
 				gbc_cbSchwierigkeitsgrad.fill = GridBagConstraints.HORIZONTAL;
@@ -257,7 +269,17 @@ public class DialogOptionen2 extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						pruefeAuswahl();
-						dispose();
+						if(flag)
+						{
+							name1=txtSpieler1.getText();
+							name2=txtSpieler2.getText();
+							JFrame neuesSpiel = new Spielfeld(name1, name2, i, gSchwierigkeit);
+							neuesSpiel.setVisible(true);
+							dispose();
+						}
+						else
+							return;
+						
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -266,22 +288,60 @@ public class DialogOptionen2 extends JDialog {
 		}
 	}
 	private void pruefeAuswahl() {
-		if (buttonGroup.isSelected(null)==true) { // null?
-			System.out.println("nix ausgewählt");			
+		if (rdbtnMgM.isSelected()==false && rdbtnMgC.isSelected()==false) 
+		{ 
+			flag = false;
+			System.out.println("nix ausgewählt");
+			this.neueMeldung(2, "Bitte markieren Sie eine Option!", this);
 		}
-		if (/*(.isSelected(null)==true) &&*/ (txtSpieler1.getText()=="Name von Spieler 1")||(txtSpieler2.getText()=="Name von Spieler 2")){ //problem inhalt wird erst bei focussieren gelöscht
+		else if (rdbtnMgM.isSelected()==true && ((txtSpieler1.getText().equals("Name von Spieler 1") && txtSpieler2.getText().equals("Name von Spieler 2"))
+					|| (txtSpieler1.getText().equals("") || txtSpieler2.getText().equals("")))) 
+		{ //problem inhalt wird erst bei focussieren gelöscht
+			this.neueMeldung(2, "Bitte geben Sie für beide Spieler einen Namen ein!", this);
 			System.out.println("kein name eingegeben");
 			//name standardmäßig auf Spieler 1 und Spieler 2 setzen?
+			flag = false;
 		}
-		if (/*(.isSelected(null)==true) &&*/ (txtSpieler1.getText()=="Name von Spieler 1")) {
+		else if ((rdbtnMgC.isSelected()==true) && (txtSpieler1.getText().equals("Name von Spieler 1")
+				|| txtSpieler1.getText().equals("")))
+		{
 			System.out.println("kein name eingegeben");
+			flag = false;
+			this.neueMeldung(2, "Bitte geben Sie für den Spieler einen Namen ein!", this);
 			//s.o.
 		}
 		//schwierigkeitsstufe muss eig. nicht abgefragt werden, da 1 voreingestellt
 		else{
-			JFrame neuesSpiel = new Spielfeld(name1, name2, i);
-			neuesSpiel.setVisible(true);
+			flag = true;
 		}
+		
+	}
+	
+	
+	private void neueMeldung(final int sekunden, final String meldung, final DialogOptionen2 frame) 
+	{
+		//hier wird die Position festgelegt wo die meldung erscheinen soll
+		Point pos = frame.getLocationOnScreen();
+		final int xPos = (int)(pos.getX() + 20);
+		final int yPos = (int)pos.getY() + 50;
+		new Thread() 
+		{
+		      { 
+		    	  start(); 
+		      } 
+		      public void run() 
+		      {
+		        try 
+		        { 
+		        	Anweisung1 probe = new Anweisung1(meldung, xPos, yPos, frame.getWidth() - 40, 100, gFont);
+					probe.setAlwaysOnTop(true);
+					probe.setVisible(true);
+		        	sleep(sekunden * 1000);
+		        	probe.setVisible(false);
+		        }
+		        catch ( InterruptedException e ) { e.printStackTrace(); }
+		      } 
+		};
 		
 	}
 }

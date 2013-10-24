@@ -82,6 +82,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 	int xPos, yPos, anzahlRunden;
 	int zaehler1 = 1;
 	int zaehler2 = 0;
+	
+	Font gFont = new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 30);
 
 	
 	private boolean hatMuehle = false;
@@ -145,6 +147,13 @@ public class Spielfeld extends JFrame implements ActionListener {
 	//neue Instanz der Prüfung ZUM TESTEN!
 	Bewertung bewertung = new Bewertung();
 	
+	//Schwierigkeitsstufe des Spiels
+	private int gSchwierigkeit;
+	
+	//Größe des Meldungsfensters
+	private int x = 600;
+	private int y = 100;
+	
 	/**
 	 * Hier wird das Spielfeld gestartet
 	 */
@@ -157,7 +166,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 			{
 				try 
 				{
-					Spielfeld frame = new Spielfeld("Stefan", "Georg", 1);
+					Spielfeld frame = new Spielfeld("Stefan", "Georg", 1, 5);
 					frame.addWindowListener(new WindowAdapter() {
 											public void windowClosing(WindowEvent evt) {
 											exitForm(evt);}});
@@ -184,7 +193,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				      {
 				        try 
 				        { 
-				        	Anweisung1 probe = new Anweisung1(meldung, xPos, yPos);
+				        	Anweisung1 probe = new Anweisung1(meldung, xPos, yPos, 600, 100, new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 30));
 							probe.setAlwaysOnTop(true);
 							probe.setVisible(true);
 				        	sleep(sekunden * 1000);
@@ -208,7 +217,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	 * Das JPanel wird erzeugt
 	 * Die Buttons werden instanziiert und mit dem action listener verknüpft
 	 */
-	public Spielfeld(String Spieler1Name, String Spieler2Name, int lmode) 
+	public Spielfeld(String Spieler1Name, String Spieler2Name, int lmode, int lSchwierigkeit) 
 	{
 		//Name der in dem Fenster angezeigt wird
 		super(textSpielName);
@@ -216,6 +225,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 		final String nameSpieler1 = Spieler1Name;
 		final String nameSpieler2 = Spieler2Name;
 		mode = lmode;
+		gSchwierigkeit = lSchwierigkeit;
+
 		
 		Spieler1 = new Spieler(ESpielsteinFarbe.WEISS, nameSpieler1);
 		if(mode == 1)
@@ -252,7 +263,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 //				db.löschetb("protokoll");
 				dispose();
-				JFrame neuesSpiel = new Spielfeld(nameSpieler1, nameSpieler2, mode);
+				JFrame neuesSpiel = new Spielfeld(nameSpieler1, nameSpieler2, mode, gSchwierigkeit);
 				neuesSpiel.setVisible(true);
 			}
 		});
@@ -316,7 +327,7 @@ public class Spielfeld extends JFrame implements ActionListener {
                 Image spielfeld = Toolkit.getDefaultToolkit().getImage(  
                           Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIlinks.png"));  
                 g.drawImage(spielfeld, 0, 0, this.getWidth(), this.getHeight(), this);  
-             
+                
                 for(int i = 0; i <= 2; i++)
                 {
                 	for(int j = 0; j <= 2; j++)
@@ -674,8 +685,6 @@ public class Spielfeld extends JFrame implements ActionListener {
 			}
 		};
 		
-		
-		
 		/*panel_1.setLayout(new MigLayout("", "[300]", "[225][227][225]"));
 		
 		JLabel labelSpieler1 = new JLabel("Spieler 1: ");
@@ -689,12 +698,19 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 		JLabel labelSpieler2 = new JLabel("Spieler 2: ");
 		panel_1.add(labelSpieler2, "cell 0 2,grow");*/
-
+		
+		
+		
+		
 		contentPane.setLayout(new MigLayout("", "[664.94px]0[300px]", "[677px]"));
 		contentPane.add(panel, "cell 0 0,alignx left,aligny top");
 		contentPane.add(panel_1, "cell 1 0,grow");
 		
-//		 db.erzeugetb("protokoll");	
+		
+		
+//		 db.erzeugetb("protokoll");
+		System.out.println(gButtons); 
+		
 	}
 
 	
@@ -708,12 +724,107 @@ public class Spielfeld extends JFrame implements ActionListener {
 	{
 		Object obj = e.getSource();
 		
-		//Abfrage welcher Button gedrückt wurde
-		for(int i = 0; i <= gButtons.size()-1; i++)
+		if(obj.equals(this.btnNewButton_1))
 		{
-			if(obj.equals(gButtons.get(i)))
-				this.aktion(gButtons.get(i));
+			this.aktion(btnNewButton_1);
 		}
+		else if(obj.equals(this.btnNewButton_2))
+		{
+			this.aktion(btnNewButton_2);
+		}
+		else if(obj.equals(this.btnNewButton_3))
+		{
+			this.aktion(btnNewButton_3);
+		}
+		else if(obj.equals(this.btnNewButton_4))
+		{
+			this.aktion(btnNewButton_4);
+		}
+		else if(obj.equals(this.btnNewButton_5))
+		{
+			this.aktion(btnNewButton_5);
+		}
+		else if(obj.equals(this.btnNewButton_6))
+		{
+			this.aktion(btnNewButton_6);
+		}
+		else if(obj.equals(this.btnNewButton_7))
+		{
+			this.aktion(btnNewButton_7);
+		}
+		else if(obj.equals(this.btnNewButton_8))
+		{
+			this.aktion(btnNewButton_8);
+		}
+		else if(obj.equals(this.btnNewButton_9))
+		{
+			this.aktion(btnNewButton_9);
+		}
+		else if(obj.equals(this.btnNewButton_10))
+		{
+			this.aktion(btnNewButton_10);
+		}
+		else if(obj.equals(this.btnNewButton_11))
+		{
+			this.aktion(btnNewButton_11);
+		}
+		else if(obj.equals(this.btnNewButton_12))
+		{
+			this.aktion(btnNewButton_12);
+		}
+		else if(obj.equals(this.btnNewButton_13))
+		{
+			this.aktion(btnNewButton_13);
+		}
+		else if(obj.equals(this.btnNewButton_14))
+		{
+			this.aktion(btnNewButton_14);
+		}
+		else if(obj.equals(this.btnNewButton_15))
+		{
+			this.aktion(btnNewButton_15);
+		}
+		else if(obj.equals(this.btnNewButton_16))
+		{
+			this.aktion(btnNewButton_16);
+		}
+		else if(obj.equals(this.btnNewButton_17))
+		{
+			this.aktion(btnNewButton_17);
+		}
+		else if(obj.equals(this.btnNewButton_18))
+		{
+			this.aktion(btnNewButton_18);
+		}
+		else if(obj.equals(this.btnNewButton_19))
+		{
+			this.aktion(btnNewButton_19);
+		}
+		else if(obj.equals(this.btnNewButton_20))
+		{
+			this.aktion(btnNewButton_20);
+		}
+		else if(obj.equals(this.btnNewButton_21))
+		{
+			this.aktion(btnNewButton_21);
+		}
+		else if(obj.equals(this.btnNewButton_22))
+		{
+			this.aktion(btnNewButton_22);
+		}
+		else if(obj.equals(this.btnNewButton_23))
+		{
+			this.aktion(btnNewButton_23);
+		}
+		else if(obj.equals(this.btnNewButton_24))
+		{
+			this.aktion(btnNewButton_24);
+		}
+		/*
+		 * Ausgabe der ArrayList mit den aktuellen Steinen
+		 * TEST
+		 */
+//		System.out.println(gSteine);
 		
 		/*
 		 * hier wird der neue Zug der Strategie abgefragt und this.aktion mit dem entsprechenden Button,
@@ -734,7 +845,9 @@ public class Spielfeld extends JFrame implements ActionListener {
 			{
 				
 			}
+			
 		}
+		
 	}
 		
 	
@@ -884,9 +997,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 						
 						if(pruef.checkInMuehle(aktuellerStein1.getIndex() , aktuellerSpieler.Steine))
 						{
-							if(!pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true 
-									& passiverSpieler.getAnzahlSteine() != 3)
-							this.neueMeldung(meldungsZeit, aktuellerSpieler.getName() + textMuehle);
+							this.neueMeldung(meldungsZeit, aktuellerSpieler.SpielsteinFarbeAsString() + textMuehle);
 							this.verschiedeneAusgaben();
 							
 							hatMuehle = true;
@@ -944,7 +1055,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 						
 						//wenn duch das Mühle schlagen der passive Spieler nur noch 3 Steine hat wird die Meldung erzeugt, dass dieser jetzt springen darf
 						if(passiverSpieler.getAnzahlSteine() == 3 && passiverSpieler.getAnzahlZuege() > 9)
-							this.neueMeldung(wichtigeMeldungsZeit, passiverSpieler.getName() + textDarfSpringen);
+							this.neueMeldung(wichtigeMeldungsZeit, aktuellerSpieler.getName() + textDarfSpringen);
 							
 						return;
 					}
@@ -960,7 +1071,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				}
 			}	
 		}
-		//ab hier der code wenn das Spiel beendet wurde
+		
 		this.neueMeldung(wichtigeMeldungsZeit, aktuellerSpieler.getName() + textGewonnen);
 		System.out.println("Spieler beendet!");
 		
@@ -1070,19 +1181,6 @@ public class Spielfeld extends JFrame implements ActionListener {
 			return 99;
 	}
 	
-	//int wird in EPositionIndex umgerechnet
-		public EPositionIndex posIndexUmrechnen(int lPosition)
-		{
-			if(lPosition == 1)
-				return EPositionIndex.Eins;
-			else if(lPosition == 2)
-				return EPositionIndex.Zwei;
-			else if(lPosition == 3)
-				return EPositionIndex.Drei;
-			else 
-				return null;
-		}
-	
 	//Überprüft ob alle gegnerischen Steine in Mühle stehen
 	//True wenn alle Steine in Mühle Stehen, false wenn nicht 
 	public boolean alleGegnerSteineInMühle(Spieler passiverSpieler)
@@ -1146,6 +1244,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		yPos = (int)pos.getY() + 200;
 		
 		
+		
 	
 		new Thread() 
 		{
@@ -1156,7 +1255,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		      {
 		        try 
 		        { 
-		        	Anweisung1 probe = new Anweisung1(meldung, xPos, yPos);
+		        	Anweisung1 probe = new Anweisung1(meldung, xPos, yPos, x, y, gFont);
 					probe.setAlwaysOnTop(true);
 					probe.setVisible(true);
 		        	sleep(sekunden * 1000);
@@ -1199,7 +1298,6 @@ public class Spielfeld extends JFrame implements ActionListener {
         	}
         }
 	}
-
 
 		
 }
