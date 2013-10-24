@@ -19,6 +19,9 @@ import javax.swing.JTextPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class BestaetigungBeenden extends JDialog {
 
@@ -60,7 +63,12 @@ public class BestaetigungBeenden extends JDialog {
             }  
           };  
 			contentPanel.add(panel);
-			panel.setLayout(null);
+			GridBagLayout gbl_panel = new GridBagLayout();
+			gbl_panel.columnWidths = new int[]{30, 106, 30, 106, 30, 0};
+			gbl_panel.rowHeights = new int[]{150, 40, 30, 0};
+			gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+			panel.setLayout(gbl_panel);
 			{
 				//Button "OK"
 				JButton okButton = new JButton(){
@@ -68,10 +76,12 @@ public class BestaetigungBeenden extends JDialog {
 					g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Ja.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
 				};
 			};
-				
-
-				okButton.setBounds(32, 146, 106, 34);
-				panel.add(okButton);
+				GridBagConstraints gbc_okButton = new GridBagConstraints();
+				gbc_okButton.fill = GridBagConstraints.BOTH;
+				gbc_okButton.insets = new Insets(0, 0, 5, 5);
+				gbc_okButton.gridx = 1;
+				gbc_okButton.gridy = 1;
+				panel.add(okButton, gbc_okButton);
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if( listener != null )
@@ -81,7 +91,6 @@ public class BestaetigungBeenden extends JDialog {
 					}
 				});
 				okButton.setActionCommand("OK");
-				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				//Button "Cancel"
@@ -89,9 +98,13 @@ public class BestaetigungBeenden extends JDialog {
 					public void paintComponent(Graphics g){
 						g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Nein.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
 					}
-				};	
-				cancelButton.setBounds(154, 146, 106, 34);
-				panel.add(cancelButton);
+				};
+				GridBagConstraints gbc_cancelButton = new GridBagConstraints();
+				gbc_cancelButton.insets = new Insets(0, 0, 5, 5);
+				gbc_cancelButton.fill = GridBagConstraints.BOTH;
+				gbc_cancelButton.gridx = 3;
+				gbc_cancelButton.gridy = 1;
+				panel.add(cancelButton, gbc_cancelButton);
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						dispose();
