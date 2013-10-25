@@ -16,72 +16,88 @@ public class Test {
 
 	public static void main(String[] args) throws StrategieException {
 		
-		Spieler Spieler1 = new Spieler(ESpielsteinFarbe.SCHWARZ, "Spieler1");
-		Spieler Spieler2 = new Spieler(ESpielsteinFarbe.WEISS, "Spieler2");
+//		Spieler Spieler1 = new Spieler(ESpielsteinFarbe.SCHWARZ, "Spieler1");
+//		Spieler Spieler2 = new Spieler(ESpielsteinFarbe.WEISS, "Spieler2");
+////		
+//		Spieler1.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Eins),0,0);
+//		Spieler1.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Zwei, EPositionIndex.Eins),0,0);
+//		Spieler1.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Eins),0,0);
+//		Spieler1.setzeSpielstein(new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Eins),0,0);
+////		Spieler1.setzeSpielstein(new Position(EPositionIndex.Zwei, EPositionIndex.Zwei, EPositionIndex.Eins));
+////		Spieler1.setzeSpielstein(new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Eins));
+////		Spieler1.setzeSpielstein(new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Eins));
+////		Spieler1.setzeSpielstein(new Position(EPositionIndex.Drei, EPositionIndex.Zwei, EPositionIndex.Eins));
+////		Spieler1.setzeSpielstein(new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Eins));
+////		
+////		Spieler1.entferneSpielstein(0);
+////		
+//		Spieler2.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Drei),0,0);
+//		Spieler2.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Zwei, EPositionIndex.Drei),0,0);
+//		Spieler2.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Drei),0,0);
+//		Spieler2.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Zwei),0,0);
+////		Spieler2.setzeSpielstein(new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Zwei));
+////		Spieler2.setzeSpielstein(new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Zwei));
+////		Spieler2.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Zwei));
+////		Spieler2.setzeSpielstein(new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Zwei));
+////		Spieler2.setzeSpielstein(new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Zwei));
 //		
-		Spieler1.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Eins),0,0);
-		Spieler1.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Zwei, EPositionIndex.Eins),0,0);
-		Spieler1.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Eins),0,0);
-		Spieler1.setzeSpielstein(new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Eins),0,0);
-//		Spieler1.setzeSpielstein(new Position(EPositionIndex.Zwei, EPositionIndex.Zwei, EPositionIndex.Eins));
-//		Spieler1.setzeSpielstein(new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Eins));
-//		Spieler1.setzeSpielstein(new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Eins));
-//		Spieler1.setzeSpielstein(new Position(EPositionIndex.Drei, EPositionIndex.Zwei, EPositionIndex.Eins));
-//		Spieler1.setzeSpielstein(new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Eins));
+////		System.out.println("Anzahl Steine: " + Spieler1.getAnzahlSteine());
+////		System.out.println("Anzahl Züge: " + Spieler1.getAnzahlZuege());
+////		System.out.println("Position Stein 0: " + Spieler1.Steine[0].getAktuellePosition().toString());
 //		
-//		Spieler1.entferneSpielstein(0);
+////		Pruefung pruef = new Pruefung();
+////		
+////		Position pos =new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Zwei);
+////		Position pos1 =new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Drei);
+////		//System.out.println(pruef.checkSetzen(pos, Spieler1, Spieler2));
 //		
-		Spieler2.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Drei),0,0);
-		Spieler2.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Zwei, EPositionIndex.Drei),0,0);
-		Spieler2.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Drei),0,0);
-		Spieler2.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Zwei),0,0);
-//		Spieler2.setzeSpielstein(new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Zwei));
-//		Spieler2.setzeSpielstein(new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Zwei));
-//		Spieler2.setzeSpielstein(new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Zwei));
-//		Spieler2.setzeSpielstein(new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Zwei));
-//		Spieler2.setzeSpielstein(new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Zwei));
-		
-//		System.out.println("Anzahl Steine: " + Spieler1.getAnzahlSteine());
-//		System.out.println("Anzahl Züge: " + Spieler1.getAnzahlZuege());
-//		System.out.println("Position Stein 0: " + Spieler1.Steine[0].getAktuellePosition().toString());
-		
-//		Pruefung pruef = new Pruefung();
+////		System.out.println(pruef.checkZug(new Bewegung(pos, pos1), Spieler1, Spieler2));
+////		System.out.println(pruef.checkInMuehle(1, Spieler1.Steine));
 //		
-//		Position pos =new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Zwei);
-//		Position pos1 =new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Drei);
-//		//System.out.println(pruef.checkSetzen(pos, Spieler1, Spieler2));
+//		Spielzug spielzug1 = new Spielzug(Spieler1.Steine[0]);
+//		Spielzug spielzug2 = new Spielzug(Spieler1.Steine[1]);
+//		Spielzug spielzug3 = new Spielzug(Spieler1.Steine[2]);
+//		Spielzug spielzug4 = new Spielzug(Spieler2.Steine[0]);
+//		Spielzug spielzug5 = new Spielzug(Spieler2.Steine[1]);
+//		Spielzug spielzug6 = new Spielzug(Spieler2.Steine[2]);
+//		Spielzug spielzug7 = new Spielzug(Spieler1.Steine[3]);
+//		Spielzug spielzug8 = new Spielzug(Spieler2.Steine[3]);
+//		
+//		List<ISpielstein> p_SpielFeld = new ArrayList<ISpielstein>();
+//		Spielstein s = Spieler1.Steine[0];
+//		
+//		p_SpielFeld.add(spielzug1.getNeuenSpielstein());
+//		p_SpielFeld.add(spielzug2.getNeuenSpielstein());
+//		p_SpielFeld.add(spielzug3.getNeuenSpielstein());
+//		p_SpielFeld.add(spielzug4.getNeuenSpielstein());
+//		p_SpielFeld.add(spielzug5.getNeuenSpielstein());
+//		p_SpielFeld.add(spielzug6.getNeuenSpielstein());
+//		p_SpielFeld.add(spielzug7.getNeuenSpielstein());
+//		p_SpielFeld.add(spielzug8.getNeuenSpielstein());
+//		
+//		Strategie strategy = new Strategie();
+//		strategy.startePartie(ESpielsteinFarbe.WEISS);
+//		List<Bewegung> moves = strategy.getMöglicheBewegungen(p_SpielFeld, Spieler1.Steine[0]);
+//		
+//		for(int i = 0; i < moves.size(); i++)
+//		{
+//			System.out.println(moves.get(i).toString());
+//		}
 		
-//		System.out.println(pruef.checkZug(new Bewegung(pos, pos1), Spieler1, Spieler2));
-//		System.out.println(pruef.checkInMuehle(1, Spieler1.Steine));
-		
-		Spielzug spielzug1 = new Spielzug(Spieler1.Steine[0]);
-		Spielzug spielzug2 = new Spielzug(Spieler1.Steine[1]);
-		Spielzug spielzug3 = new Spielzug(Spieler1.Steine[2]);
-		Spielzug spielzug4 = new Spielzug(Spieler2.Steine[0]);
-		Spielzug spielzug5 = new Spielzug(Spieler2.Steine[1]);
-		Spielzug spielzug6 = new Spielzug(Spieler2.Steine[2]);
-		Spielzug spielzug7 = new Spielzug(Spieler1.Steine[3]);
-		Spielzug spielzug8 = new Spielzug(Spieler2.Steine[3]);
 		
 		List<ISpielstein> p_SpielFeld = new ArrayList<ISpielstein>();
-		Spielstein s = Spieler1.Steine[0];
+		List<Bewegung> moeglBewegungen = new ArrayList<Bewegung>();
+		Strategie s = new Strategie();
+		s.startePartie(ESpielsteinFarbe.WEISS);
+		ISpielzug zug = s.bewegeStein(p_SpielFeld);
+//		ISpielstein spielstein = zug.getNeuenSpielstein();      
+//		Position spielsteinPos = spielstein.getPosition();
+//		System.out.println(spielsteinPos.toString());
 		
-		p_SpielFeld.add(spielzug1.getNeuenSpielstein());
-		p_SpielFeld.add(spielzug2.getNeuenSpielstein());
-		p_SpielFeld.add(spielzug3.getNeuenSpielstein());
-		p_SpielFeld.add(spielzug4.getNeuenSpielstein());
-		p_SpielFeld.add(spielzug5.getNeuenSpielstein());
-		p_SpielFeld.add(spielzug6.getNeuenSpielstein());
-		p_SpielFeld.add(spielzug7.getNeuenSpielstein());
-		p_SpielFeld.add(spielzug8.getNeuenSpielstein());
-		
-		Strategie strategy = new Strategie();
-		strategy.startePartie(ESpielsteinFarbe.WEISS);
-		List<Bewegung> moves = strategy.getMöglicheBewegungen(p_SpielFeld, Spieler1.Steine[0]);
-		
-		for(int i = 0; i < moves.size(); i++)
-		{
-			System.out.println(moves.get(i).toString());
-		}
+//		moeglBewegungen = s.getMoeglicheBewegungen(p_SpielFeld, new Spielstein(ESpielsteinFarbe.WEISS, null, 0,0,0), 0);
+//		
+//		for(Bewegung b : moeglBewegungen){
+//			System.out.println(b.toString());
+//		}
 	}
 }
