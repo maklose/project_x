@@ -1183,22 +1183,23 @@ public class Spielfeld extends JFrame implements ActionListener {
 						else
 						{
 							entfernteSteineSchwarz++;
-//							if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true)
+//							
+						}
+						if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true)
 //							{
 //								SpielBeendet = true;
 //								this.aktion(btnNewButton_1);
 //							}
-							if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true && passiverSpieler.getAnzahlZuege() == 9)
-							{
-								aktuellerSpieler = passiverSpieler;
-								SpielBeendet = true;
-								this.aktion(btnNewButton_1);
-							}
-							if(pruef.checkSpielBeendet(passiverSpieler, aktuellerSpieler) == true && passiverSpieler.getAnzahlZuege() >= 9)
-							{
-								SpielBeendet = true;
-								this.aktion(btnNewButton_1);
-							}
+						if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true && passiverSpieler.getAnzahlZuege() == 9)
+						{
+							aktuellerSpieler = passiverSpieler;
+							SpielBeendet = true;
+							this.aktion(btnNewButton_1);
+						}
+						if(pruef.checkSpielBeendet(passiverSpieler, aktuellerSpieler) == true && passiverSpieler.getAnzahlZuege() >= 9)
+						{
+							SpielBeendet = true;
+							this.aktion(btnNewButton_1);
 						}
 						panel_1.repaint();
 						this.verschiedeneAusgaben();
