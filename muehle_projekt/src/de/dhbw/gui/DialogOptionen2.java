@@ -65,7 +65,7 @@ public class DialogOptionen2 extends JDialog {
 	 */
 	public DialogOptionen2() {
 		//Fenster
-		setBounds(100, 100, 726, 456);
+		setBounds(100, 95, 726, 461); //456
 		setResizable(false);
 		setUndecorated(true);
 		getContentPane().setLayout(new BorderLayout());

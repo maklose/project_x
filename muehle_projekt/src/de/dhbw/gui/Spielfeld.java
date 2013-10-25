@@ -33,6 +33,7 @@ import de.dhbw.strategy.Bewertung;
 import de.dhbw.strategy.Spielzug;
 import de.dhbw.strategy.Strategie;
 
+import javax.swing.JDialog;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -334,7 +335,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 			@SuppressWarnings("deprecation")
 			@Override
 			public void menuSelected(MenuEvent e) {
-					JFrame anleitung = new Anleitung();
+					JDialog anleitung = new Anleitung();
 					anleitung.show(true);
 					anleitung.setAlwaysOnTop(true);
 			}

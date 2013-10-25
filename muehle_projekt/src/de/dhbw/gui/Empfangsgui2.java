@@ -172,7 +172,7 @@ public class Empfangsgui2 extends JFrame implements WindowListener {
 		btn_anleitung.setForeground(Color.BLACK);
 		btn_anleitung.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame anleitung = new Anleitung();
+				JDialog anleitung = new Anleitung();
 				anleitung.setVisible(true);
 			}
 		});

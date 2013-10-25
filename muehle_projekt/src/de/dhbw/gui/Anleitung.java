@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -20,7 +21,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Insets;
 
-public class Anleitung extends JFrame {
+public class Anleitung extends JDialog {
 
 	private JPanel contentPane;
 
@@ -44,7 +45,8 @@ public class Anleitung extends JFrame {
 	 * Create the frame.
 	 */
 	public Anleitung() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setUndecorated(true);
 		setBounds(100, 100, 770, 528);
 		setResizable(false);
 		contentPane = new JPanel();
