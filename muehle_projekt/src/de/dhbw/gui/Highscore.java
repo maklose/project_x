@@ -14,11 +14,13 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 
+import de.dhbw.muehle_spiel.Database;
+
 public class Highscore extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-
+	Database db=new Database();
 	/**
 	 * Launch the application.
 	 */
@@ -54,27 +56,14 @@ public class Highscore extends JFrame {
 		gbl_panel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
-		
+		String[][]highscore=db.speichern_h();
+		String[]SpaltenName={"Anzahl Züge","Spieler"};
 		table = new JTable();
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-			},
-			new String[] {
-				"Spieler", "Anzahl der Züge"
-			}
-		));
+		
+		table.setModel(new DefaultTableModel(highscore, SpaltenName));
+				
+
 		GridBagConstraints gbc_table = new GridBagConstraints();
 		gbc_table.insets = new Insets(0, 0, 5, 5);
 		gbc_table.fill = GridBagConstraints.BOTH;

@@ -2,9 +2,11 @@ package de.dhbw.muehle_spiel;
 
 
 import java.sql.*;
+import java.util.Vector;
 
 
 public class Database {
+	
 	
 	//Treiber laden
 	String url="jdbc:sqlite:database.db";
@@ -99,8 +101,10 @@ public String[][] speichern_h(){
 }
 
 //Speichern der Tabelle protokoll in ein 2-dimensionales Array, abhängig von der übergebenen PartieID
-public void speichern_p(int partie)
-{		
+public Vector speichern_p(int partie)
+{	
+	
+	Vector protokoll = null;
 	try{
 		statement=c.createStatement();
 		String ausgabe=("SELECT Spieler, E1,X1,Y1,E2,X2,Y2,muehle,GeloeschterStein FROM protokoll WHERE PartieID='"+partie+"'");
@@ -125,6 +129,7 @@ public void speichern_p(int partie)
 	catch(SQLException e) {
 		e.printStackTrace();
 	}
+	return protokoll;
 	
 }
 
@@ -225,6 +230,7 @@ public void erzeugetb(String tabelle){
 		    	try {
 				    statement=c.createStatement();	     
 				    String create="CREATE TABLE protokoll(ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+				    			+ "PartieID INTEGER"
 				    			+ "Spieler varChar(10),"
 				    			+ "E1 varChar(10), X1 varChar(10), Y1 varChar(10), "
 				    			+ "E2 varChar(10), X2 varChar(10), Y2 varChar(10), "
