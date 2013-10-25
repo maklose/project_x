@@ -74,7 +74,7 @@ public class Empfangsgui2 extends JFrame implements WindowListener {
 			          };  
 		contentPane.add(panel, BorderLayout.CENTER);;;
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0, 138, 120, 138, 0, 0};
+		gbl_panel.columnWidths = new int[]{0, 138, 130, 138, 0, 0};
 		gbl_panel.rowHeights = new int[]{200, 50, 50, 50, 70, 0};
 		gbl_panel.columnWeights = new double[]{1.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
@@ -102,11 +102,11 @@ public class Empfangsgui2 extends JFrame implements WindowListener {
 				gbc_btn_start.gridy = 1;
 				panel.add(btn_start, gbc_btn_start);;
 		
-		//Button "Exit"
+		//Button "Beenden"
 		JButton btn_exit = new JButton(){
 			@Override
 			public void paintComponent(Graphics g){
-				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Exit.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
+				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Beenden.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
 			}
 		};
 		btn_exit.setForeground(Color.BLACK);
@@ -133,7 +133,14 @@ public class Empfangsgui2 extends JFrame implements WindowListener {
 			}
 		});
 		
-		JButton btnHighscore = new JButton("Highscore");
+		// Button "Highscore"
+		JButton btnHighscore = new JButton(){
+			@Override
+			public void paintComponent(Graphics g){
+				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Highscore.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);
+			}
+		};
+		;
 		btnHighscore.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JFrame highscore = new Highscore();
