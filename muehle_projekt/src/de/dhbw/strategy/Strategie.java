@@ -281,9 +281,10 @@ private Bewegung bewegungFinal;
 					
 			if( wert > maxWert){
 				maxWert = wert;	
-				if(ltiefe == tiefe)
-				bewegung = moeglBewegungen.get(j);	
-				System.out.println(ltiefe + " " + bewegung);
+				if(ltiefe == tiefe){
+				System.out.println(wert);
+				ergebnis(moeglBewegungen.get(j));
+				}
 			}
 		}
 	}	
@@ -398,6 +399,12 @@ private Bewegung bewegungFinal;
 		return minWert;
 	}
 	
+	
+	void ergebnis (Bewegung lbewegung){
+		
+		bewegung = lbewegung;
+		
+	}
 	
 	@Override
 	public ISpielstein entferneStein(List<ISpielstein> p_SpielFeld, ISpielzug p_LetzterSpielzug) throws StrategieException {
