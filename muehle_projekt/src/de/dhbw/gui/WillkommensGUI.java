@@ -35,7 +35,7 @@ public class WillkommensGUI extends JFrame {
 				        { 
 				        	WillkommensGUI frame = new WillkommensGUI();
 							frame.setVisible(true);
-				        	sleep(5 * 1000);
+				        	sleep(3 * 1000);
 				        	frame.dispose();
 				        	Empfangsgui2 neu = new Empfangsgui2();
 				        	neu.setVisible(true);
