@@ -7,12 +7,17 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.ImageObserver;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class WillkommensGUI extends JFrame {
+public class WillkommensGUI extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	static int xPosition = 93;					//Position des Ladebalkens
 	static int xPosition1 = 53;
@@ -67,10 +72,8 @@ public class WillkommensGUI extends JFrame {
 	public WillkommensGUI() {
 						
 		
-		super("Mühle - Das Brettspiel für Groß und Klein");
 		
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 726, 456);
 		setUndecorated(true);
 		contentPane = new JPanel();
@@ -78,7 +81,7 @@ public class WillkommensGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-
+		
 		
 		final JPanel panel = new JPanel(){  
             /**
@@ -86,6 +89,8 @@ public class WillkommensGUI extends JFrame {
 			 */
 			private static final long serialVersionUID = 1L;
 
+
+			
 			public void paintComponent(Graphics g) 
 			{  
 	        	super.paintComponent(g);
