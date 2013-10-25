@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Insets;
 
 public class Anleitung extends JFrame {
 
@@ -59,7 +60,12 @@ public class Anleitung extends JFrame {
 			}  
 		};
 		contentPane.add(panel, BorderLayout.CENTER);
-		panel.setLayout(null);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[]{0, 85, 0, 0};
+		gbl_panel.rowHeights = new int[]{394, 50, 40, 0};
+		gbl_panel.columnWeights = new double[]{1.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panel.setLayout(gbl_panel);
 		
 		JButton btnOk = new JButton("OK"){
 			@Override
@@ -72,7 +78,11 @@ public class Anleitung extends JFrame {
 				dispose();
 			}
 		});
-		btnOk.setBounds(584, 394, 85, 40);
-		panel.add(btnOk);
+		GridBagConstraints gbc_btnOk = new GridBagConstraints();
+		gbc_btnOk.insets = new Insets(0, 0, 5, 5);
+		gbc_btnOk.fill = GridBagConstraints.BOTH;
+		gbc_btnOk.gridx = 1;
+		gbc_btnOk.gridy = 1;
+		panel.add(btnOk, gbc_btnOk);
 	}
 }
