@@ -386,7 +386,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIlinks.png"));  
 				else
 	                spielfeld = Toolkit.getDefaultToolkit().getImage(  
-	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIlinks.png"));  
+	                          Spielfeld.class.getResource("/de/dhbw/images/Test2_links.png"));  
 				
                 g.drawImage(spielfeld, 0, 0, this.getWidth(), this.getHeight(), this);  
                 
@@ -716,7 +716,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	                        Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIrechts.png"));    
 				else
 					spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
-	                        Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIrechts.png"));  
+	                        Spielfeld.class.getResource("/de/dhbw/images/Test2_rechts.png"));  
 				  
 				g.drawImage(spielfeldRechts, 0, 0, this.getWidth(), this.getHeight(), this);  
 				
