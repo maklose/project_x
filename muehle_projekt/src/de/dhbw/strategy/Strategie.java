@@ -389,7 +389,8 @@ private Bewegung bewegungFinal;
 			if( wert < minWert){
 				minWert = wert;	
 				if(ltiefe == tiefe)
-				bewegung = moeglBewegungen.get(j);			
+				bewegung = moeglBewegungen.get(j);	
+				
 			}
 		}				
 	}
