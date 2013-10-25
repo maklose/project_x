@@ -264,7 +264,7 @@ private Bewegung bewegungFinal;
 			if( wert > maxWert){
 				maxWert = wert;	
 				if(ltiefe == tiefe)
-				bewegung = moeglBewegungen.get(j);
+				ergebnis(moeglBewegungen.get(j));
 			}
 		}	
 	}
@@ -282,7 +282,6 @@ private Bewegung bewegungFinal;
 			if( wert > maxWert){
 				maxWert = wert;	
 				if(ltiefe == tiefe){
-				System.out.println(wert);
 				ergebnis(moeglBewegungen.get(j));
 				}
 			}
