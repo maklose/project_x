@@ -65,7 +65,7 @@ public class DialogOptionen2 extends JDialog {
 	 */
 	public DialogOptionen2() {
 		//Fenster
-		setBounds(100, 100, 600, 480);
+		setBounds(100, 100, 726, 456);
 		setResizable(false);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -282,7 +282,7 @@ public class DialogOptionen2 extends JDialog {
 					}
 				});
 				okButton.setActionCommand("OK");
-				getRootPane().setDefaultButton(okButton);
+//				getRootPane().setDefaultButton(okButton);
 			}
 			//Cancel-Button
 			{
