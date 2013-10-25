@@ -166,7 +166,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 			{
 				try 
 				{
-					Spielfeld frame = new Spielfeld("Stefan", "Georg", 1, 5, 2);
+					Spielfeld frame = new Spielfeld("Stefan", "Georg", 1, 5, 1);
 					frame.addWindowListener(new WindowAdapter() {
 											public void windowClosing(WindowEvent evt) {
 											exitForm(evt);}});
@@ -273,7 +273,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		mntmSpielBeenden = new JMenuItem("Spiel beenden");
 		mntmSpielBeenden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				final BestaetigungBeenden frageBeenden = new BestaetigungBeenden();
+				final BestaetigungBeenden frageBeenden = new BestaetigungBeenden(100,100);
 				frageBeenden.setListener( new BestaetigungBeenden.BestatigungsListener() {
 					
 					@Override

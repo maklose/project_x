@@ -99,10 +99,36 @@ public String[][] speichern_h(){
 }
 
 //Speichern der Tabelle protokoll in ein 2-dimensionales Array, abhängig von der übergebenen PartieID
-public String[][] speichern_p(int partie)
-{	String [][] protokoll = null;
-	return protokoll;
+public void speichern_p(int partie)
+{		
+	try{
+		statement=c.createStatement();
+		String ausgabe=("SELECT Spieler, E1,X1,Y1,E2,X2,Y2,muehle,GeloeschterStein FROM protokoll WHERE PartieID='"+partie+"'");
+		ResultSet result=statement.executeQuery(ausgabe);
+		
+		while(result.next()){						
+							
+			int zugID = result.getInt("ID");	    	  
+	    	String Spieler=result.getString("Spieler");	    	  
+	    	String E1=result.getString("E1");
+	    	String X1=result.getString("X1");
+	    	String Y1=result.getString("Y1");
+	    	String E2=result.getString("E2");
+	    	String X2=result.getString("X2");
+	    	String Y2=result.getString("Y2");
+	    	String muehle=result.getString("muehle");
+	    	String GeloeschterStein=result.getString("GeloeschterStein");
+								 
+		}
+		
+	}
+	catch(SQLException e) {
+		e.printStackTrace();
+	}
+	
 }
+
+
 
 //Anzeigen der Tabelle protokoll
 public void zeige_p()

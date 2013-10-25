@@ -65,7 +65,7 @@ public class Empfangsgui2 extends JFrame implements WindowListener {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		//Hintergrund des Empfangsfensters
-		JPanel panel = new JPanel() {  
+		final JPanel panel = new JPanel() {  
 			                public void paintComponent(Graphics g) {  
 			                     Image hintergrund = Toolkit.getDefaultToolkit().getImage(  
 			                               Empfangsgui2.class.getResource("/de/dhbw/images/Menue_GUI.PNG"));  
@@ -75,9 +75,9 @@ public class Empfangsgui2 extends JFrame implements WindowListener {
 		contentPane.add(panel, BorderLayout.CENTER);;;
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{0, 138, 120, 138, 0, 0};
-		gbl_panel.rowHeights = new int[]{190, 50, 50, 50, 0};
+		gbl_panel.rowHeights = new int[]{200, 50, 50, 50, 70, 0};
 		gbl_panel.columnWeights = new double[]{1.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);;
 		
 		//Button "Start"
@@ -111,8 +111,10 @@ public class Empfangsgui2 extends JFrame implements WindowListener {
 		};
 		btn_exit.setForeground(Color.BLACK);
 		btn_exit.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
-				final BestaetigungBeenden frageBeenden = new BestaetigungBeenden();
+				final BestaetigungBeenden frageBeenden = new BestaetigungBeenden(320,200);
+				panel.invalidate();
 				frageBeenden.setListener( new BestaetigungBeenden.BestatigungsListener() {
 					
 					@Override
@@ -145,6 +147,20 @@ public class Empfangsgui2 extends JFrame implements WindowListener {
 				anleitung.setVisible(true);
 			}
 		});
+		
+		JButton btnHighscore = new JButton("Highscore");
+		btnHighscore.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFrame highscore = new Highscore();
+				highscore.setVisible(true);
+			}
+		});
+		GridBagConstraints gbc_btnHighscore = new GridBagConstraints();
+		gbc_btnHighscore.fill = GridBagConstraints.BOTH;
+		gbc_btnHighscore.insets = new Insets(0, 0, 5, 5);
+		gbc_btnHighscore.gridx = 3;
+		gbc_btnHighscore.gridy = 1;
+		panel.add(btnHighscore, gbc_btnHighscore);
 		btn_anleitung.setBackground(new Color(245, 222, 179));
 		GridBagConstraints gbc_btn_anleitung = new GridBagConstraints();
 		gbc_btn_anleitung.insets = new Insets(0, 0, 5, 5);
@@ -155,7 +171,7 @@ public class Empfangsgui2 extends JFrame implements WindowListener {
 		btn_exit.setBackground(new Color(245, 222, 179));
 		GridBagConstraints gbc_btn_exit = new GridBagConstraints();
 		gbc_btn_exit.fill = GridBagConstraints.BOTH;
-		gbc_btn_exit.insets = new Insets(0, 0, 0, 5);
+		gbc_btn_exit.insets = new Insets(0, 0, 5, 5);
 		gbc_btn_exit.gridx = 1;
 		gbc_btn_exit.gridy = 3;
 		panel.add(btn_exit, gbc_btn_exit);
@@ -178,7 +194,7 @@ public class Empfangsgui2 extends JFrame implements WindowListener {
 
 	@Override
 	public void windowClosing(WindowEvent Event) {				
-		final BestaetigungBeenden frageBeenden = new BestaetigungBeenden();
+		final BestaetigungBeenden frageBeenden = new BestaetigungBeenden(320,200);
 				frageBeenden.setListener( new BestaetigungBeenden.BestatigungsListener() {
 					
 					@Override

@@ -32,7 +32,7 @@ public class BestaetigungBeenden extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			BestaetigungBeenden dialog = new BestaetigungBeenden();
+			BestaetigungBeenden dialog = new BestaetigungBeenden(100,100);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -44,9 +44,9 @@ public class BestaetigungBeenden extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public BestaetigungBeenden() {
+	public BestaetigungBeenden(int xPos, int yPos) {
 		//Fenster
-		setBounds(100, 100, 300, 230);
+		setBounds(xPos, yPos, 300, 230);
 		setResizable(false);
 		setUndecorated(true);
 		getContentPane().setLayout(new BorderLayout());
