@@ -66,7 +66,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	Spieler Spieler2;
 
 	
-	JPanel panel;
+	static JPanel panel;
 	
 	//Array mit den Steinen die aktuell auf dem Spielfeld stehen an der Position im Array
 	Spielstein[][][] SpielfeldArray = new Spielstein[3][3][3];
@@ -81,11 +81,15 @@ public class Spielfeld extends JFrame implements ActionListener {
 	
 	//xPos und yPos sind die reellen Positionen auf dem Feld, 
 	//anzahlRunden zählt die Anzahl der Runden
-	int xPos, yPos, anzahlRunden;
+	static int xPos;
+
+	static int yPos;
+
+	int anzahlRunden;
 	int zaehler1 = 1;
 	int zaehler2 = 0;
 	
-	Font gFont = new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 30);
+	static Font gFont = new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 30);
 
 	
 	private boolean hatMuehle = false;
@@ -100,6 +104,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 	//static Database db = new Database();
 	
 	private boolean SteinKannGeloeschtWerden = true;
+	
+
 	
 	//Mode des Spiels 1 = mensch gg mensch; 2 = mensch gg pc
 	private int mode = 1;
@@ -153,8 +159,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 	private int gSchwierigkeit;
 	
 	//Größe des Meldungsfensters
-	private int x = 600;
-	private int y = 100;
+	private static int x = 600;
+	private static int y = 100;
 	
 	/**
 	 * Hier wird das Spielfeld gestartet
@@ -960,7 +966,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 					
 					//verschiedene Prüfungen
 					if(pruef.checkSetzen(PositionGeklickt, aktuellerSpieler, passiverSpieler) == true)
-					{	
+					{
 						this.SpielsteinSetzen(neueBewegung, aktuellerSpieler, lButton);
 						this.verschiedeneAusgaben();
 					}
@@ -974,8 +980,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 					//Steht der Stein in einer Mühle
 					if(pruef.checkInMuehle(anzahlRunden, aktuellerSpieler.Steine))
 					{
-						this.neueMeldung(meldungsZeit, aktuellerSpieler.getName() + textMuehle);
-						System.out.println(aktuellerSpieler.SpielsteinFarbeAsString() + textMuehle);
+						
+						System.out.println(aktuellerSpieler.getName() + textMuehle);
 						System.out.println("Alle gegnerischen Steine stehen in einer Mühle: " + this.alleGegnerSteineInMühle(passiverSpieler));
 						
 						if((pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true && passiverSpieler.getAnzahlZuege() == 9)
@@ -985,10 +991,10 @@ public class Spielfeld extends JFrame implements ActionListener {
 							this.aktion(btnNewButton_1);
 						}
 						
+						this.neueMeldung(meldungsZeit, aktuellerSpieler.getName() + textMuehle);
 						hatMuehle = true;
 						panel.repaint();
 						panel_1.repaint();
-						
 						return;
 					}
 					else
@@ -1003,7 +1009,38 @@ public class Spielfeld extends JFrame implements ActionListener {
 					panel.repaint();
 					panel_1.repaint();
 					if(Spieler2.getAnzahlZuege()==9)
-						this.neueMeldung(wichtigeMeldungsZeit, textRunde2);
+					{
+						new Thread() 
+						{
+							{
+								start(); 
+							}
+							public void run()
+							{
+								try 
+								{ 
+									Spielfeld.neueMeldung(wichtigeMeldungsZeit, textRunde2);
+									sleep(wichtigeMeldungsZeit * 1000);
+									if(aktuellerSpieler.getAnzahlSteine() == 3)
+									{
+										Spielfeld.neueMeldung(wichtigeMeldungsZeit, aktuellerSpieler.getName() + textDarfSpringen);
+										sleep(wichtigeMeldungsZeit * 1000);
+									}
+									if(passiverSpieler.getAnzahlSteine() == 3)
+									{
+										Spielfeld.neueMeldung(wichtigeMeldungsZeit, passiverSpieler.getName() + textDarfSpringen);
+										sleep(wichtigeMeldungsZeit * 1000);
+									}
+								}
+								catch ( InterruptedException e ) 
+								{ 
+									e.printStackTrace();
+								} 
+							} 
+						};  //Thread zum warten
+						
+						
+					}
 					
 					if(pruef.checkSpielBeendet(passiverSpieler, aktuellerSpieler) == true && passiverSpieler.getAnzahlZuege() == 9)
 					{
@@ -1012,9 +1049,11 @@ public class Spielfeld extends JFrame implements ActionListener {
 					}
 					if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true && passiverSpieler.getAnzahlZuege() == 9)
 					{
+						aktuellerSpieler = passiverSpieler;
 						SpielBeendet = true;
 						this.aktion(btnNewButton_1);
 					}
+					
 					return;
 				}				
 		
@@ -1092,7 +1131,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 						
 						if(pruef.checkInMuehle(aktuellerStein1.getIndex() , aktuellerSpieler.Steine))
 						{
-							this.neueMeldung(meldungsZeit, aktuellerSpieler.getName() + textMuehle);
+							
 							this.verschiedeneAusgaben();
 							
 							hatMuehle = true;
@@ -1105,6 +1144,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 								SpielBeendet = true;
 								this.aktion(btnNewButton_1);
 							}
+							this.neueMeldung(meldungsZeit, aktuellerSpieler.getName() + textMuehle);
 							return;
 						}
 		
@@ -1143,12 +1183,18 @@ public class Spielfeld extends JFrame implements ActionListener {
 						else
 						{
 							entfernteSteineSchwarz++;
-							if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true)
+//							if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true)
+//							{
+//								SpielBeendet = true;
+//								this.aktion(btnNewButton_1);
+//							}
+							if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true && passiverSpieler.getAnzahlZuege() == 9)
 							{
+								aktuellerSpieler = passiverSpieler;
 								SpielBeendet = true;
 								this.aktion(btnNewButton_1);
 							}
-							if(pruef.checkSpielBeendet(passiverSpieler, aktuellerSpieler) == true)
+							if(pruef.checkSpielBeendet(passiverSpieler, aktuellerSpieler) == true && passiverSpieler.getAnzahlZuege() >= 9)
 							{
 								SpielBeendet = true;
 								this.aktion(btnNewButton_1);
@@ -1156,12 +1202,42 @@ public class Spielfeld extends JFrame implements ActionListener {
 						}
 						panel_1.repaint();
 						this.verschiedeneAusgaben();
-						if(Spieler2.getAnzahlZuege() == 9 && Spieler1.getAnzahlZuege() == 9)
-							this.neueMeldung(wichtigeMeldungsZeit, textRunde2);
+						if(Spieler2.getAnzahlZuege()==9)
+						{
+							new Thread() 
+							{
+								{
+									start(); 
+								}
+								public void run()
+								{
+									try 
+									{ 
+										Spielfeld.neueMeldung(wichtigeMeldungsZeit, textRunde2);
+										sleep(wichtigeMeldungsZeit * 1000);
+										if(aktuellerSpieler.getAnzahlSteine() == 3)
+										{
+											Spielfeld.neueMeldung(wichtigeMeldungsZeit, aktuellerSpieler.getName() + textDarfSpringen);
+											sleep(wichtigeMeldungsZeit * 1000);
+										}
+										if(passiverSpieler.getAnzahlSteine() == 3)
+										{
+											Spielfeld.neueMeldung(wichtigeMeldungsZeit, passiverSpieler.getName() + textDarfSpringen);
+											sleep(wichtigeMeldungsZeit * 1000);
+										}
+									}
+									catch ( InterruptedException e ) 
+									{ 
+										e.printStackTrace();
+									} 
+								} 
+							};  //Thread zum warten
+						}
 						
 						//wenn duch das Mühle schlagen der passive Spieler nur noch 3 Steine hat wird die Meldung erzeugt, dass dieser jetzt springen darf
 						if(passiverSpieler.getAnzahlSteine() == 3 && passiverSpieler.getAnzahlZuege() > 9)
 							this.neueMeldung(wichtigeMeldungsZeit, aktuellerSpieler.getName() + textDarfSpringen);
+							
 							
 						return;
 					}
@@ -1342,7 +1418,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		}
 	}*/
 	
-	public void neueMeldung(final int sekunden, final String meldung)
+	public static void neueMeldung(final int sekunden, final String meldung)
 	{
 		//hier wird die Position festgelegt wo die meldung erscheinen soll
 		Point pos = panel.getLocationOnScreen();
@@ -1406,6 +1482,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 	}
 
 		
+	
+	
 }
 
 
