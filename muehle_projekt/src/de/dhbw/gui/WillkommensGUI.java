@@ -14,7 +14,6 @@ import javax.swing.border.EmptyBorder;
 public class WillkommensGUI extends JFrame {
 
 	private JPanel contentPane;
-	static int zaehler = 0;						//zähler wie oft repaint ausgeführt werden muss	
 	static int xPosition = 93;					//Position des Ladebalkens
 	static int xPosition1 = 53;
 	static int xPosition2 = 13;
@@ -42,7 +41,7 @@ public class WillkommensGUI extends JFrame {
 				        { 
 				        	WillkommensGUI frame = new WillkommensGUI();
 							frame.setVisible(true);
-				        	sleep(3 * 1000);
+				        	sleep(4000);
 				        	
 				        	Empfangsgui2 neu = new Empfangsgui2();
 				        	
@@ -109,15 +108,15 @@ public class WillkommensGUI extends JFrame {
 	                xPosition4 = -150;
 	           
 	        	if(xPosition >= 93)
-	        		g.drawImage(ladebalken, xPosition + zaehler, 415, 30 ,21 , this);	      
+	        		g.drawImage(ladebalken, xPosition , 417, 30 ,17 , this);	      
 	        	if(xPosition1 >= 93)	        	
-	        		g.drawImage(ladebalken, xPosition1 + zaehler, 415, 30 ,21 , this);	    
+	        		g.drawImage(ladebalken, xPosition1, 417, 30 ,17 , this);	    
 	        	if(xPosition2 >= 93)	    
-	        		g.drawImage(ladebalken, xPosition2 + zaehler*2, 415, 30 ,21 , this);   
+	        		g.drawImage(ladebalken, xPosition2, 417, 30 ,17 , this);   
 	        	if(xPosition3 >= 93)	        	
-	        		g.drawImage(ladebalken, xPosition3 + zaehler*2, 415, 30 ,21 , this);	        	
+	        		g.drawImage(ladebalken, xPosition3, 417, 30 ,17, this);	        	
 	        	if(xPosition4 >= 93)
-	        		g.drawImage(ladebalken, xPosition4 + zaehler*2, 415, 30 ,21 , this);
+	        		g.drawImage(ladebalken, xPosition4, 417, 30 ,17 , this);
 	        	
 			}};
        
