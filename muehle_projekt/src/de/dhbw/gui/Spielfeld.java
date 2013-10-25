@@ -39,6 +39,11 @@ import javax.swing.JMenuItem;
 
 import net.miginfocom.swing.MigLayout;
 
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuKeyListener;
+import javax.swing.event.MenuKeyEvent;
+import javax.swing.event.MenuListener;
+
 public class Spielfeld extends JFrame implements ActionListener {
 
 	/**
@@ -70,10 +75,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	int[] Indizes = new int[9];
 	
 	private JMenuBar menuBar;
-	private JMenu mnNewMenu;
-	private JMenuItem mntmSpielBeenden;
-	private JMenuItem mntmNeuesSpiel;
-	private JMenuItem mntmAnleitung;
+	private JMenu mnNewMenu1, mnNewMenu2, mnNewMenu3;
 	private JPanel panel_1;
 
 	
@@ -254,25 +256,36 @@ public class Spielfeld extends JFrame implements ActionListener {
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		mnNewMenu = new JMenu("Men\u00FC");
-		menuBar.add(mnNewMenu);
-		
-		//Menüleiste Neues Spiel
-		mntmNeuesSpiel = new JMenuItem("Neues Spiel");
-		mntmNeuesSpiel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-//				db.löschetb("protokoll");
+		mnNewMenu1 = new JMenu("Neues Spiel");
+		mnNewMenu1.addMenuListener(new MenuListener() {
+			
+			@Override
+			public void menuSelected(MenuEvent e) {
 				dispose();
 				JFrame neuesSpiel = new Spielfeld(nameSpieler1, nameSpieler2, mode, gSchwierigkeit, theme);
 				neuesSpiel.setVisible(true);
+				
+			}
+			
+			@Override
+			public void menuDeselected(MenuEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void menuCanceled(MenuEvent e) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
-		mnNewMenu.add(mntmNeuesSpiel);
+	
+		menuBar.add(mnNewMenu1);
 		
-		//Menüleiste Spiel Beenden
-		mntmSpielBeenden = new JMenuItem("Spiel beenden");
-		mntmSpielBeenden.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		mnNewMenu2 = new JMenu("Spiel Beenden");
+		mnNewMenu2.addMenuListener(new MenuListener() {
+			@Override
+			public void menuSelected(MenuEvent e) {
 				final BestaetigungBeenden frageBeenden = new BestaetigungBeenden(100,100);
 				frageBeenden.setListener( new BestaetigungBeenden.BestatigungsListener() {
 					
@@ -284,28 +297,56 @@ public class Spielfeld extends JFrame implements ActionListener {
 //						db.löschetb("protokoll");
 						//schließen
 					}
-					
 					@Override
 					public void onCancel() {
 						//schließen?	
 					}
 				});
 				frageBeenden.setVisible(true);
+			}
+			
+			@Override
+			public void menuDeselected(MenuEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void menuCanceled(MenuEvent e) {
+				// TODO Auto-generated method stub
 				
 			}
 		});
-		mnNewMenu.add(mntmSpielBeenden);
+		menuBar.add(mnNewMenu2);
 		
-		//Menüleiste Anleitung
-		mntmAnleitung = new JMenuItem("Anleitung");
-		mntmAnleitung.addActionListener(new ActionListener() {
+		
+		
+		
+		
+		mnNewMenu3 = new JMenu("Hilfe");
+		mnNewMenu3.addMenuListener(new MenuListener() {
 			@SuppressWarnings("deprecation")
-			public void actionPerformed(ActionEvent e) {
-				JFrame anleitung = new Anleitung();
-				anleitung.show(true);
+			@Override
+			public void menuSelected(MenuEvent e) {
+					JFrame anleitung = new Anleitung();
+					anleitung.show(true);
+					anleitung.setAlwaysOnTop(true);
+			}
+			
+			@Override
+			public void menuDeselected(MenuEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void menuCanceled(MenuEvent e) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
-		mnNewMenu.add(mntmAnleitung);
+		menuBar.add(mnNewMenu3);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
@@ -937,7 +978,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 						System.out.println(aktuellerSpieler.SpielsteinFarbeAsString() + textMuehle);
 						System.out.println("Alle gegnerischen Steine stehen in einer Mühle: " + this.alleGegnerSteineInMühle(passiverSpieler));
 						
-						if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true && passiverSpieler.getAnzahlZuege() == 9)
+						if((pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true && passiverSpieler.getAnzahlZuege() == 9)
+								|| (passiverSpieler.getAnzahlSteine() == 3 && passiverSpieler.getAnzahlZuege() == 9))
 						{
 							SpielBeendet = true;
 							this.aktion(btnNewButton_1);
@@ -1050,7 +1092,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 						
 						if(pruef.checkInMuehle(aktuellerStein1.getIndex() , aktuellerSpieler.Steine))
 						{
-							this.neueMeldung(meldungsZeit, aktuellerSpieler.SpielsteinFarbeAsString() + textMuehle);
+							this.neueMeldung(meldungsZeit, aktuellerSpieler.getName() + textMuehle);
 							this.verschiedeneAusgaben();
 							
 							hatMuehle = true;
