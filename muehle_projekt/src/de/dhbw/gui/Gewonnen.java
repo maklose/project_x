@@ -58,13 +58,13 @@ public class Gewonnen extends JFrame {
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
-		JButton btnSpielstand = new JButton("spielstand"){
+		JButton btnSpielverlauf = new JButton("spielstand"){
 			public void paintComponent(Graphics g){
 				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Ja.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);//neuer Button "Spielstand anzeigen" einfügen
 			};
 		};;
-		btnSpielstand.setBounds(288, 199, 89, 23);
-		panel.add(btnSpielstand);
+		btnSpielverlauf.setBounds(288, 199, 89, 23);
+		panel.add(btnSpielverlauf);
 		
 		JButton btnBeenden = new JButton("beenden"){
 			public void paintComponent(Graphics g){
@@ -73,7 +73,7 @@ public class Gewonnen extends JFrame {
 		};
 		btnBeenden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				final BestaetigungBeenden frageBeenden = new BestaetigungBeenden();
+				final BestaetigungBeenden frageBeenden = new BestaetigungBeenden(100, 100); //Werte ändern
 				frageBeenden.setListener( new BestaetigungBeenden.BestatigungsListener() {
 					
 					@Override

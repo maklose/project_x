@@ -133,6 +133,27 @@ public class Empfangsgui2 extends JFrame implements WindowListener {
 			}
 		});
 		
+		JButton btnHighscore = new JButton("Highscore");
+		btnHighscore.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFrame highscore = new Highscore();
+				highscore.setVisible(true);
+			}
+		});
+		GridBagConstraints gbc_btnHighscore = new GridBagConstraints();
+		gbc_btnHighscore.fill = GridBagConstraints.BOTH;
+		gbc_btnHighscore.insets = new Insets(0, 0, 5, 5);
+		gbc_btnHighscore.gridx = 3;
+		gbc_btnHighscore.gridy = 1;
+		panel.add(btnHighscore, gbc_btnHighscore);
+		btn_exit.setBackground(new Color(245, 222, 179));
+		GridBagConstraints gbc_btn_exit = new GridBagConstraints();
+		gbc_btn_exit.fill = GridBagConstraints.BOTH;
+		gbc_btn_exit.insets = new Insets(0, 0, 5, 5);
+		gbc_btn_exit.gridx = 1;
+		gbc_btn_exit.gridy = 3;
+		panel.add(btn_exit, gbc_btn_exit);
+		
 		//Button "Spielanleitung"
 		JButton btn_anleitung = new JButton(){
 			@Override
@@ -147,34 +168,13 @@ public class Empfangsgui2 extends JFrame implements WindowListener {
 				anleitung.setVisible(true);
 			}
 		});
-		
-		JButton btnHighscore = new JButton("Highscore");
-		btnHighscore.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JFrame highscore = new Highscore();
-				highscore.setVisible(true);
-			}
-		});
-		GridBagConstraints gbc_btnHighscore = new GridBagConstraints();
-		gbc_btnHighscore.fill = GridBagConstraints.BOTH;
-		gbc_btnHighscore.insets = new Insets(0, 0, 5, 5);
-		gbc_btnHighscore.gridx = 3;
-		gbc_btnHighscore.gridy = 1;
-		panel.add(btnHighscore, gbc_btnHighscore);
 		btn_anleitung.setBackground(new Color(245, 222, 179));
 		GridBagConstraints gbc_btn_anleitung = new GridBagConstraints();
 		gbc_btn_anleitung.insets = new Insets(0, 0, 5, 5);
 		gbc_btn_anleitung.fill = GridBagConstraints.BOTH;
 		gbc_btn_anleitung.gridx = 3;
-		gbc_btn_anleitung.gridy = 2;
+		gbc_btn_anleitung.gridy = 3;
 		panel.add(btn_anleitung, gbc_btn_anleitung);
-		btn_exit.setBackground(new Color(245, 222, 179));
-		GridBagConstraints gbc_btn_exit = new GridBagConstraints();
-		gbc_btn_exit.fill = GridBagConstraints.BOTH;
-		gbc_btn_exit.insets = new Insets(0, 0, 5, 5);
-		gbc_btn_exit.gridx = 1;
-		gbc_btn_exit.gridy = 3;
-		panel.add(btn_exit, gbc_btn_exit);
 	}
 	
 
