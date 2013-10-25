@@ -19,13 +19,42 @@ public class WillkommensGUI extends JFrame {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-			public void run() {
+			public void run() 
+			{
+				
+				
+				
+				new Thread() 
+				{
+				      { 
+				    	  start(); 
+				      } 
+				      public void run() 
+				      {
+				        try 
+				        { 
+				        	WillkommensGUI frame = new WillkommensGUI();
+							frame.setVisible(true);
+				        	sleep(3 * 1000);
+				        	frame.dispose();
+				        	Empfangsgui2 neu = new Empfangsgui2();
+				        	neu.setVisible(true);
+				        }
+				        catch ( InterruptedException e ) { }
+				      } 
+				};
+				
+				
+				
+				
+				/*
+				
 				try {
 					WillkommensGUI frame = new WillkommensGUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
-				}
+				}*/
 			}
 		});
 	}
