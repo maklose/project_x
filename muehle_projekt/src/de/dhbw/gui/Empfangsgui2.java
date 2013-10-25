@@ -65,7 +65,7 @@ public class Empfangsgui2 extends JFrame implements WindowListener {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		//Hintergrund des Empfangsfensters
-		JPanel panel = new JPanel() {  
+		final JPanel panel = new JPanel() {  
 			                public void paintComponent(Graphics g) {  
 			                     Image hintergrund = Toolkit.getDefaultToolkit().getImage(  
 			                               Empfangsgui2.class.getResource("/de/dhbw/images/Menue_GUI.PNG"));  
@@ -111,8 +111,10 @@ public class Empfangsgui2 extends JFrame implements WindowListener {
 		};
 		btn_exit.setForeground(Color.BLACK);
 		btn_exit.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
-				final BestaetigungBeenden frageBeenden = new BestaetigungBeenden();
+				final BestaetigungBeenden frageBeenden = new BestaetigungBeenden(320,200);
+				panel.invalidate();
 				frageBeenden.setListener( new BestaetigungBeenden.BestatigungsListener() {
 					
 					@Override
@@ -178,7 +180,7 @@ public class Empfangsgui2 extends JFrame implements WindowListener {
 
 	@Override
 	public void windowClosing(WindowEvent Event) {				
-		final BestaetigungBeenden frageBeenden = new BestaetigungBeenden();
+		final BestaetigungBeenden frageBeenden = new BestaetigungBeenden(320,200);
 				frageBeenden.setListener( new BestaetigungBeenden.BestatigungsListener() {
 					
 					@Override
