@@ -54,6 +54,7 @@ public class Empfangsgui2 extends JFrame implements WindowListener {
 	 * Create the frame.
 	 */
 	public Empfangsgui2() {
+		super("Mühle - Das Brettspiel für Groß und Klein");
 		//Fenster
 		//setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

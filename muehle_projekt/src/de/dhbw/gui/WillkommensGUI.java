@@ -67,7 +67,7 @@ public class WillkommensGUI extends JFrame {
 	public WillkommensGUI() {
 						
 		
-		
+		super("Mühle - Das Brettspiel für Groß und Klein");
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
