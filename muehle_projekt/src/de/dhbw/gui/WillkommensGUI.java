@@ -14,6 +14,12 @@ import javax.swing.border.EmptyBorder;
 public class WillkommensGUI extends JFrame {
 
 	private JPanel contentPane;
+	static int zaehler = 0;						//zähler wie oft repaint ausgeführt werden muss	
+	static int xPosition = 93;					//Position des Ladebalkens
+	static int xPosition1 = 53;
+	static int xPosition2 = 13;
+	static int xPosition3 = -27;
+	static int xPosition4 = -67;
 
 	/**
 	 * Launch the application.
@@ -51,14 +57,7 @@ public class WillkommensGUI extends JFrame {
 				
 				
 				
-				/*
 				
-				try {
-					WillkommensGUI frame = new WillkommensGUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}*/
 			}
 		});
 	}
@@ -67,6 +66,11 @@ public class WillkommensGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public WillkommensGUI() {
+						
+		
+		
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 726, 456);
 		setUndecorated(true);
@@ -74,48 +78,84 @@ public class WillkommensGUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
+		
 
 		
 		final JPanel panel = new JPanel(){  
-            public void paintComponent(Graphics g) {  
-                final Image hintergrund = Toolkit.getDefaultToolkit().getImage(  
-                          Empfangsgui2.class.getResource("/de/dhbw/images/Willkommen_GUI.PNG"));  
-                final Image ladebalken = Toolkit.getDefaultToolkit().getImage(  
-                        Empfangsgui2.class.getResource("/de/dhbw/images/Ladebalken.PNG"));  
-                
-            g.drawImage(hintergrund, 0, 0, this.getWidth(), this.getHeight(), this);  
-            
-            final ImageObserver observer = this;
-            final Graphics grafik = g;
-//            grafik.drawImage(hintergrund, 10, 200,200 ,200 , observer);
-            new Thread() 
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public void paintComponent(Graphics g) 
+			{  
+	        	super.paintComponent(g);
+	        	final Image hintergrund = Toolkit.getDefaultToolkit().getImage(  
+	                      Empfangsgui2.class.getResource("/de/dhbw/images/Willkommen_GUI.PNG"));  
+	        	final Image ladebalken = Toolkit.getDefaultToolkit().getImage(  
+	                    Empfangsgui2.class.getResource("/de/dhbw/images/Ladebalken.PNG"));
+	        	
+	        	 g.drawImage(hintergrund, 0, 0, this.getWidth(), this.getHeight(), this); 
+	        	
+	        	if(xPosition >= 580)
+	                xPosition = -150;
+	        	if(xPosition1 >= 580)
+	                xPosition1 = -150;
+	        	if(xPosition2 >= 580)
+	                xPosition2 = -150;
+	        	if(xPosition3 >= 580)
+	                xPosition3 = -150;
+	        	if(xPosition4 >= 580)
+	                xPosition4 = -150;
+	           
+	        	if(xPosition >= 93)
+	        		g.drawImage(ladebalken, xPosition + zaehler, 415, 30 ,21 , this);	      
+	        	if(xPosition1 >= 93)	        	
+	        		g.drawImage(ladebalken, xPosition1 + zaehler, 415, 30 ,21 , this);	    
+	        	if(xPosition2 >= 93)	    
+	        		g.drawImage(ladebalken, xPosition2 + zaehler*2, 415, 30 ,21 , this);   
+	        	if(xPosition3 >= 93)	        	
+	        		g.drawImage(ladebalken, xPosition3 + zaehler*2, 415, 30 ,21 , this);	        	
+	        	if(xPosition4 >= 93)
+	        		g.drawImage(ladebalken, xPosition4 + zaehler*2, 415, 30 ,21 , this);
+	        	
+			}};
+       
+       new Thread() 
+		{
 			{
-				{
-					start(); 
+				start(); 
+			}
+			public void run()
+			{
+				try 
+				{ 
+					 for(int i = 0; i < 10000; i++)
+		            {
+						WillkommensGUI.zaehle();
+		            	panel.repaint();	
+		            	sleep(3);
+		            }
+
 				}
-				public void run()
-				{
-					try 
-					{ 
-						 for(int i = 0; i < 100; i++)
-			            {
-			            	grafik.drawImage(hintergrund, 10 + i*8, 200,200 ,20 , observer);		//REPAINT!!
-			            	sleep(100);
-			            }
-							
-						
-					}
-					catch ( InterruptedException e ) 
-					{ 
-						e.printStackTrace();
-					} 
+				catch ( InterruptedException e ) 
+				{ 
+					e.printStackTrace();
 				} 
-			};  //Thread zum warten
-            
-           
-            
-       }};
+			} 
+		};  //Thread zum warten
+       
 		contentPane.add(panel, BorderLayout.CENTER);
+	}
+
+	protected static void zaehle() {
+	
+		xPosition += 1;
+		xPosition1 += 1;
+		xPosition2 += 1;
+		xPosition3 += 1;
+		xPosition4 += 1;
+		
 	}
 	
 	
