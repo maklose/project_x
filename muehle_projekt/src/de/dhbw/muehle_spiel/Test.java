@@ -86,10 +86,11 @@ public class Test {
 		
 		
 		List<ISpielstein> p_SpielFeld = new ArrayList<ISpielstein>();
-		List<Bewegung> moeglBewegungen = new ArrayList<Bewegung>();
+//		List<Bewegung> moeglBewegungen = new ArrayList<Bewegung>();
 		Strategie s = new Strategie();
 		s.startePartie(ESpielsteinFarbe.WEISS);
-		ISpielzug zug = s.bewegeStein(p_SpielFeld);
+		s.bewegeStein(p_SpielFeld);
+		
 //		ISpielstein spielstein = zug.getNeuenSpielstein();      
 //		Position spielsteinPos = spielstein.getPosition();
 //		System.out.println(spielsteinPos.toString());

@@ -21,16 +21,15 @@ int anzahlZuege;
 ESpielsteinFarbe farbe;
 ESpielsteinFarbe farbeSpieler2;
 int tiefe = 3;
-Bewegung bewegung;
+private Bewegung bewegung;
+private Bewegung bewegungFinal;
 
 
 	@Override
 	public void startePartie(ESpielsteinFarbe p_SpielerFarbe) throws StrategieException {
 		// TODO Auto-generated method stub
-		anzahlZuege=0;
 		farbe = p_SpielerFarbe;
-		
-		
+		anzahlZuege = 0;	
 	}
 
 	@Override
@@ -42,14 +41,24 @@ Bewegung bewegung;
 	@Override
 	public ISpielzug bewegeStein(List<ISpielstein> p_SpielFeld) throws StrategieException {
      
+		//Wenn Spielfeld leer ist, fängt KI-Spieler an und anzahlZuege = 0
+		//Sonst fängt Gegner an und anzahlZuege = 1
+		if(p_SpielFeld.size() == 0){
+			anzahlZuege = 0;
+		}
+		else{
+			anzahlZuege = 1;
+		}
+		
 		double bewertung;
 		Spielzug zug = null;
 		
 		if(anzahlZuege < 9){
 		bewertung = max(tiefe, p_SpielFeld, null, anzahlZuege);
 		anzahlZuege++;
-		System.out.println(bewegung.toString());
-		zug = new Spielzug(bewegung);
+//		System.out.println(bewegung.toString());
+		System.out.println(bewegung);
+//		zug = new Spielzug(new Spielstein(farbe, bewegung.getNach(),0,0,0));
 		}
 		else{
 		bewertung = max(tiefe, p_SpielFeld, null, anzahlZuege );
@@ -188,18 +197,26 @@ Bewegung bewegung;
 
 	//neues Spielfeld erzeugen
 	List<ISpielstein> neuesSpielFeld = p_SpielFeld;
-	int zaehler = 0;
 	int index = 0; 		//Index des ISpielstein der bewegt wurde
-	for(ISpielstein s : neuesSpielFeld){
-		zaehler++;
-		if(bewegung.getVon()== null){
-		neuesSpielFeld.add(new Spielstein(spieler1.getSpielerfarbe(), bewegung.getVon(), 0,0,0));	
-		}			
-		else if(s.getPosition() == bewegung.getVon()){
-			index = zaehler;
-			neuesSpielFeld.set(zaehler, new Spielstein(farbe, bewegung.getNach(), 0,0,0));
-		}			
+	
+	if(p_SpielFeld.size() > 0 ){
+	
+		//ISpielstein an neues Feld anfügen, wenn Stein neu auf das Feld gesetzt wurde
+		if(lanzahlZuege <= 18){
+		neuesSpielFeld.add(new Spielstein(spieler2.getSpielerfarbe(), bewegung.getNach(), 0,0,0));	
+		index = (neuesSpielFeld.size() - 1);
+		}
+	
+	else{
+		//Position ändern, wenn Spielstein geschoben wurde/gesprungen ist
+		for(int i= 0; i < neuesSpielFeld.size(); i++){
+			if(neuesSpielFeld.get(i).getPosition() == bewegung.getVon()){
+			neuesSpielFeld.set(i, new Spielstein(spieler1.getSpielerfarbe(), bewegung.getNach(), 0,0,0));
+			index = i;
+			}
+		}
 	}
+}	
 	
 	//Erzeugung der Spielsteine des KI Spielers, die in p_Spielfeld vorhanden sind
 	for(ISpielstein s: neuesSpielFeld){
@@ -217,7 +234,7 @@ Bewegung bewegung;
 	Pruefung pruef = new Pruefung();
 	
 	// Wenn die tiefe 0 ist oder das Spielbeendet ist, wird die Beweertung des Spielzugs geholt
-	if(tiefe == 0 || pruef.checkSpielBeendet(spieler1, spieler2) == true)
+	if(ltiefe == 0 || pruef.checkSpielBeendet(spieler1, spieler2) == true)
 	{
 	Bewertung bewertung = new Bewertung();	
 	return bewertung.bewerteZug(p_SpielFeld, bewegung, index, lanzahlZuege);
@@ -228,7 +245,7 @@ Bewegung bewegung;
 	double maxWert= -1;
 	double wert;
 	
-	if(lanzahlZuege >= 9){ // ziehen und springen Phase
+	if(lanzahlZuege > 18){ // ziehen und springen Phase
 	
 	for(int i = 0; i < spieler1.getAnzahlSteine(); i++){	
 	
@@ -236,10 +253,18 @@ Bewegung bewegung;
 		for(int j = 0; j < moeglBewegungen.size();j++){	
 			//Rekursion
 			wert= min((ltiefe - 1) , neuesSpielFeld, moeglBewegungen.get(j), (lanzahlZuege + 1));
+			
+			//Bewegung rückgängig machen
+			for(int k = 0; i < p_SpielFeld.size(); k++){
+				if(p_SpielFeld.get(k).getPosition() == bewegung.getNach()){
+					p_SpielFeld.set(k, new Spielstein(spieler2.getSpielerfarbe(), bewegung.getVon(), 0,0,0));
+				}
+			}
+			
 			if( wert > maxWert){
 				maxWert = wert;	
 				if(ltiefe == tiefe)
-				bewegung = moeglBewegungen.get(j); 	 
+				bewegung = moeglBewegungen.get(j);
 			}
 		}	
 	}
@@ -250,13 +275,18 @@ Bewegung bewegung;
 		for(int j = 0; j < moeglBewegungen.size();j++){	
 			//Rekursion
 			wert= min((ltiefe - 1) , neuesSpielFeld, moeglBewegungen.get(j), (lanzahlZuege + 1));
+			
+			// Bewegung rückgängig machen
+			p_SpielFeld.remove(p_SpielFeld.size() - 1 );	
+					
 			if( wert > maxWert){
 				maxWert = wert;	
 				if(ltiefe == tiefe)
-				bewegung = moeglBewegungen.get(j);			
+				bewegung = moeglBewegungen.get(j);	
+				System.out.println(ltiefe + " " + bewegung);
 			}
 		}
-	}
+	}	
 	
 	return maxWert;
 	}
@@ -264,91 +294,106 @@ Bewegung bewegung;
 	
 	private double min (int ltiefe, List<ISpielstein> p_SpielFeld, Bewegung bewegung, int lanzahlZuege){
 		
-		ESpielsteinFarbe farbeSpieler2;
+	ESpielsteinFarbe farbeSpieler2;
 		
-		//Festlegen, welche Farbe der Gegner hat
-		if( farbe == ESpielsteinFarbe.SCHWARZ)
-			farbeSpieler2 = ESpielsteinFarbe.WEISS;
-		else
-			farbeSpieler2 = ESpielsteinFarbe.SCHWARZ;
+	//Festlegen, welche Farbe der Gegner hat
+	if( farbe == ESpielsteinFarbe.SCHWARZ)
+		farbeSpieler2 = ESpielsteinFarbe.WEISS;
+	else
+		farbeSpieler2 = ESpielsteinFarbe.SCHWARZ;
 		
-		//Spieler erzeugen
-		Spieler spieler1 = new Spieler(farbe, "");
-		Spieler spieler2 = new Spieler(farbeSpieler2, "");
+	//Spieler erzeugen
+	Spieler spieler1 = new Spieler(farbe, "");
+	Spieler spieler2 = new Spieler(farbeSpieler2, "");
 
-		//neues Spielfeld erzeugen
-		List<ISpielstein> neuesSpielFeld = p_SpielFeld;
-		int zaehler = 0;
-		int index = 0; 		//Index des ISpielstein der bewegt wurde
-		for(ISpielstein s : neuesSpielFeld){
-			zaehler++;
-			if(bewegung.getVon()== null){
-				neuesSpielFeld.add(new Spielstein(spieler2.getSpielerfarbe(), bewegung.getVon(), 0,0,0));	
-				}			
-			else if(s.getPosition() == bewegung.getVon()){
-				index = zaehler;
-				neuesSpielFeld.set(zaehler, new Spielstein(farbe, bewegung.getNach(), 0,0,0));
+	//neues Spielfeld erzeugen
+	List<ISpielstein> neuesSpielFeld = p_SpielFeld;
+	int index = 0; 		//Index des ISpielstein der bewegt wurde
+	
+	//ISpielstein an neues Feld anfügen, wenn Stein neu gesetzt wurde
+	if(lanzahlZuege <= 18){
+		neuesSpielFeld.add(new Spielstein(spieler1.getSpielerfarbe(), bewegung.getNach(), 0,0,0));	
+		index = (neuesSpielFeld.size() - 1);
+		}
+
+	else{
+	//Position ändern, wenn Spielstein geschoben wurde/gesprungen ist
+		for(int i= 0; i <= neuesSpielFeld.size(); i++){
+			if(neuesSpielFeld.get(i).getPosition() == bewegung.getVon()){
+			neuesSpielFeld.set(i, new Spielstein(spieler2.getSpielerfarbe(), bewegung.getNach(), 0,0,0));
+			index = i;
 			}			
 		}
+	}
+	//Erzeugung der Spielsteine des KI Gegners, die in p_Spielfeld vorhanden sind
+	for(ISpielstein s: neuesSpielFeld){
+			if(s.getFarbe() == farbe)
+			{
+				spieler1.setzeSpielstein(s.getPosition(), 0, 0);
+			}
+			else
+			{
+				spieler2.setzeSpielstein(s.getPosition(),0,0);
+			}
+		}
 		
-		//Erzeugung der Spielsteine des KI Gegners, die in p_Spielfeld vorhanden sind
-		for(ISpielstein s: neuesSpielFeld){
-				if(s.getFarbe() == farbe)
-				{
-					spieler1.setzeSpielstein(s.getPosition(), 0, 0);
-				}
-				else
-				{
-					spieler2.setzeSpielstein(s.getPosition(),0,0);
+		
+	Pruefung pruef = new Pruefung();
+		
+	// Wenn die tiefe 0 ist oder das Spielbeendet ist, wird die Beweertung des Spielzugs geholt
+	if(ltiefe == 0 || pruef.checkSpielBeendet(spieler2, spieler1) == true)
+	{
+	Bewertung bewertung = new Bewertung();	
+	return bewertung.bewerteZug(p_SpielFeld, bewegung, index, lanzahlZuege);
+	}	
+			
+	List<Bewegung> moeglBewegungen = new ArrayList<Bewegung>();
+		
+	double minWert= 2;
+	double wert;
+		
+	if(lanzahlZuege > 18){  // Ziehen und Springen Phase
+	for(int i = 0; i < spieler2.getAnzahlSteine(); i++){	
+		
+		moeglBewegungen = getMoeglicheBewegungen(neuesSpielFeld, spieler2.Steine[i], lanzahlZuege);
+		for(int j = 0; j < moeglBewegungen.size();j++){	
+			//Rekursion
+			wert= max((ltiefe - 1) , neuesSpielFeld, moeglBewegungen.get(j), (lanzahlZuege + 1));
+			
+			// Bewegung rückgängig machen			
+			for(int k = 0; i < p_SpielFeld.size(); k++){
+				if(p_SpielFeld.get(k).getPosition() == bewegung.getNach()){
+					p_SpielFeld.set(k, new Spielstein(spieler1.getSpielerfarbe(), bewegung.getVon(), 0,0,0));
 				}
 			}
-		
-		
-		Pruefung pruef = new Pruefung();
-		
-		// Wenn die tiefe 0 ist oder das Spielbeendet ist, wird die Beweertung des Spielzugs geholt
-		if(tiefe == 0 || pruef.checkSpielBeendet(spieler2, spieler1) == true)
-		{
-		Bewertung bewertung = new Bewertung();	
-		return bewertung.bewerteZug(p_SpielFeld, bewegung, index, lanzahlZuege);
+
+			if( wert < minWert){
+				minWert = wert;	
+				if(ltiefe == tiefe)
+				bewegung = moeglBewegungen.get(j); 	 
+			}
 		}	
+	}
+	}
+		
+	else{
+		moeglBewegungen = getMoeglicheBewegungen(neuesSpielFeld, new Spielstein(spieler2.getSpielerfarbe(), null, 0,0,0), lanzahlZuege);
+		for(int j = 0; j < moeglBewegungen.size();j++){	
+			//Rekursion
+			wert= max((ltiefe - 1) , neuesSpielFeld, moeglBewegungen.get(j), (lanzahlZuege + 1));
 			
-		List<Bewegung> moeglBewegungen = new ArrayList<Bewegung>();
-		
-		double minWert= 2;
-		double wert;
-		
-		if(lanzahlZuege >= 9){  // Ziehen und Springen Phase
-		for(int i = 0; i < spieler2.getAnzahlSteine(); i++){	
-		
-			moeglBewegungen = getMoeglicheBewegungen(neuesSpielFeld, spieler2.Steine[i], lanzahlZuege);
-			for(int j = 0; j < moeglBewegungen.size();j++){	
-				//Rekursion
-				wert= max((ltiefe - 1) , neuesSpielFeld, moeglBewegungen.get(j), (lanzahlZuege + 1));
-				if( wert < minWert){
-					minWert = wert;	
-					if(ltiefe == tiefe)
-					bewegung = moeglBewegungen.get(j); 	 
-				}
-			}	
-		}
-		}
-		
-		else{
-			moeglBewegungen = getMoeglicheBewegungen(neuesSpielFeld, new Spielstein(spieler2.getSpielerfarbe(), null, 0,0,0), lanzahlZuege);
-			for(int j = 0; j < moeglBewegungen.size();j++){	
-				//Rekursion
-				wert= min((ltiefe - 1) , neuesSpielFeld, moeglBewegungen.get(j), (lanzahlZuege + 1));
-				if( wert < minWert){
-					minWert = wert;	
-					if(ltiefe == tiefe)
-					bewegung = moeglBewegungen.get(j);			
-				}
+			if(lanzahlZuege < 18){
+				p_SpielFeld.remove(p_SpielFeld.size() - 1 );	
 			}
-		
 			
-			
-		}
+			if( wert < minWert){
+				minWert = wert;	
+				if(ltiefe == tiefe)
+				bewegung = moeglBewegungen.get(j);	
+				
+			}
+		}				
+	}
 		
 		return minWert;
 	}
