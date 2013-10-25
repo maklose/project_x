@@ -272,7 +272,7 @@ public class DialogOptionen2 extends JDialog {
 						{
 							name1=txtSpieler1.getText();
 							name2=txtSpieler2.getText();
-							JFrame neuesSpiel = new Spielfeld(name1, name2, i, gSchwierigkeit);
+							JFrame neuesSpiel = new Spielfeld(name1, name2, i, gSchwierigkeit, 1);
 							neuesSpiel.setVisible(true);
 							dispose();
 						}
