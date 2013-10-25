@@ -386,7 +386,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIlinks.png"));  
 				else
 	                spielfeld = Toolkit.getDefaultToolkit().getImage(  
-	                          Spielfeld.class.getResource("/de/dhbw/images/Test2_links.png"));  
+	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIlinks.png"));  
 				
                 g.drawImage(spielfeld, 0, 0, this.getWidth(), this.getHeight(), this);  
                 
@@ -716,7 +716,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	                        Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIrechts.png"));    
 				else
 					spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
-	                        Spielfeld.class.getResource("/de/dhbw/images/Test2_rechts.png"));  
+	                        Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIrechts.png"));  
 				  
 				g.drawImage(spielfeldRechts, 0, 0, this.getWidth(), this.getHeight(), this);  
 				
@@ -1020,18 +1020,22 @@ public class Spielfeld extends JFrame implements ActionListener {
 							{
 								try 
 								{ 
-									Spielfeld.neueMeldung(wichtigeMeldungsZeit, textRunde2);
-									sleep(wichtigeMeldungsZeit * 1000);
-									if(aktuellerSpieler.getAnzahlSteine() == 3)
+									if(!pruef.checkSpielBeendet(passiverSpieler, aktuellerSpieler))
 									{
-										Spielfeld.neueMeldung(wichtigeMeldungsZeit, aktuellerSpieler.getName() + textDarfSpringen);
+										Spielfeld.neueMeldung(wichtigeMeldungsZeit, textRunde2);
 										sleep(wichtigeMeldungsZeit * 1000);
+										if(aktuellerSpieler.getAnzahlSteine() == 3)
+										{
+											Spielfeld.neueMeldung(wichtigeMeldungsZeit, aktuellerSpieler.getName() + textDarfSpringen);
+											sleep(wichtigeMeldungsZeit * 1000);
+										}
+										if(passiverSpieler.getAnzahlSteine() == 3)
+										{
+											Spielfeld.neueMeldung(wichtigeMeldungsZeit, passiverSpieler.getName() + textDarfSpringen);
+											sleep(wichtigeMeldungsZeit * 1000);
+										}
 									}
-									if(passiverSpieler.getAnzahlSteine() == 3)
-									{
-										Spielfeld.neueMeldung(wichtigeMeldungsZeit, passiverSpieler.getName() + textDarfSpringen);
-										sleep(wichtigeMeldungsZeit * 1000);
-									}
+									SpielBeendet = true;
 								}
 								catch ( InterruptedException e ) 
 								{ 
@@ -1215,18 +1219,22 @@ public class Spielfeld extends JFrame implements ActionListener {
 								{
 									try 
 									{ 
-										Spielfeld.neueMeldung(wichtigeMeldungsZeit, textRunde2);
-										sleep(wichtigeMeldungsZeit * 1000);
-										if(aktuellerSpieler.getAnzahlSteine() == 3)
+										if(!pruef.checkSpielBeendet(passiverSpieler, aktuellerSpieler))
 										{
-											Spielfeld.neueMeldung(wichtigeMeldungsZeit, aktuellerSpieler.getName() + textDarfSpringen);
+											Spielfeld.neueMeldung(wichtigeMeldungsZeit, textRunde2);
 											sleep(wichtigeMeldungsZeit * 1000);
+											if(aktuellerSpieler.getAnzahlSteine() == 3)
+											{
+												Spielfeld.neueMeldung(wichtigeMeldungsZeit, aktuellerSpieler.getName() + textDarfSpringen);
+												sleep(wichtigeMeldungsZeit * 1000);
+											}
+											if(passiverSpieler.getAnzahlSteine() == 3)
+											{
+												Spielfeld.neueMeldung(wichtigeMeldungsZeit, passiverSpieler.getName() + textDarfSpringen);
+												sleep(wichtigeMeldungsZeit * 1000);
+											}
 										}
-										if(passiverSpieler.getAnzahlSteine() == 3)
-										{
-											Spielfeld.neueMeldung(wichtigeMeldungsZeit, passiverSpieler.getName() + textDarfSpringen);
-											sleep(wichtigeMeldungsZeit * 1000);
-										}
+										SpielBeendet = true;
 									}
 									catch ( InterruptedException e ) 
 									{ 
@@ -1487,5 +1495,6 @@ public class Spielfeld extends JFrame implements ActionListener {
 	
 	
 }
+
 
 

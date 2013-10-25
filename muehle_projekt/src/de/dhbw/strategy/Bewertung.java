@@ -432,7 +432,7 @@ public class Bewertung
 									|| (Spielfeld[ebene][x][Math.abs(y-1)] == null && Spielfeld[ebene][Math.abs(x-1)][Math.abs(y-2)] == null)
 									&& (Spielfeld[ebene][x][Math.abs(y-2)] == null|| Spielfeld[ebene][Math.abs(x-2)][y] == null))				
 							{
-								return 9999;
+								return 1111;
 							}
 						}
 						
@@ -452,23 +452,12 @@ public class Bewertung
 						
 						//gucken ob man eine vorbereitung erstellen kann, also eine der 4 arten möglich ist
 						//1. Möglichkeit: Steine stehen sich in einer Ebene diagonal gegenüber
-						if(Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-2)] != null)	//wenn das gegenüberliegende feld nicht null ist	
+						if(Spielfeld[ebene][x][Math.abs(y-2)] != null && Spielfeld[Math.abs(x-2)][y] != null)	//wenn das gegenüberliegende feld nicht null ist	
 						{
-							if(Spielfeld[ebene][x][Math.abs(y-2)] != null)
-							{
-								if(Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-2)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
-										Spielfeld[ebene][x][Math.abs(y-2)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&
-										Spielfeld[ebene][x][Math.abs(y-1)] == null && Spielfeld[ebene][Math.abs(x-1)][Math.abs(y-2)] == null)			
-								{
-									return 1000000000;
-								}
-							}
-						}
-						if(Spielfeld[ebene][Math.abs(x-2)][y] != null)
-						{
-							if(Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-2)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
-									Spielfeld[ebene][Math.abs(x-2)][y].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&
-									Spielfeld[ebene][Math.abs(x-1)][y] == null && Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-1)] == null)	//und wenn alle anderen felder die benötigt werden freu sind		
+							
+							if(Spielfeld[ebene][Math.abs(x-2)][y].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+									Spielfeld[ebene][x][Math.abs(y-2)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&
+									Spielfeld[ebene][x][Math.abs(y-1)] == null && Spielfeld[ebene][Math.abs(x-1)][y] == null)			
 							{
 								return 1000000000;
 							}
@@ -478,7 +467,101 @@ public class Bewertung
 			}
 		}
 		
+		/*
+		 * möglichkeit 2 ---------------- rechtwinkliger doppelangriff mitte -----------------------------
+		 */
 		
+		if((x == 1 && y == 0) || (x == 0 && y == 1) || (x == 1 && y == 2) || (x == 2 && y == 1))
+		{
+			//nacheinander für meine Steine auf dem Feld überprüfen
+			for(int i = 0; i <= 2; i++)
+			{
+				for(int j = 0; j <= 2; j++)
+				{
+					for(int k = 0; k <= 2; k++)
+					{
+						//beweter Stein darf nicht einbezogen werden
+						if(i == this.posIndexUmrechnen(nach.getEbene()) && j == this.posIndexUmrechnen(nach.getX()) && k == this.posIndexUmrechnen(nach.getY()))
+							continue;
+						
+						//gucken ob man eine vorbereitung erstellen kann, also eine der 4 arten möglich ist
+						if(y != 1)
+						{
+							if(Spielfeld[ebene][Math.abs(x-1)][Math.abs(y-1)] != null)
+							{
+								if(Spielfeld[ebene][Math.abs(x-1)][Math.abs(y-1)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+										Spielfeld[ebene][Math.abs(x-1)][y] == null && Spielfeld[ebene][Math.abs(x+1)][y] == null	
+										&& Spielfeld[ebene][Math.abs(x-1)][Math.abs(y-2)] == null)				
+								{
+									return 2222;
+								}
+							}
+							if(Spielfeld[ebene][Math.abs(x+1)][Math.abs(y-1)] != null)
+							{
+								if(Spielfeld[ebene][Math.abs(x+1)][Math.abs(y-1)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+										Spielfeld[ebene][Math.abs(x+1)][y] == null && Spielfeld[ebene][Math.abs(x-1)][y] == null	
+										&& Spielfeld[ebene][Math.abs(x+1)][Math.abs(y-2)] == null)					
+								{
+									return 2222;
+								}
+							}
+						}
+						else
+						{
+							if(Spielfeld[ebene][Math.abs(x-1)][Math.abs(y-1)] != null)
+							{
+								if(Spielfeld[ebene][Math.abs(x-1)][Math.abs(y-1)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+										Spielfeld[ebene][x][Math.abs(y-1)] == null && Spielfeld[ebene][x][Math.abs(y+1)] == null	
+										&& Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-1)] == null)				
+								{
+									return 2222;
+								}
+							}
+							if(Spielfeld[ebene][Math.abs(x-1)][Math.abs(y+1)] != null)
+							{
+								if(Spielfeld[ebene][Math.abs(x-1)][Math.abs(y+1)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+										Spielfeld[ebene][x][Math.abs(y-1)] == null && Spielfeld[ebene][x][Math.abs(y+1)] == null	
+										&& Spielfeld[ebene][Math.abs(x-2)][Math.abs(y+1)] == null)					
+								{
+									return 2222;
+								}
+							}
+						}
+						
+					}
+				}
+			}
+		}
+		if((x == 0 && y == 0) || (x == 0 && y == 2) || (x == 2 && y == 0) || (x == 2 && y == 2))
+		{
+			//gucken ob mein einen doppelangriff vollenden kann
+			for(int a = 0; a <= 2; a++)
+			{
+				for(int b = 0; b <= 2; b++)
+				{
+					for(int c = 0; c <= 2; c++)
+					{
+						//beweter Stein darf nicht einbezogen werden
+						if(a == this.posIndexUmrechnen(nach.getEbene()) && b == this.posIndexUmrechnen(nach.getX()) && c == this.posIndexUmrechnen(nach.getY()))
+							continue;
+						
+						//gucken ob man eine vorbereitung erstellen kann, also eine der 4 arten möglich ist
+						//1. Möglichkeit: Steine stehen sich in einer Ebene diagonal gegenüber
+						
+						if(Spielfeld[ebene][Math.abs(x-1)][y] != null && Spielfeld[ebene][x][Math.abs(y-1)] != null)
+						{
+							if(Spielfeld[ebene][Math.abs(x-1)][y].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+									Spielfeld[ebene][x][Math.abs(y-1)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&
+									Spielfeld[ebene][Math.abs(x-2)][y] == null	& Spielfeld[ebene][x][Math.abs(y-2)] == null)				
+							{
+								return 22;
+							}
+						}
+						
+					}	
+				}
+			}
+		}
 		
 		//gucken ob mein einen doppelangriff vollenden kann
 		
