@@ -21,6 +21,8 @@ public class Bewertung
 	Spieler aktuellerSpieler;
 	Spieler passiverSpieler;
 	ISpielstein bewegterStein;
+	ISpielstein Spielfeld[][][];
+	
 	
 	//Variablen für die Bewertung 
 	int bSpielBeendet = 10;
@@ -34,18 +36,24 @@ public class Bewertung
 	//Phase Bewegen
 	double b2Muehle = 0;
 	double b2Doppelangriff = 0;
+	double b2DoppelangriffIn2 = 0;
 	double b2StrategischePunkte = 0;
 	double b2MuehleBewachen = 0;
 
 	
+	
 	public double bewerteZug(List<ISpielstein> p_SpielFeld, Bewegung lBewegung, int index, int anzahlZuege)
 	{
+		Spielfeld = new ISpielstein[3][3][3];
+		this.ListeZuArray(p_SpielFeld);
 		double Score = 0;
+		
 		von = lBewegung.getVon();
 		nach = lBewegung.getNach();
 		lSteine = p_SpielFeld;
 		bewegterStein = p_SpielFeld.get(index);
 		aktuellerSpieler = new Spieler(bewegterStein.getFarbe(), "aktuellerSpielerB");
+		
 		
 		//passiven Spieler festlegen und Arrays der Spieler füllen
 		if(bewegterStein.getFarbe() == ESpielsteinFarbe.WEISS)
@@ -59,6 +67,7 @@ public class Bewertung
 			this.SteineAufteilen(p_SpielFeld, ESpielsteinFarbe.SCHWARZ);
 		}
 			
+		
 		
 		//Beginn der Bewertung
 		
@@ -76,12 +85,16 @@ public class Bewertung
 					Score += bSpielBeendet;
 			}
 			
+			
 			//Wenn man duch das Zustellen des Gegners gewinnen kann
 			if(this.checkBewegungsunfaehig(passiverSpieler, aktuellerSpieler))
 				Score += bSpielBeendet;
 			
 			if(this.isStrategischerPunkt(lBewegung))
 				Score += b1StrategischePunkte;
+			
+			
+			Score += this.bewerteDoppelangriff();
 		}
 		else	//Wenn wir in der Bewegen Phase sind
 		{
@@ -105,6 +118,21 @@ public class Bewertung
 					
 		
 		return Score;
+	}
+	
+	public void ListeZuArray(List<ISpielstein> p_SpielFeld)
+	{
+		
+			for (ISpielstein Stein : p_SpielFeld)		
+			{			
+				int ebene = this.posIndexUmrechnen(Stein.getPosition().getEbene());
+				int x = this.posIndexUmrechnen(Stein.getPosition().getX());
+				int y = this.posIndexUmrechnen(Stein.getPosition().getY());
+				Spielfeld[ebene][x][y] = Stein;
+			}
+		
+			
+			
 	}
 
 
@@ -356,17 +384,6 @@ public class Bewertung
 			
 		}
 	
-	public int getAnzahlSteine(ISpielstein[] Steine)
-	{
-		int counter = 0;
-		for (int i = 0; i < Steine.length; i++)
-		{
-			if(Steine[i] != null)
-				counter++;
-		}
-		return counter;
-		
-	}
 	
 	//Strategische Punkte sind 223, 221, 212, 232
 	public boolean isStrategischerPunkt(Bewegung neueBewegung)
@@ -381,6 +398,109 @@ public class Bewertung
 			return true;
 		else
 			return false;
+	}
+	
+	public double bewerteDoppelangriff()
+	{
+		int ebene = this.posIndexUmrechnen(nach.getEbene());
+		int x = this.posIndexUmrechnen(nach.getX());
+		int y = this.posIndexUmrechnen(nach.getY());
+		
+		/*
+		 * möglichkeit 1 ---------------- diagonaler doppelangriff -----------------------------
+		 */
+		
+		if((x == 0 && y == 0) || (x == 2 && y == 0) || (x == 0 && y == 2) || (x == 2 && y == 2))
+		{
+			//nacheinander für meine Steine auf dem Feld überprüfen
+			for(int i = 0; i <= 2; i++)
+			{
+				for(int j = 0; j <= 2; j++)
+				{
+					for(int k = 0; k <= 2; k++)
+					{
+						//beweter Stein darf nicht einbezogen werden
+						if(i == this.posIndexUmrechnen(nach.getEbene()) && j == this.posIndexUmrechnen(nach.getX()) && k == this.posIndexUmrechnen(nach.getY()))
+							continue;
+						
+						//gucken ob man eine vorbereitung erstellen kann, also eine der 4 arten möglich ist
+						
+						if(Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-2)] != null)
+						{
+							if(Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-2)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+									(Spielfeld[ebene][Math.abs(x-1)][y] == null && Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-1)] == null)	//und wenn alle anderen felder die benötigt werden freu sind
+									|| (Spielfeld[ebene][x][Math.abs(y-1)] == null && Spielfeld[ebene][Math.abs(x-1)][Math.abs(y-2)] == null)
+									&& (Spielfeld[ebene][x][Math.abs(y-2)] == null|| Spielfeld[ebene][Math.abs(x-2)][y] == null))				
+							{
+								return 9999;
+							}
+						}
+						
+					}
+				}
+			}
+				
+			for(int a = 0; a <= 2; a++)
+			{
+				for(int b = 0; b <= 2; b++)
+				{
+					for(int c = 0; c <= 2; c++)
+					{
+						//beweter Stein darf nicht einbezogen werden
+						if(a == this.posIndexUmrechnen(nach.getEbene()) && b == this.posIndexUmrechnen(nach.getX()) && c == this.posIndexUmrechnen(nach.getY()))
+							continue;
+						
+						//gucken ob man eine vorbereitung erstellen kann, also eine der 4 arten möglich ist
+						//1. Möglichkeit: Steine stehen sich in einer Ebene diagonal gegenüber
+						if(Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-2)] != null)	//wenn das gegenüberliegende feld nicht null ist	
+						{
+							if(Spielfeld[ebene][x][Math.abs(y-2)] != null)
+							{
+								if(Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-2)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+										Spielfeld[ebene][x][Math.abs(y-2)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&
+										Spielfeld[ebene][x][Math.abs(y-1)] == null && Spielfeld[ebene][Math.abs(x-1)][Math.abs(y-2)] == null)			
+								{
+									return 1000000000;
+								}
+							}
+						}
+						if(Spielfeld[ebene][Math.abs(x-2)][y] != null)
+						{
+							if(Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-2)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+									Spielfeld[ebene][Math.abs(x-2)][y].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&
+									Spielfeld[ebene][Math.abs(x-1)][y] == null && Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-1)] == null)	//und wenn alle anderen felder die benötigt werden freu sind		
+							{
+								return 1000000000;
+							}
+						}
+					}	
+				}
+			}
+		}
+		
+		
+		
+		//gucken ob mein einen doppelangriff vollenden kann
+		
+		
+		
+		
+		
+		
+		
+		return 0.0;
+	}
+	
+	public int posIndexUmrechnen(EPositionIndex lPosition)
+	{
+		if(lPosition.equals(EPositionIndex.Eins))
+			return 0;
+		else if(lPosition.equals(EPositionIndex.Zwei))
+			return 1;
+		else if(lPosition.equals(EPositionIndex.Drei))
+			return 2;
+		else 
+			return 99;
 	}
 	
 	
