@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.dhbw.muehle_api.*;
+import de.dhbw.muehle_api.strategy.IBewegung;
 import de.dhbw.muehle_api.strategy.ISpielzug;
 import de.dhbw.muehle_api.strategy.StrategieException;
 import de.dhbw.muehle_spiel.Bewegung;
@@ -148,7 +149,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	Pruefung pruef = new Pruefung();
 	
 	//neue Instanz der Strategie, falls man gegen den PC spielen möchte
-	Strategie strategie;
+	Strategie strategie1, strategie2;
 	
 	//Liste mit allen Knöpfen auf dem Feld
 	List<TransparentButtonFeld> gButtons = new ArrayList<TransparentButtonFeld>();
@@ -175,7 +176,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 			{
 				try 
 				{
-					Spielfeld frame = new Spielfeld("Stefan", "Georg", 1, 5, 1);
+					Spielfeld frame = new Spielfeld("Stefan", "Georg", 2, 5, 1);
 					frame.addWindowListener(new WindowAdapter() {
 											public void windowClosing(WindowEvent evt) {
 											exitForm(evt);}});
@@ -225,8 +226,9 @@ public class Spielfeld extends JFrame implements ActionListener {
 	/**
 	 * Das JPanel wird erzeugt
 	 * Die Buttons werden instanziiert und mit dem action listener verknüpft
+	 * @throws StrategieException 
 	 */
-	public Spielfeld(String Spieler1Name, String Spieler2Name, int lmode, int lSchwierigkeit, final int theme) 
+	public Spielfeld(String Spieler1Name, String Spieler2Name, int lmode, int lSchwierigkeit, final int theme) throws StrategieException 
 	{
 		//Name der in dem Fenster angezeigt wird
 		super(textSpielName);
@@ -238,10 +240,14 @@ public class Spielfeld extends JFrame implements ActionListener {
 
 		
 		Spieler1 = new Spieler(ESpielsteinFarbe.WEISS, nameSpieler1);
-		if(mode == 1)
-			Spieler2 = new Spieler(ESpielsteinFarbe.SCHWARZ, nameSpieler2); 
-		else
-			strategie = new Strategie();
+		switch(mode)
+		{
+			case 1 : Spieler2 = new Spieler(ESpielsteinFarbe.SCHWARZ, nameSpieler2); break;
+			case 2 : Spieler2 = new Spieler(ESpielsteinFarbe.SCHWARZ, nameSpieler2); strategie1 = new Strategie(); strategie1.startePartie(ESpielsteinFarbe.SCHWARZ); break;
+			case 3 : Spieler1 = new Spieler(ESpielsteinFarbe.WEISS, nameSpieler2); Spieler2 = new Spieler(ESpielsteinFarbe.SCHWARZ, nameSpieler2); 
+						strategie1 = new Strategie(); strategie2 = new Strategie(); 
+						strategie1.startePartie(ESpielsteinFarbe.WEISS); strategie2.startePartie(ESpielsteinFarbe.SCHWARZ);break;
+		}
 		
 		//Fenster fixieren
 		setResizable(false);
@@ -269,8 +275,15 @@ public class Spielfeld extends JFrame implements ActionListener {
 			@Override
 			public void menuSelected(MenuEvent e) {
 				dispose();
-				JFrame neuesSpiel = new Spielfeld(nameSpieler1, nameSpieler2, mode, gSchwierigkeit, theme);
-				neuesSpiel.setVisible(true);
+//				JFrame neuesSpiel = null;
+				try {
+					 Spielfeld neuesSpiel = new Spielfeld(nameSpieler1, nameSpieler2, mode, gSchwierigkeit, theme);
+					 neuesSpiel.setVisible(true);
+				} catch (StrategieException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 				
 			}
 			
@@ -787,7 +800,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 		
 //		 db.erzeugetb("protokoll");
-		System.out.println(gButtons); 
+
 		
 	}
 
@@ -804,7 +817,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 		if(obj.equals(this.btnNewButton_1))
 		{
-			this.aktion(btnNewButton_1);
+			this.aktion(btnNewButton_1);			
 		}
 		else if(obj.equals(this.btnNewButton_2))
 		{
@@ -898,11 +911,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		{
 			this.aktion(btnNewButton_24);
 		}
-		/*
-		 * Ausgabe der ArrayList mit den aktuellen Steinen
-		 * TEST
-		 */
-//		System.out.println(gSteine);
+
 		
 		/*
 		 * hier wird der neue Zug der Strategie abgefragt und this.aktion mit dem entsprechenden Button,
@@ -912,20 +921,16 @@ public class Spielfeld extends JFrame implements ActionListener {
 		{
 			try 
 			{
-				ISpielzug neuerZug = strategie.bewegeStein(gSteine);
+				ISpielzug neuerZug = strategie1.bewegeStein(gSteine);
+				IBewegung neueIBewegung = neuerZug.bewegeSpielStein();
+				Bewegung neueBewegung = new Bewegung(neueIBewegung.altePosition(), neueIBewegung.neuePosition());
+				this.bewegungInButtons(neueBewegung);
 			} 
 			catch (StrategieException e1) 
 			{
 				e1.printStackTrace();
 			}
-			
-			for(int i = 1; i <= 24; i++)
-			{
-				
-			}
-			
 		}
-		
 	}
 		
 	
@@ -1322,7 +1327,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		gSteine.add(lSpieler.getSpielstein(anzahlRunden));
 		
 		//Ausgabe der Bewertung des Zuges ZUM TEST
-		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung, gSteine.indexOf(lSpieler.getSpielstein(anzahlRunden)), aktuellerSpieler.getAnzahlZuege()));
+//		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung, aktuellerSpieler.getAnzahlZuege()));
 	}
 	
 	
@@ -1357,7 +1362,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		SpielfeldArray[e][x][y] = null;
 		
 		//Ausgabe der Bewertung des Zuges ZUM TEST
-		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung, gSteine.indexOf(aktuellerStein), aktuellerSpieler.getAnzahlZuege()));
+//		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung, aktuellerSpieler.getAnzahlZuege()));
 	}
 	
 	//EPositionIndex auf dem Feld wird in int umgerechnet
@@ -1410,23 +1415,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 			return false; 
 	}
 	
-	/*//kleiner Test zu Spiel beendet
-	public boolean SpielBeendet()
-	{
-		if(Spieler1.getAnzahlZuege() > 9 && Spieler1.getAnzahlSteine() < 3)
-		{
-			System.out.println("Spieler 1 hat verloren");
-			return true;
-		}
-		else if(Spieler2.getAnzahlZuege() > 9 && Spieler2.getAnzahlSteine() < 3)
-		{
-			System.out.println("Spieler 2 hat verloren");
-			return true;
-		}
-		else{
-			return false;
-		}
-	}*/
+	
 	
 	public static void neueMeldung(final int sekunden, final String meldung)
 	{
@@ -1490,6 +1479,168 @@ public class Spielfeld extends JFrame implements ActionListener {
         	}
         }
 	}
+	
+	public void bewegungInButtons(Bewegung neueBewegung)
+	{
+		if(neueBewegung.getVon() == null)
+		{
+			
+			if(btnNewButton_1.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_1.doClick(); 								//this.actionPerformed(new ActionEvent(btnNewButton_1, 1001, btnNewButton_1.)));
+			if(btnNewButton_2.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_2.doClick(); 
+			if(btnNewButton_3.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_3.doClick(); 
+			if(btnNewButton_4.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_4.doClick(); 
+			if(btnNewButton_5.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_5.doClick(); 
+			if(btnNewButton_6.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_6.doClick(); 
+			if(btnNewButton_7.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_7.doClick(); 
+			if(btnNewButton_8.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_8.doClick(); 
+			if(btnNewButton_9.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_9.doClick(); 
+			if(btnNewButton_10.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_10.doClick(); 
+			if(btnNewButton_11.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_11.doClick(); 
+			if(btnNewButton_12.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_12.doClick(); 
+			if(btnNewButton_13.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_13.doClick(); 
+			if(btnNewButton_14.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_14.doClick(); 
+			if(btnNewButton_15.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_15.doClick(); 
+			if(btnNewButton_16.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_16.doClick(); 
+			if(btnNewButton_17.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_17.doClick(); 
+			if(btnNewButton_18.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_18.doClick(); 
+			if(btnNewButton_19.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_19.doClick(); 
+			if(btnNewButton_20.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_20.doClick(); 
+			if(btnNewButton_21.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_21.doClick(); 
+			if(btnNewButton_22.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_22.doClick(); 
+			if(btnNewButton_23.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_23.doClick(); 
+			if(btnNewButton_24.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_24.doClick(); 
+			
+		}
+		else
+		{
+			//VON Bewegung in button klick umgewandelt
+			if(btnNewButton_1.vergleichePosition(neueBewegung.getVon()) == true)
+				btnNewButton_1.doClick(); 								//this.actionPerformed(new ActionEvent(btnNewButton_1, 1001, btnNewButton_1.)));
+			if(btnNewButton_2.vergleichePosition(neueBewegung.getVon()) == true)
+				btnNewButton_2.doClick(); 
+			if(btnNewButton_3.vergleichePosition(neueBewegung.getVon()) == true)
+				btnNewButton_3.doClick(); 
+			if(btnNewButton_4.vergleichePosition(neueBewegung.getVon()) == true)
+				btnNewButton_4.doClick(); 
+			if(btnNewButton_5.vergleichePosition(neueBewegung.getVon()) == true)
+				btnNewButton_5.doClick(); 
+			if(btnNewButton_6.vergleichePosition(neueBewegung.getVon()) == true)
+				btnNewButton_6.doClick(); 
+			if(btnNewButton_7.vergleichePosition(neueBewegung.getVon()) == true)
+				btnNewButton_7.doClick(); 
+			if(btnNewButton_8.vergleichePosition(neueBewegung.getVon()) == true)
+				btnNewButton_8.doClick(); 
+			if(btnNewButton_9.vergleichePosition(neueBewegung.getVon()) == true)
+				btnNewButton_9.doClick(); 
+			if(btnNewButton_10.vergleichePosition(neueBewegung.getVon()) == true)
+				btnNewButton_10.doClick(); 
+			if(btnNewButton_11.vergleichePosition(neueBewegung.getVon()) == true)
+				btnNewButton_11.doClick(); 
+			if(btnNewButton_12.vergleichePosition(neueBewegung.getVon()) == true)
+				btnNewButton_12.doClick(); 
+			if(btnNewButton_13.vergleichePosition(neueBewegung.getVon()) == true)
+				btnNewButton_13.doClick(); 
+			if(btnNewButton_14.vergleichePosition(neueBewegung.getVon()) == true)
+				btnNewButton_14.doClick(); 
+			if(btnNewButton_15.vergleichePosition(neueBewegung.getVon()) == true)
+				btnNewButton_15.doClick(); 
+			if(btnNewButton_16.vergleichePosition(neueBewegung.getVon()) == true)
+				btnNewButton_16.doClick(); 
+			if(btnNewButton_17.vergleichePosition(neueBewegung.getVon()) == true)
+				btnNewButton_17.doClick(); 
+			if(btnNewButton_18.vergleichePosition(neueBewegung.getVon()) == true)
+				btnNewButton_18.doClick(); 
+			if(btnNewButton_19.vergleichePosition(neueBewegung.getVon()) == true)
+				btnNewButton_19.doClick(); 
+			if(btnNewButton_20.vergleichePosition(neueBewegung.getVon()) == true)
+				btnNewButton_20.doClick(); 
+			if(btnNewButton_21.vergleichePosition(neueBewegung.getVon()) == true)
+				btnNewButton_21.doClick(); 
+			if(btnNewButton_22.vergleichePosition(neueBewegung.getVon()) == true)
+				btnNewButton_22.doClick(); 
+			if(btnNewButton_23.vergleichePosition(neueBewegung.getVon()) == true)
+				btnNewButton_23.doClick(); 
+			if(btnNewButton_24.vergleichePosition(neueBewegung.getVon()) == true)
+				btnNewButton_24.doClick(); 
+			
+			
+			
+			//nach button klick simuliert
+			if(btnNewButton_1.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_1.doClick(); 								//this.actionPerformed(new ActionEvent(btnNewButton_1, 1001, btnNewButton_1.)));
+			if(btnNewButton_2.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_2.doClick(); 
+			if(btnNewButton_3.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_3.doClick(); 
+			if(btnNewButton_4.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_4.doClick(); 
+			if(btnNewButton_5.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_5.doClick(); 
+			if(btnNewButton_6.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_6.doClick(); 
+			if(btnNewButton_7.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_7.doClick(); 
+			if(btnNewButton_8.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_8.doClick(); 
+			if(btnNewButton_9.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_9.doClick(); 
+			if(btnNewButton_10.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_10.doClick(); 
+			if(btnNewButton_11.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_11.doClick(); 
+			if(btnNewButton_12.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_12.doClick(); 
+			if(btnNewButton_13.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_13.doClick(); 
+			if(btnNewButton_14.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_14.doClick(); 
+			if(btnNewButton_15.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_15.doClick(); 
+			if(btnNewButton_16.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_16.doClick(); 
+			if(btnNewButton_17.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_17.doClick(); 
+			if(btnNewButton_18.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_18.doClick(); 
+			if(btnNewButton_19.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_19.doClick(); 
+			if(btnNewButton_20.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_20.doClick(); 
+			if(btnNewButton_21.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_21.doClick(); 
+			if(btnNewButton_22.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_22.doClick(); 
+			if(btnNewButton_23.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_23.doClick(); 
+			if(btnNewButton_24.vergleichePosition(neueBewegung.getNach()) == true)
+				btnNewButton_24.doClick(); 
+		}
+	}
+	
 
 		
 	

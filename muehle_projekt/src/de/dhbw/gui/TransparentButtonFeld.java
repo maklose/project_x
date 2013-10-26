@@ -31,5 +31,12 @@ public class TransparentButtonFeld extends JButton
 		return gPosition;
 	}
 	
+	public boolean vergleichePosition(Position lPosition)
+	{
+		if(gPosition.equals(lPosition))
+			return true;
+		return false;
+	}
+	
 	
 }

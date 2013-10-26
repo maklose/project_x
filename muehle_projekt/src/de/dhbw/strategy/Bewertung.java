@@ -42,8 +42,9 @@ public class Bewertung
 
 	
 	
-	public double bewerteZug(List<ISpielstein> p_SpielFeld, Bewegung lBewegung, int index, int anzahlZuege)
+	public double bewerteZug(List<ISpielstein> p_SpielFeld, Bewegung lBewegung, int anzahlZuege)
 	{
+		
 		Spielfeld = new ISpielstein[3][3][3];
 		this.ListeZuArray(p_SpielFeld);
 		double Score = 0;
@@ -51,9 +52,14 @@ public class Bewertung
 		von = lBewegung.getVon();
 		nach = lBewegung.getNach();
 		lSteine = p_SpielFeld;
-		bewegterStein = p_SpielFeld.get(index);
+		for(ISpielstein Stein : p_SpielFeld)
+		{
+			if(Stein.getPosition().equals(lBewegung.getNach()))
+					bewegterStein = Stein;
+		}
 		aktuellerSpieler = new Spieler(bewegterStein.getFarbe(), "aktuellerSpielerB");
-		
+		if(anzahlZuege <= 18 && p_SpielFeld.size() > 0)
+			p_SpielFeld.remove(p_SpielFeld.size()-1);
 		
 		//passiven Spieler festlegen und Arrays der Spieler füllen
 		if(bewegterStein.getFarbe() == ESpielsteinFarbe.WEISS)
