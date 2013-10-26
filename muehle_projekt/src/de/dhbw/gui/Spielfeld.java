@@ -110,7 +110,9 @@ public class Spielfeld extends JFrame implements ActionListener {
 
 	
 	//Mode des Spiels 1 = mensch gg mensch; 2 = mensch gg pc
-	private int mode = 1;
+	private int gMode = 1;
+	
+	private int gTheme = 1;
 	
 	private String nameSpieler1; //= "default Name Spieler 1";
 	private String nameSpieler2; //= "default Name Spieler 2";
@@ -235,12 +237,13 @@ public class Spielfeld extends JFrame implements ActionListener {
 
 		final String nameSpieler1 = Spieler1Name;
 		final String nameSpieler2 = Spieler2Name;
-		mode = lmode;
+		gMode = lmode;
 		gSchwierigkeit = lSchwierigkeit;
+		gTheme = theme;
 
 		
 		Spieler1 = new Spieler(ESpielsteinFarbe.WEISS, nameSpieler1);
-		switch(mode)
+		switch(gMode)
 		{
 			case 1 : Spieler2 = new Spieler(ESpielsteinFarbe.SCHWARZ, nameSpieler2); break;
 			case 2 : Spieler2 = new Spieler(ESpielsteinFarbe.SCHWARZ, nameSpieler2); strategie1 = new Strategie(); strategie1.startePartie(ESpielsteinFarbe.SCHWARZ); break;
@@ -277,7 +280,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				dispose();
 //				JFrame neuesSpiel = null;
 				try {
-					 Spielfeld neuesSpiel = new Spielfeld(nameSpieler1, nameSpieler2, mode, gSchwierigkeit, theme);
+					 Spielfeld neuesSpiel = new Spielfeld(nameSpieler1, nameSpieler2, gMode, gSchwierigkeit, gTheme);
 					 neuesSpiel.setVisible(true);
 				} catch (StrategieException e1) {
 					// TODO Auto-generated catch block
@@ -385,7 +388,7 @@ public class Spielfeld extends JFrame implements ActionListener {
             {
 				Image spielfeld = null;
 				
-				switch(theme)
+				switch(gTheme)
 				{
 					case 1: spielfeld = Toolkit.getDefaultToolkit().getImage(  
 	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIlinks.png")); break;
@@ -713,7 +716,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				//Das Hintergrundbild wird geladen
 				Image spielfeldRechts = null;
 				
-				switch(theme)
+				switch(gTheme)
 				{
 					case 1: spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
 	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIrechts.png")); break;
@@ -913,7 +916,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		 * hier wird der neue Zug der Strategie abgefragt und this.aktion mit dem entsprechenden Button,
 		 * also wo die Strategie hin will, ausgeführt
 		 */
-		if(mode == 2)
+		if(gMode == 2)
 		{
 			try 
 			{
@@ -1281,6 +1284,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 		{
 			{
 				start(); 
+				
+				
 			}
 			public void run()
 			{
@@ -1288,7 +1293,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				{ 
 					sleep(wichtigeMeldungsZeit * 1000);
 					dispose();
-					Gewonnen gewinnerBild = new Gewonnen(aktuellerSpieler.getName() + textGewonnen);
+					Gewonnen gewinnerBild = new Gewonnen(aktuellerSpieler.getName() + textGewonnen, Spieler1.getName(), Spieler2.getName(), gMode, gSchwierigkeit, gTheme);
 					gewinnerBild.setVisible(true);
 					System.out.println("Spieler beendet!");
 				}	

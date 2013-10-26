@@ -30,8 +30,16 @@ import com.jgoodies.forms.layout.CellConstraints.Alignment;
 
 public class Gewonnen extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-
+	private String nameSpieler1;
+	private String nameSpieler2; 
+	private int gMode; 
+	private int gTheme;
+	private int gSchwierigkeit;
 	/**
 	 * Launch the application.
 	 */
@@ -39,7 +47,7 @@ public class Gewonnen extends JDialog {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Gewonnen frame = new Gewonnen("Marvin hat gewonnen");
+					Gewonnen frame = new Gewonnen("test", "test", "test", 1, 2, 2);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +59,12 @@ public class Gewonnen extends JDialog {
 	/**
 	 * Create the frame.
 	 */
-	public Gewonnen(String name) {
+	public Gewonnen(String name, String Spieler1, String Spieler2, int lMode, int Schwierigkeit, int lTheme) {
+		nameSpieler1 = Spieler1;
+		nameSpieler2 = Spieler2; 
+		gMode = lMode; 
+		gSchwierigkeit = Schwierigkeit;
+		gTheme = lTheme;
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setUndecorated(true);
 		setBounds(100, 100, 700, 500);
@@ -70,13 +83,15 @@ public class Gewonnen extends JDialog {
                 g.drawImage(hintergrund, 20, 10, 350, 350, this);  
             }  
 		};  
+		
 		contentPane.add(panel, BorderLayout.CENTER);
 //        pack();
+	
         
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{50, 100, 144, 100, 50, 0};
+		gbl_panel.columnWidths = new int[]{50, 100, 140, 99, 140, 100, 50, 0};
 		gbl_panel.rowHeights = new int[]{326, 180, 40, 30, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);;
 		
@@ -109,19 +124,32 @@ public class Gewonnen extends JDialog {
 		
 		JLabel lblNewLabel = new JLabel("New label");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.gridwidth = 3;
+		gbc_lblNewLabel.gridwidth = 5;
 		gbc_lblNewLabel.insets = new Insets(30, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 1;
 		gbc_lblNewLabel.gridy = 1;
 		lblNewLabel.setFont(new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 30));
 		lblNewLabel.setText(name);
 		panel.add(lblNewLabel, gbc_lblNewLabel);
-		GridBagConstraints gbc_btnBeenden = new GridBagConstraints();
-		gbc_btnBeenden.fill = GridBagConstraints.BOTH;
-		gbc_btnBeenden.insets = new Insets(0, 0, 5, 5);
-		gbc_btnBeenden.gridx = 1;
-		gbc_btnBeenden.gridy = 2;
-		panel.add(btnBeenden, gbc_btnBeenden);
+		
+		JButton btnNeuesSpiel = new JButton("Neues Spiel"){
+			public void paintComponent(Graphics g){
+				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Spiel starten.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);//neuer Button "Spielstand anzeigen" einfügen
+			};
+		};
+		btnNeuesSpiel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				JDialog optionenAuswahl = new DialogOptionen2(nameSpieler1, nameSpieler2, gMode, gSchwierigkeit, gTheme);
+				optionenAuswahl.setVisible(true);
+			}
+		});
+		GridBagConstraints gbc_btnNeuesSpiel = new GridBagConstraints();
+		gbc_btnNeuesSpiel.fill = GridBagConstraints.BOTH;
+		gbc_btnNeuesSpiel.insets = new Insets(0,0, 5, 5);
+		gbc_btnNeuesSpiel.gridx = 1;
+		gbc_btnNeuesSpiel.gridy = 2;
+		panel.add(btnNeuesSpiel, gbc_btnNeuesSpiel);
 		
 		JButton btnSpielverlauf = new JButton("spielverlauf"){
 			public void paintComponent(Graphics g){
@@ -134,6 +162,28 @@ public class Gewonnen extends JDialog {
 		gbc_btnSpielverlauf.gridx = 3;
 		gbc_btnSpielverlauf.gridy = 2;
 		panel.add(btnSpielverlauf, gbc_btnSpielverlauf);
+		GridBagConstraints gbc_btnBeenden = new GridBagConstraints();
+		gbc_btnBeenden.fill = GridBagConstraints.BOTH;
+		gbc_btnBeenden.insets = new Insets(0, 0, 5, 5);
+		gbc_btnBeenden.gridx = 5;
+		gbc_btnBeenden.gridy = 2;
+		panel.add(btnBeenden, gbc_btnBeenden);
+	}
+
+	public String getNameSpieler1() {
+		return nameSpieler1;
+	}
+
+	public String getNameSpieler2() {
+		return nameSpieler2;
+	}
+
+	public int getgMode() {
+		return gMode;
+	}
+
+	public int getgTheme() {
+		return gTheme;
 	}
 
 	private void setDefaultCloseOperation() {

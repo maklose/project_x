@@ -90,7 +90,7 @@ public class Empfangsgui2 extends JFrame implements WindowListener {
 		};
 				btn_start.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						JDialog optionenAuswahl = new DialogOptionen2();
+						JDialog optionenAuswahl = new DialogOptionen2("Name Spieler 1", "Name Spieler 2", 0, 1, 1);
 						optionenAuswahl.setVisible(true);
 					}
 				});

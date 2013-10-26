@@ -38,6 +38,7 @@ public class DialogOptionen2 extends JDialog {
 	private int i;
 	private String name1;
 	private String name2;
+	private int gThema = 0;
 	
 	private boolean flag = true;
 	
@@ -54,7 +55,7 @@ public class DialogOptionen2 extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			DialogOptionen2 dialog = new DialogOptionen2();
+			DialogOptionen2 dialog = new DialogOptionen2("Hans", "Name Spieler 2", 2, 1, 5);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -65,11 +66,12 @@ public class DialogOptionen2 extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public DialogOptionen2() {
+	public DialogOptionen2(String nameSpieler1, String nameSpieler2, int Mode, int Schwierigkeit, int Theme) {
 		//Fenster
 		setBounds(100, 95, 726, 461); //456
 		setResizable(false);
 		setUndecorated(true);
+		gThema = Theme;
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -135,6 +137,8 @@ public class DialogOptionen2 extends JDialog {
 					}
 				});
 				buttonGroup.add(rdbtnMgC);
+				
+				
 				GridBagConstraints gbc_rdbtnMgC = new GridBagConstraints();
 				gbc_rdbtnMgC.anchor = GridBagConstraints.WEST;
 				gbc_rdbtnMgC.insets = new Insets(0, 0, 5, 5);
@@ -163,7 +167,8 @@ public class DialogOptionen2 extends JDialog {
 				});
 				txtSpieler1.setEnabled(false);
 				
-				txtSpieler1.setText("Name von Spieler 1");
+		
+				txtSpieler1.setText(nameSpieler1);
 				GridBagConstraints gbc_txtSpieler1 = new GridBagConstraints();
 				gbc_txtSpieler1.insets = new Insets(0, 0, 5, 5);
 				gbc_txtSpieler1.fill = GridBagConstraints.HORIZONTAL;
@@ -182,7 +187,7 @@ public class DialogOptionen2 extends JDialog {
 					}
 				});
 				txtSpieler2.setEnabled(false);		
-				txtSpieler2.setText("Name von Spieler 2");
+				txtSpieler2.setText(nameSpieler2);
 				GridBagConstraints gbc_txtSpieler2 = new GridBagConstraints();
 				gbc_txtSpieler2.insets = new Insets(0, 0, 5, 5);
 				gbc_txtSpieler2.fill = GridBagConstraints.HORIZONTAL;
@@ -211,11 +216,12 @@ public class DialogOptionen2 extends JDialog {
 				cbSchwierigkeitsgrad.addItem(3);
 				cbSchwierigkeitsgrad.addItem(4);
 				cbSchwierigkeitsgrad.addItem(5);
+				cbSchwierigkeitsgrad.setSelectedIndex(Schwierigkeit-1);
 				cbSchwierigkeitsgrad.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) 
 					{
 						if ((int)cbSchwierigkeitsgrad.getSelectedItem() == 2)
-						gSchwierigkeit = 2;
+							gSchwierigkeit = 2;
 						if ((int)cbSchwierigkeitsgrad.getSelectedItem() == 3)
 							gSchwierigkeit = 3;
 						if ((int)cbSchwierigkeitsgrad.getSelectedItem() == 4)
@@ -243,12 +249,28 @@ public class DialogOptionen2 extends JDialog {
 				panel.add(lblThema, gbc_lblThema);
 			}
 			{
-				JComboBox cbThema = new JComboBox();
+				final JComboBox cbThema = new JComboBox();
 				cbThema.addItem("Classic");
 				cbThema.addItem("Frühling");
 				cbThema.addItem("Sommer");
 				cbThema.addItem("Herbst");
 				cbThema.addItem("Winter");
+				cbThema.setSelectedIndex(gThema-1);
+				cbThema.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) 
+					{
+						if (cbThema.getSelectedItem().equals("Classic"))
+							gThema = 1;
+						if (cbThema.getSelectedItem().equals("Frühling"))
+							gThema = 2;
+						if (cbThema.getSelectedItem().equals("Sommer"))
+							gThema = 3;
+						if (cbThema.getSelectedItem().equals("Herbst"))
+							gThema = 4;
+						if (cbThema.getSelectedItem().equals("Winter"))
+							gThema = 5;
+					}
+				});
 				GridBagConstraints gbc_cbThema = new GridBagConstraints();
 				gbc_cbThema.insets = new Insets(0, 0, 5, 5);
 				gbc_cbThema.fill = GridBagConstraints.HORIZONTAL;
@@ -277,7 +299,7 @@ public class DialogOptionen2 extends JDialog {
 							name2=txtSpieler2.getText();
 							JFrame neuesSpiel;
 							try {
-								neuesSpiel = new Spielfeld(name1, name2, i, gSchwierigkeit, 1);
+								neuesSpiel = new Spielfeld(name1, name2, i, gSchwierigkeit, gThema);
 								neuesSpiel.setVisible(true);
 								dispose();
 							} catch (StrategieException e1) {
@@ -313,6 +335,15 @@ public class DialogOptionen2 extends JDialog {
 					}
 				});
 				cancelButton.setActionCommand("Cancel");
+				
+				
+				
+				switch(Mode)
+				{
+					case 1:	buttonGroup.setSelected(rdbtnMgM.getModel(), true); rdbtnMgM.doClick(); break;
+					case 2:	buttonGroup.setSelected(rdbtnMgC.getModel(), true);	rdbtnMgC.doClick(); break;
+//					case 3:	buttonGroup.setSelected(rdbtnMgC.getModel(), true);	rdbtnMgM.doClick(); break;
+				}
 			}
 		}
 	}
