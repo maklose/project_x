@@ -1,15 +1,22 @@
 package de.dhbw.gui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
 
 import de.dhbw.gui.BestaetigungBeenden;
@@ -77,7 +84,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	int[] Indizes = new int[9];
 	
 	private JMenuBar menuBar;
-	private JMenu mnNewMenu1, mnNewMenu2, mnNewMenu3;
+	private JMenu mnNewMenu1, mnNewMenu2, mnNewMenu3, mnNewMenu11, mnNewMenu22;
 	private JPanel panel_1;
 
 	
@@ -270,9 +277,13 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 		
 		menuBar = new JMenuBar();
+		
+		menuBar.setPreferredSize(new Dimension(100, 40));
 		setJMenuBar(menuBar);
 		
 		mnNewMenu1 = new JMenu("Neues Spiel");
+		
+		mnNewMenu1.setFont(new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 25));
 		mnNewMenu1.addMenuListener(new MenuListener() {
 			
 			@Override
@@ -305,11 +316,17 @@ public class Spielfeld extends JFrame implements ActionListener {
 	
 		menuBar.add(mnNewMenu1);
 		
+		mnNewMenu11 = new JMenu("");
+		menuBar.add(mnNewMenu11);
+		
 		mnNewMenu2 = new JMenu("Spiel Beenden");
+		mnNewMenu2.setFont(new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 25));
 		mnNewMenu2.addMenuListener(new MenuListener() {
 			@Override
 			public void menuSelected(MenuEvent e) {
-				final BestaetigungBeenden frageBeenden = new BestaetigungBeenden(100,100);
+				final BestaetigungBeenden frageBeenden = new BestaetigungBeenden(300,200);
+				frageBeenden.setVisible(true);
+				frageBeenden.setAlwaysOnTop(true);
 				frageBeenden.setListener( new BestaetigungBeenden.BestatigungsListener() {
 					
 					@Override
@@ -318,11 +335,11 @@ public class Spielfeld extends JFrame implements ActionListener {
 						Spielfeld.this.dispose();
 						frageBeenden.dispose();
 //						db.löschetb("protokoll");
-						//schließen
+						
 					}
 					@Override
 					public void onCancel() {
-						//schließen?	
+							
 					}
 				});
 				frageBeenden.setVisible(true);
@@ -343,10 +360,12 @@ public class Spielfeld extends JFrame implements ActionListener {
 		menuBar.add(mnNewMenu2);
 		
 		
-		
+		mnNewMenu22 = new JMenu("");
+		menuBar.add(mnNewMenu22);
 		
 		
 		mnNewMenu3 = new JMenu("Hilfe");
+		mnNewMenu3.setFont(new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 25));
 		mnNewMenu3.addMenuListener(new MenuListener() {
 			@SuppressWarnings("deprecation")
 			@Override
@@ -372,6 +391,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
+
 		setContentPane(contentPane);
 		
 		
