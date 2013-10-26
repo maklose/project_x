@@ -28,8 +28,9 @@ public class Bewertung
 	int bSpielBeendet = 10;
 	
 	//Phase Setzen
-	double b1Muehle = 0.2;
-	double b1Doppelangriff = 0;
+	double b1Muehle = 0.5;
+	double b1Doppelangriff = 0.8;
+	double b1DoppelangriffIn2 = 0.6;
 	double b1StrategischePunkte = 0.3;
 	double b1MuehleBewachen = 0;
 	
@@ -444,11 +445,11 @@ public class Bewertung
 											Spielfeld[ebene][x][Math.abs(y-2)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&
 											Spielfeld[ebene][x][Math.abs(y-1)] == null && Spielfeld[ebene][Math.abs(x-1)][y] == null)			
 									{
-										return 1000000000;
+										return b1Doppelangriff;
 									}
 								}
 								else
-									return 1111;
+									return b1DoppelangriffIn2;
 							}
 						}
 						
@@ -475,7 +476,7 @@ public class Bewertung
 									Spielfeld[ebene][x][Math.abs(y-2)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&
 									Spielfeld[ebene][x][Math.abs(y-1)] == null && Spielfeld[ebene][Math.abs(x-1)][y] == null)			
 							{
-								return 1000000000;
+								return b1Doppelangriff;
 							}
 						}
 					}	
@@ -509,7 +510,7 @@ public class Bewertung
 										Spielfeld[ebene][Math.abs(x-1)][y] == null && Spielfeld[ebene][Math.abs(x+1)][y] == null	
 										&& Spielfeld[ebene][Math.abs(x-1)][Math.abs(y-2)] == null)				
 								{
-									return 2222;
+									return b1DoppelangriffIn2;
 								}
 							}
 							if(Spielfeld[ebene][Math.abs(x+1)][Math.abs(y-1)] != null)
@@ -518,7 +519,7 @@ public class Bewertung
 										Spielfeld[ebene][Math.abs(x+1)][y] == null && Spielfeld[ebene][Math.abs(x-1)][y] == null	
 										&& Spielfeld[ebene][Math.abs(x+1)][Math.abs(y-2)] == null)					
 								{
-									return 2222;
+									return b1DoppelangriffIn2;
 								}
 							}
 						}
@@ -530,7 +531,7 @@ public class Bewertung
 										Spielfeld[ebene][x][Math.abs(y-1)] == null && Spielfeld[ebene][x][Math.abs(y+1)] == null	
 										&& Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-1)] == null)				
 								{
-									return 2222;
+									return b1DoppelangriffIn2;
 								}
 							}
 							if(Spielfeld[ebene][Math.abs(x-1)][Math.abs(y+1)] != null)
@@ -539,7 +540,7 @@ public class Bewertung
 										Spielfeld[ebene][x][Math.abs(y-1)] == null && Spielfeld[ebene][x][Math.abs(y+1)] == null	
 										&& Spielfeld[ebene][Math.abs(x-2)][Math.abs(y+1)] == null)					
 								{
-									return 2222;
+									return b1DoppelangriffIn2;
 								}
 							}
 						}
@@ -570,7 +571,7 @@ public class Bewertung
 									Spielfeld[ebene][x][Math.abs(y-1)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&
 									Spielfeld[ebene][Math.abs(x-2)][y] == null	&& Spielfeld[ebene][x][Math.abs(y-2)] == null)				
 							{
-								return 22;
+								return b1Doppelangriff;
 							}
 						}
 						
@@ -606,7 +607,7 @@ public class Bewertung
 									Spielfeld[ebene][Math.abs(x-1)][y] == null && Spielfeld[ebene][Math.abs(x-2)][y] == null	
 									&& Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-2)] == null)				
 							{
-								return 33;
+								return b1DoppelangriffIn2;
 							}
 						}
 						if(y != 1 && Spielfeld[ebene][Math.abs(x-1)][Math.abs(y-2)] != null)
@@ -615,7 +616,7 @@ public class Bewertung
 									Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-2)] == null && Spielfeld[ebene][x][Math.abs(y-1)] == null	
 									&& Spielfeld[ebene][x][Math.abs(y-2)] == null)				
 							{
-								return 33;
+								return b1DoppelangriffIn2;
 							}
 						}
 						if(y == 1 && Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-1)] != null)
@@ -624,7 +625,7 @@ public class Bewertung
 									Spielfeld[ebene][Math.abs(x-1)][Math.abs(y-1)] == null && Spielfeld[ebene][x][Math.abs(y-1)] == null	
 									&& Spielfeld[ebene][x][Math.abs(y+1)] == null)					
 							{
-								return 33;
+								return b1DoppelangriffIn2;
 							}
 						}
 						if(y == 1 && Spielfeld[ebene][Math.abs(x-2)][Math.abs(y+1)] != null)
@@ -633,7 +634,7 @@ public class Bewertung
 									Spielfeld[ebene][Math.abs(x-1)][Math.abs(y+1)] == null && Spielfeld[ebene][x][Math.abs(y-1)] == null	
 									&& Spielfeld[ebene][x][Math.abs(y+1)] == null)					
 							{
-								return 33;
+								return b1DoppelangriffIn2;
 							}
 						}
 					}
@@ -645,7 +646,7 @@ public class Bewertung
 									Spielfeld[ebene][Math.abs(x-1)][y] == null && Spielfeld[ebene][Math.abs(x+1)][y] == null	
 									&& Spielfeld[ebene][Math.abs(x-1)][Math.abs(y-1)] == null)					
 							{
-								return 33;
+								return b1DoppelangriffIn2;
 							}
 						}
 						if(Spielfeld[ebene][Math.abs(x+1)][Math.abs(y-2)] != null)
@@ -654,7 +655,7 @@ public class Bewertung
 									Spielfeld[ebene][Math.abs(x-1)][y] == null && Spielfeld[ebene][Math.abs(x+1)][y] == null	
 									&& Spielfeld[ebene][Math.abs(x+1)][Math.abs(y-1)] == null)					
 							{
-								return 33;
+								return b1DoppelangriffIn2;
 							}
 						}
 					}
@@ -685,7 +686,7 @@ public class Bewertung
 									Spielfeld[ebene][x][Math.abs(y-1)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&
 									Spielfeld[ebene][Math.abs(x-1)][y] == null	&& Spielfeld[ebene][x][Math.abs(y-2)] == null)				
 							{
-								return 3333333;
+								return b1Doppelangriff;
 							}
 						}
 						if(Spielfeld[ebene][Math.abs(x-1)][y] != null && Spielfeld[ebene][x][Math.abs(y-2)] != null)
@@ -694,7 +695,7 @@ public class Bewertung
 									Spielfeld[ebene][x][Math.abs(y-2)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&
 									Spielfeld[ebene][Math.abs(x-2)][y] == null	&& Spielfeld[ebene][x][Math.abs(y-1)] == null)				
 							{
-								return 3333333;
+								return b1Doppelangriff;
 							}
 						}
 						

@@ -183,7 +183,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 			{
 				try 
 				{
-					final Spielfeld frame = new Spielfeld("Stefan", "Georg", 2, 5, 1);
+					final Spielfeld frame = new Spielfeld("Stefan", "Georg", 2, 4, 1);
 					frame.addWindowListener(new WindowAdapter() {
 											public void windowClosing(WindowEvent evt) {
 											Spielfeld.exitForm(evt, frame, frame.getAnzahlFensterSchließen());}});
@@ -280,9 +280,9 @@ public class Spielfeld extends JFrame implements ActionListener {
 		switch(gMode)
 		{
 			case 1 : Spieler2 = new Spieler(ESpielsteinFarbe.SCHWARZ, nameSpieler2); break;
-			case 2 : Spieler2 = new Spieler(ESpielsteinFarbe.SCHWARZ, nameSpieler2); strategie1 = new Strategie(); strategie1.startePartie(ESpielsteinFarbe.SCHWARZ); break;
+			case 2 : Spieler2 = new Spieler(ESpielsteinFarbe.SCHWARZ, nameSpieler2); strategie1 = new Strategie(gSchwierigkeit); strategie1.startePartie(ESpielsteinFarbe.SCHWARZ); break;
 			case 3 : Spieler1 = new Spieler(ESpielsteinFarbe.WEISS, nameSpieler2); Spieler2 = new Spieler(ESpielsteinFarbe.SCHWARZ, nameSpieler2); 
-						strategie1 = new Strategie(); strategie2 = new Strategie(); 
+						strategie1 = new Strategie(gSchwierigkeit); strategie2 = new Strategie(gSchwierigkeit); 
 						strategie1.startePartie(ESpielsteinFarbe.WEISS); strategie2.startePartie(ESpielsteinFarbe.SCHWARZ);break;
 		}
 		
@@ -1008,6 +1008,18 @@ public class Spielfeld extends JFrame implements ActionListener {
 		}
 
 		
+		new Thread() 
+		{
+			{
+				start(); 
+			}
+			public void run()
+			{
+				try {
+					sleep(2000);
+				
+		
+		
 		/*
 		 * hier wird der neue Zug der Strategie abgefragt und this.aktion mit dem entsprechenden Button,
 		 * also wo die Strategie hin will, ausgeführt
@@ -1039,6 +1051,13 @@ public class Spielfeld extends JFrame implements ActionListener {
 				e1.printStackTrace();
 			}
 		}
+		
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		};
 		
 		if(gMode == 3)
 		{
@@ -1506,6 +1525,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 		//Stein wird der Liste mit den aktuellen Steinen auf dem Feld hinzugefügt
 		gSteine.add(lSpieler.getSpielstein(anzahlRunden));
+		System.out.println(gSteine);
 		
 		//Ausgabe der Bewertung des Zuges ZUM TEST
 		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung, aktuellerSpieler.getAnzahlZuege()));
