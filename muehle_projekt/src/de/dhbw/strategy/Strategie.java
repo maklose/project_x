@@ -26,6 +26,10 @@ private Bewegung bewegung;
 List<ISpielstein> SpielFeld;
 
 
+	public Strategie(int ltiefe){
+		tiefe = ltiefe;
+	}
+
 	@Override
 	public void startePartie(ESpielsteinFarbe p_SpielerFarbe) throws StrategieException {
 		// TODO Auto-generated method stub
@@ -55,16 +59,16 @@ List<ISpielstein> SpielFeld;
 		double bewertung;
 		Spielzug zug = null;
 		
-		if(anzahlZuege < 9){
+		if(anzahlZuege <= 18){
 		bewertung = max(tiefe, null, anzahlZuege);
-		anzahlZuege++;
+		anzahlZuege +=2;
 //		System.out.println(bewegung.toString());
 		System.out.println(bewegung);
 		zug = new Spielzug(new Spielstein(farbe, bewegung.getNach(),0,0,0));
 		}
 		else{
 		bewertung = max(tiefe, null, anzahlZuege );
-		anzahlZuege++;	
+		anzahlZuege += 2;	
 		zug = new Spielzug(new Spielstein(farbe, bewegung.getNach(), 0, 0, 0));
 		}
 		return zug;
