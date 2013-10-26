@@ -708,7 +708,7 @@ public class Bewertung
 		 * möglichkeit 4 ---------------- doppelangriff über zwei ebenen mit jeweils einen Stein am rand und einen in der mitte -----------------------------
 		 */
 		
-		
+		/*
 		//nacheinander für meine Steine auf dem Feld überprüfen
 		for(int i = 0; i <= 2; i++)
 		{
@@ -841,7 +841,7 @@ public class Bewertung
 		
 		
 		
-		
+		*/
 		return 0.0;
 	}
 	

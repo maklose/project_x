@@ -33,6 +33,7 @@ import de.dhbw.muehle_spiel.Pruefung;
 import de.dhbw.muehle_spiel.Spieler;
 import de.dhbw.muehle_spiel.Spielstein;
 import de.dhbw.strategy.Bewertung;
+import de.dhbw.strategy.Spielzug;
 import de.dhbw.strategy.Strategie;
 
 import javax.swing.JDialog;
@@ -182,7 +183,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 			{
 				try 
 				{
-					final Spielfeld frame = new Spielfeld("Stefan", "Georg", 1, 5, 1);
+					final Spielfeld frame = new Spielfeld("Stefan", "Georg", 2, 5, 1);
 					frame.addWindowListener(new WindowAdapter() {
 											public void windowClosing(WindowEvent evt) {
 											Spielfeld.exitForm(evt, frame, frame.getAnzahlFensterSchließen());}});
@@ -1011,14 +1012,27 @@ public class Spielfeld extends JFrame implements ActionListener {
 		 * hier wird der neue Zug der Strategie abgefragt und this.aktion mit dem entsprechenden Button,
 		 * also wo die Strategie hin will, ausgeführt
 		 */
-		if(gMode == 2)
+		if(gMode == 2 && Spieler1.getAnzahlZuege() > Spieler2.getAnzahlZuege())
 		{
 			try 
 			{
 				ISpielzug neuerZug = strategie1.bewegeStein(gSteine);
-				IBewegung neueIBewegung = neuerZug.bewegeSpielStein();
-				Bewegung neueBewegung = new Bewegung(neueIBewegung.altePosition(), neueIBewegung.neuePosition());
-				Spielfeld.bewegungInButtons(neueBewegung);
+				
+//				IBewegung neueIBewegung = neuerZug.bewegeSpielStein();
+//				Bewegung neueBewegung1, neueBewegung2;
+				if(Spieler1.getPhase() == EPhase.Setzen)
+				{
+					ISpielstein spielstein = neuerZug.getNeuenSpielstein();
+					Position spielsteinPos = spielstein.getPosition();
+					Bewegung neueBewegung = new Bewegung(null, spielsteinPos);
+					Spielfeld.bewegungInButtons(neueBewegung);
+				}
+				else
+				{
+//					neueBewegung2 = new Bewegung(neueIBewegung.altePosition(), neueIBewegung.neuePosition());
+//					Spielfeld.bewegungInButtons(neueBewegung2);
+				}
+				
 			} 
 			catch (StrategieException e1) 
 			{
