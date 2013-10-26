@@ -64,9 +64,9 @@ public class Anleitung extends JDialog {
 		contentPane.add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{0, 85, 0, 0};
-		gbl_panel.rowHeights = new int[]{394, 50, 40, 0};
+		gbl_panel.rowHeights = new int[]{394, 50, 33, 35, 0};
 		gbl_panel.columnWeights = new double[]{1.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
 		JButton btnOk = new JButton("OK"){
@@ -81,10 +81,10 @@ public class Anleitung extends JDialog {
 			}
 		});
 		GridBagConstraints gbc_btnOk = new GridBagConstraints();
-		gbc_btnOk.insets = new Insets(0, 0, 5, 5);
+		gbc_btnOk.insets = new Insets(0, 0, 0, 5);
 		gbc_btnOk.fill = GridBagConstraints.BOTH;
 		gbc_btnOk.gridx = 1;
-		gbc_btnOk.gridy = 1;
+		gbc_btnOk.gridy = 3;
 		panel.add(btnOk, gbc_btnOk);
 	}
 }
