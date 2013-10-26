@@ -283,6 +283,7 @@ List<ISpielstein> SpielFeld;
 //				System.out.println(maxWert);
 //				System.out.println(moeglBewegungen.get(j).toString());
 				if(ltiefe == tiefe){
+				System.out.println(wert);	
 				ergebnis(moeglBewegungen.get(j));
 				}
 			}
