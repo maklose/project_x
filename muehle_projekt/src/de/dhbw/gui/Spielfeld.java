@@ -991,9 +991,9 @@ public class Spielfeld extends JFrame implements ActionListener {
 						{
 							SpielBeendet = true;
 							this.aktion(btnNewButton_1);
+							return;
 						}
-						if(!(aktuellerSpieler.getAnzahlZuege() == 8 && passiverSpieler.getAnzahlSteine() == 3))
-							this.neueMeldung(meldungsZeit, aktuellerSpieler.getName() + textMuehle);
+						this.neueMeldung(meldungsZeit, aktuellerSpieler.getName() + textMuehle);
 						hatMuehle = true;
 						panel.repaint();
 						panel_1.repaint();
@@ -1036,7 +1036,11 @@ public class Spielfeld extends JFrame implements ActionListener {
 											sleep(wichtigeMeldungsZeit * 1000);
 										}
 									}
-									SpielBeendet = true;
+									else
+									{
+										SpielBeendet = true;
+										return;
+									}
 								}
 								catch ( InterruptedException e ) 
 								{ 
@@ -1052,12 +1056,14 @@ public class Spielfeld extends JFrame implements ActionListener {
 					{
 						SpielBeendet = true;
 						this.aktion(btnNewButton_1);
+						return;
 					}
 					if(pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true && passiverSpieler.getAnzahlZuege() == 9)
 					{
 						aktuellerSpieler = passiverSpieler;
 						SpielBeendet = true;
 						this.aktion(btnNewButton_1);
+						return;
 					}
 					
 					return;
@@ -1113,11 +1119,13 @@ public class Spielfeld extends JFrame implements ActionListener {
 							{
 								SpielBeendet = true;
 								this.aktion(btnNewButton_1);
+								return;
 							}
 							if(pruef.checkSpielBeendet(passiverSpieler, aktuellerSpieler) == true)
 							{
 								SpielBeendet = true;
 								this.aktion(btnNewButton_1);
+								return;
 							}
 						}
 						else
@@ -1149,6 +1157,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 							{
 								SpielBeendet = true;
 								this.aktion(btnNewButton_1);
+								return;
 							}
 							this.neueMeldung(meldungsZeit, aktuellerSpieler.getName() + textMuehle);
 							return;
@@ -1235,7 +1244,11 @@ public class Spielfeld extends JFrame implements ActionListener {
 												sleep(wichtigeMeldungsZeit * 1000);
 											}
 										}
-										SpielBeendet = true;
+										else
+										{
+											SpielBeendet = true;
+											return;
+										}
 									}
 									catch ( InterruptedException e ) 
 									{ 
