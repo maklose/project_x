@@ -134,7 +134,7 @@ public class Gewonnen extends JDialog {
 		
 		JButton btnNeuesSpiel = new JButton("Neues Spiel"){
 			public void paintComponent(Graphics g){
-				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Spiel starten.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);//neuer Button "Spielstand anzeigen" einfügen
+				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Neues Spiel.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);//neuer Button "Spielstand anzeigen" einfügen
 			};
 		};
 		btnNeuesSpiel.addActionListener(new ActionListener() {
