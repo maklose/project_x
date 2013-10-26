@@ -83,39 +83,39 @@ public class Bewertung
 			//Wenn man eine Mühle erstellen kann
 			if(this.checkInMuehle(lBewegung, aktuellerSpieler.Steine))
 			{
-				Score += b1Muehle;
+				Score = b1Muehle;
 				
 				//wenn man duch die Mühle das Spiel gewonnen hat
 				if(passiverSpieler.getAnzahlSteine() == 3 && anzahlZuege > 9 || 
 						(anzahlZuege == 9 && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.SCHWARZ) && passiverSpieler.getAnzahlZuege() == 3))
-					Score += bSpielBeendet;
+					Score = bSpielBeendet;
 			}
 			
 			
 			//Wenn man duch das Zustellen des Gegners gewinnen kann
 			if(this.checkBewegungsunfaehig(passiverSpieler, aktuellerSpieler))
-				Score += bSpielBeendet;
+				Score = bSpielBeendet;
 			
 			if(this.isStrategischerPunkt(lBewegung))
-				Score += b1StrategischePunkte;
+				Score = b1StrategischePunkte;
 			
 			
-			Score += this.bewerteDoppelangriff();
+			Score = this.bewerteDoppelangriff();
 		}
 		else	//Wenn wir in der Bewegen Phase sind
 		{
 			//Wenn man eine Mühle erstellen kann
 			if(this.checkInMuehle(lBewegung, aktuellerSpieler.Steine))
 			{
-				Score += b1Muehle;
+				Score = b1Muehle;
 				if(passiverSpieler.getAnzahlSteine() == 3 && anzahlZuege > 9 || 
 						(anzahlZuege == 10 && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.WEISS) && passiverSpieler.getAnzahlZuege() == 3))
-					Score += bSpielBeendet;
+					Score = bSpielBeendet;
 			}
 			
 			
 			if(this.checkBewegungsunfaehig(passiverSpieler, aktuellerSpieler))
-				Score += bSpielBeendet;
+				Score = bSpielBeendet;
 			
 		}
 		
