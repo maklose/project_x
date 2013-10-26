@@ -103,6 +103,9 @@ public class Spielfeld extends JFrame implements ActionListener {
 	
 	private boolean SteinKannGeloeschtWerden = true;
 	
+	//Zaehler für die anzahl der Fenster schließen abfragen damit die nicht doppelt geöffnet werden
+	private int anzahlFensterSchließen;
+	
 
 	
 	//Mode des Spiels 1 = mensch gg mensch; 2 = mensch gg pc
@@ -182,7 +185,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 					final Spielfeld frame = new Spielfeld("Stefan", "Georg", 1, 5, 1);
 					frame.addWindowListener(new WindowAdapter() {
 											public void windowClosing(WindowEvent evt) {
-											Spielfeld.exitForm(evt, frame);}});
+											Spielfeld.exitForm(evt, frame, frame.getAnzahlFensterSchließen());}});
 					frame.setVisible(true);
 					 this.neueMeldung(frame.wichtigeMeldungsZeit, frame.textNeuesSpiel, frame);
 				} catch (Exception e) 
@@ -220,32 +223,37 @@ public class Spielfeld extends JFrame implements ActionListener {
 		});
 	}
 
-	static void exitForm(WindowEvent evt, final Spielfeld frame) 
+	static void exitForm(WindowEvent evt, final Spielfeld frame, int Anzahl) 
 	{
-		final BestaetigungBeenden frageBeenden = new BestaetigungBeenden(300,200);
-		frageBeenden.setVisible(true);
-		frageBeenden.setAlwaysOnTop(true);
-		frageBeenden.setListener( new BestaetigungBeenden.BestatigungsListener() {
+		if(Anzahl < 1)
+		{
+			final BestaetigungBeenden frageBeenden = new BestaetigungBeenden(300,200);
+			frageBeenden.setVisible(true);
 			
-			@Override
-			public void onOK() {
+			frageBeenden.setAlwaysOnTop(true);
+			frageBeenden.setListener( new BestaetigungBeenden.BestatigungsListener() {
 				
-				frame.dispose();
-				frageBeenden.dispose();
-//				db.löschetb("protokoll");
-				
-				
-			}
-			@Override
-			public void onCancel() {
+				@Override
+				public void onOK() {
 					
-			}
-			
-		});
-		frageBeenden.setVisible(true);
-	
-//		db.löschetb("protokoll");
+					frame.dispose();
+					frageBeenden.dispose();
+	//				db.löschetb("protokoll");
+					
+					
+				}
+				@Override
+				public void onCancel() {
+						
+				}
+				
+			});
+			frageBeenden.setVisible(true);
+			frame.setAnzahlFensterSchließen(frame.getAnzahlFensterSchließen()+1);
+		
+	//		db.löschetb("protokoll");
 		return;
+		}
        
     }
 	
@@ -313,7 +321,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 					final Spielfeld frame = new Spielfeld("Stefan", "Georg", 1, 5, 1);
 					frame.addWindowListener(new WindowAdapter() {
 											public void windowClosing(WindowEvent evt) {
-											Spielfeld.exitForm(evt, frame);}});
+											Spielfeld.exitForm(evt, frame, frame.getAnzahlFensterSchließen());}});
 					frame.setVisible(true);
 					Spielfeld.neueMeldung(frame.wichtigeMeldungsZeit, frame.textNeuesSpiel);
 				} catch (Exception e1) 
@@ -724,6 +732,9 @@ public class Spielfeld extends JFrame implements ActionListener {
 		JLabel label_13 = new JLabel("");
 		panel.add(label_13, "cell 1 11,grow");
 		
+		/*JLabel label_14 = new JLabel("");
+		panel_1.add(label_14, "cell 1 0,grow");*/
+		
 		JLabel label_15 = new JLabel("");
 		panel.add(label_15, "cell 9 11,grow");
 		
@@ -757,7 +768,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 			
 
 			@Override
-			public void paint(Graphics p) 
+			public void paintComponent(Graphics p) 
 			{				
 				//font wird festgelegt
 				p.setFont(new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 30));
@@ -831,8 +842,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		contentPane.add(panel_1, "cell 1 0,grow");
 		panel_1.setLayout(new MigLayout("", "[][100px:100]", "[][20][][][][][][][][][][][][][][]"));
 		
-		label_14 = new JLabel("");
-		panel_1.add(label_14, "cell 1 0,grow");
+		
 		
 		lblNameSpieler = new JLabel("Name Spieler 1");
 		panel_1.add(lblNameSpieler, "cell 1 1,grow");
@@ -847,7 +857,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		panel_1.add(lblNameSpieler_1, "cell 1 15, grow");
 		
 		
-		if(gMode == 3)
+		/*if(gMode == 3)
 		{
 			new Thread() 
 			{
@@ -872,7 +882,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 					}
 				}
 			};
-		}
+		}*/
 //		 db.erzeugetb("protokoll");
 
 		
@@ -885,6 +895,14 @@ public class Spielfeld extends JFrame implements ActionListener {
 	 */
 	
 	
+
+	public int getAnzahlFensterSchließen() {
+		return anzahlFensterSchließen;
+	}
+
+	public void setAnzahlFensterSchließen(int anzahlFensterSchließen) {
+		this.anzahlFensterSchließen = anzahlFensterSchließen;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) 
@@ -1106,14 +1124,18 @@ public class Spielfeld extends JFrame implements ActionListener {
 							this.aktion(btnNewButton_1);
 							return;
 						}
+						
+						
+						
 						Spielfeld.neueMeldung(meldungsZeit, aktuellerSpieler.getName() + textMuehle);
 						hatMuehle = true;
 						panel.repaint();
-						panel_1.repaint();
+						
 						return;
 					}
 					else
 					{
+						panel_1.repaint();
 //						db.zugspeichern(neueBewegung, aktuellerSpieler, false, aktuellerStein);
 					}
 					
@@ -1275,12 +1297,14 @@ public class Spielfeld extends JFrame implements ActionListener {
 							Spielfeld.neueMeldung(meldungsZeit, aktuellerSpieler.getName() + textMuehle);
 							return;
 						}
-		
+						else
+							panel_1.repaint();
+						
 						if(aktuellerSpieler == Spieler2)
 							anzahlRunden++;
 						
 						panel.repaint();
-						panel_1.repaint();
+						
 						hatAltePosition = false;
 						return;		
 					}
@@ -1470,7 +1494,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		gSteine.add(lSpieler.getSpielstein(anzahlRunden));
 		
 		//Ausgabe der Bewertung des Zuges ZUM TEST
-//		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung, aktuellerSpieler.getAnzahlZuege()));
+		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung, aktuellerSpieler.getAnzahlZuege()));
 	}
 	
 	
@@ -1505,7 +1529,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		SpielfeldArray[e][x][y] = null;
 		
 		//Ausgabe der Bewertung des Zuges ZUM TEST
-//		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung, aktuellerSpieler.getAnzahlZuege()));
+		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung, aktuellerSpieler.getAnzahlZuege()));
 	}
 	
 	//EPositionIndex auf dem Feld wird in int umgerechnet

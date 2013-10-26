@@ -58,8 +58,8 @@ public class Bewertung
 					bewegterStein = Stein;
 		}
 		aktuellerSpieler = new Spieler(bewegterStein.getFarbe(), "aktuellerSpielerB");
-		if(anzahlZuege <= 18 && p_SpielFeld.size() > 0)
-			p_SpielFeld.remove(p_SpielFeld.size()-1);
+		/*if(anzahlZuege <= 18 && p_SpielFeld.size() > 0)
+			p_SpielFeld.remove(p_SpielFeld.size()-1);*/
 		
 		//passiven Spieler festlegen und Arrays der Spieler füllen
 		if(bewegterStein.getFarbe() == ESpielsteinFarbe.WEISS)
@@ -437,8 +437,19 @@ public class Bewertung
 									(Spielfeld[ebene][Math.abs(x-1)][y] == null && Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-1)] == null)	//und wenn alle anderen felder die benötigt werden freu sind
 									|| (Spielfeld[ebene][x][Math.abs(y-1)] == null && Spielfeld[ebene][Math.abs(x-1)][Math.abs(y-2)] == null)
 									&& (Spielfeld[ebene][x][Math.abs(y-2)] == null|| Spielfeld[ebene][Math.abs(x-2)][y] == null))				
-							{
-								return 1111;
+							{	//Wenn ich schon vollenden kann
+								if(Spielfeld[ebene][x][Math.abs(y-2)] != null && Spielfeld[ebene][Math.abs(x-2)][y] != null)	//wenn das gegenüberliegende feld nicht null ist	
+								{
+									
+									if(Spielfeld[ebene][Math.abs(x-2)][y].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+											Spielfeld[ebene][x][Math.abs(y-2)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&
+											Spielfeld[ebene][x][Math.abs(y-1)] == null && Spielfeld[ebene][Math.abs(x-1)][y] == null)			
+									{
+										return 1000000000;
+									}
+								}
+								else
+									return 1111;
 							}
 						}
 						
@@ -558,7 +569,7 @@ public class Bewertung
 						{
 							if(Spielfeld[ebene][Math.abs(x-1)][y].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
 									Spielfeld[ebene][x][Math.abs(y-1)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&
-									Spielfeld[ebene][Math.abs(x-2)][y] == null	& Spielfeld[ebene][x][Math.abs(y-2)] == null)				
+									Spielfeld[ebene][Math.abs(x-2)][y] == null	&& Spielfeld[ebene][x][Math.abs(y-2)] == null)				
 							{
 								return 22;
 							}
@@ -569,7 +580,121 @@ public class Bewertung
 			}
 		}
 		
+		
+		
+		/*
+		 * möglichkeit 3 ---------------- doppelangriff in einer ebene mit horizontal beiden aussenpositionen und vertikal mit zwei nebeneinanderliegenden Positionen gefüllt oder anders herum -----------------------------
+		 */
+		
+		
+		//nacheinander für meine Steine auf dem Feld überprüfen
+		for(int i = 0; i <= 2; i++)
+		{
+			for(int j = 0; j <= 2; j++)
+			{
+				for(int k = 0; k <= 2; k++)
+				{
+					//beweter Stein darf nicht einbezogen werden
+					if(i == this.posIndexUmrechnen(nach.getEbene()) && j == this.posIndexUmrechnen(nach.getX()) && k == this.posIndexUmrechnen(nach.getY()))
+						continue;
+					
+					//gucken ob man eine vorbereitung erstellen kann, also eine der 4 arten möglich ist
+					if(x != 1)
+					{
+						if(y != 1 && Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-1)] != null)
+						{
+							if(Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-1)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+									Spielfeld[ebene][Math.abs(x-1)][y] == null && Spielfeld[ebene][Math.abs(x-2)][y] == null	
+									&& Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-2)] == null)				
+							{
+								return 33;
+							}
+						}
+						if(y == 1 && Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-1)] != null)
+						{
+							if(Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-1)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+									Spielfeld[ebene][Math.abs(x-1)][Math.abs(y-1)] == null && Spielfeld[ebene][x][Math.abs(y-1)] == null	
+									&& Spielfeld[ebene][x][Math.abs(y+1)] == null)					
+							{
+								return 33;
+							}
+						}
+						if(y == 1 && Spielfeld[ebene][Math.abs(x-2)][Math.abs(y+1)] != null)
+						{
+							if(Spielfeld[ebene][Math.abs(x-2)][Math.abs(y+1)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+									Spielfeld[ebene][Math.abs(x-1)][Math.abs(y+1)] == null && Spielfeld[ebene][x][Math.abs(y-1)] == null	
+									&& Spielfeld[ebene][x][Math.abs(y+1)] == null)					
+							{
+								return 33;
+							}
+						}
+					}
+					else
+					{
+						if(Spielfeld[ebene][Math.abs(x-1)][Math.abs(y-2)] != null)
+						{
+							if(Spielfeld[ebene][Math.abs(x-1)][Math.abs(y-2)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+									Spielfeld[ebene][Math.abs(x-1)][y] == null && Spielfeld[ebene][Math.abs(x+1)][y] == null	
+									&& Spielfeld[ebene][Math.abs(x-1)][Math.abs(y-1)] == null)					
+							{
+								return 33;
+							}
+						}
+						if(Spielfeld[ebene][Math.abs(x+1)][Math.abs(y-2)] != null)
+						{
+							if(Spielfeld[ebene][Math.abs(x+1)][Math.abs(y-2)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+									Spielfeld[ebene][Math.abs(x-1)][y] == null && Spielfeld[ebene][Math.abs(x+1)][y] == null	
+									&& Spielfeld[ebene][Math.abs(x+1)][Math.abs(y-1)] == null)					
+							{
+								return 33;
+							}
+						}
+					}
+					
+				}
+			}
+		}
+		
 		//gucken ob mein einen doppelangriff vollenden kann
+		if((x == 0 && y == 0) || (x == 2 && y == 0) || (x == 0 && y == 2) || (x == 2 && y == 2))
+		{
+			for(int a = 0; a <= 2; a++)
+			{
+				for(int b = 0; b <= 2; b++)
+				{
+					for(int c = 0; c <= 2; c++)
+					{
+						//beweter Stein darf nicht einbezogen werden
+						if(a == this.posIndexUmrechnen(nach.getEbene()) && b == this.posIndexUmrechnen(nach.getX()) && c == this.posIndexUmrechnen(nach.getY()))
+							continue;
+						
+						//gucken ob man eine vorbereitung erstellen kann, also eine der 4 arten möglich ist
+						//1. Möglichkeit: Steine stehen sich in einer Ebene diagonal gegenüber
+						
+						if(Spielfeld[ebene][Math.abs(x-2)][y] != null && Spielfeld[ebene][x][Math.abs(y-1)] != null && x == 0)
+						{
+							if(Spielfeld[ebene][Math.abs(x-2)][y].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+									Spielfeld[ebene][x][Math.abs(y-1)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&
+									Spielfeld[ebene][Math.abs(x-1)][y] == null	&& Spielfeld[ebene][x][Math.abs(y-2)] == null)				
+							{
+								return 3333333;
+							}
+						}
+						if(Spielfeld[ebene][Math.abs(x-1)][y] != null && Spielfeld[ebene][x][Math.abs(y-2)] != null && x == 0)
+						{
+							if(Spielfeld[ebene][Math.abs(x-1)][y].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+									Spielfeld[ebene][x][Math.abs(y-2)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&
+									Spielfeld[ebene][Math.abs(x-2)][y] == null	&& Spielfeld[ebene][x][Math.abs(y-1)] == null)				
+							{
+								return 3333333;
+							}
+						}
+						
+					}	
+				}
+			}
+		}
+		
 		
 		
 		
