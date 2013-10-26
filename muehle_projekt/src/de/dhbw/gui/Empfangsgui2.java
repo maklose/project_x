@@ -92,6 +92,7 @@ public class Empfangsgui2 extends JFrame implements WindowListener {
 					public void actionPerformed(ActionEvent e) {
 						JDialog optionenAuswahl = new DialogOptionen2("Name Spieler 1", "Name Spieler 2", 0, 1, 1);
 						optionenAuswahl.setVisible(true);
+						dispose();
 					}
 				});
 				btn_start.setForeground(Color.BLACK);
