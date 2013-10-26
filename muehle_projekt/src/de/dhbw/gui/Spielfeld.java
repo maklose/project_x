@@ -306,11 +306,16 @@ public class Spielfeld extends JFrame implements ActionListener {
 			public void menuSelected(MenuEvent e) {
 				dispose();
 //				JFrame neuesSpiel = null;
-				try {
-					 Spielfeld neuesSpiel = new Spielfeld(nameSpieler1, nameSpieler2, gMode, gSchwierigkeit, gTheme);
-					 neuesSpiel.setVisible(true);
-				} catch (StrategieException e1) {
-					// TODO Auto-generated catch block
+				try 
+				{
+					final Spielfeld frame = new Spielfeld("Stefan", "Georg", 1, 5, 1);
+					frame.addWindowListener(new WindowAdapter() {
+											public void windowClosing(WindowEvent evt) {
+											Spielfeld.exitForm(evt, frame);}});
+					frame.setVisible(true);
+					Spielfeld.neueMeldung(frame.wichtigeMeldungsZeit, frame.textNeuesSpiel);
+				} catch (Exception e1) 
+				{
 					e1.printStackTrace();
 				}
 				
@@ -507,7 +512,6 @@ public class Spielfeld extends JFrame implements ActionListener {
                 		}
                 	}
                 }
-                
                 //hier wird der ausgewählte Stein wieder ohne transparenz gezeichnet
                 if(hatAltePosition)
                 {
@@ -830,13 +834,13 @@ public class Spielfeld extends JFrame implements ActionListener {
 		panel_1.add(lblNameSpieler, "cell 1 1,grow");
 		
 		lblAktuellerSpieler = new JLabel("aktueller Spieler");
-		panel_1.add(lblAktuellerSpieler, "cell 1 6");
+		panel_1.add(lblAktuellerSpieler, "cell 1 6, grow");
 		
 		lblRunde = new JLabel("Runde");
-		panel_1.add(lblRunde, "cell 1 10");
+		panel_1.add(lblRunde, "cell 1 10, grow");
 		
 		lblNameSpieler_1 = new JLabel("Name Spieler 2");
-		panel_1.add(lblNameSpieler_1, "cell 1 15");
+		panel_1.add(lblNameSpieler_1, "cell 1 15, grow");
 		
 		
 		if(gMode == 3)
