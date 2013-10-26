@@ -199,7 +199,7 @@ private Bewegung bewegungFinal;
 	List<ISpielstein> neuesSpielFeld = p_SpielFeld;
 	int index = 0; 		//Index des ISpielstein der bewegt wurde
 	
-	if(p_SpielFeld.size() > 0 ){
+	if(p_SpielFeld.size() > 1 ){
 	
 		//ISpielstein an neues Feld anfügen, wenn Stein neu auf das Feld gesetzt wurde
 		if(lanzahlZuege <= 18){
@@ -237,7 +237,7 @@ private Bewegung bewegungFinal;
 	if(ltiefe == 0 || pruef.checkSpielBeendet(spieler1, spieler2) == true)
 	{
 	Bewertung bewertung = new Bewertung();	
-	return bewertung.bewerteZug(p_SpielFeld, bewegung, index, lanzahlZuege);
+	return bewertung.bewerteZug(p_SpielFeld, bewegung, lanzahlZuege);
 	}	
 		
 	List<Bewegung> moeglBewegungen = new ArrayList<Bewegung>();
@@ -264,7 +264,7 @@ private Bewegung bewegungFinal;
 			if( wert > maxWert){
 				maxWert = wert;	
 				if(ltiefe == tiefe)
-				ergebnis(moeglBewegungen.get(j));
+				bewegung = moeglBewegungen.get(j);
 			}
 		}	
 	}
@@ -273,15 +273,18 @@ private Bewegung bewegungFinal;
 	{
 		moeglBewegungen = getMoeglicheBewegungen(neuesSpielFeld, new Spielstein(farbe, null, 0,0,0), lanzahlZuege);
 		for(int j = 0; j < moeglBewegungen.size();j++){	
+			
 			//Rekursion
 			wert= min((ltiefe - 1) , neuesSpielFeld, moeglBewegungen.get(j), (lanzahlZuege + 1));
 			
 			// Bewegung rückgängig machen
-			p_SpielFeld.remove(p_SpielFeld.size() - 1 );	
+			neuesSpielFeld.remove(neuesSpielFeld.size() - 1 );	
+			System.out.println(neuesSpielFeld.size());
 					
 			if( wert > maxWert){
 				maxWert = wert;	
 				if(ltiefe == tiefe){
+				System.out.println(wert);
 				ergebnis(moeglBewegungen.get(j));
 				}
 			}
@@ -344,7 +347,7 @@ private Bewegung bewegungFinal;
 	if(ltiefe == 0 || pruef.checkSpielBeendet(spieler2, spieler1) == true)
 	{
 	Bewertung bewertung = new Bewertung();	
-	return bewertung.bewerteZug(p_SpielFeld, bewegung, index, lanzahlZuege);
+	return bewertung.bewerteZug(p_SpielFeld, bewegung, lanzahlZuege);
 	}	
 			
 	List<Bewegung> moeglBewegungen = new ArrayList<Bewegung>();
@@ -412,3 +415,4 @@ private Bewegung bewegungFinal;
 	}
 	
 }
+
