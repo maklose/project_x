@@ -58,8 +58,7 @@ public class Bewertung
 					bewegterStein = Stein;
 		}
 		aktuellerSpieler = new Spieler(bewegterStein.getFarbe(), "aktuellerSpielerB");
-		/*if(anzahlZuege <= 18 && p_SpielFeld.size() > 0)
-			p_SpielFeld.remove(p_SpielFeld.size()-1);*/
+		
 		
 		//passiven Spieler festlegen und Arrays der Spieler füllen
 		if(bewegterStein.getFarbe() == ESpielsteinFarbe.WEISS)
@@ -705,7 +704,139 @@ public class Bewertung
 		}
 		
 		
+		/*
+		 * möglichkeit 4 ---------------- doppelangriff über zwei ebenen mit jeweils einen Stein am rand und einen in der mitte -----------------------------
+		 */
 		
+		
+		//nacheinander für meine Steine auf dem Feld überprüfen
+		for(int i = 0; i <= 2; i++)
+		{
+			for(int j = 0; j <= 2; j++)
+			{
+				for(int k = 0; k <= 2; k++)
+				{
+					//beweter Stein darf nicht einbezogen werden
+					if(i == this.posIndexUmrechnen(nach.getEbene()) && j == this.posIndexUmrechnen(nach.getX()) && k == this.posIndexUmrechnen(nach.getY()))
+						continue;
+					
+					//gucken ob man eine vorbereitung erstellen kann, also eine der 4 arten möglich ist
+					if(x != 1 || y != 1)
+					{
+						//abfragen 2. Stein jeweils zur y =1
+						if(ebene != 1 && Spielfeld[Math.abs(ebene-1)][x][Math.abs(y-1)] != null)
+						{
+							if(Spielfeld[Math.abs(ebene-1)][x][Math.abs(y-1)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+									Spielfeld[ebene][x][Math.abs(y-1)] == null && Spielfeld[ebene][x][Math.abs(y-2)] == null	
+									&& Spielfeld[Math.abs(ebene-2)][x][Math.abs(y-1)] == null)				
+							{
+								return 44;
+							}
+						}
+						if(ebene == 1 && Spielfeld[ebene-1][x][Math.abs(y-1)] != null) //nach aussen
+						{
+							if(Spielfeld[Math.abs(ebene-1)][x][Math.abs(y-1)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+									Spielfeld[ebene][x][Math.abs(y-1)] == null && Spielfeld[ebene][x][Math.abs(y-2)] == null	
+									&& Spielfeld[ebene+1][x][Math.abs(y-1)] == null)				
+							{
+								return 44;
+							}
+						}
+						if(ebene == 1 && Spielfeld[ebene+1][x][Math.abs(y-1)] != null)	//nach innen
+						{
+							if(Spielfeld[Math.abs(ebene+1)][x][Math.abs(y-1)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+									Spielfeld[ebene][x][Math.abs(y-1)] == null && Spielfeld[ebene][x][Math.abs(y-2)] == null	
+									&& Spielfeld[ebene-1][x][Math.abs(y-1)] == null)				
+							{
+								return 44;
+							}
+						}
+						
+						//abfragen jeweils zu x = 1
+						if(ebene != 1 && Spielfeld[Math.abs(ebene-1)][Math.abs(x-1)][y] != null)
+						{
+							if(Spielfeld[Math.abs(ebene-1)][Math.abs(x-1)][y].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+									Spielfeld[ebene][Math.abs(x-1)][y] == null && Spielfeld[ebene][Math.abs(x-2)][y] == null	
+									&& Spielfeld[Math.abs(ebene-2)][Math.abs(x-1)][y] == null)				
+							{
+								return 44;
+							}
+						}
+						if(ebene == 1 && Spielfeld[ebene-1][Math.abs(x-1)][y] != null) //nach aussen
+						{
+							if(Spielfeld[Math.abs(ebene-1)][Math.abs(x-1)][y].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+									Spielfeld[ebene][Math.abs(x-1)][y] == null && Spielfeld[ebene][Math.abs(x-2)][y] == null	
+									&& Spielfeld[ebene+1][Math.abs(x-1)][y] == null)				
+							{
+								return 44;
+							}
+						}
+						if(ebene == 1 && Spielfeld[ebene+1][x][Math.abs(y-1)] != null)	//nach innen
+						{
+							if(Spielfeld[Math.abs(ebene+1)][Math.abs(x-1)][y].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+									Spielfeld[ebene][Math.abs(x-1)][y] == null && Spielfeld[ebene][Math.abs(x-2)][y] == null	
+									&& Spielfeld[ebene-1][Math.abs(x-1)][y] == null)				
+							{
+								return 44;
+							}
+						}
+						
+					}
+					else
+					{
+						if(ebene != 1)
+						{
+							// nach rechts
+						}
+						else
+						{
+							
+						}
+					}
+					
+				}
+			}
+		}
+		
+		//gucken ob mein einen doppelangriff vollenden kann
+		if((x == 0 && y == 0) || (x == 2 && y == 0) || (x == 0 && y == 2) || (x == 2 && y == 2))
+		{
+			for(int a = 0; a <= 2; a++)
+			{
+				for(int b = 0; b <= 2; b++)
+				{
+					for(int c = 0; c <= 2; c++)
+					{
+						//beweter Stein darf nicht einbezogen werden
+						if(a == this.posIndexUmrechnen(nach.getEbene()) && b == this.posIndexUmrechnen(nach.getX()) && c == this.posIndexUmrechnen(nach.getY()))
+							continue;
+						
+						//gucken ob man eine vorbereitung erstellen kann, also eine der 4 arten möglich ist
+						//1. Möglichkeit: Steine stehen sich in einer Ebene diagonal gegenüber
+						
+						if(Spielfeld[ebene][Math.abs(x-2)][y] != null && Spielfeld[ebene][x][Math.abs(y-1)] != null)
+						{
+							if(Spielfeld[ebene][Math.abs(x-2)][y].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+									Spielfeld[ebene][x][Math.abs(y-1)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&
+									Spielfeld[ebene][Math.abs(x-1)][y] == null	&& Spielfeld[ebene][x][Math.abs(y-2)] == null)				
+							{
+								return 3333333;
+							}
+						}
+						if(Spielfeld[ebene][Math.abs(x-1)][y] != null && Spielfeld[ebene][x][Math.abs(y-2)] != null)
+						{
+							if(Spielfeld[ebene][Math.abs(x-1)][y].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+									Spielfeld[ebene][x][Math.abs(y-2)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&
+									Spielfeld[ebene][Math.abs(x-2)][y] == null	&& Spielfeld[ebene][x][Math.abs(y-1)] == null)				
+							{
+								return 3333333;
+							}
+						}
+						
+					}	
+				}
+			}
+		}
 		
 		
 		
