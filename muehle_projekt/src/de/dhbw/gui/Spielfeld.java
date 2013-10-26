@@ -1,22 +1,16 @@
 package de.dhbw.gui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
 
 import de.dhbw.gui.BestaetigungBeenden;
@@ -38,19 +32,14 @@ import de.dhbw.muehle_spiel.Pruefung;
 import de.dhbw.muehle_spiel.Spieler;
 import de.dhbw.muehle_spiel.Spielstein;
 import de.dhbw.strategy.Bewertung;
-import de.dhbw.strategy.Spielzug;
 import de.dhbw.strategy.Strategie;
 
 import javax.swing.JDialog;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuKeyListener;
-import javax.swing.event.MenuKeyEvent;
 import javax.swing.event.MenuListener;
 
 public class Spielfeld extends JFrame implements ActionListener {
@@ -63,13 +52,11 @@ public class Spielfeld extends JFrame implements ActionListener {
 	private static JPanel contentPane;
 	
 	//Die Buttons werden initialisiert
-	TransparentButtonFeld btnNewButton_1, btnNewButton_2, btnNewButton_3, btnNewButton_4, 
-							btnNewButton_5, btnNewButton_6, btnNewButton_7, btnNewButton_8,
-							btnNewButton_9, btnNewButton_10, btnNewButton_11, btnNewButton_12,
-							btnNewButton_13, btnNewButton_14, btnNewButton_15, btnNewButton_16,
-							btnNewButton_17, btnNewButton_18, btnNewButton_19, btnNewButton_20,
-							btnNewButton_21, btnNewButton_22, btnNewButton_23, btnNewButton_24;
-	
+	static TransparentButtonFeld btnNewButton_1, btnNewButton_2, btnNewButton_3, btnNewButton_4, btnNewButton_5, btnNewButton_6, btnNewButton_7, btnNewButton_8,
+									btnNewButton_9, btnNewButton_10, btnNewButton_11, btnNewButton_12, btnNewButton_13, btnNewButton_14,
+									btnNewButton_15, btnNewButton_16, btnNewButton_17, btnNewButton_18, btnNewButton_19, btnNewButton_20,
+									btnNewButton_21, btnNewButton_22, btnNewButton_23, btnNewButton_24;
+
 	//Die Spieler werden initialisiert 
 	Spieler Spieler1;
 	Spieler Spieler2;
@@ -172,6 +159,11 @@ public class Spielfeld extends JFrame implements ActionListener {
 	//Größe des Meldungsfensters
 	private static int x = 600;
 	private static int y = 100;
+	private JLabel lblNameSpieler;
+	private JLabel lblAktuellerSpieler;
+	private JLabel lblRunde;
+	private JLabel lblNameSpieler_1;
+	private JLabel label_14;
 	
 	/**
 	 * Hier wird das Spielfeld gestartet
@@ -200,7 +192,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 			private void neueMeldung(final int sekunden, final String meldung, Spielfeld frame) 
 			{
 				//hier wird die Position festgelegt wo die meldung erscheinen soll
-				Point pos = frame.panel.getLocationOnScreen();
+				Point pos = Spielfeld.panel.getLocationOnScreen();
 				final int xPos = (int)(pos.getX() + 20);
 				final int yPos = (int)pos.getY()+200;
 				new Thread() 
@@ -242,8 +234,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 		//Name der in dem Fenster angezeigt wird
 		super(textSpielName);
 
-		final String nameSpieler1 = Spieler1Name;
-		final String nameSpieler2 = Spieler2Name;
+		nameSpieler1 = Spieler1Name;
+		nameSpieler2 = Spieler2Name;
 		gMode = lmode;
 		gSchwierigkeit = lSchwierigkeit;
 		gTheme = theme;
@@ -376,14 +368,16 @@ public class Spielfeld extends JFrame implements ActionListener {
 			}
 			
 			@Override
-			public void menuDeselected(MenuEvent e) {
-				// TODO Auto-generated method stub
+			public void menuDeselected(MenuEvent e) 
+			{
+				
 				
 			}
 			
 			@Override
-			public void menuCanceled(MenuEvent e) {
-				// TODO Auto-generated method stub
+			public void menuCanceled(MenuEvent e) 
+			{
+				
 				
 			}
 		});
@@ -719,6 +713,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		panel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		
 		
+		
 		//hier wird das Panel auf der rechten seite erzeugt
 		panel_1 = new JPanel()
 		{
@@ -726,12 +721,14 @@ public class Spielfeld extends JFrame implements ActionListener {
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
+			
+			
 
 			@Override
-			public void paint(Graphics g) 
+			public void paint(Graphics p) 
 			{				
 				//font wird festgelegt
-				g.setFont(new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 30));
+				p.setFont(new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 30));
 				
 				//Das Hintergrundbild wird geladen
 				Image spielfeldRechts = null;
@@ -750,74 +747,100 @@ public class Spielfeld extends JFrame implements ActionListener {
 	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIrechts.png")); break;
 				} 
 				  
-				g.drawImage(spielfeldRechts, 0, 0, this.getWidth(), this.getHeight(), this);  
+				p.drawImage(spielfeldRechts, 0, 0, this.getWidth(), this.getHeight(), this);  
 				
 				//hier wird das Verhältnis festgelet, in dem die Steine zum Spielfeld stehen (größe)
 				int breite = panel.getWidth()/8;
 				int hoehe = panel.getWidth()/8;
 				
 				//Beschriftung der Felder
-				g.drawString(nameSpieler1 + ": ", xPosOben+15, yPosOben+35);
-				g.drawString(nameSpieler2 + ": ", xPosUnten+15, yPosUnten+42);
+				
+				p.drawString(nameSpieler1 + ": ", xPosOben+15, yPosOben+35);
+				p.drawString(nameSpieler2 + ": ", xPosUnten+15, yPosUnten+42);
+//				lblNameSpieler.setText("HALLOOOOOOOOOOOOO");
 				
 				//Zeichnet die noch vorhandenen Steine des Spielers
 				for(int i = 0; i < (9-Spieler1.getAnzahlSteine()-entfernteSteineWeiss); i++)
 				{
-					g.drawImage(SteinWeiss,  xPosOben + (i*15) , yPosOben + 30 , breite, hoehe, this);
+					p.drawImage(SteinWeiss,  xPosOben + (i*15) , yPosOben + 30 , breite, hoehe, this);
 				}
 				for(int i = 0; i < (9-Spieler2.getAnzahlSteine()-entfernteSteineSchwarz); i++)
 				{
-					g.drawImage(SteinSchwarz,  xPosUnten + (i*15) , yPosUnten + 37 , breite-3, hoehe-3, this);
+					p.drawImage(SteinSchwarz,  xPosUnten + (i*15) , yPosUnten + 37 , breite-3, hoehe-3, this);
 				}
 				
 				//Zeichnet die gelöschten Steine vom Gegner
 				for(int i = 0; i < entfernteSteineSchwarz; i++)
 				{
-					g.drawImage(SteinSchwarz,  xPosOben + (i*15) , yPosOben + 85 , breite-3, hoehe-3, this);
+					p.drawImage(SteinSchwarz,  xPosOben + (i*15) , yPosOben + 85 , breite-3, hoehe-3, this);
 				}
 				for(int i = 0; i < entfernteSteineWeiss; i++)
 				{
-					g.drawImage(SteinWeiss,  xPosUnten + (i*15) , yPosUnten + 92 , breite, hoehe, this);
+					p.drawImage(SteinWeiss,  xPosUnten + (i*15) , yPosUnten + 92 , breite, hoehe, this);
 				}
 				
 				//Zeichnet in das mittlere Feld einen Stein der aktuellen Farbe
 				if(Spieler1.getAnzahlSteine()==0)
-					g.drawImage(SteinWeiss,  xPosMitte + 40, yPosMitte + 10 , breite+50, hoehe+50, this);
+					p.drawImage(SteinWeiss,  xPosMitte + 40, yPosMitte + 10 , breite+50, hoehe+50, this);
 				else
 				{
 					if(aktuellerSpieler == Spieler2)
-						g.drawImage(SteinWeiss,  xPosMitte + 40, yPosMitte + 10 , breite+50, hoehe+50, this);
+						p.drawImage(SteinWeiss,  xPosMitte + 40, yPosMitte + 10 , breite+50, hoehe+50, this);
 					else
-						g.drawImage(SteinSchwarz,  xPosMitte + 40, yPosMitte + 10 , breite+43, hoehe+43, this);
+						p.drawImage(SteinSchwarz,  xPosMitte + 40, yPosMitte + 10 , breite+43, hoehe+43, this);
 				}
 				//Rundenanzeige
-				g.drawString("Runde " + (anzahlRunden+1), xPosMitte+15, yPosMitte+140);
+				p.drawString("Runde " + (anzahlRunden+1), xPosMitte+15, yPosMitte+140);
 			}
 		};
-		
-		/*panel_1.setLayout(new MigLayout("", "[300]", "[225][227][225]"));
-		
-		JLabel labelSpieler1 = new JLabel("Spieler 1: ");
-		labelSpieler1.setFont(new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 30));
-		labelSpieler1.setText("Hallo das hier ist der Text");
-		labelSpieler1.setVisible(true);
-		panel_1.add(labelSpieler1, "cell 0 0,grow");
-		
-		JLabel labelMitte = new JLabel("Mitte: ");
-		panel_1.add(labelMitte, "cell 0 1,grow");
-		
-		JLabel labelSpieler2 = new JLabel("Spieler 2: ");
-		panel_1.add(labelSpieler2, "cell 0 2,grow");*/
-		
-		
-		
 		
 		contentPane.setLayout(new MigLayout("", "[664.94px]0[300px]", "[677px]"));
 		contentPane.add(panel, "cell 0 0,alignx left,aligny top");
 		contentPane.add(panel_1, "cell 1 0,grow");
+		panel_1.setLayout(new MigLayout("", "[][100px:100]", "[][20][][][][][][][][][][][][][][]"));
+		
+		label_14 = new JLabel("");
+		panel_1.add(label_14, "cell 1 0,grow");
+		
+		lblNameSpieler = new JLabel("Name Spieler 1");
+		panel_1.add(lblNameSpieler, "cell 1 1,grow");
+		
+		lblAktuellerSpieler = new JLabel("aktueller Spieler");
+		panel_1.add(lblAktuellerSpieler, "cell 1 6");
+		
+		lblRunde = new JLabel("Runde");
+		panel_1.add(lblRunde, "cell 1 10");
+		
+		lblNameSpieler_1 = new JLabel("Name Spieler 2");
+		panel_1.add(lblNameSpieler_1, "cell 1 15");
 		
 		
-		
+		if(gMode == 3)
+		{
+			new Thread() 
+			{
+				{
+					start(); 
+				}
+				public void run()
+				{
+					try 
+					{
+						ISpielzug neuerZug1 = strategie1.bewegeStein(gSteine);
+						IBewegung neueIBewegung1 = neuerZug1.bewegeSpielStein();
+						Bewegung neueBewegung1 = new Bewegung(neueIBewegung1.altePosition(), neueIBewegung1.neuePosition());
+						Spielfeld.bewegungInButtons(neueBewegung1);
+						
+						sleep(5000);
+					} 
+					catch (StrategieException | InterruptedException e) 
+					{
+						
+						e.printStackTrace();
+					}
+				}
+			};
+		}
 //		 db.erzeugetb("protokoll");
 
 		
@@ -834,99 +857,99 @@ public class Spielfeld extends JFrame implements ActionListener {
 	{
 		Object obj = e.getSource();
 		
-		if(obj.equals(this.btnNewButton_1))
+		if(obj.equals(Spielfeld.btnNewButton_1))
 		{
 			this.aktion(btnNewButton_1);			
 		}
-		else if(obj.equals(this.btnNewButton_2))
+		else if(obj.equals(Spielfeld.btnNewButton_2))
 		{
 			this.aktion(btnNewButton_2);
 		}
-		else if(obj.equals(this.btnNewButton_3))
+		else if(obj.equals(Spielfeld.btnNewButton_3))
 		{
 			this.aktion(btnNewButton_3);
 		}
-		else if(obj.equals(this.btnNewButton_4))
+		else if(obj.equals(Spielfeld.btnNewButton_4))
 		{
 			this.aktion(btnNewButton_4);
 		}
-		else if(obj.equals(this.btnNewButton_5))
+		else if(obj.equals(Spielfeld.btnNewButton_5))
 		{
 			this.aktion(btnNewButton_5);
 		}
-		else if(obj.equals(this.btnNewButton_6))
+		else if(obj.equals(Spielfeld.btnNewButton_6))
 		{
 			this.aktion(btnNewButton_6);
 		}
-		else if(obj.equals(this.btnNewButton_7))
+		else if(obj.equals(Spielfeld.btnNewButton_7))
 		{
 			this.aktion(btnNewButton_7);
 		}
-		else if(obj.equals(this.btnNewButton_8))
+		else if(obj.equals(Spielfeld.btnNewButton_8))
 		{
 			this.aktion(btnNewButton_8);
 		}
-		else if(obj.equals(this.btnNewButton_9))
+		else if(obj.equals(Spielfeld.btnNewButton_9))
 		{
 			this.aktion(btnNewButton_9);
 		}
-		else if(obj.equals(this.btnNewButton_10))
+		else if(obj.equals(Spielfeld.btnNewButton_10))
 		{
 			this.aktion(btnNewButton_10);
 		}
-		else if(obj.equals(this.btnNewButton_11))
+		else if(obj.equals(Spielfeld.btnNewButton_11))
 		{
 			this.aktion(btnNewButton_11);
 		}
-		else if(obj.equals(this.btnNewButton_12))
+		else if(obj.equals(Spielfeld.btnNewButton_12))
 		{
 			this.aktion(btnNewButton_12);
 		}
-		else if(obj.equals(this.btnNewButton_13))
+		else if(obj.equals(Spielfeld.btnNewButton_13))
 		{
 			this.aktion(btnNewButton_13);
 		}
-		else if(obj.equals(this.btnNewButton_14))
+		else if(obj.equals(Spielfeld.btnNewButton_14))
 		{
 			this.aktion(btnNewButton_14);
 		}
-		else if(obj.equals(this.btnNewButton_15))
+		else if(obj.equals(Spielfeld.btnNewButton_15))
 		{
 			this.aktion(btnNewButton_15);
 		}
-		else if(obj.equals(this.btnNewButton_16))
+		else if(obj.equals(Spielfeld.btnNewButton_16))
 		{
 			this.aktion(btnNewButton_16);
 		}
-		else if(obj.equals(this.btnNewButton_17))
+		else if(obj.equals(Spielfeld.btnNewButton_17))
 		{
 			this.aktion(btnNewButton_17);
 		}
-		else if(obj.equals(this.btnNewButton_18))
+		else if(obj.equals(Spielfeld.btnNewButton_18))
 		{
 			this.aktion(btnNewButton_18);
 		}
-		else if(obj.equals(this.btnNewButton_19))
+		else if(obj.equals(Spielfeld.btnNewButton_19))
 		{
 			this.aktion(btnNewButton_19);
 		}
-		else if(obj.equals(this.btnNewButton_20))
+		else if(obj.equals(Spielfeld.btnNewButton_20))
 		{
 			this.aktion(btnNewButton_20);
 		}
-		else if(obj.equals(this.btnNewButton_21))
+		else if(obj.equals(Spielfeld.btnNewButton_21))
 		{
 			this.aktion(btnNewButton_21);
 		}
-		else if(obj.equals(this.btnNewButton_22))
+		else if(obj.equals(Spielfeld.btnNewButton_22))
 		{
 			this.aktion(btnNewButton_22);
 		}
-		else if(obj.equals(this.btnNewButton_23))
+		else if(obj.equals(Spielfeld.btnNewButton_23))
 		{
 			this.aktion(btnNewButton_23);
 		}
-		else if(obj.equals(this.btnNewButton_24))
+		else if(obj.equals(Spielfeld.btnNewButton_24))
 		{
 			this.aktion(btnNewButton_24);
 		}
@@ -943,12 +966,45 @@ public class Spielfeld extends JFrame implements ActionListener {
 				ISpielzug neuerZug = strategie1.bewegeStein(gSteine);
 				IBewegung neueIBewegung = neuerZug.bewegeSpielStein();
 				Bewegung neueBewegung = new Bewegung(neueIBewegung.altePosition(), neueIBewegung.neuePosition());
-				this.bewegungInButtons(neueBewegung);
+				Spielfeld.bewegungInButtons(neueBewegung);
 			} 
 			catch (StrategieException e1) 
 			{
 				e1.printStackTrace();
 			}
+		}
+		
+		if(gMode == 3)
+		{
+			new Thread() 
+			{
+				{
+					start(); 
+				}
+				public void run()
+				{
+					try {
+						ISpielzug neuerZug2 = strategie2.bewegeStein(gSteine);
+						IBewegung neueIBewegung2 = neuerZug2.bewegeSpielStein();
+						Bewegung neueBewegung2 = new Bewegung(neueIBewegung2.altePosition(), neueIBewegung2.neuePosition());
+						Spielfeld.bewegungInButtons(neueBewegung2);
+						
+						sleep(5000);
+						
+						ISpielzug neuerZug1 = strategie1.bewegeStein(gSteine);
+						IBewegung neueIBewegung1 = neuerZug1.bewegeSpielStein();
+						Bewegung neueBewegung1 = new Bewegung(neueIBewegung1.altePosition(), neueIBewegung1.neuePosition());
+						Spielfeld.bewegungInButtons(neueBewegung1);
+						
+						sleep(5000);
+					} 
+					catch (StrategieException | InterruptedException e) 
+					{
+						
+						e.printStackTrace();
+					}
+				}
+			};
 		}
 	}
 		
@@ -1016,7 +1072,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 							this.aktion(btnNewButton_1);
 							return;
 						}
-						this.neueMeldung(meldungsZeit, aktuellerSpieler.getName() + textMuehle);
+						Spielfeld.neueMeldung(meldungsZeit, aktuellerSpieler.getName() + textMuehle);
 						hatMuehle = true;
 						panel.repaint();
 						panel_1.repaint();
@@ -1182,7 +1238,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 								this.aktion(btnNewButton_1);
 								return;
 							}
-							this.neueMeldung(meldungsZeit, aktuellerSpieler.getName() + textMuehle);
+							Spielfeld.neueMeldung(meldungsZeit, aktuellerSpieler.getName() + textMuehle);
 							return;
 						}
 		
@@ -1283,7 +1339,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 						
 						//wenn duch das Mühle schlagen der passive Spieler nur noch 3 Steine hat wird die Meldung erzeugt, dass dieser jetzt springen darf
 						if(passiverSpieler.getAnzahlSteine() == 3 && passiverSpieler.getAnzahlZuege() > 9)
-							this.neueMeldung(wichtigeMeldungsZeit, aktuellerSpieler.getName() + textDarfSpringen);
+							Spielfeld.neueMeldung(wichtigeMeldungsZeit, aktuellerSpieler.getName() + textDarfSpringen);
 							
 							
 						return;
@@ -1534,7 +1590,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	}
 	
 	//Methode die für die Bewegung die die Strategie zurückliefert die entsprechenenden Button-klicks simuliert
-	public void bewegungInButtons(Bewegung neueBewegung)
+	public static void bewegungInButtons(Bewegung neueBewegung)
 	{
 		if(neueBewegung.getVon() == null)
 		{
