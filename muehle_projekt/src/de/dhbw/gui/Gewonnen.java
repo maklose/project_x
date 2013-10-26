@@ -2,25 +2,33 @@ package de.dhbw.gui;
 import de.dhbw.gui.Spielfeld;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
+import javax.swing.JLabel;
+
+import com.jgoodies.forms.layout.CellConstraints.Alignment;
 
 
-public class Gewonnen extends JFrame {
+
+public class Gewonnen extends JDialog {
 
 	private JPanel contentPane;
 
@@ -31,7 +39,7 @@ public class Gewonnen extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Gewonnen frame = new Gewonnen();
+					Gewonnen frame = new Gewonnen("Marvin hat gewonnen");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -43,9 +51,10 @@ public class Gewonnen extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Gewonnen() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+	public Gewonnen(String name) {
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setUndecorated(true);
+		setBounds(100, 100, 700, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -53,17 +62,22 @@ public class Gewonnen extends JFrame {
 		
 		JPanel panel = new JPanel(){  
             public void paintComponent(Graphics g) {  
+            	Image hintergrund1 = Toolkit.getDefaultToolkit().getImage(  
+                        Empfangsgui2.class.getResource("/de/dhbw/images/Optionen_GUI.png"));
+            	g.drawImage(hintergrund1, 0, 0, 700, 500, this); 
                 Image hintergrund = Toolkit.getDefaultToolkit().getImage(  
-                          Empfangsgui2.class.getResource("/de/dhbw/images/Sicherheitsabfrage_GUI.PNG"));  //richtiges bild einfügen
-            g.drawImage(hintergrund, 0, 0, this.getWidth(), this.getHeight(), this);  
+                          Empfangsgui2.class.getResource("/de/dhbw/images/test.png"));  //richtiges bild einfügen
+                g.drawImage(hintergrund, 20, 10, 350, 350, this);  
             }  
 		};  
-		contentPane.add(panel, BorderLayout.NORTH);;
+		contentPane.add(panel, BorderLayout.CENTER);
+//        pack();
+        
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{50, 100, 144, 100, 50, 0};
-		gbl_panel.rowHeights = new int[]{180, 40, 30, 0};
+		gbl_panel.rowHeights = new int[]{326, 180, 40, 30, 0};
 		gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);;
 		
 		JButton btnBeenden = new JButton("beenden"){
@@ -73,7 +87,7 @@ public class Gewonnen extends JFrame {
 		};
 		btnBeenden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				final BestaetigungBeenden frageBeenden = new BestaetigungBeenden(100, 100); //Werte ändern
+				final BestaetigungBeenden frageBeenden = new BestaetigungBeenden(300, 200); //Werte ändern
 				frageBeenden.setListener( new BestaetigungBeenden.BestatigungsListener() {
 					
 					@Override
@@ -91,11 +105,21 @@ public class Gewonnen extends JFrame {
 				frageBeenden.setVisible(true);
 			}
 		});
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.gridwidth = 3;
+		gbc_lblNewLabel.insets = new Insets(30, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 1;
+		gbc_lblNewLabel.gridy = 1;
+		lblNewLabel.setFont(new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 30));
+		lblNewLabel.setText(name);
+		panel.add(lblNewLabel, gbc_lblNewLabel);
 		GridBagConstraints gbc_btnBeenden = new GridBagConstraints();
 		gbc_btnBeenden.fill = GridBagConstraints.BOTH;
 		gbc_btnBeenden.insets = new Insets(0, 0, 5, 5);
 		gbc_btnBeenden.gridx = 1;
-		gbc_btnBeenden.gridy = 1;
+		gbc_btnBeenden.gridy = 2;
 		panel.add(btnBeenden, gbc_btnBeenden);
 		
 		JButton btnSpielverlauf = new JButton("spielverlauf"){
@@ -107,7 +131,12 @@ public class Gewonnen extends JFrame {
 		gbc_btnSpielverlauf.insets = new Insets(0, 0, 5, 5);
 		gbc_btnSpielverlauf.fill = GridBagConstraints.BOTH;
 		gbc_btnSpielverlauf.gridx = 3;
-		gbc_btnSpielverlauf.gridy = 1;
+		gbc_btnSpielverlauf.gridy = 2;
 		panel.add(btnSpielverlauf, gbc_btnSpielverlauf);
+	}
+
+	private void setDefaultCloseOperation() {
+		// TODO Auto-generated method stub
+		
 	}
 }

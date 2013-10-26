@@ -25,6 +25,8 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import de.dhbw.muehle_api.strategy.StrategieException;
+
 import java.awt.event.FocusAdapter;
 
 public class DialogOptionen2 extends JDialog {
@@ -273,9 +275,16 @@ public class DialogOptionen2 extends JDialog {
 						{
 							name1=txtSpieler1.getText();
 							name2=txtSpieler2.getText();
-							JFrame neuesSpiel = new Spielfeld(name1, name2, i, gSchwierigkeit, 1);
-							neuesSpiel.setVisible(true);
-							dispose();
+							JFrame neuesSpiel;
+							try {
+								neuesSpiel = new Spielfeld(name1, name2, i, gSchwierigkeit, 1);
+								neuesSpiel.setVisible(true);
+								dispose();
+							} catch (StrategieException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							
 						}
 						else
 							return;

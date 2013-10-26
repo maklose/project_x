@@ -176,7 +176,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 			{
 				try 
 				{
-					Spielfeld frame = new Spielfeld("Stefan", "Georg", 2, 5, 1);
+					Spielfeld frame = new Spielfeld("Stefan", "Georg", 1, 5, 1);
 					frame.addWindowListener(new WindowAdapter() {
 											public void windowClosing(WindowEvent evt) {
 											exitForm(evt);}});
@@ -383,23 +383,21 @@ public class Spielfeld extends JFrame implements ActionListener {
 
 			protected void paintComponent(Graphics g) 
             {
-				Image spielfeld;
+				Image spielfeld = null;
 				
-				if(theme == 2)
-	                spielfeld = Toolkit.getDefaultToolkit().getImage(  
-	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_Frühling_GUIlinks.png"));  
-				else if(theme == 3)
-	                spielfeld = Toolkit.getDefaultToolkit().getImage(  
-	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIlinks.png"));  
-				else if(theme == 4)
-	                spielfeld = Toolkit.getDefaultToolkit().getImage(  
-	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIlinks.png"));  
-				else if(theme == 5)
-	                spielfeld = Toolkit.getDefaultToolkit().getImage(  
-	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIlinks.png"));  
-				else
-	                spielfeld = Toolkit.getDefaultToolkit().getImage(  
-	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIlinks.png"));  
+				switch(theme)
+				{
+					case 1: spielfeld = Toolkit.getDefaultToolkit().getImage(  
+	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIlinks.png")); break;
+					case 2: spielfeld = Toolkit.getDefaultToolkit().getImage(  
+	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_Frühling_GUIlinks.png")); break;
+					case 3: spielfeld = Toolkit.getDefaultToolkit().getImage(  
+	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIlinks.png")); break;
+					case 4: spielfeld = Toolkit.getDefaultToolkit().getImage(  
+	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIlinks.png")); break;
+					case 5: spielfeld = Toolkit.getDefaultToolkit().getImage(  
+	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIlinks.png")); break;
+				}
 				
                 g.drawImage(spielfeld, 0, 0, this.getWidth(), this.getHeight(), this);  
                 
@@ -713,23 +711,21 @@ public class Spielfeld extends JFrame implements ActionListener {
 				g.setFont(new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 30));
 				
 				//Das Hintergrundbild wird geladen
-				Image spielfeldRechts;
+				Image spielfeldRechts = null;
 				
-				if(theme == 2)
-					spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
-	                        Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_Frühling_GUIrechts.png"));  
-				else if(theme == 3)
-					spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
-	                        Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIrechts.png"));    
-				else if(theme == 4)
-					spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
-	                        Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIrechts.png"));   
-				else if(theme == 5)
-					spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
-	                        Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIrechts.png"));    
-				else
-					spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
-	                        Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIrechts.png"));  
+				switch(theme)
+				{
+					case 1: spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
+	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIrechts.png")); break;
+					case 2: spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
+	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_Frühling_GUIrechts.png")); break;
+					case 3: spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
+	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIrechts.png")); break;
+					case 4: spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
+	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIrechts.png")); break;
+					case 5: spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
+	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIrechts.png")); break;
+				} 
 				  
 				g.drawImage(spielfeldRechts, 0, 0, this.getWidth(), this.getHeight(), this);  
 				
@@ -996,8 +992,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 							SpielBeendet = true;
 							this.aktion(btnNewButton_1);
 						}
-						
-						this.neueMeldung(meldungsZeit, aktuellerSpieler.getName() + textMuehle);
+						if(!(aktuellerSpieler.getAnzahlZuege() == 8 && passiverSpieler.getAnzahlSteine() == 3))
+							this.neueMeldung(meldungsZeit, aktuellerSpieler.getName() + textMuehle);
 						hatMuehle = true;
 						panel.repaint();
 						panel_1.repaint();
@@ -1269,7 +1265,9 @@ public class Spielfeld extends JFrame implements ActionListener {
 			}	
 		}
 		
-		this.neueMeldung(wichtigeMeldungsZeit, aktuellerSpieler.getName() + textGewonnen);
+		Gewonnen gewinnerBild = new Gewonnen(aktuellerSpieler.getName() + textGewonnen);
+		gewinnerBild.setVisible(true);
+//		this.neueMeldung(wichtigeMeldungsZeit, aktuellerSpieler.getName() + textGewonnen);
 		System.out.println("Spieler beendet!");
 		
 	}	
@@ -1480,6 +1478,7 @@ public class Spielfeld extends JFrame implements ActionListener {
         }
 	}
 	
+	//Methode die für die Bewegung die die Strategie zurückliefert die entsprechenenden Button-klicks simuliert
 	public void bewegungInButtons(Bewegung neueBewegung)
 	{
 		if(neueBewegung.getVon() == null)
