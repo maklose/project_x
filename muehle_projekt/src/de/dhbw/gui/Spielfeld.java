@@ -177,10 +177,10 @@ public class Spielfeld extends JFrame implements ActionListener {
 			{
 				try 
 				{
-					Spielfeld frame = new Spielfeld("Stefan", "Georg", 1, 5, 1);
+					final Spielfeld frame = new Spielfeld("Stefan", "Georg", 1, 5, 1);
 					frame.addWindowListener(new WindowAdapter() {
 											public void windowClosing(WindowEvent evt) {
-											exitForm(evt);}});
+											Spielfeld.exitForm(evt, frame);}});
 					frame.setVisible(true);
 					 this.neueMeldung(frame.wichtigeMeldungsZeit, frame.textNeuesSpiel, frame);
 				} catch (Exception e) 
@@ -218,10 +218,33 @@ public class Spielfeld extends JFrame implements ActionListener {
 		});
 	}
 
-	private static void exitForm(WindowEvent evt) 
+	private static void exitForm(WindowEvent evt, final Spielfeld frame) 
 	{
+		final BestaetigungBeenden frageBeenden = new BestaetigungBeenden(300,200);
+		frageBeenden.setVisible(true);
+		frageBeenden.setAlwaysOnTop(true);
+		frageBeenden.setListener( new BestaetigungBeenden.BestatigungsListener() {
+			
+			@Override
+			public void onOK() {
+				
+				frame.dispose();
+				frageBeenden.dispose();
+//				db.löschetb("protokoll");
+				
+				
+			}
+			@Override
+			public void onCancel() {
+					
+			}
+			
+		});
+		frageBeenden.setVisible(true);
+	
 //		db.löschetb("protokoll");
-        System.exit(0);
+		return;
+       
     }
 	
 	/**
@@ -240,6 +263,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		gSchwierigkeit = lSchwierigkeit;
 		gTheme = theme;
 
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		
 		Spieler1 = new Spieler(ESpielsteinFarbe.WEISS, nameSpieler1);
 		switch(gMode)
