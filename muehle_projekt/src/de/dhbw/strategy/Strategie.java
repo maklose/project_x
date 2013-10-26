@@ -279,7 +279,9 @@ List<ISpielstein> SpielFeld;
 			SpielFeld.remove(SpielFeld.size() - 1 );	
 					
 			if( wert > maxWert){
-				maxWert = wert;	
+				maxWert = wert;
+				System.out.println(wert);
+				System.out.println(moeglBewegungen.get(j).toString());
 				if(ltiefe == tiefe){
 				System.out.println(wert);
 				ergebnis(moeglBewegungen.get(j));
@@ -366,6 +368,8 @@ List<ISpielstein> SpielFeld;
 
 			if( wert < minWert){
 				minWert = wert;	
+				System.out.println(wert);
+				System.out.println(moeglBewegungen.get(j).toString());
 				if(ltiefe == tiefe)
 				bewegung = moeglBewegungen.get(j); 	 
 			}
