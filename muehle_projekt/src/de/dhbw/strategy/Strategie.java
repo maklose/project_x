@@ -199,7 +199,7 @@ private Bewegung bewegungFinal;
 	List<ISpielstein> neuesSpielFeld = p_SpielFeld;
 	int index = 0; 		//Index des ISpielstein der bewegt wurde
 	
-	if(p_SpielFeld.size() > 1 ){
+	if(lanzahlZuege > 1 ){
 	
 		//ISpielstein an neues Feld anfügen, wenn Stein neu auf das Feld gesetzt wurde
 		if(lanzahlZuege <= 18){
@@ -279,7 +279,6 @@ private Bewegung bewegungFinal;
 			
 			// Bewegung rückgängig machen
 			neuesSpielFeld.remove(neuesSpielFeld.size() - 1 );	
-			System.out.println(neuesSpielFeld.size());
 					
 			if( wert > maxWert){
 				maxWert = wert;	
