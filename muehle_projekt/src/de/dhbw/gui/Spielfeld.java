@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +38,7 @@ import de.dhbw.strategy.Strategie;
 import javax.swing.JDialog;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
+
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.event.MenuEvent;
@@ -338,6 +340,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		menuBar.add(mnNewMenu1);
 		
 		mnNewMenu11 = new JMenu("");
+		mnNewMenu11.setPreferredSize(new Dimension(15, ImageObserver.HEIGHT));
 		menuBar.add(mnNewMenu11);
 		
 		mnNewMenu2 = new JMenu("Spiel Beenden");
@@ -382,6 +385,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 		
 		mnNewMenu22 = new JMenu("");
+		mnNewMenu22.setPreferredSize(new Dimension(15, ImageObserver.HEIGHT));
 		menuBar.add(mnNewMenu22);
 		
 		
