@@ -12,6 +12,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -190,8 +192,9 @@ public class DialogOptionen2 extends JDialog {
 				});
 				txtSpieler1.setEnabled(false);
 				
-		
+				
 				txtSpieler1.setText(nameSpieler1);
+				
 				GridBagConstraints gbc_txtSpieler1 = new GridBagConstraints();
 				gbc_txtSpieler1.insets = new Insets(0, 0, 5, 5);
 				gbc_txtSpieler1.fill = GridBagConstraints.HORIZONTAL;
@@ -272,7 +275,7 @@ public class DialogOptionen2 extends JDialog {
 				panel.add(lblThema, gbc_lblThema);
 			}
 			{
-				final JComboBox cbThema = new JComboBox();
+				final JComboBox<String> cbThema = new JComboBox<String>();
 				cbThema.addItem("Classic");
 				cbThema.addItem("Frühling");
 				cbThema.addItem("Sommer");
@@ -320,13 +323,16 @@ public class DialogOptionen2 extends JDialog {
 						{
 							name1=txtSpieler1.getText();
 							name2=txtSpieler2.getText();
-							JFrame neuesSpiel;
 							try {
-								neuesSpiel = new Spielfeld(name1, name2, i, gSchwierigkeit, gThema);
-								neuesSpiel.setVisible(true);
+								final Spielfeld neuesSpielfeld = new Spielfeld(name1, name2, i, gSchwierigkeit, gThema);
+								neuesSpielfeld.addWindowListener(new WindowAdapter() {
+														public void windowClosing(WindowEvent evt) {
+														Spielfeld.exitForm(evt, neuesSpielfeld);}});
+								neuesSpielfeld.setVisible(true);
+								Spielfeld.neueMeldung(3, "Neues Spiel - " + name1 + " beginnt!");
 								dispose();
 							} catch (StrategieException e1) {
-								// TODO Auto-generated catch block
+								System.out.println("Das Spiel konnte nicht gestartet werden");
 								e1.printStackTrace();
 							}
 							
@@ -374,7 +380,7 @@ public class DialogOptionen2 extends JDialog {
 		}
 	}
 	private void pruefeAuswahl() {
-		if (rdbtnMgM.isSelected()==false && rdbtnMgC.isSelected()==false) 
+		if (rdbtnMgM.isSelected()==false && rdbtnMgC.isSelected()==false && rdbtnCgC.isSelected() ==false) 
 		{ 
 			flag = false;
 			System.out.println("nix ausgewählt");

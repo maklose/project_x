@@ -218,7 +218,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		});
 	}
 
-	private static void exitForm(WindowEvent evt, final Spielfeld frame) 
+	static void exitForm(WindowEvent evt, final Spielfeld frame) 
 	{
 		final BestaetigungBeenden frageBeenden = new BestaetigungBeenden(300,200);
 		frageBeenden.setVisible(true);
@@ -880,6 +880,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 	 *gedrückt wurde und gibt diesen dann an die methode aktion weiter
 	 */
 	
+	
+
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
