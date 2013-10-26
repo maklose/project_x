@@ -1277,13 +1277,30 @@ public class Spielfeld extends JFrame implements ActionListener {
 				}
 			}	
 		}
+		new Thread() 
+		{
+			{
+				start(); 
+			}
+			public void run()
+			{
+				try 
+				{ 
+					sleep(wichtigeMeldungsZeit * 1000);
+					dispose();
+					Gewonnen gewinnerBild = new Gewonnen(aktuellerSpieler.getName() + textGewonnen);
+					gewinnerBild.setVisible(true);
+					System.out.println("Spieler beendet!");
+				}	
+				catch ( InterruptedException e ) 
+				{ 
+					e.printStackTrace();
+				} 
+			}
+		};
+	}
 		
-		Gewonnen gewinnerBild = new Gewonnen(aktuellerSpieler.getName() + textGewonnen);
-		gewinnerBild.setVisible(true);
-//		this.neueMeldung(wichtigeMeldungsZeit, aktuellerSpieler.getName() + textGewonnen);
-		System.out.println("Spieler beendet!");
-		
-	}	
+	
 
 	public void muehle(Spielstein aktuellerStein, Spieler aktuellerSpieler, Position PositionGeklickt, Bewegung neueBewegung)
 	{

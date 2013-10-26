@@ -94,8 +94,9 @@ public class Gewonnen extends JDialog {
 					public void onOK() {
 						
 						Gewonnen.this.dispose();
-						//Spielfeld.dispose();
+						dispose();
 						frageBeenden.dispose();
+						
 					}
 					
 					@Override
