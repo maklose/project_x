@@ -610,6 +610,15 @@ public class Bewertung
 								return 33;
 							}
 						}
+						if(y != 1 && Spielfeld[ebene][Math.abs(x-1)][Math.abs(y-2)] != null)
+						{
+							if(Spielfeld[ebene][Math.abs(x-1)][Math.abs(y-2)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+									Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-2)] == null && Spielfeld[ebene][x][Math.abs(y-1)] == null	
+									&& Spielfeld[ebene][x][Math.abs(y-2)] == null)				
+							{
+								return 33;
+							}
+						}
 						if(y == 1 && Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-1)] != null)
 						{
 							if(Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-1)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
@@ -671,7 +680,7 @@ public class Bewertung
 						//gucken ob man eine vorbereitung erstellen kann, also eine der 4 arten möglich ist
 						//1. Möglichkeit: Steine stehen sich in einer Ebene diagonal gegenüber
 						
-						if(Spielfeld[ebene][Math.abs(x-2)][y] != null && Spielfeld[ebene][x][Math.abs(y-1)] != null && x == 0)
+						if(Spielfeld[ebene][Math.abs(x-2)][y] != null && Spielfeld[ebene][x][Math.abs(y-1)] != null)
 						{
 							if(Spielfeld[ebene][Math.abs(x-2)][y].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
 									Spielfeld[ebene][x][Math.abs(y-1)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&
@@ -680,7 +689,7 @@ public class Bewertung
 								return 3333333;
 							}
 						}
-						if(Spielfeld[ebene][Math.abs(x-1)][y] != null && Spielfeld[ebene][x][Math.abs(y-2)] != null && x == 0)
+						if(Spielfeld[ebene][Math.abs(x-1)][y] != null && Spielfeld[ebene][x][Math.abs(y-2)] != null)
 						{
 							if(Spielfeld[ebene][Math.abs(x-1)][y].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
 									Spielfeld[ebene][x][Math.abs(y-2)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&
