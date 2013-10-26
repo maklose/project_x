@@ -380,7 +380,7 @@ public class DialogOptionen2 extends JDialog {
 			System.out.println("nix ausgewählt");
 			this.neueMeldung(2, "Bitte markieren Sie eine Option!", this);
 		}
-		else if (rdbtnMgM.isSelected()==true && ((txtSpieler1.getText().equals("Name von Spieler 1") && txtSpieler2.getText().equals("Name von Spieler 2"))
+		else if (rdbtnMgM.isSelected()==true && ((txtSpieler1.getText().equals("Name Spieler 1") && txtSpieler2.getText().equals("Name Spieler 2"))
 					|| (txtSpieler1.getText().equals("") || txtSpieler2.getText().equals("")))) 
 		{ 
 			this.neueMeldung(2, "Bitte geben Sie für beide Spieler einen Namen ein!", this);
@@ -388,7 +388,7 @@ public class DialogOptionen2 extends JDialog {
 			
 			flag = false;
 		}
-		else if ((rdbtnMgC.isSelected()==true) && (txtSpieler1.getText().equals("Name von Spieler 1")
+		else if ((rdbtnMgC.isSelected()==true) && (txtSpieler1.getText().equals("Name Spieler 1")
 				|| txtSpieler1.getText().equals("")))
 		{
 			System.out.println("kein name eingegeben");
