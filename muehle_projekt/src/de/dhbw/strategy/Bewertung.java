@@ -425,7 +425,7 @@ public class Bewertung
 				{
 					for(int k = 0; k <= 2; k++)
 					{
-						//beweter Stein darf nicht einbezogen werden
+						//bewegter Stein darf nicht einbezogen werden
 						if(i == this.posIndexUmrechnen(nach.getEbene()) && j == this.posIndexUmrechnen(nach.getX()) && k == this.posIndexUmrechnen(nach.getY()))
 							continue;
 						
@@ -458,7 +458,7 @@ public class Bewertung
 						
 						//gucken ob man eine vorbereitung erstellen kann, also eine der 4 arten möglich ist
 						//1. Möglichkeit: Steine stehen sich in einer Ebene diagonal gegenüber
-						if(Spielfeld[ebene][x][Math.abs(y-2)] != null && Spielfeld[Math.abs(x-2)][y] != null)	//wenn das gegenüberliegende feld nicht null ist	
+						if(Spielfeld[ebene][x][Math.abs(y-2)] != null && Spielfeld[ebene][Math.abs(x-2)][y] != null)	//wenn das gegenüberliegende feld nicht null ist	
 						{
 							
 							if(Spielfeld[ebene][Math.abs(x-2)][y].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
