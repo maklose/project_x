@@ -63,7 +63,7 @@ List<ISpielstein> SpielFeld;
 		bewertung = max(tiefe, null, anzahlZuege);
 		anzahlZuege +=2;
 //		System.out.println(bewegung.toString());
-		System.out.println(bewegung);
+		System.out.println(bewegung + " "  + bewertung);
 		zug = new Spielzug(new Spielstein(farbe, bewegung.getNach(),0,0,0));
 		}
 		else{
@@ -280,16 +280,14 @@ List<ISpielstein> SpielFeld;
 					
 			if( wert > maxWert){
 				maxWert = wert;
-				System.out.println(wert);
-				System.out.println(moeglBewegungen.get(j).toString());
+//				System.out.println(maxWert);
+//				System.out.println(moeglBewegungen.get(j).toString());
 				if(ltiefe == tiefe){
-				System.out.println(wert);
 				ergebnis(moeglBewegungen.get(j));
 				}
 			}
 		}
 	}	
-	
 	return maxWert;
 	}
 		
@@ -391,10 +389,10 @@ List<ISpielstein> SpielFeld;
 			if( wert < minWert){
 				minWert = wert;	
 				if(ltiefe == tiefe)
-				bewegung = moeglBewegungen.get(j);	
+				ergebnis(moeglBewegungen.get(j));
 				
 			}
-		}				
+		}			
 	}
 		
 		return minWert;
@@ -402,8 +400,8 @@ List<ISpielstein> SpielFeld;
 	
 	//wird aufgerufen, um die gewählte Bewegung festzulegen
 	void ergebnis (Bewegung lbewegung){
-		
 		bewegung = lbewegung;
+		System.out.println(lbewegung);
 		
 	}
 	
