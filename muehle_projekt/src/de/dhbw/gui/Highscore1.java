@@ -52,11 +52,22 @@ public class Highscore1 extends JFrame {
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
 		String[][]highscore=db.speichern_h();
-		String[]SpaltenName={"Anzahl Züge","Spieler"};
-	
+		for(int i=0; i<10; i++){
+			highscore[i][2]=highscore[i][1];
+			highscore[i][1]=highscore[i][0];
+			Integer p=new Integer(i+1);
+			String f=p.toString();
+			highscore[i][0]=f;
+			
+		}
+		
+		String[]SpaltenName={"Rang","Anzahl Züge","Spieler"};
+		
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(highscore, SpaltenName));
+		
+		table.getColumnModel().getColumn(0).setPreferredWidth(37);
 		
 		
 		scrollPane.setViewportView(table);
