@@ -1,19 +1,25 @@
 package de.dhbw.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import de.dhbw.muehle_spiel.Database;
 
 public class Highscore1 extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
+	Database db=new Database();
 
 	/**
 	 * Launch the application.
@@ -35,7 +41,7 @@ public class Highscore1 extends JFrame {
 	 * Create the frame.
 	 */
 	public Highscore1() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Dispose on close?
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -45,24 +51,13 @@ public class Highscore1 extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
+		String[][]highscore=db.speichern_h();
+		String[]SpaltenName={"Anzahl Züge","Spieler"};
+		
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-			},
-			new String[] {
-				"Spieler", "New column"
-			}
-		));
+		table.setModel(new DefaultTableModel(highscore, SpaltenName));
+		
+		
 		scrollPane.setViewportView(table);
 	}
 
