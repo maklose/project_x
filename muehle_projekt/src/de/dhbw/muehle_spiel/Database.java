@@ -121,17 +121,17 @@ public String[][] speichern_h(){
 }
 
 //Speichern der Tabelle protokoll in ein Vector
-public Vector<String> speichern_p()
+public Vector<Vector> speichern_p()
 {	
 	
-	Vector <String> protokoll = new Vector<String>();
+	Vector <Vector> protokoll = new Vector<Vector>();
 	try{
 		statement=c.createStatement();
 		String ausgabe=("SELECT Spieler, E1,X1,Y1,E2,X2,Y2,muehle,GeloeschterStein FROM protokoll ");
 		ResultSet result=statement.executeQuery(ausgabe);
 		
 		while(result.next()){						
-							
+			Vector<String>row=new Vector<String>();				
 				    	  
 	    	String Spieler=result.getString("Spieler");	    	  
 	    	String E1=result.getString("E1");
@@ -145,11 +145,12 @@ public Vector<String> speichern_p()
 	    	String muehle=result.getString("muehle");
 	    	String GeloeschterStein=result.getString("GeloeschterStein");
 	    	
-	    	protokoll.addElement(Spieler);
-	    	protokoll.addElement(vonKord);
-	    	protokoll.addElement(nachKord);
-	    	protokoll.addElement(muehle);
-	    	protokoll.addElement(GeloeschterStein);
+	    	row.addElement(Spieler);
+	    	row.addElement(vonKord);
+	    	row.addElement(nachKord);
+	    	row.addElement(muehle);
+	    	row.addElement(GeloeschterStein);
+	    	protokoll.addElement(row);
 	    	
 	    	
 								 
