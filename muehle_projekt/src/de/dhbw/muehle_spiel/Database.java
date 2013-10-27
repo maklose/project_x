@@ -72,7 +72,7 @@ public void testmethode_h(){
 public void testmethode_p(){
 	try {
     	statement=c.createStatement();	     
-    	String create="INSERT INTO protokoll (Spieler,E1,X1,Y1,E2,X2,Y2,muehle,GeloeschterStein) VALUES('Peter','1','1','2','2','2','3','true','Bernd')";
+    	String create="INSERT INTO protokoll (Spieler,E1,X1,Y1,E2,X2,Y2,muehle,GeloeschterStein) VALUES('Stefan','1','1','2','2','2','3','true','Bernd')";
     	
     	
 	    statement.executeUpdate(create);
@@ -120,14 +120,14 @@ public String[][] speichern_h(){
 	return highscore;
 }
 
-//Speichern der Tabelle protokoll in ein 2-dimensionales Array, abhängig von der übergebenen PartieID
-public Vector<String> speichern_p(int partie)
+//Speichern der Tabelle protokoll in ein Vector
+public Vector<String> speichern_p()
 {	
 	
 	Vector <String> protokoll = new Vector<String>();
 	try{
 		statement=c.createStatement();
-		String ausgabe=("SELECT Spieler, E1,X1,Y1,E2,X2,Y2,muehle,GeloeschterStein FROM protokoll WHERE PartieID='"+partie+"'");
+		String ausgabe=("SELECT Spieler, E1,X1,Y1,E2,X2,Y2,muehle,GeloeschterStein FROM protokoll ");
 		ResultSet result=statement.executeQuery(ausgabe);
 		
 		while(result.next()){						
@@ -144,6 +144,7 @@ public Vector<String> speichern_p(int partie)
 	    	String nachKord=E2+","+X2+","+Y2;
 	    	String muehle=result.getString("muehle");
 	    	String GeloeschterStein=result.getString("GeloeschterStein");
+	    	
 	    	protokoll.addElement(Spieler);
 	    	protokoll.addElement(vonKord);
 	    	protokoll.addElement(nachKord);
@@ -259,7 +260,7 @@ public void erzeugetb(String tabelle){
 		    	try {
 				    statement=c.createStatement();	     
 				    String create="CREATE TABLE protokoll(ID INTEGER PRIMARY KEY AUTOINCREMENT,"
-				    			+ "PartieID INTEGER"
+				    			+ "PartieID INTEGER,"
 				    			+ "Spieler varChar(10),"
 				    			+ "E1 varChar(10), X1 varChar(10), Y1 varChar(10), "
 				    			+ "E2 varChar(10), X2 varChar(10), Y2 varChar(10), "

@@ -17,7 +17,7 @@ import de.dhbw.muehle_spiel.Database;
 
 public class Spielverlauf extends JFrame {
 		private JTable table;
-	int Partie;
+	
 	Database db=new Database();
 
 	/**
@@ -56,7 +56,7 @@ public class Spielverlauf extends JFrame {
 		SpaltenName.add("Muehle");
 		SpaltenName.add("Gelöschter Stein");
 		
-		Vector <String> protokoll=db.speichern_p(Partie);
+		Vector <String> protokoll=db.speichern_p();
 		table = new JTable();
 		table.setModel(new DefaultTableModel(protokoll, SpaltenName));
 		scrollPane.setViewportView(table);
