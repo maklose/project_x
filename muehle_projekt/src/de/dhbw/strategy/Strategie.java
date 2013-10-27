@@ -405,7 +405,7 @@ List<ISpielstein> SpielFeld;
 		}			
 	}
 		
-		return (minWert * -1);
+		return minWert;
 	}
 	
 	//wird aufgerufen, um die gewählte Bewegung festzulegen
