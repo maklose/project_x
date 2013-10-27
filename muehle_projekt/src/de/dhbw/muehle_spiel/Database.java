@@ -70,7 +70,7 @@ public void testmethode_h(){
 
 //Speichern der ersten 10 Züge und Spielernamen in ein 2-dimensionales Array
 public String[][] speichern_h(){
-	String [][] highscore=new String[10][2];
+	String [][] highscore=new String[10][3];
 	
 		try{
 			statement=c.createStatement();
@@ -86,8 +86,11 @@ public String[][] speichern_h(){
 					String zuege=züge_2.toString();
 					
 					String spielername=result.getString("Spielername");
-					highscore[i][0]=zuege;
-					highscore[i][1]=spielername;
+					Integer p=new Integer(i+1);
+					String f=p.toString();
+					highscore[i][0]=f;
+					highscore[i][1]=zuege;
+					highscore[i][2]=spielername;
 					}
 				
 								 
@@ -109,7 +112,7 @@ public Vector speichern_p(int partie)
 		statement=c.createStatement();
 		String ausgabe=("SELECT Spieler, E1,X1,Y1,E2,X2,Y2,muehle,GeloeschterStein FROM protokoll WHERE PartieID='"+partie+"'");
 		ResultSet result=statement.executeQuery(ausgabe);
-		
+		int i=0;
 		while(result.next()){						
 							
 			int zugID = result.getInt("ID");	    	  
@@ -120,8 +123,17 @@ public Vector speichern_p(int partie)
 	    	String E2=result.getString("E2");
 	    	String X2=result.getString("X2");
 	    	String Y2=result.getString("Y2");
+	    	String vonKord=E1+","+X1+","+Y1;
+	    	String nachKord=E2+","+X2+","+Y2;
 	    	String muehle=result.getString("muehle");
 	    	String GeloeschterStein=result.getString("GeloeschterStein");
+	    	protokoll.add(i,Spieler);
+	    	protokoll.add(i,vonKord);
+	    	protokoll.add(i,nachKord);
+	    	protokoll.add(i,muehle);
+	    	protokoll.add(i,GeloeschterStein);
+	    	i++;
+	    	
 								 
 		}
 		

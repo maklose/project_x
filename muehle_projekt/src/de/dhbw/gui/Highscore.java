@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 import de.dhbw.muehle_spiel.Database;
 
-public class Highscore1 extends JFrame {
+public class Highscore extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
@@ -40,7 +40,7 @@ public class Highscore1 extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Highscore1() {
+	public Highscore() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Dispose on close?
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -50,17 +50,9 @@ public class Highscore1 extends JFrame {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);
-		
 		String[][]highscore=db.speichern_h();
-		for(int i=0; i<10; i++){
-			highscore[i][2]=highscore[i][1];
-			highscore[i][1]=highscore[i][0];
-			Integer p=new Integer(i+1);
-			String f=p.toString();
-			highscore[i][0]=f;
-			
-		}
 		
+				
 		String[]SpaltenName={"Rang","Anzahl Züge","Spieler"};
 		
 		

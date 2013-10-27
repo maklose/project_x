@@ -11,9 +11,12 @@ import javax.swing.JScrollBar;
 import javax.swing.JTable;
 import javax.swing.BoxLayout;
 import javax.swing.table.DefaultTableModel;
+import de.dhbw.muehle_spiel.Database;
 
 public class Spielverlauf extends JFrame {
 	private JTable table;
+	int Partie;
+	Database db=new Database();
 
 	/**
 	 * Launch the application.
@@ -44,32 +47,11 @@ public class Spielverlauf extends JFrame {
 		
 		JScrollBar scrollbar = new JScrollBar ();
 		scrollPane.add(scrollbar);
-		
+		Vector SpaltenName={"Spieler", "Von", "Nach", "Muehle", "Gelöschter Stein"};
+		String [][]protokoll=db.speichern_p(Partie);
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"Spieler", "E1", "X1", "Y1", "E2", "X2", "Y2", "Mühle", "Gelöschter Stein"
-			}
+		
 		));
 		scrollPane.setViewportView(table);
 	}
