@@ -327,7 +327,7 @@ public class DialogOptionen2 extends JDialog {
 								final Spielfeld neuesSpielfeld = new Spielfeld(name1, name2, i, gSchwierigkeit, gThema);
 								neuesSpielfeld.addWindowListener(new WindowAdapter() {
 														public void windowClosing(WindowEvent evt) {
-														Spielfeld.exitForm(evt, neuesSpielfeld);}});
+														Spielfeld.exitForm(evt, neuesSpielfeld, 0);}});
 								neuesSpielfeld.setVisible(true);
 								Spielfeld.neueMeldung(3, "Neues Spiel - " + name1 + " beginnt!");
 								dispose();

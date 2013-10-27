@@ -5,13 +5,19 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.GridBagLayout;
+
 import javax.swing.JTable;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
 import javax.swing.table.DefaultTableModel;
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
 
 import de.dhbw.muehle_spiel.Database;
