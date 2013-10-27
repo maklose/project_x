@@ -53,6 +53,7 @@ public class Highscore1 extends JFrame {
 		
 		String[][]highscore=db.speichern_h();
 		String[]SpaltenName={"Anzahl Züge","Spieler"};
+	
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(highscore, SpaltenName));
