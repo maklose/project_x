@@ -187,7 +187,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 			{
 				try 
 				{
-					final Spielfeld frame = new Spielfeld("Stefan", "Georg", 2,1, 1); 
+					final Spielfeld frame = new Spielfeld("Stefan", "Georg", 2,2, 1); 
 					frame.addWindowListener(new WindowAdapter() {
 											public void windowClosing(WindowEvent evt) {
 											Spielfeld.exitForm(evt, frame, frame.getAnzahlFensterSchlieﬂen());}});

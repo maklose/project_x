@@ -363,7 +363,7 @@ List<ISpielstein> SpielFeld;
 	double minWert= 2;
 	double wert;
 		
-	if(lanzahlZuege >= 18){  // Ziehen und Springen Phase
+	if(lanzahlZuege > 18){  // Ziehen und Springen Phase
 	for(int i = 0; i < spieler2.getAnzahlSteine(); i++){	
 		
 		moeglBewegungen = getMoeglicheBewegungen(SpielFeld, spieler2.Steine[i], lanzahlZuege);
