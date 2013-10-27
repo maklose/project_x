@@ -2,6 +2,7 @@ package de.dhbw.gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -11,10 +12,11 @@ import javax.swing.JScrollBar;
 import javax.swing.JTable;
 import javax.swing.BoxLayout;
 import javax.swing.table.DefaultTableModel;
+
 import de.dhbw.muehle_spiel.Database;
 
 public class Spielverlauf extends JFrame {
-	private JTable table;
+		private JTable table;
 	int Partie;
 	Database db=new Database();
 
@@ -47,12 +49,16 @@ public class Spielverlauf extends JFrame {
 		
 		JScrollBar scrollbar = new JScrollBar ();
 		scrollPane.add(scrollbar);
-		Vector SpaltenName={"Spieler", "Von", "Nach", "Muehle", "Gelöschter Stein"};
-		String [][]protokoll=db.speichern_p(Partie);
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
+		Vector <String>SpaltenName=new Vector<String>();
+		SpaltenName.add("Spieler");
+		SpaltenName.add("Von");
+		SpaltenName.add("Nach");
+		SpaltenName.add("Muehle");
+		SpaltenName.add("Gelöschter Stein");
 		
-		));
+		Vector <String> protokoll=db.speichern_p(Partie);
+		table = new JTable();
+		table.setModel(new DefaultTableModel(protokoll, SpaltenName));
 		scrollPane.setViewportView(table);
 	}
 	

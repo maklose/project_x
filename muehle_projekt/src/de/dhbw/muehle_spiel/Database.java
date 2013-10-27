@@ -68,6 +68,23 @@ public void testmethode_h(){
 	}
 }
 
+//Befüllen der Tabelle protokoll mit Beispielen
+public void testmethode_p(){
+	try {
+    	statement=c.createStatement();	     
+    	String create="INSERT INTO protokoll (Spieler,E1,X1,Y1,E2,X2,Y2,muehle,GeloeschterStein) VALUES('Peter','1','1','2','2','2','3','true','Bernd')";
+    	
+    	
+	    statement.executeUpdate(create);
+	  
+	    System.out.println("Die Werte wurden übertragen");	    		  		    
+	    } 
+	catch ( Exception e ) {
+	    	System.err.println(e.getMessage());
+	        System.exit(0);
+	}
+}
+
 //Speichern der ersten 10 Züge und Spielernamen in ein 2-dimensionales Array
 public String[][] speichern_h(){
 	String [][] highscore=new String[10][3];
@@ -104,18 +121,18 @@ public String[][] speichern_h(){
 }
 
 //Speichern der Tabelle protokoll in ein 2-dimensionales Array, abhängig von der übergebenen PartieID
-public Vector speichern_p(int partie)
+public Vector<String> speichern_p(int partie)
 {	
 	
-	Vector protokoll = null;
+	Vector <String> protokoll = new Vector<String>();
 	try{
 		statement=c.createStatement();
 		String ausgabe=("SELECT Spieler, E1,X1,Y1,E2,X2,Y2,muehle,GeloeschterStein FROM protokoll WHERE PartieID='"+partie+"'");
 		ResultSet result=statement.executeQuery(ausgabe);
-		int i=0;
+		
 		while(result.next()){						
 							
-			int zugID = result.getInt("ID");	    	  
+				    	  
 	    	String Spieler=result.getString("Spieler");	    	  
 	    	String E1=result.getString("E1");
 	    	String X1=result.getString("X1");
@@ -127,12 +144,12 @@ public Vector speichern_p(int partie)
 	    	String nachKord=E2+","+X2+","+Y2;
 	    	String muehle=result.getString("muehle");
 	    	String GeloeschterStein=result.getString("GeloeschterStein");
-	    	protokoll.add(i,Spieler);
-	    	protokoll.add(i,vonKord);
-	    	protokoll.add(i,nachKord);
-	    	protokoll.add(i,muehle);
-	    	protokoll.add(i,GeloeschterStein);
-	    	i++;
+	    	protokoll.addElement(Spieler);
+	    	protokoll.addElement(vonKord);
+	    	protokoll.addElement(nachKord);
+	    	protokoll.addElement(muehle);
+	    	protokoll.addElement(GeloeschterStein);
+	    	
 	    	
 								 
 		}
