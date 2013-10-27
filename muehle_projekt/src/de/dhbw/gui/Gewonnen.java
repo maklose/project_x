@@ -156,6 +156,12 @@ public class Gewonnen extends JDialog {
 				g.drawImage(new ImageIcon(Empfangsgui2.class.getResource("/de/dhbw/images/Button Spielverlauf.PNG")).getImage(), 0, 0, getWidth(), getHeight(), this);//neuer Button "Spielstand anzeigen" einfügen
 			};
 		};
+		btnSpielverlauf.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//JFrame spielverlauf = new Spielverlauf ();
+				//spielverlauf.setVisible(true);
+			}
+		});
 		GridBagConstraints gbc_btnSpielverlauf = new GridBagConstraints();
 		gbc_btnSpielverlauf.insets = new Insets(0, 0, 5, 5);
 		gbc_btnSpielverlauf.fill = GridBagConstraints.BOTH;

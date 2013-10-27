@@ -69,7 +69,7 @@ List<ISpielstein> SpielFeld;
 		else{
 		bewertung = max(tiefe, null, anzahlZuege );
 		anzahlZuege += 2;	
-		zug = new Spielzug(new Spielstein(farbe, bewegung.getNach(), 0, 0, 0));
+		zug = new Spielzug(bewegung);
 		}
 		return zug;
 	}
