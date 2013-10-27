@@ -258,6 +258,7 @@ List<ISpielstein> SpielFeld;
 			wert= min((ltiefe - 1), moeglBewegungen.get(j), (lanzahlZuege + 1));
 			
 			//Bewegung rückgängig machen
+			
 			for(int k = 0; i < SpielFeld.size(); k++){
 				if(SpielFeld.get(k).getPosition() == bewegung.getNach())
 					SpielFeld.set(k, new Spielstein(spieler2.getSpielerfarbe(), bewegung.getVon(), 0,0,0));
@@ -280,7 +281,7 @@ List<ISpielstein> SpielFeld;
 			wert= min((ltiefe - 1) , moeglBewegungen.get(j), (lanzahlZuege + 1));
 			
 			// Bewegung rückgängig machen
-			if(SpielFeld.size() > 0)
+			if((SpielFeld.size() > 0) && (ltiefe > 1))
 			SpielFeld.remove(SpielFeld.size() - 1 );	
 					
 			if( wert > maxWert){
@@ -396,6 +397,7 @@ List<ISpielstein> SpielFeld;
 			
 			//Bewegung rückgängig machen
 //			if(lanzahlZuege < 18){
+				if(ltiefe > 1)
 				SpielFeld.remove(SpielFeld.size() - 1 );	
 //			}
 			

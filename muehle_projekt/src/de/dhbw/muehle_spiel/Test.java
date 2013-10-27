@@ -87,7 +87,7 @@ public class Test {
 		
 		List<ISpielstein> p_SpielFeld = new ArrayList<ISpielstein>();
 //		List<Bewegung> moeglBewegungen = new ArrayList<Bewegung>();
-		Strategie s = new Strategie();
+		Strategie s = new Strategie(3);
 		s.startePartie(ESpielsteinFarbe.WEISS);
 		s.bewegeStein(p_SpielFeld);
 		
