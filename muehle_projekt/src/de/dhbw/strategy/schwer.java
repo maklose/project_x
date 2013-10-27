@@ -52,7 +52,7 @@ public class schwer implements IStrategie{
 		
 		//Spielstein setzen
 		if(anzahlZuege < 18){
-		double wert = minmax(p_SpielFeld, tiefe, anzahlZuege );
+		//double wert = minmax(p_SpielFeld, tiefe, anzahlZuege );
 		zug = new Spielzug(new Spielstein(farbe, bewegung.getNach(), 0, 0, 0));	
 		
 		anzahlZuege += 2;	
