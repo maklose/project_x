@@ -187,7 +187,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 			{
 				try 
 				{
-					final Spielfeld frame = new Spielfeld("Stefan", "Georg", 2,3, 1); 
+					final Spielfeld frame = new Spielfeld("Stefan", "Georg", 2,1, 1); 
 					frame.addWindowListener(new WindowAdapter() {
 											public void windowClosing(WindowEvent evt) {
 											Spielfeld.exitForm(evt, frame, frame.getAnzahlFensterSchlieﬂen());}});
@@ -1046,7 +1046,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 							
 			//				IBewegung neueIBewegung = neuerZug.bewegeSpielStein();
 			//				Bewegung neueBewegung1, neueBewegung2;
-							if(Spieler1.getPhase() == EPhase.Setzen)
+							if(Spieler2.getPhase() == EPhase.Setzen)
 							{
 								ISpielstein spielstein = neuerZug.getNeuenSpielstein();
 								Position spielsteinPos = spielstein.getPosition();
