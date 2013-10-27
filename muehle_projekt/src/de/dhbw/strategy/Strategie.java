@@ -392,9 +392,9 @@ List<ISpielstein> SpielFeld;
 			wert= max((ltiefe - 1) , moeglBewegungen.get(j), (lanzahlZuege + 1));
 			
 			//Bewegung rückgängig machen
-			if(lanzahlZuege < 18){
+//			if(lanzahlZuege < 18){
 				SpielFeld.remove(SpielFeld.size() - 1 );	
-			}
+//			}
 			
 			if( wert < minWert){
 				minWert = wert;	
