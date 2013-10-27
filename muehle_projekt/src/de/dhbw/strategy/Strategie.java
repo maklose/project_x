@@ -322,7 +322,7 @@ List<ISpielstein> SpielFeld;
 
 	else{
 	//Position ändern, wenn Spielstein geschoben wurde/gesprungen ist
-		for(int i= 0; i <= SpielFeld.size(); i++){
+		for(int i= 0; i < SpielFeld.size(); i++){
 			if(SpielFeld.get(i).getPosition() == bewegung.getVon()){
 			SpielFeld.set(i, new Spielstein(spieler2.getSpielerfarbe(), bewegung.getNach(), 0,0,0));
 			}			
