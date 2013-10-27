@@ -201,33 +201,34 @@ List<ISpielstein> SpielFeld;
 	Spieler spieler1 = new Spieler(farbe, "");
 	Spieler spieler2 = new Spieler(farbeSpieler2, "");
 	
-	
-	if((lanzahlZuege - anzahlZuege) > 0 ){
-		//ISpielstein an  Feld anfügen, wenn Stein neu auf das Feld gesetzt wurde
-		if(lanzahlZuege < 18){
-		SpielFeld.add(new Spielstein(spieler2.getSpielerfarbe(), bewegung.getNach(), 0,0,0));	
-		}
-	
-	else{
-		//Position ändern, wenn Spielstein geschoben wurde/gesprungen ist
-		for(int i= 0; i < SpielFeld.size(); i++){
-			if(SpielFeld.get(i).getPosition() == bewegung.getVon()){
-			SpielFeld.set(i, new Spielstein(spieler1.getSpielerfarbe(), bewegung.getNach(), 0,0,0));
+	if(ltiefe != 0){
+		if((lanzahlZuege - anzahlZuege) > 0 ){
+			//ISpielstein an  Feld anfügen, wenn Stein neu auf das Feld gesetzt wurde
+			if(lanzahlZuege < 18){
+			SpielFeld.add(new Spielstein(spieler2.getSpielerfarbe(), bewegung.getNach(), 0,0,0));	
+			}
+		
+		else{
+			//Position ändern, wenn Spielstein geschoben wurde/gesprungen ist
+			for(int i= 0; i < SpielFeld.size(); i++){
+				if(SpielFeld.get(i).getPosition() == bewegung.getVon()){
+				SpielFeld.set(i, new Spielstein(spieler1.getSpielerfarbe(), bewegung.getNach(), 0,0,0));
+				}
 			}
 		}
-	}
-	//Erzeugung der Spielsteine des KI Spielers, die in p_Spielfeld vorhanden sind
-	for(ISpielstein s: SpielFeld){
-			if(s.getFarbe() == farbe)
-			{
-				spieler1.setzeSpielstein(s.getPosition(), 0, 0);
-			}
-			else
-			{
-				spieler2.setzeSpielstein(s.getPosition(),0,0);
+		//Erzeugung der Spielsteine des KI Spielers, die in p_Spielfeld vorhanden sind
+		for(ISpielstein s: SpielFeld){
+				if(s.getFarbe() == farbe)
+				{
+					spieler1.setzeSpielstein(s.getPosition(), 0, 0);
+				}
+				else
+				{
+					spieler2.setzeSpielstein(s.getPosition(),0,0);
+				}
 			}
 		}
-}	
+	}	
 	
 	Pruefung pruef = new Pruefung();
 	
@@ -287,7 +288,7 @@ List<ISpielstein> SpielFeld;
 //				System.out.println(maxWert);
 //				System.out.println(moeglBewegungen.get(j).toString());
 				if(ltiefe == tiefe){
-				System.out.println(wert);	
+				System.out.println(wert + "Anzahl Elemente in SpielFeld: " + SpielFeld.size());
 				ergebnis(moeglBewegungen.get(j));
 				}
 			}
@@ -315,32 +316,33 @@ List<ISpielstein> SpielFeld;
 //	//neues Spielfeld erzeugen
 //	List<ISpielstein> neuesSpielFeld = SpielFeld;
 	
-	//ISpielstein an  Feld anfügen, wenn Stein neu gesetzt wurde
-	if(lanzahlZuege < 18){
-		SpielFeld.add(new Spielstein(spieler1.getSpielerfarbe(), bewegung.getNach(), 0,0,0));	
-		}
-
-	else{
-	//Position ändern, wenn Spielstein geschoben wurde/gesprungen ist
-		for(int i= 0; i < SpielFeld.size(); i++){
-			if(SpielFeld.get(i).getPosition() == bewegung.getVon()){
-			SpielFeld.set(i, new Spielstein(spieler2.getSpielerfarbe(), bewegung.getNach(), 0,0,0));
-			}			
-		}
-	}
-	//Erzeugung der Spielsteine des KI Gegners, die in SpielFeld vorhanden sind
-	for(ISpielstein s: SpielFeld){
-			if(s.getFarbe() == farbe)
-			{
-				spieler1.setzeSpielstein(s.getPosition(), 0, 0);
+	if(ltiefe != 0){
+		//ISpielstein an  Feld anfügen, wenn Stein neu gesetzt wurde
+		if(lanzahlZuege < 18){
+			SpielFeld.add(new Spielstein(spieler1.getSpielerfarbe(), bewegung.getNach(), 0,0,0));	
 			}
-			else
-			{
-				spieler2.setzeSpielstein(s.getPosition(),0,0);
+	
+		else{
+		//Position ändern, wenn Spielstein geschoben wurde/gesprungen ist
+			for(int i= 0; i < SpielFeld.size(); i++){
+				if(SpielFeld.get(i).getPosition() == bewegung.getVon()){
+				SpielFeld.set(i, new Spielstein(spieler2.getSpielerfarbe(), bewegung.getNach(), 0,0,0));
+				}			
 			}
 		}
-		
-		
+		//Erzeugung der Spielsteine des KI Gegners, die in SpielFeld vorhanden sind
+		for(ISpielstein s: SpielFeld){
+				if(s.getFarbe() == farbe)
+				{
+					spieler1.setzeSpielstein(s.getPosition(), 0, 0);
+				}
+				else
+				{
+					spieler2.setzeSpielstein(s.getPosition(),0,0);
+				}
+			}
+	}	
+	
 	Pruefung pruef = new Pruefung();
 		
 	// Wenn die tiefe 0 ist oder das Spielbeendet ist, wird die Beweertung des Spielzugs geholt
