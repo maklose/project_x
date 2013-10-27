@@ -109,7 +109,7 @@ List<ISpielstein> SpielFeld;
 	Pruefung pruef = new Pruefung();
 	
 	// alle Mögliche Positionen, auf die ein Stein gesetzt werden darf
-	if(lanzahlZuege < 9){
+	if(lanzahlZuege <= 18){
 		for( int i = 0; i< 3; i++){
 			if(i == 0)
 				ebene = ebene.Eins;
