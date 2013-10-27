@@ -235,7 +235,7 @@ List<ISpielstein> SpielFeld;
 	if(ltiefe == 0 || pruef.checkSpielBeendet(spieler1, spieler2) == true)
 	{
 	Bewertung bewertung = new Bewertung();	
-	return bewertung.bewerteZug(SpielFeld, bewegung, lanzahlZuege);
+	return (bewertung.bewerteZug(SpielFeld, bewegung, lanzahlZuege) *-1);
 	}	
 		
 	List<Bewegung> moeglBewegungen = new ArrayList<Bewegung>();
@@ -342,7 +342,7 @@ List<ISpielstein> SpielFeld;
 	if(ltiefe == 0 || pruef.checkSpielBeendet(spieler2, spieler1) == true)
 	{
 	Bewertung bewertung = new Bewertung();	
-	return bewertung.bewerteZug(SpielFeld, bewegung, lanzahlZuege);
+	return (bewertung.bewerteZug(SpielFeld, bewegung, lanzahlZuege)*-1);
 	}	
 			
 	List<Bewegung> moeglBewegungen = new ArrayList<Bewegung>();
