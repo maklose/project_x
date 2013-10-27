@@ -63,7 +63,7 @@ List<ISpielstein> SpielFeld;
 		bewertung = max(tiefe, null, anzahlZuege);
 		anzahlZuege +=2;
 //		System.out.println(bewegung.toString());
-//		System.out.println(bewegung + " "  + bewertung);
+		System.out.println(bewegung + " "  + bewertung);
 		zug = new Spielzug(new Spielstein(farbe, bewegung.getNach(),0,0,0));
 		}
 		else{
@@ -235,10 +235,10 @@ List<ISpielstein> SpielFeld;
 	if(ltiefe == 0 || pruef.checkSpielBeendet(spieler1, spieler2) == true)
 	{
 	Bewertung bewertung = new Bewertung();	
-	for(ISpielstein s: SpielFeld){
-		System.out.print(s.getPosition().toString() + " ");
-	}
-	System.out.println();
+//	for(ISpielstein s: SpielFeld){
+//		System.out.print(s.getPosition().toString() + " ");
+//	}
+//	System.out.println();
 	return (bewertung.bewerteZug(SpielFeld, bewegung, lanzahlZuege) *-1);
 	}	
 		
@@ -347,10 +347,10 @@ List<ISpielstein> SpielFeld;
 	{
 	Bewertung bewertung = new Bewertung();	
 	
-	for(ISpielstein s: SpielFeld){
-		System.out.print(s.getPosition().toString() + " ");
-	}
-	System.out.println();
+//	for(ISpielstein s: SpielFeld){
+////		System.out.print(s.getPosition().toString() + " ");
+//	}
+////	System.out.println();
 	return bewertung.bewerteZug(SpielFeld, bewegung, lanzahlZuege);
 	}	
 			
