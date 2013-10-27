@@ -187,7 +187,7 @@ public class DialogOptionen2 extends JDialog {
 			//Textfelder zur Eingabe des Spielernamens; zunächst deaktiviert
 			{
 				txtSpieler1 = new JTextField();
-				txtSpieler1.setDocument(new LengthRestrictedDocument(15));
+				txtSpieler1.setDocument(new Inputlimit(15));
 				txtSpieler1.addFocusListener(new FocusAdapter() {
 					@Override
 					public void focusGained(FocusEvent arg0) {
@@ -210,7 +210,7 @@ public class DialogOptionen2 extends JDialog {
 			}
 			{
 				txtSpieler2 = new JTextField();
-				txtSpieler2.setDocument(new LengthRestrictedDocument(15));
+				txtSpieler2.setDocument(new Inputlimit(15));
 				txtSpieler2.addFocusListener(new FocusAdapter() {
 					@Override
 					public void focusGained(FocusEvent e) {
