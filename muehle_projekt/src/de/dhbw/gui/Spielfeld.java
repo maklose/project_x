@@ -187,7 +187,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 			{
 				try 
 				{
-					final Spielfeld frame = new Spielfeld("Stefan", "Georg", 1,3, 1); 
+					final Spielfeld frame = new Spielfeld("Stefan", "Georg", 2,1, 1); 
 					frame.addWindowListener(new WindowAdapter() {
 											public void windowClosing(WindowEvent evt) {
 											Spielfeld.exitForm(evt, frame, frame.getAnzahlFensterSchließen());}});
@@ -1027,52 +1027,92 @@ public class Spielfeld extends JFrame implements ActionListener {
 		 * hier wird der neue Zug der Strategie abgefragt und this.aktion mit dem entsprechenden Button,
 		 * also wo die Strategie hin will, ausgeführt
 		 */
-		new Thread() 
+		if(!hatAltePosition)
 		{
+			new Thread() 
 			{
-				start(); 
-			}
-			public void run()
-			{
-				try 
 				{
-					sleep(2000);
-				
-					if(gMode == 2 && Spieler1.getAnzahlZuege() > Spieler2.getAnzahlZuege())
-					{
-						try 
-						{
-							ISpielzug neuerZug = strategie1.bewegeStein(gSteine);
-							
-			//				IBewegung neueIBewegung = neuerZug.bewegeSpielStein();
-			//				Bewegung neueBewegung1, neueBewegung2;
-							if(Spieler2.getPhase() == EPhase.Setzen)
-							{
-								ISpielstein spielstein = neuerZug.getNeuenSpielstein();
-								Position spielsteinPos = spielstein.getPosition();
-								Bewegung neueBewegung = new Bewegung(null, spielsteinPos);
-								Spielfeld.bewegungInButtons(neueBewegung);
-							}
-							else
-							{
-			//					neueBewegung2 = new Bewegung(neueIBewegung.altePosition(), neueIBewegung.neuePosition());
-			//					Spielfeld.bewegungInButtons(neueBewegung2);
-							}
-							
-						} 
-						catch (StrategieException e1) 
-						{
-							e1.printStackTrace();
-						}
-					}
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					start(); 
 				}
-			}
-		};
+				public void run()
+				{
+					try 
+					{
+						sleep(2000);
+					
+						if(gMode == 2 && Spieler1.getAnzahlZuege() > Spieler2.getAnzahlZuege() && Spieler2.getAnzahlZuege() <= 9) // erste Phase
+						{
+							try 
+							{
+								ISpielzug neuerZug = strategie1.bewegeStein(gSteine);
+								
+				//				IBewegung neueIBewegung = neuerZug.bewegeSpielStein();
+				//				Bewegung neueBewegung1, neueBewegung2;
+								if(Spieler2.getPhase() == EPhase.Setzen)
+								{
+									ISpielstein spielstein = neuerZug.getNeuenSpielstein();
+									Position spielsteinPos = spielstein.getPosition();
+									Bewegung neueBewegung = new Bewegung(null, spielsteinPos);
+									Spielfeld.bewegungInButtons(neueBewegung);
+								}
+								else
+								{
+	//								neueBewegung2 = new Bewegung(neueIBewegung.altePosition(), neueIBewegung.neuePosition());
+	//								Spielfeld.bewegungInButtons(neueBewegung2);
+								}
+								
+							} 
+							catch (StrategieException e1) 
+							{
+								e1.printStackTrace();
+							}
+						}
+						else if(gMode == 2 && Spieler1.getAnzahlZuege() > Spieler2.getAnzahlZuege() && Spieler2.getAnzahlZuege() > 9) // zweite Phase
+						{
+							try 
+							{
+								ISpielzug neuerZug = strategie1.bewegeStein(gSteine);
+								
+				//				IBewegung neueIBewegung = neuerZug.bewegeSpielStein();
+				//				Bewegung neueBewegung1, neueBewegung2;
+								if(Spieler2.getPhase() == EPhase.Setzen)
+								{
+									IBewegung neueIBewegung = neuerZug.bewegeSpielStein();
+									Bewegung neueBewegung = new Bewegung(neueIBewegung.altePosition(), neueIBewegung.neuePosition());
+									Spielfeld.bewegungInButtons(neueBewegung);
+								}
+								else
+								{
+	//								neueBewegung2 = new Bewegung(neueIBewegung.altePosition(), neueIBewegung.neuePosition());
+	//								Spielfeld.bewegungInButtons(neueBewegung2);
+								}
+								
+							} 
+							catch (StrategieException e1) 
+							{
+								e1.printStackTrace();
+							}
+						}
+						
+						sleep(3000);
+						
+						if(gMode == 2 && Spieler1.getAnzahlZuege() == Spieler2.getAnzahlZuege() && hatMuehle)
+						{
+							ISpielstein zuLoeschenderStein = strategie1.entferneStein(gSteine, null);
+							Bewegung neueBewegung = new Bewegung(null, zuLoeschenderStein.getPosition());
+							Spielfeld.bewegungInButtons(neueBewegung);
+							
+							sleep(3000);
+						}
+						
+					} catch (InterruptedException | StrategieException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			};
 		
-		
+		}
 		
 		/*
 		 * MODUS 3: Pc GEGEN Pc
