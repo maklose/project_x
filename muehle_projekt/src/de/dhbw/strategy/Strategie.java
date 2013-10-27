@@ -423,7 +423,7 @@ List<ISpielstein> SpielFeld;
 	@Override
 	public ISpielstein entferneStein(List<ISpielstein> p_SpielFeld, ISpielzug p_LetzterSpielzug) throws StrategieException {
 	
-	ISpielstein SteinEntfernen;	
+	ISpielstein SteinEntfernen = null;	
 		
 	ESpielsteinFarbe farbeSpieler2;
 	boolean aufLinie;
