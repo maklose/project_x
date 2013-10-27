@@ -63,7 +63,7 @@ List<ISpielstein> SpielFeld;
 		bewertung = max(tiefe, null, anzahlZuege);
 		anzahlZuege +=2;
 //		System.out.println(bewegung.toString());
-		System.out.println(bewegung + " "  + bewertung);
+//		System.out.println(bewegung + " "  + bewertung);
 		zug = new Spielzug(new Spielstein(farbe, bewegung.getNach(),0,0,0));
 		}
 		else{
