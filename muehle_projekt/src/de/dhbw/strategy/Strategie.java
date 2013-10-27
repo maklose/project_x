@@ -248,7 +248,7 @@ List<ISpielstein> SpielFeld;
 	double maxWert= -2;
 	double wert;
 	
-	if(lanzahlZuege >= 18){ // ziehen und springen Phase
+	if(lanzahlZuege > 18){ // ziehen und springen Phase
 	
 	for(int i = 0; i < spieler1.getAnzahlSteine(); i++){	
 	
@@ -259,8 +259,8 @@ List<ISpielstein> SpielFeld;
 			//test
 			//Bewegung rückgängig machen
 			
-			for(int k = 0; i < SpielFeld.size(); k++){
-				if(SpielFeld.get(k).getPosition() == bewegung.getNach())
+			for(int k = 0; k < SpielFeld.size(); k++){
+				if(SpielFeld.get(k).getPosition() == moeglBewegungen.get(j).getVon())
 					SpielFeld.set(k, new Spielstein(spieler2.getSpielerfarbe(), bewegung.getVon(), 0,0,0));
 			}
 			
@@ -372,8 +372,8 @@ List<ISpielstein> SpielFeld;
 			wert= max((ltiefe - 1) , moeglBewegungen.get(j), (lanzahlZuege + 1));
 			
 			// Bewegung rückgängig machen			
-			for(int k = 0; i < SpielFeld.size(); k++){
-				if(SpielFeld.get(k).getPosition() == bewegung.getNach()){
+			for(int k = 0; k < SpielFeld.size(); k++){
+				if(SpielFeld.get(k).getPosition() == moeglBewegungen.get(j).getVon()){
 					SpielFeld.set(k, new Spielstein(spieler1.getSpielerfarbe(), bewegung.getVon(), 0,0,0));
 				}
 			}

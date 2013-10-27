@@ -187,7 +187,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 			{
 				try 
 				{
-					final Spielfeld frame = new Spielfeld("Stefan", "Georg", 2,2, 1); 
+					final Spielfeld frame = new Spielfeld("Stefan", "Georg", 1,3, 1); 
 					frame.addWindowListener(new WindowAdapter() {
 											public void windowClosing(WindowEvent evt) {
 											Spielfeld.exitForm(evt, frame, frame.getAnzahlFensterSchließen());}});
@@ -1109,6 +1109,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				}
 			};
 		}
+	
 	}
 		
 	
@@ -1545,6 +1546,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		gSteine.add(lSpieler.getSpielstein(anzahlRunden));
 //		System.out.println(gSteine);
 		
+		
 		//Ausgabe der Bewertung des Zuges ZUM TEST
 //		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung, aktuellerSpieler.getAnzahlZuege()));
 	}
@@ -1579,6 +1581,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 		//Stein wird aus dem SpielfeldArray gelöscht
 		SpielfeldArray[e][x][y] = null;
+		
 		
 		//Ausgabe der Bewertung des Zuges ZUM TEST
 //		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung, aktuellerSpieler.getAnzahlZuege()));
