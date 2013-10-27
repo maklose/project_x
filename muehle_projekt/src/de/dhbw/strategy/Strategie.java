@@ -256,7 +256,7 @@ List<ISpielstein> SpielFeld;
 		for(int j = 0; j < moeglBewegungen.size();j++){	
 			//Rekursion
 			wert= min((ltiefe - 1), moeglBewegungen.get(j), (lanzahlZuege + 1));
-			
+			//test
 			//Bewegung rückgängig machen
 			
 			for(int k = 0; i < SpielFeld.size(); k++){
