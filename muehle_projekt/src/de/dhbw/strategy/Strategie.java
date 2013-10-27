@@ -52,7 +52,7 @@ List<ISpielstein> SpielFeld;
 		if(p_SpielFeld.size() == 0){
 			anzahlZuege = 0;
 		}
-		else{
+		else if (p_SpielFeld.size() == 1){
 			anzahlZuege = 1;
 		}
 		
