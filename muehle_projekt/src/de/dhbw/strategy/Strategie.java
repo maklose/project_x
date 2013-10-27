@@ -202,7 +202,7 @@ List<ISpielstein> SpielFeld;
 	Spieler spieler2 = new Spieler(farbeSpieler2, "");
 	
 	
-	if(lanzahlZuege > 1 ){
+	if((lanzahlZuege - anzahlZuege) > 0 ){
 		//ISpielstein an  Feld anfügen, wenn Stein neu auf das Feld gesetzt wurde
 		if(lanzahlZuege < 18){
 		SpielFeld.add(new Spielstein(spieler2.getSpielerfarbe(), bewegung.getNach(), 0,0,0));	
