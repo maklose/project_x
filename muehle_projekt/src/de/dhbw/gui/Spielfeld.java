@@ -323,12 +323,9 @@ public class Spielfeld extends JFrame implements ActionListener {
 //				JFrame neuesSpiel = null;
 				try 
 				{
-					final Spielfeld frame = new Spielfeld("Stefan", "Georg", 1, 5, 1);
-					frame.addWindowListener(new WindowAdapter() {
-											public void windowClosing(WindowEvent evt) {
-											Spielfeld.exitForm(evt, frame, frame.getAnzahlFensterSchlieﬂen());}});
-					frame.setVisible(true);
-					Spielfeld.neueMeldung(frame.wichtigeMeldungsZeit, frame.textNeuesSpiel);
+					dispose();
+					JDialog optionenAuswahl = new DialogOptionen2(nameSpieler1, nameSpieler2, gMode, gSchwierigkeit, gTheme);
+					optionenAuswahl.setVisible(true);
 				} catch (Exception e1) 
 				{
 					e1.printStackTrace();
