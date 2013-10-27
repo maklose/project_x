@@ -31,7 +31,7 @@ public class Bewertung
 	double b1Muehle = 0.2;
 	double b1Doppelangriff = 0.35;
 	double b1DoppelangriffIn2 = 0.25;
-	double b1StrategischePunkte = 0.1;
+	double b1StrategischePunkte = 0.01;
 	double b1MuehleBewachen = 0;
 	
 	//Phase Bewegen
@@ -53,11 +53,18 @@ public class Bewertung
 		von = lBewegung.getVon();
 		nach = lBewegung.getNach();
 		lSteine = p_SpielFeld;
-		for(ISpielstein Stein : p_SpielFeld)
-		{
-			if(Stein.getPosition().equals(lBewegung.getNach()))
-					bewegterStein = Stein;
-		}
+//		for(ISpielstein Stein : p_SpielFeld)
+//		{
+//			if(Stein.getPosition().equals(lBewegung.getNach()))
+//					bewegterStein = Stein;
+//		}
+		ESpielsteinFarbe farbe;
+		if(p_SpielFeld.get(p_SpielFeld.size()-1).getFarbe().equals(ESpielsteinFarbe.WEISS))
+			farbe = ESpielsteinFarbe.SCHWARZ;
+		else
+			farbe = ESpielsteinFarbe.WEISS;
+		
+		Spielstein bewegterStein = new Spielstein(farbe, lBewegung.getNach(), 0, 0, 0);
 		aktuellerSpieler = new Spieler(bewegterStein.getFarbe(), "aktuellerSpielerB");
 		
 		
@@ -857,6 +864,7 @@ public class Bewertung
 		else 
 			return 99;
 	}
+	
 	
 	
 }
