@@ -422,6 +422,8 @@ List<ISpielstein> SpielFeld;
 	
 	@Override
 	public ISpielstein entferneStein(List<ISpielstein> p_SpielFeld, ISpielzug p_LetzterSpielzug) throws StrategieException {
+	
+	ISpielstein SteinEntfernen;	
 		
 	ESpielsteinFarbe farbeSpieler2;
 	boolean aufLinie;
@@ -538,10 +540,13 @@ List<ISpielstein> SpielFeld;
 	
 	//Stein auswählen, der entfernt werden soll
 	if(SteineAufLinie.size() >0){
-		int index = (int)Math.random()
-		SteineAufLinie.get(Math.random());
+		SteinEntfernen = SteineAufLinie.get(0);
+	}
+	else{
+//		for(int i = 0; i < )
 	}
 	
+	return SteinEntfernen;
 	}	
 			
 }
