@@ -28,7 +28,7 @@ public class Highscore extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Highscore1 frame = new Highscore1();
+					Highscore frame = new Highscore();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
