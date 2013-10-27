@@ -386,7 +386,7 @@ List<ISpielstein> SpielFeld;
 	}
 	}
 		
-	else{
+	else{ // Setzen Phase
 		moeglBewegungen = getMoeglicheBewegungen(SpielFeld, new Spielstein(spieler2.getSpielerfarbe(), null, 0,0,0), lanzahlZuege);
 		for(int j = 0; j < moeglBewegungen.size();j++){	
 			//Rekursion
