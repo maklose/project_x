@@ -79,7 +79,7 @@ public class Gewonnen extends JDialog {
                         Empfangsgui2.class.getResource("/de/dhbw/images/Optionen_GUI.png"));
             	g.drawImage(hintergrund1, 0, 0, 700, 500, this); 
                 Image hintergrund = Toolkit.getDefaultToolkit().getImage(  
-                          Empfangsgui2.class.getResource("/de/dhbw/images/test.png"));  //richtiges bild einfügen
+                          Empfangsgui2.class.getResource("/de/dhbw/images/Sieger.png"));  
                 g.drawImage(hintergrund, 20, 10, 350, 350, this);  
             }  
 		};  
