@@ -55,7 +55,6 @@ public class Spielverlauf extends JFrame {
 		SpaltenName.add("Nach");
 		SpaltenName.add("Muehle");
 		SpaltenName.add("Gelöschter Stein");
-//		Vector <String> protokoll=new Vector<String>();
 		Vector <Vector> protokoll= db.speichern_p();
 		table = new JTable();
 		table.setModel(new DefaultTableModel(protokoll, SpaltenName));
