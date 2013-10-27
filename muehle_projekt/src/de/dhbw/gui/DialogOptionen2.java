@@ -20,12 +20,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.Document;
+import javax.swing.text.MaskFormatter;
 
 import de.dhbw.muehle_api.strategy.StrategieException;
 
@@ -184,6 +187,7 @@ public class DialogOptionen2 extends JDialog {
 			//Textfelder zur Eingabe des Spielernamens; zunächst deaktiviert
 			{
 				txtSpieler1 = new JTextField();
+				txtSpieler1.setDocument(new LengthRestrictedDocument(15));
 				txtSpieler1.addFocusListener(new FocusAdapter() {
 					@Override
 					public void focusGained(FocusEvent arg0) {
@@ -206,6 +210,7 @@ public class DialogOptionen2 extends JDialog {
 			}
 			{
 				txtSpieler2 = new JTextField();
+				txtSpieler2.setDocument(new LengthRestrictedDocument(15));
 				txtSpieler2.addFocusListener(new FocusAdapter() {
 					@Override
 					public void focusGained(FocusEvent e) {
