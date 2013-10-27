@@ -293,6 +293,7 @@ List<ISpielstein> SpielFeld;
 			}
 		}
 	}	
+	System.out.println(anzahlZuege + 1);
 	return (maxWert * -1);
 	}
 		
