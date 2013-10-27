@@ -1,5 +1,6 @@
 package de.dhbw.gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -36,6 +37,7 @@ import de.dhbw.strategy.Bewertung;
 import de.dhbw.strategy.Spielzug;
 import de.dhbw.strategy.Strategie;
 
+import javax.swing.Icon;
 import javax.swing.JDialog;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -44,6 +46,7 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
+import javax.swing.text.IconView;
 
 public class Spielfeld extends JFrame implements ActionListener {
 
@@ -136,7 +139,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	int xPosMitte = 12;				
 	int yPosMitte = 226;
 	int xPosUnten = 12;				
-	int yPosUnten = 404;
+	int yPosUnten = 392;
 	
 	//variablen die mitzählen wie viel Steine von dem jeweiligen Spieler wegen Mühlen vom Spielfeld entfernt wurden
 	int entfernteSteineWeiss, entfernteSteineSchwarz = 0;
@@ -170,6 +173,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 	private JLabel lblRunde;
 	private JLabel lblNameSpieler_1;
 	private JLabel label_14;
+	private JLabel lblStein;
 	
 	/**
 	 * Hier wird das Spielfeld gestartet
@@ -798,10 +802,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 				int hoehe = panel.getWidth()/8;
 				
 				//Beschriftung der Felder
-				
-				p.drawString(nameSpieler1 + ": ", xPosOben+15, yPosOben+35);
-				p.drawString(nameSpieler2 + ": ", xPosUnten+15, yPosUnten+42);
-//				lblNameSpieler.setText("HALLOOOOOOOOOOOOO");
+				lblNameSpieler.setText(nameSpieler1);
+				lblNameSpieler_1.setText(nameSpieler2);		
 				
 				//Zeichnet die noch vorhandenen Steine des Spielers
 				for(int i = 0; i < (9-Spieler1.getAnzahlSteine()-entfernteSteineWeiss); i++)
@@ -816,46 +818,61 @@ public class Spielfeld extends JFrame implements ActionListener {
 				//Zeichnet die gelöschten Steine vom Gegner
 				for(int i = 0; i < entfernteSteineSchwarz; i++)
 				{
-					p.drawImage(SteinSchwarz,  xPosOben + (i*15) , yPosOben + 85 , breite-3, hoehe-3, this);
+					p.drawImage(SteinSchwarz,  xPosOben + (i*15) , yPosOben + 82 , breite-3, hoehe-3, this);
 				}
 				for(int i = 0; i < entfernteSteineWeiss; i++)
 				{
-					p.drawImage(SteinWeiss,  xPosUnten + (i*15) , yPosUnten + 92 , breite, hoehe, this);
+					p.drawImage(SteinWeiss,  xPosUnten + (i*15) , yPosUnten + 89 , breite, hoehe, this);
 				}
 				
 				//Zeichnet in das mittlere Feld einen Stein der aktuellen Farbe
-				if(Spieler1.getAnzahlSteine()==0)
-					p.drawImage(SteinWeiss,  xPosMitte + 40, yPosMitte + 10 , breite+50, hoehe+50, this);
-				else
-				{
-					if(aktuellerSpieler == Spieler2)
-						p.drawImage(SteinWeiss,  xPosMitte + 40, yPosMitte + 10 , breite+50, hoehe+50, this);
-					else
-						p.drawImage(SteinSchwarz,  xPosMitte + 40, yPosMitte + 10 , breite+43, hoehe+43, this);
-				}
+				lblStein.repaint();
+				
 				//Rundenanzeige
-				p.drawString("Runde " + (anzahlRunden+1), xPosMitte+15, yPosMitte+140);
+				lblRunde.setText("Runde " + (anzahlRunden+1));
 			}
 		};
 		
 		contentPane.setLayout(new MigLayout("", "[664.94px]0[300px]", "[677px]"));
 		contentPane.add(panel, "cell 0 0,alignx left,aligny top");
 		contentPane.add(panel_1, "cell 1 0,grow");
-		panel_1.setLayout(new MigLayout("", "[][100px:100]", "[][20][][][][][][][][][][][][][][]"));
+		panel_1.setLayout(new MigLayout("", "[11.00][100px:174.00]", "[42.00][20][132.00][][79.00][][23.00][]"));
 		
 		
 		
-		lblNameSpieler = new JLabel("Name Spieler 1");
-		panel_1.add(lblNameSpieler, "cell 1 1,grow");
+		lblNameSpieler = new JLabel("");
+		lblNameSpieler.setFont(new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 30));
+		panel_1.add(lblNameSpieler, "cell 1 1,alignx center,growy");
 		
 		lblAktuellerSpieler = new JLabel("aktueller Spieler");
-		panel_1.add(lblAktuellerSpieler, "cell 1 6, grow");
+		lblAktuellerSpieler.setFont(new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 20));
+		panel_1.add(lblAktuellerSpieler, "cell 1 3,alignx center,growy");
 		
-		lblRunde = new JLabel("Runde");
-		panel_1.add(lblRunde, "cell 1 10, grow");
+		lblStein = new JLabel("Stein")
+		{
+			private static final long serialVersionUID = 1L;
+			protected void paintComponent(Graphics g) 
+            {
+				if(Spieler1.getAnzahlSteine()==0)
+					g.drawImage(SteinWeiss,  40, -10 , 100, 100, this);
+				else
+				{
+					if(aktuellerSpieler == Spieler2)
+						g.drawImage(SteinWeiss, 40, -10 , 100, 100, this);
+					else
+						g.drawImage(SteinSchwarz, 44, -7 , 90, 90, this);
+				}
+            }
+		};
+		panel_1.add(lblStein, "cell 1 4,grow");
 		
-		lblNameSpieler_1 = new JLabel("Name Spieler 2");
-		panel_1.add(lblNameSpieler_1, "cell 1 15, grow");
+		lblRunde = new JLabel();
+		lblRunde.setFont(new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 20));
+		panel_1.add(lblRunde, "cell 1 5,alignx center,growy");
+		
+		lblNameSpieler_1 = new JLabel("");
+		lblNameSpieler_1.setFont(new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 30));
+		panel_1.add(lblNameSpieler_1, "cell 1 7,alignx center,growy");
 		
 		
 		/*if(gMode == 3)
@@ -1008,6 +1025,11 @@ public class Spielfeld extends JFrame implements ActionListener {
 		}
 
 		
+		/*
+		 * MODUS 2: Mensch GEGEN Pc
+		 * hier wird der neue Zug der Strategie abgefragt und this.aktion mit dem entsprechenden Button,
+		 * also wo die Strategie hin will, ausgeführt
+		 */
 		new Thread() 
 		{
 			{
@@ -1015,43 +1037,37 @@ public class Spielfeld extends JFrame implements ActionListener {
 			}
 			public void run()
 			{
-				try {
+				try 
+				{
 					sleep(2000);
 				
-		
-		
-		/*
-		 * hier wird der neue Zug der Strategie abgefragt und this.aktion mit dem entsprechenden Button,
-		 * also wo die Strategie hin will, ausgeführt
-		 */
-		if(gMode == 2 && Spieler1.getAnzahlZuege() > Spieler2.getAnzahlZuege())
-		{
-			try 
-			{
-				ISpielzug neuerZug = strategie1.bewegeStein(gSteine);
-				
-//				IBewegung neueIBewegung = neuerZug.bewegeSpielStein();
-//				Bewegung neueBewegung1, neueBewegung2;
-				if(Spieler1.getPhase() == EPhase.Setzen)
-				{
-					ISpielstein spielstein = neuerZug.getNeuenSpielstein();
-					Position spielsteinPos = spielstein.getPosition();
-					Bewegung neueBewegung = new Bewegung(null, spielsteinPos);
-					Spielfeld.bewegungInButtons(neueBewegung);
-				}
-				else
-				{
-//					neueBewegung2 = new Bewegung(neueIBewegung.altePosition(), neueIBewegung.neuePosition());
-//					Spielfeld.bewegungInButtons(neueBewegung2);
-				}
-				
-			} 
-			catch (StrategieException e1) 
-			{
-				e1.printStackTrace();
-			}
-		}
-		
+					if(gMode == 2 && Spieler1.getAnzahlZuege() > Spieler2.getAnzahlZuege())
+					{
+						try 
+						{
+							ISpielzug neuerZug = strategie1.bewegeStein(gSteine);
+							
+			//				IBewegung neueIBewegung = neuerZug.bewegeSpielStein();
+			//				Bewegung neueBewegung1, neueBewegung2;
+							if(Spieler1.getPhase() == EPhase.Setzen)
+							{
+								ISpielstein spielstein = neuerZug.getNeuenSpielstein();
+								Position spielsteinPos = spielstein.getPosition();
+								Bewegung neueBewegung = new Bewegung(null, spielsteinPos);
+								Spielfeld.bewegungInButtons(neueBewegung);
+							}
+							else
+							{
+			//					neueBewegung2 = new Bewegung(neueIBewegung.altePosition(), neueIBewegung.neuePosition());
+			//					Spielfeld.bewegungInButtons(neueBewegung2);
+							}
+							
+						} 
+						catch (StrategieException e1) 
+						{
+							e1.printStackTrace();
+						}
+					}
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -1059,6 +1075,11 @@ public class Spielfeld extends JFrame implements ActionListener {
 			}
 		};
 		
+		
+		
+		/*
+		 * MODUS 3: Pc GEGEN Pc
+		 */
 		if(gMode == 3)
 		{
 			new Thread() 
