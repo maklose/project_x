@@ -471,7 +471,7 @@ List<ISpielstein> SpielFeld;
 	int[][] Positionen = new int[9][3];
 	
 	// Ablegen der Positionen aller Steine eines Spielers in einem Array
-	for (int i = 0; i < 9; i++){
+	for (int i = 0; i < Spieler2.getAnzahlSteine(); i++){
 		if(Steine[i] != null){
 			Positionen[i][0]= Steine[i].getPosition().getEbene().getValue();
 			Positionen[i][1]= Steine[i].getPosition().getX().getValue();
@@ -543,7 +543,9 @@ List<ISpielstein> SpielFeld;
 		SteinEntfernen = SteineAufLinie.get(0);
 	}
 	else{
-//		for(int i = 0; i < )
+		for(int i = 0; i < Spieler2.getAnzahlSteine() ; i++ ){
+		//	if(pruef.checkInMuehle(i, Steine)Spieler2.Steine[i])
+		}
 	}
 	
 	return SteinEntfernen;

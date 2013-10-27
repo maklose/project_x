@@ -137,11 +137,17 @@ public class Bewertung
 	{
 		
 			for (ISpielstein Stein : p_SpielFeld)		
-			{			
-				int ebene = this.posIndexUmrechnen(Stein.getPosition().getEbene());
-				int x = this.posIndexUmrechnen(Stein.getPosition().getX());
-				int y = this.posIndexUmrechnen(Stein.getPosition().getY());
-				Spielfeld[ebene][x][y] = Stein;
+			{		
+				if(Stein != null)
+				{
+					if(Stein.getPosition()!= null)
+					{
+						int ebene = this.posIndexUmrechnen(Stein.getPosition().getEbene());
+						int x = this.posIndexUmrechnen(Stein.getPosition().getX());
+						int y = this.posIndexUmrechnen(Stein.getPosition().getY());
+						Spielfeld[ebene][x][y] = Stein;
+					}
+				}
 			}
 		
 			
