@@ -272,8 +272,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 		//Name der in dem Fenster angezeigt wird
 		super(textSpielName);
 
-		nameSpieler1 = Spieler1Name;
-		nameSpieler2 = Spieler2Name;
+		nameSpieler1 = Spieler1Name + " ";
+		nameSpieler2 = Spieler2Name + " ";
 		gMode = lmode;
 		gSchwierigkeit = lSchwierigkeit;
 		gTheme = theme;
