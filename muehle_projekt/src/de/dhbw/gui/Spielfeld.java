@@ -183,7 +183,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 			{
 				try 
 				{
-					final Spielfeld frame = new Spielfeld("Stefan", "Georg", 2, 3, 1);
+					final Spielfeld frame = new Spielfeld("Stefan", "Georg", 2,3, 1);
 					frame.addWindowListener(new WindowAdapter() {
 											public void windowClosing(WindowEvent evt) {
 											Spielfeld.exitForm(evt, frame, frame.getAnzahlFensterSchließen());}});
@@ -1138,8 +1138,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 					}
 					else
 					{
-						System.out.print("checkSetzen ergab: ");
-						System.out.println(pruef.checkSetzen(PositionGeklickt, aktuellerSpieler, passiverSpieler));	
+//						System.out.print("checkSetzen ergab: ");
+//						System.out.println(pruef.checkSetzen(PositionGeklickt, aktuellerSpieler, passiverSpieler));	
 						return;
 					}
 					
@@ -1147,8 +1147,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 					if(pruef.checkInMuehle(anzahlRunden, aktuellerSpieler.Steine))
 					{
 						
-						System.out.println(aktuellerSpieler.getName() + textMuehle);
-						System.out.println("Alle gegnerischen Steine stehen in einer Mühle: " + this.alleGegnerSteineInMühle(passiverSpieler));
+//						System.out.println(aktuellerSpieler.getName() + textMuehle);
+//						System.out.println("Alle gegnerischen Steine stehen in einer Mühle: " + this.alleGegnerSteineInMühle(passiverSpieler));
 						
 						if((pruef.checkSpielBeendet(aktuellerSpieler, passiverSpieler) == true && passiverSpieler.getAnzahlZuege() == 9)
 								|| (passiverSpieler.getAnzahlSteine() == 3 && passiverSpieler.getAnzahlZuege() == 9))
@@ -1257,13 +1257,13 @@ public class Spielfeld extends JFrame implements ActionListener {
 							}
 							else
 							{
-								System.out.println("Ein Spieler hat auf einen Stein gedrückt der nicht ihm gehört");
+//								System.out.println("Ein Spieler hat auf einen Stein gedrückt der nicht ihm gehört");
 								return;
 							}
 						}
 						else
 						{
-							System.out.println("Hier steht kein Stein");
+//							System.out.println("Hier steht kein Stein");
 							return;
 						}
 					}
@@ -1275,7 +1275,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 						
 						//neue Bewegung erstellen
 						neueBewegung = new Bewegung(altePosition, PositionGeklickt);
-						System.out.println(neueBewegung);
+//						System.out.println(neueBewegung);
 						
 						//verschiedene Prüfungen
 						if(pruef.checkZug(neueBewegung, aktuellerSpieler, passiverSpieler) == true)
@@ -1298,8 +1298,8 @@ public class Spielfeld extends JFrame implements ActionListener {
 						}
 						else
 						{
-							System.out.print("checkZug ergab: ");
-							System.out.println(pruef.checkZug(neueBewegung, aktuellerSpieler, passiverSpieler));
+//							System.out.print("checkZug ergab: ");
+//							System.out.println(pruef.checkZug(neueBewegung, aktuellerSpieler, passiverSpieler));
 							panel.repaint();
 							hatAltePosition = false;
 							return;
@@ -1355,7 +1355,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 						this.muehle(aktuellerStein, aktuellerSpieler, PositionGeklickt, neueBewegung);
 						if(!SteinKannGeloeschtWerden)	 
 						{
-							System.out.println("Dieser Stein steht in einer Mühle, und kann daher nicht gelöscht werden!");
+//							System.out.println("Dieser Stein steht in einer Mühle, und kann daher nicht gelöscht werden!");
 							SteinKannGeloeschtWerden = true;
 							return;
 						}							
@@ -1437,7 +1437,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 					}
 					else //der Spieler hat auf einen seiner eigenen Steine gedrückt
 					{
-						System.out.println("Der Spieler hat auf einen eigenen Stein gedrückt obwohl er eine Mühle hat");
+//						System.out.println("Der Spieler hat auf einen eigenen Stein gedrückt obwohl er eine Mühle hat");
 						return;
 					}
 				}
@@ -1462,7 +1462,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 					dispose();
 					Gewonnen gewinnerBild = new Gewonnen(aktuellerSpieler.getName() + textGewonnen, Spieler1.getName(), Spieler2.getName(), gMode, gSchwierigkeit, gTheme);
 					gewinnerBild.setVisible(true);
-					System.out.println("Spieler beendet!");
+//					System.out.println("Spieler beendet!");
 				}	
 				catch ( InterruptedException e ) 
 				{ 
@@ -1525,10 +1525,10 @@ public class Spielfeld extends JFrame implements ActionListener {
 		
 		//Stein wird der Liste mit den aktuellen Steinen auf dem Feld hinzugefügt
 		gSteine.add(lSpieler.getSpielstein(anzahlRunden));
-		System.out.println(gSteine);
+//		System.out.println(gSteine);
 		
 		//Ausgabe der Bewertung des Zuges ZUM TEST
-		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung, aktuellerSpieler.getAnzahlZuege()));
+//		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung, aktuellerSpieler.getAnzahlZuege()));
 	}
 	
 	
@@ -1563,7 +1563,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 		SpielfeldArray[e][x][y] = null;
 		
 		//Ausgabe der Bewertung des Zuges ZUM TEST
-		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung, aktuellerSpieler.getAnzahlZuege()));
+//		System.out.println("Dieser Zug wird so bewertet: " + bewertung.bewerteZug(gSteine, neueBewegung, aktuellerSpieler.getAnzahlZuege()));
 	}
 	
 	//EPositionIndex auf dem Feld wird in int umgerechnet
@@ -1650,11 +1650,11 @@ public class Spielfeld extends JFrame implements ActionListener {
 	
 	public void verschiedeneAusgaben()
 	{
-		//verschiedene Ausgaben
+		/*//verschiedene Ausgaben
 		System.out.print("Spieler1: " + Spieler1.getAnzahlZuege() + " Züge, " + Spieler1.getAnzahlSteine() + " Steine ||  ");
 		System.out.println("Spieler2: " + Spieler2.getAnzahlZuege() + " Züge, " + Spieler2.getAnzahlSteine() + " Steine ||  Anzahl Runden: " + anzahlRunden); 
 		System.out.println("Zug Beendet ----------------------------------------------------------------------------");
-			
+			*/
 	}
 	
 	public void createArrayEigenerIndeizes(Spieler aktuellerSpieler)

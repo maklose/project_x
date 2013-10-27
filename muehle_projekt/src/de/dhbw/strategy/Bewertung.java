@@ -28,10 +28,10 @@ public class Bewertung
 	int bSpielBeendet = 10;
 	
 	//Phase Setzen
-	double b1Muehle = 0.5;
-	double b1Doppelangriff = 0.8;
-	double b1DoppelangriffIn2 = 0.6;
-	double b1StrategischePunkte = 0.3;
+	double b1Muehle = 0.2;
+	double b1Doppelangriff = 0.35;
+	double b1DoppelangriffIn2 = 0.25;
+	double b1StrategischePunkte = 0.1;
 	double b1MuehleBewachen = 0;
 	
 	//Phase Bewegen
@@ -78,29 +78,29 @@ public class Bewertung
 		//Beginn der Bewertung
 		
 		//Wenn wir in der setzen Phase sind
-		if(anzahlZuege <= 9)
+		if(anzahlZuege <= 18)
 		{
 			//Wenn man eine Mühle erstellen kann
 			if(this.checkInMuehle(lBewegung, aktuellerSpieler.Steine))
 			{
-				Score = b1Muehle;
+				Score = Score + b1Muehle;
 				
 				//wenn man duch die Mühle das Spiel gewonnen hat
-				if(passiverSpieler.getAnzahlSteine() == 3 && anzahlZuege > 9 || 
-						(anzahlZuege == 9 && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.SCHWARZ) && passiverSpieler.getAnzahlZuege() == 3))
-					Score = bSpielBeendet;
+				if(passiverSpieler.getAnzahlSteine() == 3 && anzahlZuege > 18 || 
+						(anzahlZuege == 18 && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.SCHWARZ) && passiverSpieler.getAnzahlZuege() == 3))
+					Score = Score + bSpielBeendet;
 			}
 			
 			
 			//Wenn man duch das Zustellen des Gegners gewinnen kann
 			if(this.checkBewegungsunfaehig(passiverSpieler, aktuellerSpieler))
-				Score = bSpielBeendet;
+				Score = Score + bSpielBeendet;
 			
 			if(this.isStrategischerPunkt(lBewegung))
-				Score = b1StrategischePunkte;
+				Score = Score + b1StrategischePunkte;
 			
 			
-			Score = this.bewerteDoppelangriff();
+			Score = Score + this.bewerteDoppelangriff();
 		}
 		else	//Wenn wir in der Bewegen Phase sind
 		{
@@ -108,8 +108,8 @@ public class Bewertung
 			if(this.checkInMuehle(lBewegung, aktuellerSpieler.Steine))
 			{
 				Score = b1Muehle;
-				if(passiverSpieler.getAnzahlSteine() == 3 && anzahlZuege > 9 || 
-						(anzahlZuege == 10 && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.WEISS) && passiverSpieler.getAnzahlZuege() == 3))
+				if(passiverSpieler.getAnzahlSteine() == 3 && anzahlZuege > 18 || 
+						(anzahlZuege == 18 && aktuellerSpieler.getSpielerfarbe().equals(ESpielsteinFarbe.WEISS) && passiverSpieler.getAnzahlZuege() == 3))
 					Score = bSpielBeendet;
 			}
 			
@@ -396,11 +396,11 @@ public class Bewertung
 	{
 		Position nach = neueBewegung.getNach();
 		
-		if(nach.getEbene().equals(EPositionIndex.Zwei) && (					//Ebene ist immer 2
-				(nach.getX().equals(EPositionIndex.Zwei) &&					//Wenn x = 2 
-						(nach.getY().equals(EPositionIndex.Drei) || nach.getY().equals(EPositionIndex.Eins)))
-				||(nach.getY().equals(EPositionIndex.Zwei) &&				//Wenn y = 2 
-						(nach.getX().equals(EPositionIndex.Drei) || nach.getX().equals(EPositionIndex.Eins)))))
+		if(nach.getEbene().equals(EPositionIndex.Zwei) &&	(
+				(nach.getX().equals(EPositionIndex.Eins) && nach.getY().equals(EPositionIndex.Zwei)) ||
+				(nach.getX().equals(EPositionIndex.Zwei) && nach.getY().equals(EPositionIndex.Eins)) ||
+				(nach.getX().equals(EPositionIndex.Zwei) && nach.getY().equals(EPositionIndex.Drei)) ||
+				(nach.getX().equals(EPositionIndex.Drei) && nach.getY().equals(EPositionIndex.Zwei))))
 			return true;
 		else
 			return false;
@@ -433,10 +433,10 @@ public class Bewertung
 						
 						if(Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-2)] != null)
 						{
-							if(Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-2)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) &&		//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
+							if(Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-2)].getFarbe().equals(aktuellerSpieler.getSpielerfarbe()) && (	//Wenn auf der gegenüberligendenseite einer von meinen Steinen steht
 									(Spielfeld[ebene][Math.abs(x-1)][y] == null && Spielfeld[ebene][Math.abs(x-2)][Math.abs(y-1)] == null)	//und wenn alle anderen felder die benötigt werden freu sind
 									|| (Spielfeld[ebene][x][Math.abs(y-1)] == null && Spielfeld[ebene][Math.abs(x-1)][Math.abs(y-2)] == null)
-									&& (Spielfeld[ebene][x][Math.abs(y-2)] == null|| Spielfeld[ebene][Math.abs(x-2)][y] == null))				
+									&& (Spielfeld[ebene][x][Math.abs(y-2)] == null|| Spielfeld[ebene][Math.abs(x-2)][y] == null)))				
 							{	//Wenn ich schon vollenden kann
 								if(Spielfeld[ebene][x][Math.abs(y-2)] != null && Spielfeld[ebene][Math.abs(x-2)][y] != null)	//wenn das gegenüberliegende feld nicht null ist	
 								{
