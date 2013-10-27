@@ -203,9 +203,10 @@ List<ISpielstein> SpielFeld;
 	
 	if(ltiefe != 0){
 		if((lanzahlZuege - anzahlZuege) > 0 ){
+			
 			//ISpielstein an  Feld anfügen, wenn Stein neu auf das Feld gesetzt wurde
 			if(lanzahlZuege <= 18){
-			SpielFeld.add(new Spielstein(spieler2.getSpielerfarbe(), bewegung.getNach(), 0,0,0));	
+			SpielFeld.add(new Spielstein(spieler1.getSpielerfarbe(), bewegung.getNach(), 0,0,0));	
 			}
 		
 		else{
@@ -236,10 +237,7 @@ List<ISpielstein> SpielFeld;
 	if(ltiefe == 0 || pruef.checkSpielBeendet(spieler1, spieler2) == true)
 	{
 	Bewertung bewertung = new Bewertung();	
-//	for(ISpielstein s: SpielFeld){
-//		System.out.print(s.getPosition().toString() + " ");
-//	}
-//	System.out.println();
+
 	return (bewertung.bewerteZug(SpielFeld, bewegung, lanzahlZuege) *-1);
 	}	
 		
@@ -248,17 +246,17 @@ List<ISpielstein> SpielFeld;
 	double maxWert= -2;
 	double wert;
 	
-	if(lanzahlZuege > 18){ // ziehen und springen Phase
+	if(lanzahlZuege >= 18){ // ziehen und springen Phase
 	
 	for(int i = 0; i < spieler1.getAnzahlSteine(); i++){	
 	
 		moeglBewegungen = getMoeglicheBewegungen(SpielFeld, spieler1.Steine[i], lanzahlZuege);
 		for(int j = 0; j < moeglBewegungen.size();j++){	
+			
 			//Rekursion
 			wert= min((ltiefe - 1), moeglBewegungen.get(j), (lanzahlZuege + 1));
-			//test
-			//Bewegung rückgängig machen
 			
+			//Bewegung rückgängig machen
 			for(int k = 0; k < SpielFeld.size(); k++){
 				if(SpielFeld.get(k).getPosition() == moeglBewegungen.get(j).getVon())
 					SpielFeld.set(k, new Spielstein(spieler2.getSpielerfarbe(), bewegung.getVon(), 0,0,0));
@@ -286,8 +284,7 @@ List<ISpielstein> SpielFeld;
 					
 			if( wert > maxWert){
 				maxWert = wert;
-//				System.out.println(maxWert);
-//				System.out.println(moeglBewegungen.get(j).toString());
+
 				if(ltiefe == tiefe){
 				System.out.println(wert + "Anzahl Elemente in SpielFeld: " + SpielFeld.size());
 				ergebnis(moeglBewegungen.get(j));
@@ -320,7 +317,7 @@ List<ISpielstein> SpielFeld;
 	if(ltiefe != 0){
 		//ISpielstein an  Feld anfügen, wenn Stein neu gesetzt wurde
 		if(lanzahlZuege <= 18){
-			SpielFeld.add(new Spielstein(spieler1.getSpielerfarbe(), bewegung.getNach(), 0,0,0));	
+			SpielFeld.add(new Spielstein(spieler2.getSpielerfarbe(), bewegung.getNach(), 0,0,0));	
 			}
 	
 		else{
@@ -363,7 +360,7 @@ List<ISpielstein> SpielFeld;
 	double minWert= 2;
 	double wert;
 		
-	if(lanzahlZuege > 18){  // Ziehen und Springen Phase
+	if(lanzahlZuege >= 18){  // Ziehen und Springen Phase
 	for(int i = 0; i < spieler2.getAnzahlSteine(); i++){	
 		
 		moeglBewegungen = getMoeglicheBewegungen(SpielFeld, spieler2.Steine[i], lanzahlZuege);
