@@ -240,7 +240,7 @@ List<ISpielstein> SpielFeld;
 		
 	List<Bewegung> moeglBewegungen = new ArrayList<Bewegung>();
 	
-	double maxWert= -1;
+	double maxWert= -2;
 	double wert;
 	
 	if(lanzahlZuege > 18){ // ziehen und springen Phase
@@ -289,7 +289,7 @@ List<ISpielstein> SpielFeld;
 			}
 		}
 	}	
-	return maxWert;
+	return (maxWert * -1);
 	}
 		
 	
@@ -396,7 +396,7 @@ List<ISpielstein> SpielFeld;
 		}			
 	}
 		
-		return minWert;
+		return (minWert * -1);
 	}
 	
 	//wird aufgerufen, um die gewählte Bewegung festzulegen
