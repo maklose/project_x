@@ -529,8 +529,8 @@ List<ISpielstein> SpielFeld;
 		if(zaehlerEbene == 1 || zaehlerX == 1 || zaehlerY == 1){
 				aufLinie = true;
 				
-				//Abrfagen, ob der Stein[IndexStein in einer Mühle steht]
-				// wenn nicht hinzufügen zu SteineAufLinie
+				//Abrfagen, ob der Stein[IndexStein] in einer Mühle steht
+				// wenn er nicht in einer Mühle steht, hinzufügen zu SteineAufLinie
 				if(pruef.checkInMuehle(IndexStein, Spieler2.Steine) == false)
 				SteineAufLinie.add(Spieler2.Steine[IndexStein]);		
 			}
@@ -544,9 +544,16 @@ List<ISpielstein> SpielFeld;
 	}
 	else{
 		for(int i = 0; i < Spieler2.getAnzahlSteine() ; i++ ){
-		//	if(pruef.checkInMuehle(i, Steine)Spieler2.Steine[i])
+			if(pruef.checkInMuehle(i, Spieler2.Steine) == false){
+				SteinEntfernen = Spieler2.Steine[i];
+			}		
 		}
 	}
+	
+	if(SteinEntfernen == null){
+		SteinEntfernen = Spieler2.Steine[0];
+	}
+	
 	
 	return SteinEntfernen;
 	}	
