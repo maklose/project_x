@@ -235,6 +235,10 @@ List<ISpielstein> SpielFeld;
 	if(ltiefe == 0 || pruef.checkSpielBeendet(spieler1, spieler2) == true)
 	{
 	Bewertung bewertung = new Bewertung();	
+	for(ISpielstein s: SpielFeld){
+		System.out.print(s.getPosition().toString() + " ");
+	}
+	System.out.println();
 	return (bewertung.bewerteZug(SpielFeld, bewegung, lanzahlZuege) *-1);
 	}	
 		
