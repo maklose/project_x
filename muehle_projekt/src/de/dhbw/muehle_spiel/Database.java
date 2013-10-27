@@ -27,13 +27,13 @@ public class Database {
 	}
 
 //Speichern der Anzahl der Spielzüge
-public void anzahlzuegespeichern(Spieler spieler){
+public void anzahlzuegespeichern(Spieler spieler,String name){
 	
 	int zuege=spieler.getAnzahlZuege();
-	//String sql=("INSERT INTO highscores(Spieler, Züge) VALUES('"+Spielername+"','"+zuege+"')");
+	String sql=("INSERT INTO highscores(Spieler, Züge) VALUES('"+name+"','"+zuege+"')");
 	try {
 		statement=c.createStatement();
-		//statement.executeUpdate(sql);
+		statement.executeUpdate(sql);
 		  	
 		
 		
@@ -120,7 +120,7 @@ public String[][] speichern_h(){
 	return highscore;
 }
 
-//Speichern der Tabelle protokoll in ein Vector
+//Speichern der Tabelle protokoll in einen Vector
 public Vector<Vector> speichern_p()
 {	
 	
@@ -298,7 +298,7 @@ public void löschetb(String tabelle){
 	try {
 		statement=c.createStatement();
 		statement.executeUpdate(delete);
-		System.out.println("Tabelle "+tabelle+" wurde gelöscht");	
+		System.out.println("Tabelle '"+tabelle+"' wurde gelöscht");	
 	} catch (SQLException e ) {		
 		e.printStackTrace();
 	}
