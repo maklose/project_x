@@ -49,7 +49,7 @@ import javax.swing.text.IconView;
 public class Spielfeld extends JFrame implements ActionListener {
 
 	/**
-	 * 
+	 * test
 	 */
 	private static final long serialVersionUID = 1L;
 
