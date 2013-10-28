@@ -448,7 +448,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				switch(gTheme)
 				{
 					case 1: spielfeld = Toolkit.getDefaultToolkit().getImage(  
-	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIlinks.png")); break;
+	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_Classic_GUI_links.png")); break;
 					case 2: spielfeld = Toolkit.getDefaultToolkit().getImage(  
 	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_Frühling_GUI_links.png")); break;
 					case 3: spielfeld = Toolkit.getDefaultToolkit().getImage(  
@@ -781,7 +781,7 @@ public class Spielfeld extends JFrame implements ActionListener {
 				switch(gTheme)
 				{
 					case 1: spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
-	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_GUIrechts.png")); break;
+	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_Classic_GUI_rechts.png")); break;
 					case 2: spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
 	                          Spielfeld.class.getResource("/de/dhbw/images/Spielbrett_Frühling_GUI_rechts.png")); break;
 					case 3: spielfeldRechts = Toolkit.getDefaultToolkit().getImage(  
