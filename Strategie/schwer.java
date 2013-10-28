@@ -68,6 +68,10 @@ public class schwer implements IStrategie{
 		
 		return zug;
 	}
+	
+	double minmax(){
+		
+	}
 
 	@Override
 	public ISpielstein entferneStein(List<ISpielstein> p_SpielFeld,
