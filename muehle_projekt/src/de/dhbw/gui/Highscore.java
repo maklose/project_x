@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import de.dhbw.muehle_spiel.Database;
@@ -58,8 +59,8 @@ public class Highscore extends JFrame {
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(highscore, SpaltenName));
-		
 		table.getColumnModel().getColumn(0).setPreferredWidth(37);
+		
 		
 		
 		scrollPane.setViewportView(table);

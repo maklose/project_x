@@ -158,8 +158,8 @@ public class Gewonnen extends JDialog {
 		};
 		btnSpielverlauf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//JFrame spielverlauf = new Spielverlauf ();
-				//spielverlauf.setVisible(true);
+				JFrame spielverlauf = new Spielverlauf ();
+				spielverlauf.setVisible(true);
 			}
 		});
 		GridBagConstraints gbc_btnSpielverlauf = new GridBagConstraints();

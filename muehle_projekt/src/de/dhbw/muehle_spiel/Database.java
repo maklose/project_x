@@ -71,11 +71,14 @@ public void testmethode_h(){
 //Befüllen der Tabelle protokoll mit Beispielen
 public void testmethode_p(){
 	try {
-    	statement=c.createStatement();	     
-    	String create="INSERT INTO protokoll (Spieler,E1,X1,Y1,E2,X2,Y2,muehle,GeloeschterStein) VALUES('Stefan','1','1','2','2','2','3','true','Bernd')";
+    	statement=c.createStatement();
+    	for(int i=0;i<50;i++){
+    		String create="INSERT INTO protokoll (Spieler,E1,X1,Y1,E2,X2,Y2,muehle,GeloeschterStein) VALUES('Stefan','1','1','2','2','2','3','true','Bernd')";
+        	
+        	
+    	    statement.executeUpdate(create);
+    	}
     	
-    	
-	    statement.executeUpdate(create);
 	  
 	    System.out.println("Die Werte wurden übertragen");	    		  		    
 	    } 

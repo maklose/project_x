@@ -53,9 +53,9 @@ public class Spielverlauf extends JFrame {
 		SpaltenName.add("Spieler");
 		SpaltenName.add("Von");
 		SpaltenName.add("Nach");
-		SpaltenName.add("Muehle");
+		SpaltenName.add("Mühle");
 		SpaltenName.add("Gelöschter Stein");
-		Vector <Vector> protokoll= db.speichern_p();
+		Vector <Vector> protokoll= db.speichern_p();		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(protokoll, SpaltenName));
 		scrollPane.setViewportView(table);

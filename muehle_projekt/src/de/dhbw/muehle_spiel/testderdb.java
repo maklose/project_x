@@ -7,7 +7,7 @@ public class testderdb {
 			
 //			db.erzeugetb("protokoll");
 //			db.zugspeichern();
-			db.zeige_p();
+//			db.zeige_p();
 //			db.löschetb("protokoll");
 //			db.anzahlzuegespeichern();
 //			db.testmethode_h();
