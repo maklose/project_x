@@ -3,14 +3,11 @@ package de.dhbw.muehle_spiel;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.dhbw.muehle_api.EPositionIndex;
-import de.dhbw.muehle_api.ESpielsteinFarbe;
-import de.dhbw.muehle_api.ISpielstein;
-import de.dhbw.muehle_api.Position;
-import de.dhbw.muehle_api.strategy.ISpielzug;
-import de.dhbw.muehle_api.strategy.StrategieException;
-import de.dhbw.strategy.Spielzug;
-import de.dhbw.strategy.Strategie;
+import de.dhbw.muehle.ESpielsteinFarbe;
+import de.dhbw.muehle.ISpielstein;
+import de.dhbw.muehle.strategie.Strategie;
+import de.dhbw.muehle.strategy.StrategieException;
+
 
 public class Test {
 

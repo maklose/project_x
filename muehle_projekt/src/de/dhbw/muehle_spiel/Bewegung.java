@@ -1,7 +1,7 @@
 package de.dhbw.muehle_spiel;
 
-import de.dhbw.muehle_api.Position;
-import de.dhbw.muehle_api.strategy.IBewegung;
+import de.dhbw.muehle.Position;
+import de.dhbw.muehle.strategy.IBewegung;
 
 public class Bewegung implements IBewegung{
 

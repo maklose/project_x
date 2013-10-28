@@ -24,18 +24,16 @@ import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.dhbw.muehle_api.*;
-import de.dhbw.muehle_api.strategy.IBewegung;
-import de.dhbw.muehle_api.strategy.ISpielzug;
-import de.dhbw.muehle_api.strategy.StrategieException;
+import de.dhbw.muehle.*;
+import de.dhbw.muehle.strategie.*;
+import de.dhbw.muehle.strategy.IBewegung;
+import de.dhbw.muehle.strategy.ISpielzug;
+import de.dhbw.muehle.strategy.StrategieException;
 import de.dhbw.muehle_spiel.Bewegung;
 import de.dhbw.muehle_spiel.EPhase;
 import de.dhbw.muehle_spiel.Pruefung;
 import de.dhbw.muehle_spiel.Spieler;
 import de.dhbw.muehle_spiel.Spielstein;
-import de.dhbw.strategy.Bewertung;
-import de.dhbw.strategy.Spielzug;
-import de.dhbw.strategy.Strategie;
 
 import javax.swing.Icon;
 import javax.swing.JDialog;

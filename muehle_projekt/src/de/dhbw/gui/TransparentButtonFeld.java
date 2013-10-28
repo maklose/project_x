@@ -1,11 +1,12 @@
 package de.dhbw.gui;
-import de.dhbw.muehle_api.*;
 
 import java.awt.AlphaComposite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JButton;
+
+import de.dhbw.muehle.Position;
 
 public class TransparentButtonFeld extends JButton 
 {

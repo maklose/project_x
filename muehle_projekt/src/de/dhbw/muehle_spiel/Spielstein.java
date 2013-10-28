@@ -1,7 +1,8 @@
 // Autor Marvin
 
 package de.dhbw.muehle_spiel;
-import de.dhbw.muehle_api.*;
+
+import de.dhbw.muehle.*;
 
 public class Spielstein implements ISpielstein
 {

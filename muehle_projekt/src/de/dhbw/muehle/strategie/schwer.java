@@ -1,13 +1,10 @@
-package de.dhbw.strategy;
+package de.dhbw.muehle.strategie;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.dhbw.muehle_api.EPositionIndex;
-import de.dhbw.muehle_api.ESpielsteinFarbe;
-import de.dhbw.muehle_api.ISpielstein;
-import de.dhbw.muehle_api.Position;
-import de.dhbw.muehle_api.strategy.*;
+import de.dhbw.muehle.*;
+import de.dhbw.muehle.strategy.*;
 import de.dhbw.muehle_spiel.Bewegung;
 import de.dhbw.muehle_spiel.Pruefung;
 import de.dhbw.muehle_spiel.Spieler;
@@ -69,9 +66,9 @@ public class schwer implements IStrategie{
 		return zug;
 	}
 	
-	double minmax(){
+	//double minmax(){
 		
-	}
+	
 
 	@Override
 	public ISpielstein entferneStein(List<ISpielstein> p_SpielFeld,

@@ -1,7 +1,7 @@
 package de.dhbw.muehle_spiel;
 
-import de.dhbw.muehle_api.EPositionIndex;
-import de.dhbw.muehle_api.Position;
+import de.dhbw.muehle.*;
+
 
 public class Pruefung {
 

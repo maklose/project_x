@@ -1,25 +1,22 @@
-package de.dhbw.strategy;
+package de.dhbw.muehle.strategie;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.dhbw.muehle_api.EPositionIndex;
-import de.dhbw.muehle_api.ESpielsteinFarbe;
-import de.dhbw.muehle_api.ISpielstein;
-import de.dhbw.muehle_api.Position;
-import de.dhbw.muehle_api.strategy.ISpielzug;
-import de.dhbw.muehle_api.strategy.IStrategie;
-import de.dhbw.muehle_api.strategy.StrategieException;
+import de.dhbw.muehle.*;
+import de.dhbw.muehle.strategie.*;
+import de.dhbw.muehle.strategy.*;
 import de.dhbw.muehle_spiel.Bewegung;
 import de.dhbw.muehle_spiel.Pruefung;
 import de.dhbw.muehle_spiel.Spieler;
 import de.dhbw.muehle_spiel.Spielstein;
 
+
 public class Strategie implements IStrategie{
 
 int anzahlZuege;
 ESpielsteinFarbe farbe;
-int tiefe = 3;
+int tiefe = 1;
 
 private Bewegung bewegung;
 

@@ -1,12 +1,9 @@
-package de.dhbw.strategy;
+package de.dhbw.muehle.strategie;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.dhbw.muehle_api.EPositionIndex;
-import de.dhbw.muehle_api.ESpielsteinFarbe;
-import de.dhbw.muehle_api.ISpielstein;
-import de.dhbw.muehle_api.Position;
+import de.dhbw.muehle.*;
 import de.dhbw.muehle_spiel.Bewegung;
 import de.dhbw.muehle_spiel.Pruefung;
 import de.dhbw.muehle_spiel.Spieler;

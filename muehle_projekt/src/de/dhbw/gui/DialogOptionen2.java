@@ -30,7 +30,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.Document;
 import javax.swing.text.MaskFormatter;
 
-import de.dhbw.muehle_api.strategy.StrategieException;
+import de.dhbw.muehle.strategy.StrategieException;
 
 import java.awt.event.FocusAdapter;
 
