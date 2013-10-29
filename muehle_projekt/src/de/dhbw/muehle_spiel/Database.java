@@ -3,17 +3,22 @@ package de.dhbw.muehle_spiel;
 
 import java.sql.*;
 import java.util.Vector;
-
+/**
+ * Implementierung einer sqlite-Datenbank zur Speicherung des Spielverlaufs und des Highscores.
+ * @author DHBW
+ */
 
 public class Database {
 	
 	
-	//Treiber laden
-	String url="jdbc:sqlite:database.db";
-	Connection c;
-	String driver="org.sqlite.JDBC";
-	Statement statement=null;
-	
+	private String url="jdbc:sqlite:database.db";
+	private Connection c;
+	private String driver="org.sqlite.JDBC";
+	private Statement statement=null;
+	/**
+	 * Treiber wird geladen
+	 * und Connection wird aufgebaut
+	 */
 	public Database(){
 		try {
 			
@@ -26,7 +31,11 @@ public class Database {
 		
 	}
 
-//Speichern der Anzahl der Spielzüge
+/**
+ * Speichern der Anzahl der benötigten Züge nach einem Sieg
+ * @param spieler
+ * @param name
+ */
 public void anzahlzuegespeichern(Spieler spieler,String name){
 	
 	int zuege=spieler.getAnzahlZuege();
@@ -88,7 +97,10 @@ public void testmethode_p(){
 	}
 }
 
-//Speichern der ersten 10 Züge und Spielernamen in ein 2-dimensionales Array
+/**
+ * Speichern der ersten 10 Züge und Namen der Spieler in ein 2-dimensionales Array
+ * @return highscore
+ */
 public String[][] speichern_h(){
 	String [][] highscore=new String[10][3];
 	
@@ -123,7 +135,10 @@ public String[][] speichern_h(){
 	return highscore;
 }
 
-//Speichern der Tabelle protokoll in einen Vector
+/**
+ * Speichern der Tabelle protokoll in ein Vector
+ * @return
+ */
 public Vector<Vector> speichern_p()
 {	
 	
@@ -213,7 +228,13 @@ public void zeige_p()
 }
 
 
-//Übergabe der Protokolldaten an die Tabelle protokoll
+/**
+ * Übergabe der Protokolldaten an die Tabelle protokoll
+ * @param bewegung
+ * @param spieler
+ * @param muehle
+ * @param rspielstein
+ */
 public void zugspeichern(Bewegung bewegung,Spieler spieler,boolean muehle,Spielstein rspielstein){
 	
 		// Ablegen der Positionsindexe, Spielsteinfarbe in String-Variablen & 
@@ -257,14 +278,17 @@ public void zugspeichern(Bewegung bewegung,Spieler spieler,boolean muehle,Spiels
 	}
 }
 
-//Erzeugen einer Tabelle
+/**
+ * Erzeugen der Tabelle protokoll oder highscore
+ * @param tabelle
+ */
 public void erzeugetb(String tabelle){
 		    if(tabelle=="protokoll")
 		    {
 		    	try {
 				    statement=c.createStatement();	     
-				    String create="CREATE TABLE protokoll(ID INTEGER PRIMARY KEY AUTOINCREMENT,"
-				    			+ "PartieID INTEGER,"
+				    String create="CREATE TABLE IF NOT EXISTS protokoll(ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+//				    			+ "PartieID INTEGER,"
 				    			+ "Spieler varChar(10),"
 				    			+ "E1 varChar(10), X1 varChar(10), Y1 varChar(10), "
 				    			+ "E2 varChar(10), X2 varChar(10), Y2 varChar(10), "
@@ -281,7 +305,7 @@ public void erzeugetb(String tabelle){
 		    {
 		    	try {
 			    	statement=c.createStatement();	     
-			    	String create="CREATE TABLE highscore (ID INTEGER PRIMARY KEY AUTOINCREMENT, Spielername varChar(20), Züge INT)";
+			    	String create="CREATE TABLE IF NOT EXISTS highscore (ID INTEGER PRIMARY KEY AUTOINCREMENT, Spielername varChar(20), Züge INT)";
 		    	    statement.executeUpdate(create);
 		    	    System.out.println("Tabelle highscore wurde erzeugt");		    		  		    
 		    	    } 
@@ -294,7 +318,10 @@ public void erzeugetb(String tabelle){
 		    
 }
 
-//Löschen einer Tabelle	
+/**
+ * Löschen einer Tabelle
+ * @param tabelle
+ */
 public void löschetb(String tabelle){
 	
 	String delete=("DROP TABLE '"+tabelle+"'");

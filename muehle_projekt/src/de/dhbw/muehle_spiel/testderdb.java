@@ -5,7 +5,7 @@ public class testderdb {
 	public static void main(String[]args){
 		Database db= new Database();
 			
-//			db.erzeugetb("protokoll");
+			db.erzeugetb("protokoll");
 //			db.zugspeichern();
 //			db.zeige_p();
 //			db.löschetb("protokoll");
